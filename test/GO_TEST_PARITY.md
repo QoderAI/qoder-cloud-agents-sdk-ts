@@ -324,7 +324,7 @@ Forward 的 8 个共享用例、集合读取、各资源生命周期、Session/S
 
 ## Go example 的 12 个实际场景
 
-`examples/forward-scenarios.mjs` 与 `examples/managed-scenarios.mjs` 分别对应 Go `example/{forward,managed}` 中的六个 `-scenario all` 示例。CLI 入口为 `npm run example -- -mode both -scenario all -region international -model auto`；默认 `models`、每场景 5 分钟及每项独立 90 秒清理。`npm run example` 会先自动构建最新 SDK。默认区域 `cn` 会覆盖环境文件 hostname。运行说明见 [examples/README.md](../examples/README.md)。
+`examples/forward-scenarios.mjs` 与 `examples/managed-scenarios.mjs` 分别对应 Go `example/{forward,managed}` 中的六个 `-scenario all` 示例。CLI 入口为 `npm run example -- -mode both -scenario all -region international -model auto`；默认 `models`、每场景 5 分钟及每项独立 90 秒清理。`npm run example` 会先自动构建最新 SDK。默认区域 `cn` 会覆盖环境文件 hostname。
 
 | Go 示例源 | TypeScript 对应实现 / 验证 |
 | --- | --- |
