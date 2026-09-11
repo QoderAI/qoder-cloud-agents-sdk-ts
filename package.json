@@ -18,6 +18,7 @@
   "types": "./dist/index.d.ts",
   "module": "./dist/esm/index.js",
   "exports": {
+    "./package.json": "./package.json",
     ".": {
       "import": {
         "types": "./dist/esm/index.d.ts",
