@@ -48,12 +48,8 @@ jobs:
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
 
+      # Authenticates through the npm trust relationship (OIDC); no token needed.
       - run: npm stage publish --tag '${{ steps.meta.outputs.tag }}' --access public --provenance
-        env:
-          # Delete this secret and the env block once a trust relationship is
-          # configured with `npm trust github qca-sdk --allow-stage-publish`; npm
-          # then authenticates through OIDC.
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - run: |
           echo "Staged qca-sdk@${{ steps.meta.outputs.version }} under tag ${{ steps.meta.outputs.tag }}." >> "$GITHUB_STEP_SUMMARY"
