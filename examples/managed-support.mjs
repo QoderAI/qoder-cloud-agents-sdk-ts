@@ -7,7 +7,7 @@ export const managedMarker = () => randomBytes(8).toString('hex');
 export const managedName = prefix => `sdk-example-${prefix}-${managedMarker()}`;
 export const managedMessage = text => ({ type: 'user.message', content: [{ type: 'text', text }] });
 
-/** Shared helpers ported from Go example/managed/session.go and dream.go. */
+/** Shared helpers for the Managed session and dream examples. */
 export function createManagedExampleSuite(client, config, run) {
   return new ManagedExampleSuite(client, config, run);
 }

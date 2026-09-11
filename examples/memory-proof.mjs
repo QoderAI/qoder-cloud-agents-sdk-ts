@@ -1,6 +1,6 @@
 import { randomBytes, randomInt } from 'node:crypto';
 
-/** Go example/internal/live/memory.go: facts live only in the linked entry. */
+/** Memory proof: the facts live only in the linked memory entry. */
 export const PROJECT_MEMORY_PATH = 'projects/release-conventions.md';
 const contacts = ['林岚', '陈朔', '叶澄', '苏棠'];
 

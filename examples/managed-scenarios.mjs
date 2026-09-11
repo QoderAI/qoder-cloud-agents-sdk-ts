@@ -4,7 +4,7 @@ import { ProjectMemory, PROJECT_MEMORY_PATH } from './memory-proof.mjs';
 
 export { createManagedExampleSuite } from './managed-support.mjs';
 
-/** The six scenario-all examples in Go example/managed, including memory.go. */
+/** The six Managed scenarios run by `scenario-all`, including the memory proof. */
 export const managedExamples = [
   {
     name: 'models',
@@ -45,7 +45,7 @@ export const managedExamples = [
       const session = await suite.newSession({ environment_id: environment, agent, environment_variables: { SDK_EXAMPLE_VALUE: envToken }, resources: [{ type: 'file', file_id: file.id, mount_path: '/data/workspace/sdk-example.txt' }] });
       await suite.turn(session, '请使用工具读取 /data/workspace/sdk-example.txt 的内容和 SDK_EXAMPLE_VALUE 环境变量，分别返回这两个示例值。', [fileToken, envToken], true);
       // The preceding turn may already have loaded the Skill. Require a fresh
-      // read so the Go scenario's per-turn tool assertion remains meaningful;
+      // read so the per-turn tool assertion remains meaningful;
       // the expected code remains exclusively in the uploaded Skill body.
       await suite.turn(session, `请在本轮实际调用 Read（或 Bash）工具，定位并重新读取技能 ${skillName} 的 SKILL.md 正文，再从刚读取的内容提取 EXAMPLE_SKILL_CODE 并返回这个示例校验码。即使之前已读取过该技能，也请本轮重新读取，不要只依据先前上下文回答。`, [skillToken], true);
     },

@@ -17,7 +17,7 @@ export function chooseForwardModel(configured, enabled) {
   return selected;
 }
 
-/** Six Go example scenarios share this suite; every cleanup gets a fresh deadline. */
+/** Six example scenarios share this suite; every cleanup gets a fresh deadline. */
 export class ForwardExampleSuite extends ForwardLiveSuite {
   constructor(client, config = {}, run = {}) {
     const timeout = config.timeout ?? 300_000;

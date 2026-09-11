@@ -1,4 +1,4 @@
-/** Strict execution assertions ported from Go example/testutil/execution.go. */
+/** Strict execution assertions shared by the live example scenarios. */
 export class TurnResult {
   constructor(after = '') { this.text = ''; this.lastID = after; this.toolUsed = false; this.complete = false; }
   observe(raw) {
