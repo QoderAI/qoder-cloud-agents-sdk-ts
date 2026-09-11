@@ -1,6 +1,6 @@
 {
-  "name": "qoder-cloud-agents-sdk-ts",
-  "version": "0.1.0",
+  "name": "qca",
+  "version": "0.1.0-dev.1",
   "description": "TypeScript SDK for Qoder Cloud Agents Forward and Managed APIs",
   "author": "Qoder",
   "license": "MIT",
@@ -10,6 +10,9 @@
   },
   "bugs": {
     "url": "https://github.com/QoderAI/qoder-cloud-agents-sdk-ts/issues"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

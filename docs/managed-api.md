@@ -7,12 +7,12 @@ Managed 模式直接管理 Agent、Environment、Session，以及 Deployment 和
 ## 安装和客户端
 
 ```sh
-npm install qoder-cloud-agents-sdk-ts
+npm install qca
 export QODER_ACCESS_TOKEN='你的 PAT'
 ```
 
 ```ts
-import ManagedClient, { PATCredential } from 'qoder-cloud-agents-sdk-ts/managed';
+import ManagedClient, { PATCredential } from 'qca/managed';
 
 const client = new ManagedClient({
   credential: PATCredential.fromEnv(),
@@ -26,7 +26,7 @@ for await (const model of client.models.list()) {
 }
 ```
 
-CommonJS 可使用 `const { ManagedClient } = require('qoder-cloud-agents-sdk-ts')`。客户端与所有业务类型也可从 `qoder-cloud-agents-sdk-ts/managed` 导入；包根导出客户端和通用类型，业务类型使用模式入口。
+CommonJS 可使用 `const { ManagedClient } = require('qca')`。客户端与所有业务类型也可从 `qca/managed` 导入；包根导出客户端和通用类型，业务类型使用模式入口。
 
 `credential` 接受实现 `getToken(): string | Promise<string>` 的对象。也可设置 `accessToken` 为 PAT 字符串或返回字符串的同步/异步函数；同时传入时 `credential` 优先。省略二者时，请求读取 `QODER_ACCESS_TOKEN`。`PATCredential.fromEnv('自定义变量名')` 支持自定义变量，未找到或值为空会立即报错。SDK 发送 `Authorization: Bearer <PAT>`，不会自动加载 `.env` 文件。
 
@@ -85,7 +85,7 @@ if (page.hasNextPage()) console.log((await page.getNextPage())?.data);
 ```
 
 ```ts
-import { APIError, APIUserAbortError } from 'qoder-cloud-agents-sdk-ts/managed';
+import { APIError, APIUserAbortError } from 'qca/managed';
 
 try {
   await client.agents.retrieve('agent_id', {}, { maxRetries: 0 });
@@ -140,7 +140,7 @@ try {
 ## 文件与技能上传
 
 ```ts
-import { toFile } from 'qoder-cloud-agents-sdk-ts/managed';
+import { toFile } from 'qca/managed';
 
 const file = await client.files.upload({
   file: await toFile(new TextEncoder().encode('Hello'), 'hello.txt'),
@@ -192,7 +192,7 @@ console.log(skill.id, skill.latest_version);
 
 下列签名保留实际参数顺序。`params = {}`、`params?` 或 `options?` 表示可省略；未标可选的参数必须提供。要单独传最后的 `options`，先按签名补齐前面的 `params`（通常传 `{}`）。表中的“必填”指 SDK 类型的必填字段；服务端可能还有组合约束，见字段说明及链接中的完整类型。所有 `options` 均为 [RequestOptions](../src/core/client.ts#L20)。
 
-类型名从 `qoder-cloud-agents-sdk-ts/managed` 导入；签名中的 `APIPromise`、`PagePromise`、`Stream` 为 SDK 通用类型。类型链接可以查看响应的全部字段、枚举、联合类型和请求中的嵌套结构。位置参数与 `params` 中标为 path 的字段会做 URL 编码；header 字段不会进入 JSON body。
+类型名从 `qca/managed` 导入；签名中的 `APIPromise`、`PagePromise`、`Stream` 为 SDK 通用类型。类型链接可以查看响应的全部字段、枚举、联合类型和请求中的嵌套结构。位置参数与 `params` 中标为 path 的字段会做 URL 编码；header 字段不会进入 JSON body。
 
 JSON 的 `undefined` 字段省略，`null` 显式发送，空数组、空字符串和 `false` 保留。multipart 的 `null`/`undefined` 字段省略。HTTP 响应的未知字段会保留；TypeScript 类型不等同于服务端运行时校验。
 

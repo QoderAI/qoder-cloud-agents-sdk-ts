@@ -5,7 +5,7 @@ import { test } from 'node:test';
 const require = createRequire(import.meta.url);
 for (const mode of ['forward', 'managed']) {
   test(`package ${mode}: CommonJS and ESM exports resolve and call the API`, async () => {
-    const modules = [require(`qoder-cloud-agents-sdk-ts/${mode}`), await import(`qoder-cloud-agents-sdk-ts/${mode}`)];
+    const modules = [require(`qca/${mode}`), await import(`qca/${mode}`)];
     for (const module of modules) {
       const Client = module.default;
       assert.equal(typeof Client, 'function');
@@ -22,7 +22,7 @@ for (const mode of ['forward', 'managed']) {
   });
 }
 test('package root: named exports are available to CommonJS and ESM', async () => {
-  for (const module of [require('qoder-cloud-agents-sdk-ts'), await import('qoder-cloud-agents-sdk-ts')]) {
+  for (const module of [require('qca'), await import('qca')]) {
     for (const name of ['ForwardClient', 'ManagedClient', 'APIPromise', 'Stream', 'Page', 'PATCredential', 'toFile', 'APIError']) {
       assert.equal(typeof module[name], 'function', name);
     }

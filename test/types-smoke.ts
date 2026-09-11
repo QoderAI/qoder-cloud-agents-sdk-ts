@@ -1,8 +1,8 @@
-import { ForwardClient, ManagedClient, APIPromise, Stream, toFile } from 'qoder-cloud-agents-sdk-ts';
-import Forward from 'qoder-cloud-agents-sdk-ts/forward';
-import Managed from 'qoder-cloud-agents-sdk-ts/managed';
-import type { TemplateUpdateParams, SessionEvent } from 'qoder-cloud-agents-sdk-ts/forward';
-import type { AgentUpdateParams } from 'qoder-cloud-agents-sdk-ts/managed';
+import { ForwardClient, ManagedClient, APIPromise, Stream, toFile } from 'qca';
+import Forward from 'qca/forward';
+import Managed from 'qca/managed';
+import type { TemplateUpdateParams, SessionEvent } from 'qca/forward';
+import type { AgentUpdateParams } from 'qca/managed';
 
 const forward: ForwardClient = new Forward({ accessToken: async () => 'token', timeout: 5000 });
 const managed: ManagedClient = new Managed();
