@@ -1,0 +1,3379 @@
+[
+  {
+    "id": "agents.create",
+    "entry": "agents",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "model",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "system",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "mcp_servers",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "multiagent",
+            "location": "json"
+          },
+          {
+            "wire": "skills",
+            "location": "json"
+          },
+          {
+            "wire": "tools",
+            "location": "json"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "agents.retrieve",
+    "entry": "agents",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "agentID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "version",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "agents.update",
+    "entry": "agents",
+    "method": "update",
+    "args": [
+      {
+        "name": "agentID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "system",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "version",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "mcp_servers",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "skills",
+            "location": "json"
+          },
+          {
+            "wire": "tools",
+            "location": "json"
+          },
+          {
+            "wire": "model",
+            "location": "json"
+          },
+          {
+            "wire": "multiagent",
+            "location": "json"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "agents.list",
+    "entry": "agents",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "created_at[gte]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[lte]",
+            "location": "query"
+          },
+          {
+            "wire": "include_archived",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "agents.archive",
+    "entry": "agents",
+    "method": "archive",
+    "args": [
+      {
+        "name": "agentID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "deployments.create",
+    "entry": "deployments",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "environment_variables",
+            "location": "json"
+          },
+          {
+            "wire": "agent",
+            "location": "json"
+          },
+          {
+            "wire": "environment_id",
+            "location": "json"
+          },
+          {
+            "wire": "initial_events",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "budget",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "resources",
+            "location": "json"
+          },
+          {
+            "wire": "schedule",
+            "location": "json"
+          },
+          {
+            "wire": "vault_ids",
+            "location": "json"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "deployments.retrieve",
+    "entry": "deployments",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "deploymentID",
+        "kind": "path"
+      },
+      {
+        "name": "query",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "deployments.update",
+    "entry": "deployments",
+    "method": "update",
+    "args": [
+      {
+        "name": "deploymentID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "environment_variables",
+            "location": "json"
+          },
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "environment_id",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "resources",
+            "location": "json"
+          },
+          {
+            "wire": "vault_ids",
+            "location": "json"
+          },
+          {
+            "wire": "agent",
+            "location": "json"
+          },
+          {
+            "wire": "budget",
+            "location": "json"
+          },
+          {
+            "wire": "initial_events",
+            "location": "json"
+          },
+          {
+            "wire": "schedule",
+            "location": "json"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "deployments.list",
+    "entry": "deployments",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "agent_id",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[gte]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[lte]",
+            "location": "query"
+          },
+          {
+            "wire": "include_archived",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "status",
+            "location": "query"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "deployments.archive",
+    "entry": "deployments",
+    "method": "archive",
+    "args": [
+      {
+        "name": "deploymentID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "deployments.pause",
+    "entry": "deployments",
+    "method": "pause",
+    "args": [
+      {
+        "name": "deploymentID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "deployments.run",
+    "entry": "deployments",
+    "method": "run",
+    "args": [
+      {
+        "name": "deploymentID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "deployments.unpause",
+    "entry": "deployments",
+    "method": "unpause",
+    "args": [
+      {
+        "name": "deploymentID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "models.list",
+    "entry": "models",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "sessions.events.list",
+    "entry": "sessions.events",
+    "method": "list",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[gt]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[gte]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[lt]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[lte]",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "order",
+            "location": "query"
+          },
+          {
+            "wire": "types",
+            "location": "query"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "sessions.events.send",
+    "entry": "sessions.events",
+    "method": "send",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "events",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.events.streamEvents",
+    "entry": "sessions.events",
+    "method": "streamEvents",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "event_deltas",
+            "location": "query"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "deploymentRuns.retrieve",
+    "entry": "deploymentRuns",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "deploymentRunID",
+        "kind": "path"
+      },
+      {
+        "name": "query",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "deploymentRuns.list",
+    "entry": "deploymentRuns",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[gt]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[gte]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[lt]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[lte]",
+            "location": "query"
+          },
+          {
+            "wire": "deployment_id",
+            "location": "query"
+          },
+          {
+            "wire": "has_error",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "trigger_type",
+            "location": "query"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "vaults.create",
+    "entry": "vaults",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "display_name",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "vaults.retrieve",
+    "entry": "vaults",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "vaultID",
+        "kind": "path"
+      },
+      {
+        "name": "query",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "vaults.list",
+    "entry": "vaults",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "include_archived",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "vaults.delete",
+    "entry": "vaults",
+    "method": "delete",
+    "args": [
+      {
+        "name": "vaultID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "vaults.archive",
+    "entry": "vaults",
+    "method": "archive",
+    "args": [
+      {
+        "name": "vaultID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.memoryVersions.retrieve",
+    "entry": "memoryStores.memoryVersions",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "memoryVersionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "memory_store_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "view",
+            "location": "query"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.memoryVersions.list",
+    "entry": "memoryStores.memoryVersions",
+    "method": "list",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "api_key_id",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[gte]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[lte]",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "memory_id",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "service_account_id",
+            "location": "query"
+          },
+          {
+            "wire": "session_id",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "operation",
+            "location": "query"
+          },
+          {
+            "wire": "view",
+            "location": "query"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "memoryStores.memoryVersions.redact",
+    "entry": "memoryStores.memoryVersions",
+    "method": "redact",
+    "args": [
+      {
+        "name": "memoryVersionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "memory_store_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.create",
+    "entry": "memoryStores",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.retrieve",
+    "entry": "memoryStores",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "query",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.update",
+    "entry": "memoryStores",
+    "method": "update",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.list",
+    "entry": "memoryStores",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[gte]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[lte]",
+            "location": "query"
+          },
+          {
+            "wire": "include_archived",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "memoryStores.delete",
+    "entry": "memoryStores",
+    "method": "delete",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.archive",
+    "entry": "memoryStores",
+    "method": "archive",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.resources.retrieve",
+    "entry": "sessions.resources",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "resourceID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "session_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.resources.update",
+    "entry": "sessions.resources",
+    "method": "update",
+    "args": [
+      {
+        "name": "resourceID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "password",
+            "location": "json"
+          },
+          {
+            "wire": "session_id",
+            "location": "path"
+          },
+          {
+            "wire": "authorization_token",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.resources.list",
+    "entry": "sessions.resources",
+    "method": "list",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "sessions.resources.delete",
+    "entry": "sessions.resources",
+    "method": "delete",
+    "args": [
+      {
+        "name": "resourceID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "session_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.resources.add",
+    "entry": "sessions.resources",
+    "method": "add",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.threads.events.list",
+    "entry": "sessions.threads.events",
+    "method": "list",
+    "args": [
+      {
+        "name": "threadID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "session_id",
+            "location": "path"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "sessions.threads.events.streamEvents",
+    "entry": "sessions.threads.events",
+    "method": "streamEvents",
+    "args": [
+      {
+        "name": "threadID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "session_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "event_deltas",
+            "location": "query"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.memories.create",
+    "entry": "memoryStores.memories",
+    "method": "create",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "content",
+            "location": "json"
+          },
+          {
+            "wire": "path",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "view",
+            "location": "query"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.memories.retrieve",
+    "entry": "memoryStores.memories",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "memoryID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "memory_store_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "view",
+            "location": "query"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.memories.update",
+    "entry": "memoryStores.memories",
+    "method": "update",
+    "args": [
+      {
+        "name": "memoryID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "content_sha256",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "memory_store_id",
+            "location": "path"
+          },
+          {
+            "wire": "content",
+            "location": "json"
+          },
+          {
+            "wire": "path",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "view",
+            "location": "query"
+          },
+          {
+            "wire": "precondition",
+            "location": "json"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.memories.list",
+    "entry": "memoryStores.memories",
+    "method": "list",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "depth",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "path_prefix",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "view",
+            "location": "query"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "memoryStores.memories.delete",
+    "entry": "memoryStores.memories",
+    "method": "delete",
+    "args": [
+      {
+        "name": "memoryID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "memory_store_id",
+            "location": "path"
+          },
+          {
+            "wire": "expected_content_sha256",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "skills.create",
+    "entry": "skills",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "files",
+            "location": "json",
+            "binary": true,
+            "binaryArray": true
+          },
+          {
+            "wire": "display_title",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "skills.retrieve",
+    "entry": "skills",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "skillID",
+        "kind": "path"
+      },
+      {
+        "name": "query",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "skills.list",
+    "entry": "skills",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "display_title",
+            "location": "query"
+          },
+          {
+            "wire": "name",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "source",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "skills.delete",
+    "entry": "skills",
+    "method": "delete",
+    "args": [
+      {
+        "name": "skillID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "environments.create",
+    "entry": "environments",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "config",
+            "location": "json"
+          },
+          {
+            "wire": "scope",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "environments.retrieve",
+    "entry": "environments",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "environmentID",
+        "kind": "path"
+      },
+      {
+        "name": "query",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "environments.update",
+    "entry": "environments",
+    "method": "update",
+    "args": [
+      {
+        "name": "environmentID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "config",
+            "location": "json"
+          },
+          {
+            "wire": "scope",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "environments.list",
+    "entry": "environments",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "created_at[gte]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[lte]",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "include_archived",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "environments.delete",
+    "entry": "environments",
+    "method": "delete",
+    "args": [
+      {
+        "name": "environmentID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "environments.archive",
+    "entry": "environments",
+    "method": "archive",
+    "args": [
+      {
+        "name": "environmentID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "environments.work.retrieve",
+    "entry": "environments.work",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "workID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "environment_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "environments.work.update",
+    "entry": "environments.work",
+    "method": "update",
+    "args": [
+      {
+        "name": "workID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "environment_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "environments.work.list",
+    "entry": "environments.work",
+    "method": "list",
+    "args": [
+      {
+        "name": "environmentID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "environments.work.ack",
+    "entry": "environments.work",
+    "method": "ack",
+    "args": [
+      {
+        "name": "workID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "environment_id",
+            "location": "path"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "environments.work.heartbeat",
+    "entry": "environments.work",
+    "method": "heartbeat",
+    "args": [
+      {
+        "name": "workID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "environment_id",
+            "location": "path"
+          },
+          {
+            "wire": "desired_ttl_seconds",
+            "location": "query"
+          },
+          {
+            "wire": "expected_last_heartbeat",
+            "location": "query"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "environments.work.poll",
+    "entry": "environments.work",
+    "method": "poll",
+    "args": [
+      {
+        "name": "environmentID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "block_ms",
+            "location": "query"
+          },
+          {
+            "wire": "reclaim_older_than_ms",
+            "location": "query"
+          },
+          {
+            "wire": "Worker-ID",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "environments.work.stats",
+    "entry": "environments.work",
+    "method": "stats",
+    "args": [
+      {
+        "name": "environmentID",
+        "kind": "path"
+      },
+      {
+        "name": "query",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "environments.work.stop",
+    "entry": "environments.work",
+    "method": "stop",
+    "args": [
+      {
+        "name": "workID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "environment_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dreams.create",
+    "entry": "dreams",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "inputs",
+            "location": "json"
+          },
+          {
+            "wire": "model",
+            "location": "json"
+          },
+          {
+            "wire": "instructions",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "output_behavior",
+            "location": "json"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dreams.retrieve",
+    "entry": "dreams",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "dreamID",
+        "kind": "path"
+      },
+      {
+        "name": "query",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dreams.list",
+    "entry": "dreams",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "created_at[gt]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[lt]",
+            "location": "query"
+          },
+          {
+            "wire": "include_archived",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "statuses",
+            "location": "query"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "dreams.archive",
+    "entry": "dreams",
+    "method": "archive",
+    "args": [
+      {
+        "name": "dreamID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dreams.cancel",
+    "entry": "dreams",
+    "method": "cancel",
+    "args": [
+      {
+        "name": "dreamID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.threads.retrieve",
+    "entry": "sessions.threads",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "threadID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "session_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.threads.list",
+    "entry": "sessions.threads",
+    "method": "list",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "sessions.threads.archive",
+    "entry": "sessions.threads",
+    "method": "archive",
+    "args": [
+      {
+        "name": "threadID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "session_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "vaults.credentials.create",
+    "entry": "vaults.credentials",
+    "method": "create",
+    "args": [
+      {
+        "name": "vaultID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "auth",
+            "location": "json"
+          },
+          {
+            "wire": "display_name",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "vaults.credentials.retrieve",
+    "entry": "vaults.credentials",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "credentialID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "vault_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "vaults.credentials.update",
+    "entry": "vaults.credentials",
+    "method": "update",
+    "args": [
+      {
+        "name": "credentialID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "vault_id",
+            "location": "path"
+          },
+          {
+            "wire": "display_name",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "auth",
+            "location": "json"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "vaults.credentials.list",
+    "entry": "vaults.credentials",
+    "method": "list",
+    "args": [
+      {
+        "name": "vaultID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "include_archived",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "vaults.credentials.delete",
+    "entry": "vaults.credentials",
+    "method": "delete",
+    "args": [
+      {
+        "name": "credentialID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "vault_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "vaults.credentials.archive",
+    "entry": "vaults.credentials",
+    "method": "archive",
+    "args": [
+      {
+        "name": "credentialID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "vault_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "vaults.credentials.mcpOAuthValidate",
+    "entry": "vaults.credentials",
+    "method": "mcpOAuthValidate",
+    "args": [
+      {
+        "name": "credentialID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "vault_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "skills.versions.create",
+    "entry": "skills.versions",
+    "method": "create",
+    "args": [
+      {
+        "name": "skillID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "files",
+            "location": "json",
+            "binary": true,
+            "binaryArray": true
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "skills.versions.retrieve",
+    "entry": "skills.versions",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "version",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "skill_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "skills.versions.list",
+    "entry": "skills.versions",
+    "method": "list",
+    "args": [
+      {
+        "name": "skillID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "skills.versions.delete",
+    "entry": "skills.versions",
+    "method": "delete",
+    "args": [
+      {
+        "name": "version",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "skill_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "skills.versions.download",
+    "entry": "skills.versions",
+    "method": "download",
+    "args": [
+      {
+        "name": "version",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "skill_id",
+            "location": "path"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "agents.versions.list",
+    "entry": "agents.versions",
+    "method": "list",
+    "args": [
+      {
+        "name": "agentID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "files.list",
+    "entry": "files",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "scope_id",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "ids",
+            "location": "query"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "files.delete",
+    "entry": "files",
+    "method": "delete",
+    "args": [
+      {
+        "name": "fileID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "files.download",
+    "entry": "files",
+    "method": "download",
+    "args": [
+      {
+        "name": "fileID",
+        "kind": "path"
+      },
+      {
+        "name": "query",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "files.getMetadata",
+    "entry": "files",
+    "method": "getMetadata",
+    "args": [
+      {
+        "name": "fileID",
+        "kind": "path"
+      },
+      {
+        "name": "query",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "files.upload",
+    "entry": "files",
+    "method": "upload",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "file",
+            "location": "json",
+            "binary": true
+          },
+          {
+            "wire": "expires_in_seconds",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.create",
+    "entry": "sessions",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "environment_variables",
+            "location": "json"
+          },
+          {
+            "wire": "agent",
+            "location": "json"
+          },
+          {
+            "wire": "environment_id",
+            "location": "json"
+          },
+          {
+            "wire": "title",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "budget",
+            "location": "json"
+          },
+          {
+            "wire": "initial_events",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "resources",
+            "location": "json"
+          },
+          {
+            "wire": "vault_ids",
+            "location": "json"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.retrieve",
+    "entry": "sessions",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "query",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.update",
+    "entry": "sessions",
+    "method": "update",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "environment_variables",
+            "location": "json"
+          },
+          {
+            "wire": "title",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "agent",
+            "location": "json"
+          },
+          {
+            "wire": "budget",
+            "location": "json"
+          },
+          {
+            "wire": "vault_ids",
+            "location": "json"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.list",
+    "entry": "sessions",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "agent_id",
+            "location": "query"
+          },
+          {
+            "wire": "agent_version",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[gt]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[gte]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[lt]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[lte]",
+            "location": "query"
+          },
+          {
+            "wire": "deployment_id",
+            "location": "query"
+          },
+          {
+            "wire": "include_archived",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "memory_store_id",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "order",
+            "location": "query"
+          },
+          {
+            "wire": "statuses",
+            "location": "query"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "sessions.delete",
+    "entry": "sessions",
+    "method": "delete",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.archive",
+    "entry": "sessions",
+    "method": "archive",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "body",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          },
+          {
+            "wire": "x-qoder-beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  }
+]

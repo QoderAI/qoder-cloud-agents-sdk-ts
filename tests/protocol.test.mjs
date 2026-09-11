@@ -1,5 +1,4 @@
-// Ports convention/requestconfig_test.go, credentials_test.go, forward/protocol_test.go,
-// forward/pagination_test.go and managed/request_contracts_test.go.
+// Request configuration, credentials, wire protocol, pagination and Managed request contracts.
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { sdk, fixture, methods, argumentsFor, invoke, response, testClient } from './helpers.mjs';
@@ -173,8 +172,8 @@ for (const mode of ['forward', 'managed']) {
   });
 }
 
-for (const c of fixture('managed', 'request-bodies.json')) test(`Managed documented request ${c.service}.${c.method} #${c.case}: ${c.doc}`, async () => {
-  const m = methods.managed.find(m => m.service === c.service && m.goMethod === c.method);
+for (const c of fixture('managed', 'request-bodies.json')) test(`Managed documented request ${c.id} #${c.case}: ${c.doc}`, async () => {
+  const m = methods.managed.find(m => m.id === c.id);
   let calls = 0;
   const client = testClient('managed', async req => { calls++; assert.deepEqual(await req.json(), c.body); return response({}); });
   await invoke(client, m, await argumentsFor('managed', m, undefined, c.body));

@@ -1,22 +1,23 @@
 import assert from 'node:assert/strict';
 import { marker, unique, userMessage } from './managed-support.mjs';
 
+const snake = (name) => name.replace(/(?<!^)[A-Z]/g, (c) => `_${c}`).toLowerCase();
 const scenario = (name, mode, run) => ({ name, mode, run });
 const listResources = { Agent: 'agents', Session: 'sessions', MemoryStore: 'memoryStores', Skill: 'skills', Environment: 'environments', Vault: 'vaults', File: 'files', Deployment: 'deployments', Dream: 'dreams', DeploymentRun: 'deploymentRuns', Model: 'models' };
 
-/** Names and assertions map directly to managed/*_live_test.go. */
+/** Names and assertions mirror the Managed live coverage matrix. */
 export const managedScenarios = [
-  ...Object.entries(listResources).map(([name, resource]) => scenario(`Test${name}ListLive`, 'read', async (s) => {
+  ...Object.entries(listResources).map(([name, resource]) => scenario(`${snake(name)}_list`, 'read', async (s) => {
     await s.client[resource].list({}, s.options());
   })),
-  scenario('TestAgentLifecycleLive', 'write', async (s) => {
+  scenario('agent_lifecycle', 'write', async (s) => {
     const agent = await s.createAgent();
     await s.client.agents.retrieve(agent.id, {}, s.options());
     await s.client.agents.update(agent.id, { version: agent.version, description: 'updated through Managed TypeScript SDK' }, s.options());
     const versions = await s.client.agents.versions.list(agent.id, {}, s.options());
     assert(versions.data.length >= 2, 'Expected at least two Agent versions');
   }),
-  scenario('TestSessionLifecycleLive', 'write', async (s) => {
+  scenario('session_lifecycle', 'write', async (s) => {
     const environment = await s.createEnvironment();
     const agent = await s.createAgent();
     const session = await s.client.sessions.create({ agent: agent.id, environment_id: environment.id, title: 'Managed SDK live session' }, s.options());
@@ -27,7 +28,7 @@ export const managedScenarios = [
     await s.client.sessions.resources.list(session.id, {}, s.options());
     await s.client.sessions.threads.list(session.id, {}, s.options());
   }),
-  scenario('TestMemorystoreLifecycleLive', 'write', async (s) => {
+  scenario('memory_store_lifecycle', 'write', async (s) => {
     const store = await s.createMemoryStore();
     await s.client.memoryStores.retrieve(store.id, {}, s.options());
     await s.client.memoryStores.update(store.id, { description: 'updated through Managed TypeScript SDK' }, s.options());
@@ -39,7 +40,7 @@ export const managedScenarios = [
     assert(versions.data.length > 0, 'Expected at least one memory version');
     await s.client.memoryStores.memoryVersions.retrieve(versions.data[0].id, { memory_store_id: store.id }, s.options());
   }),
-  scenario('TestSkillLifecycleLive', 'write', async (s) => {
+  scenario('skill_lifecycle', 'write', async (s) => {
     const name = unique('skill');
     const markdown = `---\nname: ${name}\ndescription: Managed SDK live skill\n---\n# ${name}\nReply with SDK-LIVE.\n`;
     const files = () => [new File([markdown], `${name}/SKILL.md`, { type: 'text/markdown' })];
@@ -52,20 +53,20 @@ export const managedScenarios = [
     const download = await s.client.skills.versions.download(version.version, { skill_id: skill.id }, s.options());
     assert((await download.arrayBuffer()).byteLength > 0, 'Empty skill archive');
   }),
-  scenario('TestEnvironmentLifecycleLive', 'write', async (s) => {
+  scenario('environment_lifecycle', 'write', async (s) => {
     const environment = await s.createEnvironment();
     const got = await s.client.environments.retrieve(environment.id, {}, s.options());
     assert.equal(got.id, environment.id);
     await s.client.environments.update(environment.id, { description: 'updated through Managed TypeScript SDK' }, s.options());
     await s.client.environments.work.list(environment.id, {}, s.options());
   }),
-  scenario('TestVaultLifecycleLive', 'write', async (s) => {
+  scenario('vault_lifecycle', 'write', async (s) => {
     const vault = await s.client.vaults.create({ display_name: unique('vault'), metadata: { suite: 'sdk-live' } }, s.options());
     s.cleanup(`Vault ${vault.id}`, () => s.client.vaults.delete(vault.id, {}, s.options()));
     await s.client.vaults.retrieve(vault.id, {}, s.options());
     await s.client.vaults.credentials.list(vault.id, {}, s.options());
   }),
-  scenario('TestFileLifecycleLive', 'write', async (s) => {
+  scenario('file_lifecycle', 'write', async (s) => {
     const content = 'Managed SDK live file\n';
     const file = await s.client.files.upload({ file: new File([content], `${unique('file')}.txt`), metadata: { suite: 'sdk-live' } }, s.options());
     s.cleanup(`File ${file.id}`, () => s.client.files.delete(file.id, {}, s.options()));
@@ -73,7 +74,7 @@ export const managedScenarios = [
     const download = await s.client.files.download(file.id, {}, s.options());
     assert.equal(await download.text(), content, 'Download content');
   }),
-  scenario('TestDeploymentLifecycleLive', 'write', async (s) => {
+  scenario('deployment_lifecycle', 'write', async (s) => {
     const environment = await s.createEnvironment();
     const agent = await s.createAgent();
     const deployment = await s.client.deployments.create({ name: unique('deployment'), agent: agent.id, environment_id: environment.id, initial_events: [userMessage('Reply with SDK-LIVE.')] }, s.options());
@@ -84,14 +85,14 @@ export const managedScenarios = [
     await s.client.deployments.unpause(deployment.id, {}, s.options());
     await s.client.deploymentRuns.list({}, s.options());
   }),
-  scenario('TestDreamLifecycleLive', 'execution', async (s) => {
+  scenario('dream_lifecycle', 'execution', async (s) => {
     const store = await s.createMemoryStore();
     const dream = await s.client.dreams.create({ inputs: [{ type: 'memory_store', memory_store_id: store.id }], model: await s.model(), instructions: 'Summarize the test memory store.' }, s.options());
     s.cleanup(`Dream ${dream.id}`, () => s.client.dreams.archive(dream.id, {}, s.options()));
     await s.client.dreams.retrieve(dream.id, {}, s.options());
     if (!['completed', 'failed', 'canceled'].includes(dream.status)) await s.client.dreams.cancel(dream.id, {}, s.options());
   }),
-  scenario('TestManagedExecutionE2ELive', 'e2e', async (s) => {
+  scenario('execution_e2e', 'e2e', async (s) => {
     const environment = await s.createEnvironment();
     const fileToken = marker(), envToken = marker(), skillToken = marker(), memoryToken = marker();
     const file = await s.client.files.upload({ file: new File([fileToken], 'sdk-e2e.txt') }, s.options());
@@ -111,7 +112,7 @@ export const managedScenarios = [
       [`Use skill ${skillName} to obtain SDK_E2E_SKILL_TOKEN. Read sdk-e2e/proof.md from the mounted memory store to obtain SDK_E2E_MEMORY_TOKEN. Reply with both exact tokens.`, [skillToken, memoryToken], true, false],
     ]) await s.waitTurn(session.id, await s.sendTurn(session.id, prompt), expected, tool, stream);
   }),
-  scenario('TestManagedDeploymentE2ELive', 'e2e', async (s) => {
+  scenario('deployment_e2e', 'e2e', async (s) => {
     const environment = await s.createEnvironment();
     const agent = await s.createAgent();
     const token = marker();
@@ -124,7 +125,7 @@ export const managedScenarios = [
     assert.equal(got.session_id, run.session_id, 'Run session changed');
     await s.waitTurn(run.session_id, '', [token]);
   }),
-  scenario('TestManagedDreamE2ELive', 'e2e', async (s) => {
+  scenario('dream_e2e', 'e2e', async (s) => {
     const store = await s.createMemoryStore();
     const token = marker();
     await s.client.memoryStores.memories.create(store.id, { path: 'sdk-e2e/source.md', content: `Permanent project verification code: ${token}. Preserve this exact code during consolidation.` }, s.options());

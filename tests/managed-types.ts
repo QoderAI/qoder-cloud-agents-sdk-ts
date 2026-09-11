@@ -1,4 +1,4 @@
-// Canonical Go documented request-body fixtures must remain assignable to public wire types.
+// Canonical documented request-body fixtures must remain assignable to public wire types.
 import type * as M from '../src/managed/types.js';
 const request0: M.AgentCreateParams = {"name": "doc-test-agent", "model": "ultimate", "system": "You are a documentation testing assistant.", "tools": [{"type": "agent_toolset_20260401", "enabled_tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep", "WebFetch", "WebSearch"]}], "mcp_servers": [{"type": "url", "name": "weather-service", "url": "https://mcp.example.com/mcp"}]};
 const request1: M.AgentCreateParams = {"name": "doc-test-agent-tuned", "model": {"id": "ultimate", "effort": "high", "context_window": 400000}, "system": "You are a documentation testing assistant."};
@@ -24,7 +24,7 @@ const request20: M.VaultCredentialCreateParams = {"auth": {"type": "mcp_oauth", 
 const request21: M.SessionCreateParams = {"agent": {"id": "agent_019e390add9f7bac9b6cc806db46fcbd", "type": "agent", "version": 2}, "environment_id": "env_019e2590d33f711fabf42f2857cecd8a", "title": "Code review session", "metadata": {"purpose": "review"}, "environment_variables": {"FEATURE_FLAG": "on", "LOG_LEVEL": "debug"}, "resources": [{"type": "github_repository", "url": "https://github.com/your-org/your-repo", "mount_path": "/data/workspace/your-repo", "authorization_token": "ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxx"}, {"type": "memory_store", "memory_store_id": "memstore_019eed05b61e78cea61bfd366e072878", "access": "read_write", "instructions": "Use this memory for long-lived project context."}], "vault_ids": ["vault_019eed0519807975983d0ffc4b4b4c79"]};
 const request22: M.SessionUpdateParams = {"title": "New title", "metadata": {"priority": "high", "old_key": null}, "agent": {"tools": [], "mcp_servers": []}};
 
-// Go CustomToolInputSchemaParam.MarshalWithExtras keeps JSON Schema extension keys.
+// JSON Schema extension keywords are preserved on custom tool input schemas.
 const customToolJSONSchema: M.ManagedAgentsCustomToolInputSchemaParam = {
   type: 'object',
   properties: { query: { type: 'string' } },

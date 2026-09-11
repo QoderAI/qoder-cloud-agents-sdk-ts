@@ -19,7 +19,7 @@ export function zipFile(name, contents) {
   return Buffer.concat([local, filename, data, central, filename, end]);
 }
 
-/** In-memory test server, driven by independently frozen Go routes.
+/** In-memory test server, driven by the independently frozen contract routes.
  * It persists writes, enforces parent/binding identities and verifies cleanup.
  * Simulated agent output reads only the session's mounted resources and bindings.
  */
@@ -29,7 +29,7 @@ export class MockPlatform {
     this.routes = contracts[mode].map(c => {
       const op = mode === 'forward' ? operations.find(o => o.operation_id === c.operation_id) : null;
       const route = op?.path ?? c.route;
-      return { ...c, verb: op?.http_method ?? c.method, route, pattern: new RegExp(`^${route.replace(/\{[^}]+\}/g,'[^/]+')}$`) };
+      return { ...c, method: c.id.split('.').pop(), verb: op?.http_method ?? c.httpMethod, route, pattern: new RegExp(`^${route.replace(/\{[^}]+\}/g,'[^/]+')}$`) };
     }).sort((a,b) => (a.route.match(/\{/g)?.length ?? 0) - (b.route.match(/\{/g)?.length ?? 0));
     this.client = testClient(mode, req => this.handle(req));
     this.fetch = (input, init) => this.handle(new Request(input, init));
@@ -136,7 +136,7 @@ export class MockPlatform {
     assert.equal(req.headers.get('authorization'), 'Bearer secret-pat');
     const path = url.pathname.replace(/^\/api\/v1\/(forward|cloud)/,'').split('/').map(decodeURIComponent).join('/');
     const route = this.routes.find(c => c.verb === req.method && c.pattern.test(path));
-    assert(route, `API outside Go scope: ${req.method} ${path}`);
+    assert(route, `API outside the documented contract scope: ${req.method} ${path}`);
     let body = {};
     if (req.body) {
       if (req.headers.get('content-type')?.startsWith('multipart/form-data')) {
@@ -165,7 +165,7 @@ export class MockPlatform {
       }
       if (action === 'effective') return response(this.records.get(parent + '/config') ?? {});
       if (parts[0] === 'qr_sessions') return response(this.get(path));
-      if (route.name === 'List' || ['ListTemplates','ListAgents'].includes(route.name)) {
+      if (route.method === 'list' || route.method === 'listTemplates') {
         let values = this.data(path);
         for (const field of ['identity_id','template_id','schedule_id','status']) if (url.searchParams.has(field)) values = values.filter(v => String(v[field]) === url.searchParams.get(field));
         return this.pagination(values);
@@ -198,7 +198,7 @@ export class MockPlatform {
       const qr = this.create(path, { session_key: this.id('qrkey'), channel_id: parts[1] });
       this.records.set(`/qr_sessions/${qr.session_key}`, qr); return response(qr);
     }
-    if (route.name === 'New' || route.name === 'Upload' || route.name === 'Add' || route.name === 'Mount') {
+    if (['create', 'upload', 'add', 'mount'].includes(route.method)) {
       if (parts[0] === 'identities' && action === 'memory_stores') {
         this.get(`/memory_stores/${body.memory_store_id}`);
         const mount = this.put(path, { id: body.memory_store_id, ...body }); return response(mount);

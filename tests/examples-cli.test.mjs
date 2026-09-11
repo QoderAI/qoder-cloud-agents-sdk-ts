@@ -1,4 +1,4 @@
-// Mirrors Go example/internal/live/run_test.go and output_test.go without network access.
+// Covers the example CLI's config parsing and output redaction without network access.
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { mkdtempSync, writeFileSync, rmSync, existsSync } from 'node:fs';
@@ -26,7 +26,7 @@ test('example CLI defaults to models, CN and five-minute scenario with independe
 for (const [flag, value] of [['mode','invalid'], ['region','invalid'], ['output','xml'], ['timeout','0'], ['timeout','-1s'], ['timeout','31m'], ['cleanup-timeout','0ms']]) {
   test(`example CLI rejects invalid ${flag}=${value}`, () => assert.throws(() => parseArguments([`-${flag}`, value])));
 }
-test('example CLI accepts Go-style and long flags with duration units', () => {
+test('example CLI accepts single-dash and long flags with duration units', () => {
   const args = parseArguments(['--mode=managed', '-scenario','all', '-region','international', '--timeout=5m', '--cleanup-timeout=90s', '-model','auto']);
   assert.equal(args.mode, 'managed'); assert.equal(args.scenario, 'all'); assert.equal(args.region, 'international');
   assert.equal(args.timeout, 300_000); assert.equal(args.cleanupTimeout, 90_000); assert.equal(args.model, 'auto');
@@ -36,7 +36,7 @@ test('example CLI rejects unknown flags and missing values', () => {
   assert.throws(() => parseArguments(['--model']), /Missing value/);
 });
 
-test('Go TestCNConfigUsesModeCredentials: mode PAT isolation and environment precedence', t => {
+test('mode PAT isolation and environment precedence', t => {
   const file = configFile(t, 'QODER_MANAGED_BASE_URL=https://api.qoder.com/api/v1/cloud\nQODER_MANAGED_PAT=managed-value\nQODER_FORWARD_PAT=forward-value\nQODER_MANAGED_MODEL=file-model\nQODER_ACCESS_TOKEN=shared-value\n');
   const configs = loadConfiguration(parseArguments(['-env',file.path]), { QODER_MANAGED_PAT: 'managed-override', QODER_MANAGED_MODEL: 'env-model' });
   assert.deepEqual(configs.map(c => [c.mode,c.accessToken,c.baseURL,c.model]), [
@@ -61,7 +61,7 @@ test('explicit model flag overrides per-mode model in environment and file', t =
   assert.equal(config.model, 'flag-model');
 });
 
-test('Go TestReadEnvDoesNotExecuteShell: config is data, quoted spaces and shell expressions stay literal', t => {
+test('config is data: quoted spaces and shell expressions stay literal', t => {
   const file = configFile(t, 'QODER_ACCESS_TOKEN=test\n');
   const marker = join(file.directory, 'must-not-exist');
   writeFileSync(file.path, `export QODER_ACCESS_TOKEN='with # space'\nQODER_FORWARD_MODEL="$(touch ${marker})"\nQODER_MANAGED_MODEL=unquoted # comment\n`);
@@ -70,7 +70,7 @@ test('Go TestReadEnvDoesNotExecuteShell: config is data, quoted spaces and shell
   assert.equal(configs[0].model, `$(touch ${marker})`);
   assert.equal(configs[1].model, 'unquoted'); assert.equal(existsSync(marker), false);
 });
-test('Go ReadEnv rejects unterminated quoted assignments', t => {
+test('env parsing rejects unterminated quoted assignments', t => {
   const file = configFile(t, "QODER_ACCESS_TOKEN='unterminated\n");
   assert.throws(() => loadConfiguration(parseArguments(['-env',file.path]), {}), /quote|invalid|unterminated/i);
 });
@@ -81,7 +81,7 @@ for (const url of ['http://api.qoder.com/api/v1/forward', 'https://elsewhere.tes
   });
 }
 
-test('Go Explain redacts all configured PATs, bearer values and signed object-store queries', () => {
+test('explain output redacts all configured PATs, bearer values and signed object-store queries', () => {
   const safe = createSanitizer(['forward-private-pat','managed-private-pat']);
   const value = safe.text('forward-private-pat managed-private-pat Bearer other-secret https://storage.test/key?signature=private&expires=100 request-id');
   for (const secret of ['forward-private-pat','managed-private-pat','other-secret','signature=','expires=']) assert.equal(value.includes(secret), false);
@@ -94,12 +94,12 @@ test('safe structured report redacts credentials at any nesting depth', () => {
   assert.deepEqual(result.nested, { authorization: '[REDACTED]', password: '[REDACTED]', secret: '[REDACTED]', text: '[REDACTED]' });
   assert.equal(JSON.stringify(result).includes('signature='), false);
 });
-test('Go TestReplyRedactionBeforeTruncationAndTerminalEscapes prevents terminal control output', () => {
+test('reply redaction runs before truncation and prevents terminal control output', () => {
   const result = createSanitizer(['private-test-token']).text('\x1b[2Jhttps://storage.test/file?signature=private\n'+'x'.repeat(3980)+'private-test-token');
   for (const forbidden of ['\x1b','signature=','private-test']) assert.equal(result.includes(forbidden), false);
 });
 
-test('-scenario all maps exactly the six Forward and six Managed Go example scenarios', () => {
+test('-scenario all maps exactly the six Forward and six Managed example scenarios', () => {
   assert.equal(parseArguments(['-scenario','all']).scenario, 'all');
   assert.equal(typeof forwardModule.createForwardExampleSuite, 'function', 'Forward factory must be exported for dynamic CLI loading');
   assert.equal(typeof managedModule.createManagedExampleSuite, 'function', 'Managed factory must be exported for dynamic CLI loading');

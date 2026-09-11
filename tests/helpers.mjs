@@ -5,7 +5,7 @@ import * as sdk from '../dist/index.js';
 export { sdk };
 export const pathSegment = 'segment /?%#';
 export const fixture = (mode, file) => JSON.parse(readFileSync(new URL(`./fixtures/${mode}/${file}`, import.meta.url), 'utf8'));
-export const methods = Object.fromEntries(['forward', 'managed'].map(mode => [mode, fixture(mode, 'go-methods.json')]));
+export const methods = Object.fromEntries(['forward', 'managed'].map(mode => [mode, fixture(mode, 'api-methods.json')]));
 export const contracts = Object.fromEntries(['forward', 'managed'].map(mode => [mode, fixture(mode, 'api-contracts.json')]));
 export const operations = fixture('forward', 'api-operation-cases.json').cases;
 export function response(body, status = 200, headers = {}) {
@@ -15,7 +15,7 @@ export function testClient(mode, handler, options = {}) {
   const Client = mode === 'forward' ? sdk.ForwardClient : sdk.ManagedClient;
   return new Client({ accessToken: 'secret-pat', baseURL: `https://qoder.test/api/v1/${mode === 'forward' ? 'forward' : 'cloud'}`, maxRetries: 0, fetch: async (input, init) => handler(new Request(input, init)), ...options });
 }
-export const lookup = (mode, contract) => methods[mode].find(m => m.service === contract.service && m.goMethod === (contract.name ?? contract.method));
+export const lookup = (mode, contract) => methods[mode].find(m => m.id === contract.id);
 export const resource = (client, entry) => entry.split('.').reduce((value, key) => value[key], client);
 export const headerParam = name => ({ 'Idempotency-Key': 'idempotency_key', 'Last-Event-ID': 'last_event_id', 'X-Qoder-Beta': 'x_qoder_beta', 'x-qoder-beta': 'betas' })[name] ?? name.toLowerCase().replaceAll('-', '_');
 export const parameterValue = p => p.wire_name === 'identity_ids' ? ['idn_one', 'idn_two'] : p.wire_name.endsWith('[]') ? [String(p.value), 'second-value'] : p.value;
@@ -33,13 +33,12 @@ export async function argumentsFor(mode, m, op, overrides = {}) {
     if (p.binary && p.wire_name === 'files') params[p.wire_name] = [params[p.wire_name]];
   }
   return Promise.all(m.args.map(async a => {
-    if (a.type === 'string') return pathSegment;
-    if (a.type === 'int64') return 123;
+    if (a.kind === 'path') return pathSegment;
     for (const f of a.fields ?? []) {
       if (f.location === 'path') params[f.wire] = pathSegment;
-      if (f.type.includes('io.Reader') && !params[f.wire]) {
+      if (f.binary && !params[f.wire]) {
         const file = await sdk.toFile(Buffer.from('sdk-contract'), 'skill/SKILL.md', { type: 'text/markdown' });
-        params[f.wire] = f.type.startsWith('[]') ? [file] : file;
+        params[f.wire] = f.binaryArray ? [file] : file;
       }
     }
     return { ...params, ...overrides };
@@ -51,7 +50,7 @@ export async function invoke(client, m, args, options) {
 }
 export async function assertRequest(req, mode, c, op) {
   const url = new URL(req.url);
-  const method = op?.http_method ?? c.method;
+  const method = op?.http_method ?? c.httpMethod;
   const route = op?.path ?? c.route;
   assert.equal(req.method, method);
   assert.equal(url.pathname, `/api/v1/${mode === 'forward' ? 'forward' : 'cloud'}${route.replace(/\{[^}]+\}/g, encodeURIComponent(pathSegment))}`);

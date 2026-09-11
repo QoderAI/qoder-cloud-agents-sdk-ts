@@ -29,11 +29,11 @@ async function uploadsAndPagination() {
   await managed.skills.versions.retrieve('version', { skill_id: 'skill' });
 }
 void uploadsAndPagination;
-// @ts-expect-error Go TemplateNewParams requires environment_id.
+// @ts-expect-error creating a Template requires environment_id.
 void forward.templates.create({ name: 'missing environment', model: 'ultimate' });
-// @ts-expect-error Go has no Service Account Token service.
+// @ts-expect-error there is no Service Account Token resource.
 forward.serviceAccountTokens;
-// @ts-expect-error Go Managed scope excludes webhooks.
+// @ts-expect-error the Managed scope excludes webhooks.
 managed.webhooks;
 // @ts-expect-error Model shape is a string or object, never a number.
 void managed.agents.create({ name: 'bad model', model: 123 });

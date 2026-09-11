@@ -1,0 +1,5326 @@
+{
+  "AdvisorRedactedResultBlockParam": {
+    "properties": [
+      "encrypted_content",
+      "stop_reason",
+      "type"
+    ]
+  },
+  "AdvisorResultBlockParam": {
+    "properties": [
+      "text",
+      "stop_reason",
+      "type"
+    ]
+  },
+  "AdvisorToolResultBlockParam": {
+    "properties": [
+      "content",
+      "tool_use_id",
+      "cache_control",
+      "type"
+    ]
+  },
+  "AdvisorToolResultBlockParamContentUnion": {
+    "variants": [
+      "AdvisorToolResultErrorParam",
+      "AdvisorResultBlockParam",
+      "AdvisorRedactedResultBlockParam"
+    ]
+  },
+  "AdvisorToolResultErrorParam": {
+    "properties": [
+      "error_code",
+      "type"
+    ]
+  },
+  "AgentArchiveParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "AgentGetParams": {
+    "properties": [
+      "version",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "AgentListParams": {
+    "properties": [
+      "created_at[gte]",
+      "created_at[lte]",
+      "include_archived",
+      "limit",
+      "page",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "AgentNewParams": {
+    "properties": [
+      "model",
+      "name",
+      "description",
+      "system",
+      "workspace_id",
+      "mcp_servers",
+      "metadata",
+      "multiagent",
+      "skills",
+      "tools",
+      "betas"
+    ]
+  },
+  "AgentNewParamsToolUnion": {
+    "variants": [
+      "ManagedAgentsAgentToolset20260401Params",
+      "ManagedAgentsMCPToolsetParams",
+      "ManagedAgentsCustomToolParams"
+    ]
+  },
+  "Agents": {
+    "properties": [
+      "versions"
+    ]
+  },
+  "AgentUpdateParams": {
+    "properties": [
+      "description",
+      "system",
+      "name",
+      "version",
+      "workspace_id",
+      "mcp_servers",
+      "metadata",
+      "skills",
+      "tools",
+      "model",
+      "multiagent",
+      "betas"
+    ]
+  },
+  "AgentUpdateParamsToolUnion": {
+    "variants": [
+      "ManagedAgentsAgentToolset20260401Params",
+      "ManagedAgentsMCPToolsetParams",
+      "ManagedAgentsCustomToolParams"
+    ]
+  },
+  "AgentVersionListParams": {
+    "properties": [
+      "limit",
+      "page",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "AgentsVersions": {},
+  "Base64ImageSourceParam": {
+    "properties": [
+      "data",
+      "media_type",
+      "type"
+    ]
+  },
+  "Base64PDFSourceParam": {
+    "properties": [
+      "data",
+      "media_type",
+      "type"
+    ]
+  },
+  "BashCodeExecutionOutputBlockParam": {
+    "properties": [
+      "file_id",
+      "type"
+    ]
+  },
+  "BashCodeExecutionResultBlockParam": {
+    "properties": [
+      "content",
+      "return_code",
+      "stderr",
+      "stdout",
+      "type"
+    ]
+  },
+  "BashCodeExecutionToolResultBlockParam": {
+    "properties": [
+      "content",
+      "tool_use_id",
+      "cache_control",
+      "type"
+    ]
+  },
+  "BashCodeExecutionToolResultBlockParamContentUnion": {
+    "variants": [
+      "BashCodeExecutionToolResultErrorParam",
+      "BashCodeExecutionResultBlockParam"
+    ]
+  },
+  "BashCodeExecutionToolResultErrorParam": {
+    "properties": [
+      "error_code",
+      "type"
+    ]
+  },
+  "BrowserStateBlockParam": {
+    "properties": [
+      "tabs",
+      "state_changes",
+      "cache_control",
+      "type"
+    ]
+  },
+  "BrowserStateChangeDownloadCompletedParam": {
+    "properties": [
+      "download_id",
+      "url",
+      "path",
+      "size_bytes",
+      "type"
+    ]
+  },
+  "BrowserStateChangeDownloadFailedParam": {
+    "properties": [
+      "download_id",
+      "url",
+      "error",
+      "type"
+    ]
+  },
+  "BrowserStateChangeDownloadStartedParam": {
+    "properties": [
+      "download_id",
+      "url",
+      "type"
+    ]
+  },
+  "BrowserStateChangeTabOpenedParam": {
+    "properties": [
+      "tab_id",
+      "type"
+    ]
+  },
+  "BrowserStateChangeUnionParam": {
+    "variants": [
+      "BrowserStateChangeTabOpenedParam",
+      "BrowserStateChangeDownloadStartedParam",
+      "BrowserStateChangeDownloadCompletedParam",
+      "BrowserStateChangeDownloadFailedParam"
+    ]
+  },
+  "BrowserStateTabEntryParam": {
+    "properties": [
+      "tab_id",
+      "title",
+      "url",
+      "active"
+    ]
+  },
+  "CacheControlEphemeralParam": {
+    "properties": [
+      "ttl",
+      "type"
+    ]
+  },
+  "CapabilitySupport": {
+    "properties": [
+      "supported"
+    ]
+  },
+  "CitationCharLocationParam": {
+    "properties": [
+      "document_title",
+      "cited_text",
+      "document_index",
+      "end_char_index",
+      "start_char_index",
+      "type"
+    ]
+  },
+  "CitationContentBlockLocationParam": {
+    "properties": [
+      "document_title",
+      "cited_text",
+      "document_index",
+      "end_block_index",
+      "start_block_index",
+      "type"
+    ]
+  },
+  "CitationPageLocationParam": {
+    "properties": [
+      "document_title",
+      "cited_text",
+      "document_index",
+      "end_page_number",
+      "start_page_number",
+      "type"
+    ]
+  },
+  "CitationSearchResultLocationParam": {
+    "properties": [
+      "title",
+      "cited_text",
+      "end_block_index",
+      "search_result_index",
+      "source",
+      "start_block_index",
+      "type"
+    ]
+  },
+  "CitationWebSearchResultLocationParam": {
+    "properties": [
+      "title",
+      "cited_text",
+      "encrypted_index",
+      "url",
+      "type"
+    ]
+  },
+  "CitationsConfigParam": {
+    "properties": [
+      "enabled"
+    ]
+  },
+  "CloudConfig": {
+    "properties": [
+      "networking",
+      "packages",
+      "type"
+    ]
+  },
+  "CloudConfigNetworkingUnion": {
+    "properties": [
+      "type",
+      "allow_mcp_servers",
+      "allow_package_managers",
+      "allowed_hosts"
+    ]
+  },
+  "CloudConfigParams": {
+    "properties": [
+      "networking",
+      "packages",
+      "type"
+    ]
+  },
+  "CloudConfigParamsNetworkingUnion": {
+    "variants": [
+      "UnrestrictedNetworkParam",
+      "LimitedNetworkParams"
+    ]
+  },
+  "CodeExecutionOutputBlockParam": {
+    "properties": [
+      "file_id",
+      "type"
+    ]
+  },
+  "CodeExecutionResultBlockParam": {
+    "properties": [
+      "content",
+      "return_code",
+      "stderr",
+      "stdout",
+      "type"
+    ]
+  },
+  "CodeExecutionToolResultBlockParam": {
+    "properties": [
+      "content",
+      "tool_use_id",
+      "cache_control",
+      "type"
+    ]
+  },
+  "CodeExecutionToolResultBlockParamContentUnion": {
+    "variants": [
+      "CodeExecutionToolResultErrorParam",
+      "CodeExecutionResultBlockParam",
+      "EncryptedCodeExecutionResultBlockParam"
+    ]
+  },
+  "CodeExecutionToolResultErrorParam": {
+    "properties": [
+      "error_code",
+      "type"
+    ]
+  },
+  "CompactionBlockParam": {
+    "properties": [
+      "content",
+      "encrypted_content",
+      "cache_control",
+      "type"
+    ]
+  },
+  "ContainerUploadBlockParam": {
+    "properties": [
+      "file_id",
+      "cache_control",
+      "type"
+    ]
+  },
+  "ContentBlockParamUnion": {
+    "variants": [
+      "TextBlockParam",
+      "ImageBlockParam",
+      "RequestDocumentBlockParam",
+      "SearchResultBlockParam",
+      "ThinkingBlockParam",
+      "RedactedThinkingBlockParam",
+      "ToolUseBlockParam",
+      "ToolResultBlockParam",
+      "ServerToolUseBlockParam",
+      "WebSearchToolResultBlockParam",
+      "WebFetchToolResultBlockParam",
+      "AdvisorToolResultBlockParam",
+      "CodeExecutionToolResultBlockParam",
+      "BashCodeExecutionToolResultBlockParam",
+      "TextEditorCodeExecutionToolResultBlockParam",
+      "ToolSearchToolResultBlockParam",
+      "MCPToolUseBlockParam",
+      "RequestMCPToolResultBlockParam",
+      "ContainerUploadBlockParam",
+      "CompactionBlockParam",
+      "RequestToolAdditionBlockParam",
+      "RequestToolRemovalBlockParam",
+      "FallbackBlockParam"
+    ]
+  },
+  "ContentBlockSourceContentUnionParam": {
+    "variants": [
+      "string",
+      "ContentBlockSourceContentUnionParam[]"
+    ]
+  },
+  "ContentBlockSourceParam": {
+    "properties": [
+      "content",
+      "type"
+    ]
+  },
+  "ContextManagementCapability": {
+    "properties": [
+      "clear_thinking_20251015",
+      "clear_tool_uses_20250919",
+      "compact_20260112",
+      "supported"
+    ]
+  },
+  "DeletedFile": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "DeletedSkill": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "DeletedSkillVersion": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "DeploymentArchiveParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "DeploymentGetParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "DeploymentListParams": {
+    "properties": [
+      "agent_id",
+      "created_at[gte]",
+      "created_at[lte]",
+      "include_archived",
+      "limit",
+      "page",
+      "workspace_id",
+      "status",
+      "betas"
+    ]
+  },
+  "DeploymentNewParams": {
+    "properties": [
+      "agent",
+      "environment_id",
+      "initial_events",
+      "name",
+      "description",
+      "workspace_id",
+      "budget",
+      "metadata",
+      "resources",
+      "schedule",
+      "vault_ids",
+      "betas"
+    ]
+  },
+  "DeploymentNewParamsAgentUnion": {
+    "variants": [
+      "string",
+      "ManagedAgentsAgentParams"
+    ]
+  },
+  "DeploymentNewParamsResourceUnion": {
+    "variants": [
+      "ManagedAgentsGitHubRepositoryResourceParams",
+      "ManagedAgentsFileResourceParams",
+      "ManagedAgentsMemoryStoreResourceParam"
+    ]
+  },
+  "DeploymentPauseParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "DeploymentRunGetParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "DeploymentRunListParams": {
+    "properties": [
+      "created_at[gt]",
+      "created_at[gte]",
+      "created_at[lt]",
+      "created_at[lte]",
+      "deployment_id",
+      "has_error",
+      "limit",
+      "page",
+      "workspace_id",
+      "trigger_type",
+      "betas"
+    ]
+  },
+  "DeploymentRunParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "DeploymentRuns": {},
+  "Deployments": {},
+  "DeploymentUnpauseParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "DeploymentUpdateParams": {
+    "properties": [
+      "description",
+      "environment_id",
+      "name",
+      "workspace_id",
+      "metadata",
+      "resources",
+      "vault_ids",
+      "agent",
+      "budget",
+      "initial_events",
+      "schedule",
+      "betas"
+    ]
+  },
+  "DeploymentUpdateParamsAgentUnion": {
+    "variants": [
+      "string",
+      "ManagedAgentsAgentParams"
+    ]
+  },
+  "DeploymentUpdateParamsResourceUnion": {
+    "variants": [
+      "ManagedAgentsGitHubRepositoryResourceParams",
+      "ManagedAgentsFileResourceParams",
+      "ManagedAgentsMemoryStoreResourceParam"
+    ]
+  },
+  "DirectCallerParam": {
+    "properties": [
+      "type"
+    ]
+  },
+  "Dream": {
+    "properties": [
+      "id",
+      "archived_at",
+      "created_at",
+      "ended_at",
+      "error",
+      "inputs",
+      "instructions",
+      "model",
+      "output_behavior",
+      "outputs",
+      "session_id",
+      "status",
+      "type",
+      "usage"
+    ]
+  },
+  "DreamArchiveParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "DreamCancelParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "DreamError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "DreamGetParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "DreamInputUnion": {
+    "properties": [
+      "memory_store_id",
+      "type",
+      "session_ids"
+    ]
+  },
+  "DreamInputUnionParam": {
+    "variants": [
+      "DreamMemoryStoreInputParam",
+      "DreamSessionsInputParam"
+    ]
+  },
+  "DreamListParams": {
+    "properties": [
+      "created_at[gt]",
+      "created_at[lt]",
+      "include_archived",
+      "limit",
+      "page",
+      "workspace_id",
+      "statuses",
+      "betas"
+    ]
+  },
+  "DreamMemoryStoreInput": {
+    "properties": [
+      "memory_store_id",
+      "type"
+    ]
+  },
+  "DreamMemoryStoreInputParam": {
+    "properties": [
+      "memory_store_id",
+      "type"
+    ]
+  },
+  "DreamModelConfig": {
+    "properties": [
+      "id",
+      "speed"
+    ]
+  },
+  "DreamModelConfigParam": {
+    "properties": [
+      "id",
+      "speed"
+    ]
+  },
+  "DreamNewParams": {
+    "properties": [
+      "inputs",
+      "model",
+      "instructions",
+      "workspace_id",
+      "output_behavior",
+      "betas"
+    ]
+  },
+  "DreamNewParamsModelUnion": {
+    "variants": [
+      "string",
+      "DreamModelConfigParam"
+    ]
+  },
+  "DreamOutput": {
+    "properties": [
+      "memory_store_id",
+      "type"
+    ]
+  },
+  "Dreams": {},
+  "DreamSessionsInput": {
+    "properties": [
+      "session_ids",
+      "type"
+    ]
+  },
+  "DreamSessionsInputParam": {
+    "properties": [
+      "session_ids",
+      "type"
+    ]
+  },
+  "DreamUsage": {
+    "properties": [
+      "cache_creation_input_tokens",
+      "cache_read_input_tokens",
+      "input_tokens",
+      "output_tokens"
+    ]
+  },
+  "EffortCapability": {
+    "properties": [
+      "high",
+      "low",
+      "max",
+      "medium",
+      "supported",
+      "xhigh"
+    ]
+  },
+  "EncryptedCodeExecutionResultBlockParam": {
+    "properties": [
+      "content",
+      "encrypted_stdout",
+      "return_code",
+      "stderr",
+      "type"
+    ]
+  },
+  "Environment": {
+    "properties": [
+      "id",
+      "archived_at",
+      "config",
+      "created_at",
+      "description",
+      "metadata",
+      "name",
+      "type",
+      "updated_at",
+      "scope"
+    ]
+  },
+  "EnvironmentArchiveParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "EnvironmentConfigUnion": {
+    "properties": [
+      "networking",
+      "packages",
+      "type"
+    ]
+  },
+  "EnvironmentDeleteParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "EnvironmentDeleteResponse": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "EnvironmentGetParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "EnvironmentListParams": {
+    "properties": [
+      "page",
+      "include_archived",
+      "limit",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "EnvironmentNewParams": {
+    "properties": [
+      "name",
+      "description",
+      "workspace_id",
+      "config",
+      "scope",
+      "metadata",
+      "betas"
+    ]
+  },
+  "EnvironmentNewParamsConfigUnion": {
+    "variants": [
+      "CloudConfigParams",
+      "SelfHostedConfigParams"
+    ]
+  },
+  "Environments": {
+    "properties": [
+      "work"
+    ]
+  },
+  "EnvironmentUpdateParams": {
+    "properties": [
+      "description",
+      "name",
+      "workspace_id",
+      "config",
+      "scope",
+      "metadata",
+      "betas"
+    ]
+  },
+  "EnvironmentUpdateParamsConfigUnion": {
+    "variants": [
+      "CloudConfigParams",
+      "SelfHostedConfigParams"
+    ]
+  },
+  "EnvironmentWorkAckParams": {
+    "properties": [
+      "environment_id",
+      "betas"
+    ]
+  },
+  "EnvironmentWorkGetParams": {
+    "properties": [
+      "environment_id",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "EnvironmentWorkHeartbeatParams": {
+    "properties": [
+      "environment_id",
+      "desired_ttl_seconds",
+      "expected_last_heartbeat",
+      "betas"
+    ]
+  },
+  "EnvironmentWorkListParams": {
+    "properties": [
+      "page",
+      "limit",
+      "betas"
+    ]
+  },
+  "EnvironmentWorkPollParams": {
+    "properties": [
+      "block_ms",
+      "reclaim_older_than_ms",
+      "qoder_worker_id",
+      "betas"
+    ]
+  },
+  "EnvironmentsWork": {},
+  "EnvironmentWorkStatsParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "EnvironmentWorkStopParams": {
+    "properties": [
+      "environment_id",
+      "workspace_id",
+      "betas"
+    ],
+    "flattenedBodies": [
+      "SelfHostedWorkStopRequestParam"
+    ]
+  },
+  "EnvironmentWorkUpdateParams": {
+    "properties": [
+      "environment_id",
+      "workspace_id",
+      "betas"
+    ],
+    "flattenedBodies": [
+      "SelfHostedWorkUpdateRequestParam"
+    ]
+  },
+  "FallbackBlockParam": {
+    "properties": [
+      "from",
+      "to",
+      "trigger",
+      "type"
+    ]
+  },
+  "FallbackInfoParam": {
+    "properties": [
+      "model"
+    ]
+  },
+  "FileDeleteParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "FileDocumentSourceParam": {
+    "properties": [
+      "file_id",
+      "type"
+    ]
+  },
+  "FileDownloadParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "FileGetMetadataParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "FileImageSourceParam": {
+    "properties": [
+      "file_id",
+      "type"
+    ]
+  },
+  "FileListParams": {
+    "properties": [
+      "page",
+      "limit",
+      "scope_id",
+      "workspace_id",
+      "ids",
+      "betas"
+    ]
+  },
+  "FileMetadata": {
+    "properties": [
+      "id",
+      "created_at",
+      "filename",
+      "mime_type",
+      "size_bytes",
+      "type",
+      "downloadable",
+      "expires_at",
+      "scope"
+    ]
+  },
+  "FileScope": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "Files": {},
+  "FileUploadParams": {
+    "properties": [
+      "file",
+      "expires_in_seconds",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "HealthCheckWorkData": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "ImageBlockParam": {
+    "properties": [
+      "source",
+      "cache_control",
+      "transformations",
+      "type"
+    ]
+  },
+  "ImageBlockParamSourceUnion": {
+    "variants": [
+      "Base64ImageSourceParam",
+      "URLImageSourceParam",
+      "FileImageSourceParam"
+    ]
+  },
+  "ImageTransformationsParam": {
+    "properties": [
+      "oversized_image"
+    ]
+  },
+  "LimitedNetwork": {
+    "properties": [
+      "allow_mcp_servers",
+      "allow_package_managers",
+      "allowed_hosts",
+      "type"
+    ]
+  },
+  "LimitedNetworkParams": {
+    "properties": [
+      "allow_mcp_servers",
+      "allow_package_managers",
+      "allowed_hosts",
+      "type"
+    ]
+  },
+  "MCPToolUseBlockParam": {
+    "properties": [
+      "id",
+      "input",
+      "name",
+      "server_name",
+      "cache_control",
+      "type"
+    ]
+  },
+  "ManagedAgentsAPIActor": {
+    "properties": [
+      "api_key_id",
+      "type"
+    ]
+  },
+  "ManagedAgentsActorUnion": {
+    "properties": [
+      "session_id",
+      "type",
+      "api_key_id",
+      "user_id",
+      "service_account_id"
+    ]
+  },
+  "ManagedAgentsAdvisor": {
+    "properties": [
+      "model",
+      "type"
+    ]
+  },
+  "ManagedAgentsAdvisorParams": {
+    "properties": [
+      "model",
+      "type"
+    ]
+  },
+  "ManagedAgentsAgent": {
+    "properties": [
+      "id",
+      "archived_at",
+      "created_at",
+      "description",
+      "mcp_servers",
+      "metadata",
+      "model",
+      "multiagent",
+      "name",
+      "skills",
+      "system",
+      "tools",
+      "type",
+      "updated_at",
+      "version"
+    ]
+  },
+  "ManagedAgentsAgentArchivedDeploymentPausedReasonError": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsAgentArchivedRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsAgentCustomToolUseEvent": {
+    "properties": [
+      "id",
+      "input",
+      "name",
+      "processed_at",
+      "type",
+      "session_thread_id"
+    ]
+  },
+  "ManagedAgentsAgentMCPToolResultEvent": {
+    "properties": [
+      "id",
+      "mcp_tool_use_id",
+      "processed_at",
+      "type",
+      "content",
+      "is_error"
+    ]
+  },
+  "ManagedAgentsAgentMCPToolResultEventContentUnion": {
+    "properties": [
+      "text",
+      "type",
+      "source",
+      "context",
+      "title",
+      "citations",
+      "content"
+    ]
+  },
+  "ManagedAgentsAgentMCPToolResultEventContentUnionSource": {
+    "properties": [
+      "data",
+      "media_type",
+      "type",
+      "url",
+      "file_id"
+    ],
+    "variants": [
+      "string"
+    ]
+  },
+  "ManagedAgentsAgentMCPToolUseEvent": {
+    "properties": [
+      "id",
+      "input",
+      "mcp_server_name",
+      "name",
+      "processed_at",
+      "type",
+      "evaluated_permission",
+      "session_thread_id"
+    ]
+  },
+  "ManagedAgentsAgentMessageEvent": {
+    "properties": [
+      "id",
+      "content",
+      "processed_at",
+      "type"
+    ]
+  },
+  "ManagedAgentsAgentMessageEventContentUnion": {
+    "properties": [
+      "text",
+      "type"
+    ]
+  },
+  "ManagedAgentsAgentMessagePreview": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "ManagedAgentsAgentParams": {
+    "properties": [
+      "id",
+      "type",
+      "version"
+    ]
+  },
+  "ManagedAgentsAgentReference": {
+    "properties": [
+      "id",
+      "type",
+      "version"
+    ]
+  },
+  "ManagedAgentsAgentSkillUnion": {
+    "properties": [
+      "skill_id",
+      "type",
+      "version"
+    ]
+  },
+  "ManagedAgentsAgentThinkingEvent": {
+    "properties": [
+      "id",
+      "processed_at",
+      "type"
+    ]
+  },
+  "ManagedAgentsAgentThinkingPreview": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "ManagedAgentsAgentThreadContextCompactedEvent": {
+    "properties": [
+      "id",
+      "processed_at",
+      "type"
+    ]
+  },
+  "ManagedAgentsAgentThreadMessageReceivedEvent": {
+    "properties": [
+      "id",
+      "content",
+      "from_session_thread_id",
+      "processed_at",
+      "type",
+      "from_agent_name"
+    ]
+  },
+  "ManagedAgentsAgentThreadMessageReceivedEventContentUnion": {
+    "properties": [
+      "text",
+      "type",
+      "source",
+      "context",
+      "title"
+    ]
+  },
+  "ManagedAgentsAgentThreadMessageReceivedEventContentUnionSource": {
+    "properties": [
+      "data",
+      "media_type",
+      "type",
+      "url",
+      "file_id"
+    ]
+  },
+  "ManagedAgentsAgentThreadMessageSentEvent": {
+    "properties": [
+      "id",
+      "content",
+      "processed_at",
+      "to_session_thread_id",
+      "type",
+      "to_agent_name"
+    ]
+  },
+  "ManagedAgentsAgentThreadMessageSentEventContentUnion": {
+    "properties": [
+      "text",
+      "type",
+      "source",
+      "context",
+      "title"
+    ]
+  },
+  "ManagedAgentsAgentThreadMessageSentEventContentUnionSource": {
+    "properties": [
+      "data",
+      "media_type",
+      "type",
+      "url",
+      "file_id"
+    ]
+  },
+  "ManagedAgentsAgentToolConfigParamsUnion": {
+    "variants": [
+      "ManagedAgentsBashToolConfigParams",
+      "ManagedAgentsEditToolConfigParams",
+      "ManagedAgentsReadToolConfigParams",
+      "ManagedAgentsWriteToolConfigParams",
+      "ManagedAgentsGlobToolConfigParams",
+      "ManagedAgentsGrepToolConfigParams",
+      "ManagedAgentsWebFetchToolConfigParams",
+      "ManagedAgentsWebSearchToolConfigParams"
+    ]
+  },
+  "ManagedAgentsAgentToolConfigUnion": {
+    "properties": [
+      "enabled",
+      "name",
+      "permission_policy",
+      "type",
+      "allowed_domains",
+      "blocked_domains",
+      "max_content_tokens",
+      "user_location"
+    ]
+  },
+  "ManagedAgentsAgentToolConfigUnionPermissionPolicy": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsAgentToolResultEvent": {
+    "properties": [
+      "id",
+      "processed_at",
+      "tool_use_id",
+      "type",
+      "content",
+      "is_error"
+    ]
+  },
+  "ManagedAgentsAgentToolResultEventContentUnion": {
+    "properties": [
+      "text",
+      "type",
+      "source",
+      "context",
+      "title",
+      "citations",
+      "content"
+    ]
+  },
+  "ManagedAgentsAgentToolResultEventContentUnionSource": {
+    "properties": [
+      "data",
+      "media_type",
+      "type",
+      "url",
+      "file_id"
+    ],
+    "variants": [
+      "string"
+    ]
+  },
+  "ManagedAgentsAgentToolUnion": {
+    "properties": [
+      "configs",
+      "default_config",
+      "type",
+      "mcp_server_name",
+      "description",
+      "input_schema",
+      "name"
+    ]
+  },
+  "ManagedAgentsAgentToolUnionConfigs": {
+    "variants": [
+      "ManagedAgentsAgentToolConfigUnion[]",
+      "ManagedAgentsMCPToolConfig[]"
+    ]
+  },
+  "ManagedAgentsAgentToolUnionDefaultConfig": {
+    "properties": [
+      "enabled",
+      "permission_policy"
+    ]
+  },
+  "ManagedAgentsAgentToolUnionDefaultConfigPermissionPolicy": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsAgentToolUseEvent": {
+    "properties": [
+      "id",
+      "input",
+      "name",
+      "processed_at",
+      "type",
+      "evaluated_permission",
+      "session_thread_id"
+    ]
+  },
+  "ManagedAgentsAgentToolset20260401": {
+    "properties": [
+      "configs",
+      "default_config",
+      "type"
+    ]
+  },
+  "ManagedAgentsAgentToolset20260401BashInput": {
+    "properties": [
+      "command",
+      "restart",
+      "timeout_ms"
+    ]
+  },
+  "ManagedAgentsAgentToolset20260401EditInput": {
+    "properties": [
+      "file_path",
+      "new_string",
+      "old_string",
+      "replace_all"
+    ]
+  },
+  "ManagedAgentsAgentToolset20260401GlobInput": {
+    "properties": [
+      "pattern",
+      "path"
+    ]
+  },
+  "ManagedAgentsAgentToolset20260401GrepInput": {
+    "properties": [
+      "pattern",
+      "path"
+    ]
+  },
+  "ManagedAgentsAgentToolset20260401Params": {
+    "properties": [
+      "type",
+      "configs",
+      "default_config"
+    ]
+  },
+  "ManagedAgentsAgentToolset20260401ReadInput": {
+    "properties": [
+      "file_path",
+      "view_range"
+    ]
+  },
+  "ManagedAgentsAgentToolset20260401WriteInput": {
+    "properties": [
+      "content",
+      "file_path"
+    ]
+  },
+  "ManagedAgentsAgentToolsetDefaultConfig": {
+    "properties": [
+      "enabled",
+      "permission_policy"
+    ]
+  },
+  "ManagedAgentsAgentToolsetDefaultConfigParams": {
+    "properties": [
+      "enabled",
+      "permission_policy"
+    ]
+  },
+  "ManagedAgentsAgentToolsetDefaultConfigParamsPermissionPolicyUnion": {
+    "variants": [
+      "ManagedAgentsAlwaysAllowPolicyParam",
+      "ManagedAgentsAlwaysAskPolicyParam"
+    ]
+  },
+  "ManagedAgentsAgentToolsetDefaultConfigPermissionPolicyUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsAgentWithOverridesParams": {
+    "properties": [
+      "id",
+      "type",
+      "system",
+      "version",
+      "mcp_servers",
+      "model",
+      "skills",
+      "tools"
+    ]
+  },
+  "ManagedAgentsAgentWithOverridesParamsToolUnion": {
+    "variants": [
+      "ManagedAgentsAgentToolset20260401Params",
+      "ManagedAgentsMCPToolsetParams",
+      "ManagedAgentsCustomToolParams"
+    ]
+  },
+  "ManagedAgentsAlwaysAllowPolicy": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsAlwaysAllowPolicyParam": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsAlwaysAskPolicy": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsAlwaysAskPolicyParam": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsQoderSkill": {
+    "properties": [
+      "skill_id",
+      "type",
+      "version"
+    ]
+  },
+  "ManagedAgentsQoderSkillParams": {
+    "properties": [
+      "skill_id",
+      "type",
+      "version"
+    ]
+  },
+  "ManagedAgentsBase64DocumentSource": {
+    "properties": [
+      "data",
+      "media_type",
+      "type"
+    ]
+  },
+  "ManagedAgentsBase64DocumentSourceParam": {
+    "properties": [
+      "data",
+      "media_type",
+      "type"
+    ]
+  },
+  "ManagedAgentsBase64ImageSource": {
+    "properties": [
+      "data",
+      "media_type",
+      "type"
+    ]
+  },
+  "ManagedAgentsBase64ImageSourceParam": {
+    "properties": [
+      "data",
+      "media_type",
+      "type"
+    ]
+  },
+  "ManagedAgentsBashToolConfig": {
+    "properties": [
+      "enabled",
+      "name",
+      "permission_policy",
+      "type"
+    ]
+  },
+  "ManagedAgentsBashToolConfigParams": {
+    "properties": [
+      "enabled",
+      "permission_policy",
+      "type",
+      "name"
+    ]
+  },
+  "ManagedAgentsBashToolConfigParamsPermissionPolicyUnion": {
+    "variants": [
+      "ManagedAgentsAlwaysAllowPolicyParam",
+      "ManagedAgentsAlwaysAskPolicyParam"
+    ]
+  },
+  "ManagedAgentsBashToolConfigPermissionPolicyUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsBillingError": {
+    "properties": [
+      "message",
+      "retry_status",
+      "type"
+    ]
+  },
+  "ManagedAgentsBillingErrorRetryStatusUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsBranchCheckout": {
+    "properties": [
+      "name",
+      "type"
+    ]
+  },
+  "ManagedAgentsBranchCheckoutParam": {
+    "properties": [
+      "name",
+      "type"
+    ]
+  },
+  "ManagedAgentsBudgetLimit": {
+    "properties": [
+      "max_list_cost",
+      "type"
+    ]
+  },
+  "ManagedAgentsBudgetLimitParam": {
+    "properties": [
+      "max_list_cost",
+      "type"
+    ]
+  },
+  "ManagedAgentsCacheCreationUsage": {
+    "properties": [
+      "ephemeral_1h_input_tokens",
+      "ephemeral_5m_input_tokens"
+    ]
+  },
+  "ManagedAgentsCommitCheckout": {
+    "properties": [
+      "sha",
+      "type"
+    ]
+  },
+  "ManagedAgentsCommitCheckoutParam": {
+    "properties": [
+      "sha",
+      "type"
+    ]
+  },
+  "ManagedAgentsCredential": {
+    "properties": [
+      "id",
+      "archived_at",
+      "auth",
+      "created_at",
+      "metadata",
+      "type",
+      "updated_at",
+      "vault_id",
+      "display_name"
+    ]
+  },
+  "ManagedAgentsCredentialAuthUnion": {
+    "properties": [
+      "mcp_server_url",
+      "type",
+      "expires_at",
+      "refresh",
+      "injection_location",
+      "networking",
+      "secret_name"
+    ]
+  },
+  "ManagedAgentsCredentialHostUnreachableError": {
+    "properties": [
+      "credential_id",
+      "message",
+      "retry_status",
+      "type",
+      "vault_id"
+    ]
+  },
+  "ManagedAgentsCredentialHostUnreachableErrorRetryStatusUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsCredentialNetworkingParamsUnion": {
+    "variants": [
+      "ManagedAgentsUnrestrictedCredentialNetworkingParams",
+      "ManagedAgentsLimitedCredentialNetworkingParams"
+    ]
+  },
+  "ManagedAgentsCredentialValidation": {
+    "properties": [
+      "credential_id",
+      "has_refresh_token",
+      "mcp_probe",
+      "refresh",
+      "status",
+      "type",
+      "validated_at",
+      "vault_id"
+    ]
+  },
+  "ManagedAgentsCustomSkill": {
+    "properties": [
+      "skill_id",
+      "type",
+      "version"
+    ]
+  },
+  "ManagedAgentsCustomSkillParams": {
+    "properties": [
+      "skill_id",
+      "type",
+      "version"
+    ]
+  },
+  "ManagedAgentsCustomTool": {
+    "properties": [
+      "description",
+      "input_schema",
+      "name",
+      "type"
+    ]
+  },
+  "ManagedAgentsCustomToolInputSchema": {
+    "properties": [
+      "type",
+      "properties",
+      "required",
+      "extra_fields"
+    ]
+  },
+  "ManagedAgentsCustomToolInputSchemaParam": {
+    "properties": [
+      "properties",
+      "required",
+      "type"
+    ],
+    "extensible": true
+  },
+  "ManagedAgentsCustomToolParams": {
+    "properties": [
+      "description",
+      "input_schema",
+      "name",
+      "type"
+    ]
+  },
+  "ManagedAgentsDeleteSessionResource": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "ManagedAgentsDeletedCredential": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "ManagedAgentsDeletedMemory": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "ManagedAgentsDeletedMemoryStore": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "ManagedAgentsDeletedSession": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "ManagedAgentsDeletedVault": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "ManagedAgentsDeltaContent": {
+    "properties": [
+      "content",
+      "type",
+      "index"
+    ]
+  },
+  "ManagedAgentsDeltaEvent": {
+    "properties": [
+      "delta",
+      "event_id",
+      "type"
+    ]
+  },
+  "ManagedAgentsDeployment": {
+    "properties": [
+      "id",
+      "agent",
+      "archived_at",
+      "created_at",
+      "description",
+      "environment_id",
+      "initial_events",
+      "metadata",
+      "name",
+      "paused_reason",
+      "resources",
+      "schedule",
+      "status",
+      "type",
+      "updated_at",
+      "vault_ids",
+      "budget"
+    ]
+  },
+  "ManagedAgentsDeploymentInitialEventParamsUnion": {
+    "variants": [
+      "ManagedAgentsUserMessageEventParams",
+      "ManagedAgentsUserDefineOutcomeEventParams",
+      "ManagedAgentsSystemMessageEventParams"
+    ]
+  },
+  "ManagedAgentsDeploymentInitialEventUnion": {
+    "properties": [
+      "content",
+      "type",
+      "description",
+      "rubric",
+      "max_iterations"
+    ]
+  },
+  "ManagedAgentsDeploymentInitialEventUnionContent": {
+    "variants": [
+      "ManagedAgentsDeploymentUserMessageEventContentUnion[]",
+      "ManagedAgentsSystemContentBlock[]"
+    ]
+  },
+  "ManagedAgentsDeploymentPausedReasonErrorUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsDeploymentPausedReasonUnion": {
+    "properties": [
+      "type",
+      "error"
+    ]
+  },
+  "ManagedAgentsDeploymentRun": {
+    "properties": [
+      "id",
+      "agent",
+      "created_at",
+      "deployment_id",
+      "error",
+      "session_id",
+      "trigger_context",
+      "type"
+    ]
+  },
+  "ManagedAgentsDeploymentRunErrorUnion": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsDeploymentSystemMessageEvent": {
+    "properties": [
+      "content",
+      "type"
+    ]
+  },
+  "ManagedAgentsDeploymentUserDefineOutcomeEvent": {
+    "properties": [
+      "description",
+      "rubric",
+      "type",
+      "max_iterations"
+    ]
+  },
+  "ManagedAgentsDeploymentUserDefineOutcomeEventRubricUnion": {
+    "properties": [
+      "file_id",
+      "type",
+      "content"
+    ]
+  },
+  "ManagedAgentsDeploymentUserMessageEvent": {
+    "properties": [
+      "content",
+      "type"
+    ]
+  },
+  "ManagedAgentsDeploymentUserMessageEventContentUnion": {
+    "properties": [
+      "text",
+      "type",
+      "source",
+      "context",
+      "title"
+    ]
+  },
+  "ManagedAgentsDeploymentUserMessageEventContentUnionSource": {
+    "properties": [
+      "data",
+      "media_type",
+      "type",
+      "url",
+      "file_id"
+    ]
+  },
+  "ManagedAgentsDocumentBlock": {
+    "properties": [
+      "source",
+      "type",
+      "context",
+      "title"
+    ]
+  },
+  "ManagedAgentsDocumentBlockParam": {
+    "properties": [
+      "source",
+      "type",
+      "context",
+      "title"
+    ]
+  },
+  "ManagedAgentsDocumentBlockSourceUnion": {
+    "properties": [
+      "data",
+      "media_type",
+      "type",
+      "url",
+      "file_id"
+    ]
+  },
+  "ManagedAgentsDocumentBlockSourceUnionParam": {
+    "variants": [
+      "ManagedAgentsBase64DocumentSourceParam",
+      "ManagedAgentsPlainTextDocumentSourceParam",
+      "ManagedAgentsURLDocumentSourceParam",
+      "ManagedAgentsFileDocumentSourceParam"
+    ]
+  },
+  "ManagedAgentsEditToolConfig": {
+    "properties": [
+      "enabled",
+      "name",
+      "permission_policy",
+      "type"
+    ]
+  },
+  "ManagedAgentsEditToolConfigParams": {
+    "properties": [
+      "enabled",
+      "permission_policy",
+      "type",
+      "name"
+    ]
+  },
+  "ManagedAgentsEditToolConfigParamsPermissionPolicyUnion": {
+    "variants": [
+      "ManagedAgentsAlwaysAllowPolicyParam",
+      "ManagedAgentsAlwaysAskPolicyParam"
+    ]
+  },
+  "ManagedAgentsEditToolConfigPermissionPolicyUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsEffortHigh": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsEffortHighParam": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsEffortLow": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsEffortLowParam": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsEffortMax": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsEffortMaxParam": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsEffortMedium": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsEffortMediumParam": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsEffortXhigh": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsEffortXhighParam": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsEnvironmentArchivedDeploymentPausedReasonError": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsEnvironmentArchivedRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsEnvironmentNotFoundRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsEnvironmentVariableAuthResponse": {
+    "properties": [
+      "injection_location",
+      "networking",
+      "secret_name",
+      "type"
+    ]
+  },
+  "ManagedAgentsEnvironmentVariableAuthResponseNetworkingUnion": {
+    "properties": [
+      "type",
+      "allowed_hosts"
+    ]
+  },
+  "ManagedAgentsEnvironmentVariableCreateParams": {
+    "properties": [
+      "networking",
+      "secret_name",
+      "secret_value",
+      "type",
+      "injection_location"
+    ]
+  },
+  "ManagedAgentsEnvironmentVariableUpdateParams": {
+    "properties": [
+      "type",
+      "secret_value",
+      "injection_location",
+      "networking"
+    ]
+  },
+  "ManagedAgentsErrorDeploymentPausedReason": {
+    "properties": [
+      "error",
+      "type"
+    ]
+  },
+  "ManagedAgentsEventParamsUnion": {
+    "variants": [
+      "ManagedAgentsUserMessageEventParams",
+      "ManagedAgentsUserInterruptEventParams",
+      "ManagedAgentsUserToolConfirmationEventParams",
+      "ManagedAgentsUserCustomToolResultEventParams",
+      "ManagedAgentsUserDefineOutcomeEventParams",
+      "ManagedAgentsUserToolResultEventParams",
+      "ManagedAgentsSystemMessageEventParams"
+    ]
+  },
+  "ManagedAgentsFileDocumentSource": {
+    "properties": [
+      "file_id",
+      "type"
+    ]
+  },
+  "ManagedAgentsFileDocumentSourceParam": {
+    "properties": [
+      "file_id",
+      "type"
+    ]
+  },
+  "ManagedAgentsFileImageSource": {
+    "properties": [
+      "file_id",
+      "type"
+    ]
+  },
+  "ManagedAgentsFileImageSourceParam": {
+    "properties": [
+      "file_id",
+      "type"
+    ]
+  },
+  "ManagedAgentsFileNotFoundDeploymentPausedReasonError": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsFileNotFoundRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsFileResource": {
+    "properties": [
+      "id",
+      "created_at",
+      "file_id",
+      "mount_path",
+      "type",
+      "updated_at"
+    ]
+  },
+  "ManagedAgentsFileResourceConfig": {
+    "properties": [
+      "file_id",
+      "type",
+      "mount_path"
+    ]
+  },
+  "ManagedAgentsFileResourceParams": {
+    "properties": [
+      "file_id",
+      "type",
+      "mount_path"
+    ]
+  },
+  "ManagedAgentsFileRubric": {
+    "properties": [
+      "file_id",
+      "type"
+    ]
+  },
+  "ManagedAgentsFileRubricParams": {
+    "properties": [
+      "file_id",
+      "type"
+    ]
+  },
+  "ManagedAgentsGitHubRepositoryResource": {
+    "properties": [
+      "id",
+      "created_at",
+      "mount_path",
+      "type",
+      "updated_at",
+      "url",
+      "checkout"
+    ]
+  },
+  "ManagedAgentsGitHubRepositoryResourceCheckoutUnion": {
+    "properties": [
+      "name",
+      "type",
+      "sha"
+    ]
+  },
+  "ManagedAgentsGitHubRepositoryResourceConfig": {
+    "properties": [
+      "type",
+      "url",
+      "checkout",
+      "mount_path"
+    ]
+  },
+  "ManagedAgentsGitHubRepositoryResourceConfigCheckoutUnion": {
+    "properties": [
+      "name",
+      "type",
+      "sha"
+    ]
+  },
+  "ManagedAgentsGitHubRepositoryResourceParams": {
+    "properties": [
+      "authorization_token",
+      "type",
+      "url",
+      "mount_path",
+      "checkout"
+    ]
+  },
+  "ManagedAgentsGitHubRepositoryResourceParamsCheckoutUnion": {
+    "variants": [
+      "ManagedAgentsBranchCheckoutParam",
+      "ManagedAgentsCommitCheckoutParam"
+    ]
+  },
+  "ManagedAgentsGlobToolConfig": {
+    "properties": [
+      "enabled",
+      "name",
+      "permission_policy",
+      "type"
+    ]
+  },
+  "ManagedAgentsGlobToolConfigParams": {
+    "properties": [
+      "enabled",
+      "permission_policy",
+      "type",
+      "name"
+    ]
+  },
+  "ManagedAgentsGlobToolConfigParamsPermissionPolicyUnion": {
+    "variants": [
+      "ManagedAgentsAlwaysAllowPolicyParam",
+      "ManagedAgentsAlwaysAskPolicyParam"
+    ]
+  },
+  "ManagedAgentsGlobToolConfigPermissionPolicyUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsGrepToolConfig": {
+    "properties": [
+      "enabled",
+      "name",
+      "permission_policy",
+      "type"
+    ]
+  },
+  "ManagedAgentsGrepToolConfigParams": {
+    "properties": [
+      "enabled",
+      "permission_policy",
+      "type",
+      "name"
+    ]
+  },
+  "ManagedAgentsGrepToolConfigParamsPermissionPolicyUnion": {
+    "variants": [
+      "ManagedAgentsAlwaysAllowPolicyParam",
+      "ManagedAgentsAlwaysAskPolicyParam"
+    ]
+  },
+  "ManagedAgentsGrepToolConfigPermissionPolicyUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsImageBlock": {
+    "properties": [
+      "source",
+      "type"
+    ]
+  },
+  "ManagedAgentsImageBlockParam": {
+    "properties": [
+      "source",
+      "type"
+    ]
+  },
+  "ManagedAgentsImageBlockSourceUnion": {
+    "properties": [
+      "data",
+      "media_type",
+      "type",
+      "url",
+      "file_id"
+    ]
+  },
+  "ManagedAgentsImageBlockSourceUnionParam": {
+    "variants": [
+      "ManagedAgentsBase64ImageSourceParam",
+      "ManagedAgentsURLImageSourceParam",
+      "ManagedAgentsFileImageSourceParam"
+    ]
+  },
+  "ManagedAgentsInjectionLocationParams": {
+    "properties": [
+      "body",
+      "header"
+    ]
+  },
+  "ManagedAgentsInjectionLocationResponse": {
+    "properties": [
+      "body",
+      "header"
+    ]
+  },
+  "ManagedAgentsInjectionLocationUpdateParams": {
+    "properties": [
+      "body",
+      "header"
+    ]
+  },
+  "ManagedAgentsLimitedCredentialNetworkingParams": {
+    "properties": [
+      "allowed_hosts",
+      "type"
+    ]
+  },
+  "ManagedAgentsLimitedCredentialNetworkingResponse": {
+    "properties": [
+      "allowed_hosts",
+      "type"
+    ]
+  },
+  "ManagedAgentsMCPAuthenticationFailedError": {
+    "properties": [
+      "mcp_server_name",
+      "message",
+      "retry_status",
+      "type"
+    ]
+  },
+  "ManagedAgentsMCPAuthenticationFailedErrorRetryStatusUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsMCPConnectionFailedError": {
+    "properties": [
+      "mcp_server_name",
+      "message",
+      "retry_status",
+      "type"
+    ]
+  },
+  "ManagedAgentsMCPConnectionFailedErrorRetryStatusUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsMCPEgressBlockedDeploymentPausedReasonError": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsMCPEgressBlockedRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsMCPOAuthAuthResponse": {
+    "properties": [
+      "mcp_server_url",
+      "type",
+      "expires_at",
+      "refresh"
+    ]
+  },
+  "ManagedAgentsMCPOAuthCreateParams": {
+    "properties": [
+      "access_token",
+      "mcp_server_url",
+      "type",
+      "expires_at",
+      "refresh"
+    ]
+  },
+  "ManagedAgentsMCPOAuthRefreshParams": {
+    "properties": [
+      "client_id",
+      "refresh_token",
+      "token_endpoint",
+      "token_endpoint_auth",
+      "resource",
+      "scope"
+    ]
+  },
+  "ManagedAgentsMCPOAuthRefreshParamsTokenEndpointAuthUnion": {
+    "variants": [
+      "ManagedAgentsTokenEndpointAuthNoneParam",
+      "ManagedAgentsTokenEndpointAuthBasicParam",
+      "ManagedAgentsTokenEndpointAuthPostParam"
+    ]
+  },
+  "ManagedAgentsMCPOAuthRefreshResponse": {
+    "properties": [
+      "client_id",
+      "token_endpoint",
+      "token_endpoint_auth",
+      "resource",
+      "scope"
+    ]
+  },
+  "ManagedAgentsMCPOAuthRefreshResponseTokenEndpointAuthUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsMCPOAuthRefreshUpdateParams": {
+    "properties": [
+      "refresh_token",
+      "scope",
+      "token_endpoint_auth"
+    ]
+  },
+  "ManagedAgentsMCPOAuthRefreshUpdateParamsTokenEndpointAuthUnion": {
+    "variants": [
+      "ManagedAgentsTokenEndpointAuthBasicUpdateParam",
+      "ManagedAgentsTokenEndpointAuthPostUpdateParam"
+    ]
+  },
+  "ManagedAgentsMCPOAuthUpdateParams": {
+    "properties": [
+      "type",
+      "access_token",
+      "expires_at",
+      "refresh"
+    ]
+  },
+  "ManagedAgentsMCPProbe": {
+    "properties": [
+      "http_response",
+      "method"
+    ]
+  },
+  "ManagedAgentsMCPServerURLDefinition": {
+    "properties": [
+      "name",
+      "type",
+      "url"
+    ]
+  },
+  "ManagedAgentsMCPToolConfig": {
+    "properties": [
+      "enabled",
+      "name",
+      "permission_policy"
+    ]
+  },
+  "ManagedAgentsMCPToolConfigParams": {
+    "properties": [
+      "name",
+      "enabled",
+      "permission_policy"
+    ]
+  },
+  "ManagedAgentsMCPToolConfigParamsPermissionPolicyUnion": {
+    "variants": [
+      "ManagedAgentsAlwaysAllowPolicyParam",
+      "ManagedAgentsAlwaysAskPolicyParam"
+    ]
+  },
+  "ManagedAgentsMCPToolConfigPermissionPolicyUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsMCPToolset": {
+    "properties": [
+      "configs",
+      "default_config",
+      "mcp_server_name",
+      "type"
+    ]
+  },
+  "ManagedAgentsMCPToolsetDefaultConfig": {
+    "properties": [
+      "enabled",
+      "permission_policy"
+    ]
+  },
+  "ManagedAgentsMCPToolsetDefaultConfigParams": {
+    "properties": [
+      "enabled",
+      "permission_policy"
+    ]
+  },
+  "ManagedAgentsMCPToolsetDefaultConfigParamsPermissionPolicyUnion": {
+    "variants": [
+      "ManagedAgentsAlwaysAllowPolicyParam",
+      "ManagedAgentsAlwaysAskPolicyParam"
+    ]
+  },
+  "ManagedAgentsMCPToolsetDefaultConfigPermissionPolicyUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsMCPToolsetParams": {
+    "properties": [
+      "mcp_server_name",
+      "type",
+      "configs",
+      "default_config"
+    ]
+  },
+  "ManagedAgentsManualDeploymentPausedReason": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsManualTriggerContext": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsMemory": {
+    "properties": [
+      "id",
+      "content_sha256",
+      "content_size_bytes",
+      "created_at",
+      "memory_store_id",
+      "memory_version_id",
+      "path",
+      "type",
+      "updated_at",
+      "content"
+    ]
+  },
+  "ManagedAgentsMemoryListItemUnion": {
+    "properties": [
+      "id",
+      "content_sha256",
+      "content_size_bytes",
+      "created_at",
+      "memory_store_id",
+      "memory_version_id",
+      "path",
+      "type",
+      "updated_at",
+      "content"
+    ]
+  },
+  "ManagedAgentsMemoryPrefix": {
+    "properties": [
+      "path",
+      "type"
+    ]
+  },
+  "ManagedAgentsMemoryStore": {
+    "properties": [
+      "id",
+      "created_at",
+      "name",
+      "type",
+      "updated_at",
+      "archived_at",
+      "description",
+      "metadata"
+    ]
+  },
+  "ManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsMemoryStoreArchivedRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsMemoryStoreResource": {
+    "properties": [
+      "memory_store_id",
+      "type",
+      "access",
+      "description",
+      "instructions",
+      "mount_path",
+      "name"
+    ]
+  },
+  "ManagedAgentsMemoryStoreResourceConfig": {
+    "properties": [
+      "memory_store_id",
+      "type",
+      "access",
+      "instructions"
+    ]
+  },
+  "ManagedAgentsMemoryStoreResourceParam": {
+    "properties": [
+      "memory_store_id",
+      "type",
+      "instructions",
+      "access"
+    ]
+  },
+  "ManagedAgentsMemoryVersion": {
+    "properties": [
+      "id",
+      "created_at",
+      "memory_id",
+      "memory_store_id",
+      "operation",
+      "type",
+      "content",
+      "content_sha256",
+      "content_size_bytes",
+      "created_by",
+      "path",
+      "redacted_at",
+      "redacted_by"
+    ]
+  },
+  "ManagedAgentsModelConfig": {
+    "properties": [
+      "id",
+      "effort",
+      "inference_geo",
+      "speed"
+    ]
+  },
+  "ManagedAgentsModelConfigEffortUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsModelConfigParams": {
+    "properties": [
+      "id",
+      "inference_geo",
+      "effort",
+      "speed"
+    ]
+  },
+  "ManagedAgentsModelConfigParamsEffortUnion": {
+    "variants": [
+      "string",
+      "ManagedAgentsEffortLowParam",
+      "ManagedAgentsEffortMediumParam",
+      "ManagedAgentsEffortHighParam",
+      "ManagedAgentsEffortXhighParam",
+      "ManagedAgentsEffortMaxParam"
+    ]
+  },
+  "ManagedAgentsModelOverloadedError": {
+    "properties": [
+      "message",
+      "retry_status",
+      "type"
+    ]
+  },
+  "ManagedAgentsModelOverloadedErrorRetryStatusUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsModelRateLimitedError": {
+    "properties": [
+      "message",
+      "retry_status",
+      "type"
+    ]
+  },
+  "ManagedAgentsModelRateLimitedErrorRetryStatusUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsModelRequestFailedError": {
+    "properties": [
+      "message",
+      "retry_status",
+      "type"
+    ]
+  },
+  "ManagedAgentsModelRequestFailedErrorRetryStatusUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsMultiagent": {
+    "properties": [
+      "agents",
+      "type"
+    ]
+  },
+  "ManagedAgentsMultiagentAgentUnion": {
+    "properties": [
+      "id",
+      "type",
+      "version",
+      "model"
+    ]
+  },
+  "ManagedAgentsMultiagentParams": {
+    "properties": [
+      "agents",
+      "type"
+    ]
+  },
+  "ManagedAgentsMultiagentRosterEntryParamsUnion": {
+    "variants": [
+      "string",
+      "ManagedAgentsAgentParams",
+      "ManagedAgentsMultiagentSelfParams",
+      "ManagedAgentsAdvisorParams"
+    ]
+  },
+  "ManagedAgentsMultiagentSelfParams": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsOrganizationDisabledDeploymentPausedReasonError": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsOrganizationDisabledRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsOutcomeEvaluationResource": {
+    "properties": [
+      "completed_at",
+      "description",
+      "explanation",
+      "iteration",
+      "outcome_id",
+      "result",
+      "type"
+    ]
+  },
+  "ManagedAgentsPlainTextDocumentSource": {
+    "properties": [
+      "data",
+      "media_type",
+      "type"
+    ]
+  },
+  "ManagedAgentsPlainTextDocumentSourceParam": {
+    "properties": [
+      "data",
+      "media_type",
+      "type"
+    ]
+  },
+  "ManagedAgentsPreconditionParam": {
+    "properties": [
+      "type",
+      "content_sha256"
+    ]
+  },
+  "ManagedAgentsReadToolConfig": {
+    "properties": [
+      "enabled",
+      "name",
+      "permission_policy",
+      "type"
+    ]
+  },
+  "ManagedAgentsReadToolConfigParams": {
+    "properties": [
+      "enabled",
+      "permission_policy",
+      "type",
+      "name"
+    ]
+  },
+  "ManagedAgentsReadToolConfigParamsPermissionPolicyUnion": {
+    "variants": [
+      "ManagedAgentsAlwaysAllowPolicyParam",
+      "ManagedAgentsAlwaysAskPolicyParam"
+    ]
+  },
+  "ManagedAgentsReadToolConfigPermissionPolicyUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsRedactedBlock": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsRedactedBlockParam": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsRefreshHTTPResponse": {
+    "properties": [
+      "body",
+      "body_truncated",
+      "content_type",
+      "status_code"
+    ]
+  },
+  "ManagedAgentsRefreshObject": {
+    "properties": [
+      "http_response",
+      "status"
+    ]
+  },
+  "ManagedAgentsRetryStatusExhausted": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsRetryStatusRetrying": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsRetryStatusTerminal": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsSchedule": {
+    "properties": [
+      "expression",
+      "timezone",
+      "type",
+      "last_run_at",
+      "upcoming_runs_at"
+    ]
+  },
+  "ManagedAgentsScheduleParams": {
+    "properties": [
+      "expression",
+      "timezone",
+      "type"
+    ]
+  },
+  "ManagedAgentsScheduleTriggerContext": {
+    "properties": [
+      "scheduled_at",
+      "type"
+    ]
+  },
+  "ManagedAgentsSearchResultBlock": {
+    "properties": [
+      "citations",
+      "content",
+      "source",
+      "title",
+      "type"
+    ]
+  },
+  "ManagedAgentsSearchResultBlockParam": {
+    "properties": [
+      "citations",
+      "content",
+      "source",
+      "title",
+      "type"
+    ]
+  },
+  "ManagedAgentsSearchResultCitations": {
+    "properties": [
+      "enabled"
+    ]
+  },
+  "ManagedAgentsSearchResultCitationsParam": {
+    "properties": [
+      "enabled"
+    ]
+  },
+  "ManagedAgentsSearchResultContent": {
+    "properties": [
+      "text",
+      "type"
+    ]
+  },
+  "ManagedAgentsSearchResultContentParam": {
+    "properties": [
+      "text",
+      "type"
+    ]
+  },
+  "ManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsSelfHostedResourcesUnsupportedRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsSendSessionEvents": {
+    "properties": [
+      "data"
+    ]
+  },
+  "ManagedAgentsSendSessionEventsDataUnion": {
+    "properties": [
+      "id",
+      "content",
+      "type",
+      "processed_at",
+      "session_thread_id",
+      "result",
+      "tool_use_id",
+      "deny_message",
+      "custom_tool_use_id",
+      "is_error",
+      "description",
+      "max_iterations",
+      "outcome_id",
+      "rubric"
+    ]
+  },
+  "ManagedAgentsSendSessionEventsDataUnionContent": {
+    "variants": [
+      "ManagedAgentsUserMessageEventContentUnion[]",
+      "ManagedAgentsUserCustomToolResultEventContentUnion[]",
+      "ManagedAgentsUserToolResultEventContentUnion[]",
+      "ManagedAgentsSystemContentBlock[]"
+    ]
+  },
+  "ManagedAgentsServerToolUsage": {
+    "properties": [
+      "web_fetch_requests",
+      "web_search_requests"
+    ]
+  },
+  "ManagedAgentsServiceAccountActor": {
+    "properties": [
+      "service_account_id",
+      "type"
+    ]
+  },
+  "ManagedAgentsSession": {
+    "properties": [
+      "id",
+      "agent",
+      "archived_at",
+      "budget",
+      "created_at",
+      "environment_id",
+      "metadata",
+      "outcome_evaluations",
+      "resources",
+      "stats",
+      "status",
+      "title",
+      "type",
+      "updated_at",
+      "usage",
+      "vault_ids",
+      "deployment_id"
+    ]
+  },
+  "ManagedAgentsSessionActor": {
+    "properties": [
+      "session_id",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionAgent": {
+    "properties": [
+      "id",
+      "description",
+      "mcp_servers",
+      "model",
+      "multiagent",
+      "name",
+      "skills",
+      "system",
+      "tools",
+      "type",
+      "version"
+    ]
+  },
+  "ManagedAgentsSessionAgentSkillUnion": {
+    "properties": [
+      "skill_id",
+      "type",
+      "version"
+    ]
+  },
+  "ManagedAgentsSessionAgentToolUnion": {
+    "properties": [
+      "configs",
+      "default_config",
+      "type",
+      "mcp_server_name",
+      "description",
+      "input_schema",
+      "name"
+    ]
+  },
+  "ManagedAgentsSessionAgentToolUnionConfigs": {
+    "variants": [
+      "ManagedAgentsAgentToolConfigUnion[]",
+      "ManagedAgentsMCPToolConfig[]"
+    ]
+  },
+  "ManagedAgentsSessionAgentToolUnionDefaultConfig": {
+    "properties": [
+      "enabled",
+      "permission_policy"
+    ]
+  },
+  "ManagedAgentsSessionAgentToolUnionDefaultConfigPermissionPolicy": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionAgentUpdateParam": {
+    "properties": [
+      "mcp_servers",
+      "tools"
+    ]
+  },
+  "ManagedAgentsSessionAgentUpdateToolUnionParam": {
+    "variants": [
+      "ManagedAgentsAgentToolset20260401Params",
+      "ManagedAgentsMCPToolsetParams",
+      "ManagedAgentsCustomToolParams"
+    ]
+  },
+  "ManagedAgentsSessionBudgetReached": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionCreationRejectedRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionDeletedEvent": {
+    "properties": [
+      "id",
+      "processed_at",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionEndTurn": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionErrorEvent": {
+    "properties": [
+      "id",
+      "error",
+      "processed_at",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionErrorEventErrorUnion": {
+    "properties": [
+      "message",
+      "retry_status",
+      "type",
+      "mcp_server_name",
+      "credential_id",
+      "vault_id"
+    ]
+  },
+  "ManagedAgentsSessionErrorEventErrorUnionRetryStatus": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionEventUnion": {
+    "properties": [
+      "id",
+      "content",
+      "type",
+      "processed_at",
+      "session_thread_id",
+      "result",
+      "tool_use_id",
+      "deny_message",
+      "custom_tool_use_id",
+      "is_error",
+      "input",
+      "name",
+      "mcp_server_name",
+      "evaluated_permission",
+      "mcp_tool_use_id",
+      "from_session_thread_id",
+      "from_agent_name",
+      "to_session_thread_id",
+      "to_agent_name",
+      "error",
+      "stop_reason",
+      "agent_name",
+      "iteration",
+      "outcome_id",
+      "explanation",
+      "outcome_evaluation_start_id",
+      "usage",
+      "model_request_start_id",
+      "model_usage",
+      "description",
+      "max_iterations",
+      "rubric",
+      "agent",
+      "budget",
+      "metadata",
+      "title"
+    ]
+  },
+  "ManagedAgentsSessionEventUnionContent": {
+    "variants": [
+      "ManagedAgentsUserMessageEventContentUnion[]",
+      "ManagedAgentsUserCustomToolResultEventContentUnion[]",
+      "ManagedAgentsAgentMessageEventContentUnion[]",
+      "ManagedAgentsAgentMCPToolResultEventContentUnion[]",
+      "ManagedAgentsAgentToolResultEventContentUnion[]",
+      "ManagedAgentsAgentThreadMessageReceivedEventContentUnion[]",
+      "ManagedAgentsAgentThreadMessageSentEventContentUnion[]",
+      "ManagedAgentsUserToolResultEventContentUnion[]",
+      "ManagedAgentsSystemContentBlock[]"
+    ]
+  },
+  "ManagedAgentsSessionEventUnionStopReason": {
+    "properties": [
+      "type",
+      "event_ids"
+    ]
+  },
+  "ManagedAgentsSessionEventUnionUsage": {
+    "properties": [
+      "cache_creation_input_tokens",
+      "cache_read_input_tokens",
+      "input_tokens",
+      "output_tokens",
+      "speed",
+      "active_seconds",
+      "cache_creation",
+      "list_cost",
+      "server_tool_use"
+    ]
+  },
+  "ManagedAgentsSessionMultiagentCoordinator": {
+    "properties": [
+      "agents",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionMultiagentCoordinatorAgentUnion": {
+    "properties": [
+      "id",
+      "description",
+      "mcp_servers",
+      "model",
+      "name",
+      "skills",
+      "system",
+      "tools",
+      "type",
+      "version"
+    ]
+  },
+  "ManagedAgentsSessionMultiagentCoordinatorAgentUnionModel": {
+    "properties": [
+      "id",
+      "effort",
+      "inference_geo",
+      "speed"
+    ],
+    "variants": [
+      "string"
+    ]
+  },
+  "ManagedAgentsSessionRateLimitedRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionRequiresAction": {
+    "properties": [
+      "event_ids",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionResourceConfigUnion": {
+    "properties": [
+      "type",
+      "url",
+      "checkout",
+      "mount_path",
+      "file_id",
+      "memory_store_id",
+      "access",
+      "instructions"
+    ]
+  },
+  "ManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionResourceNotFoundRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionResourceUnion": {
+    "properties": [
+      "id",
+      "created_at",
+      "mount_path",
+      "type",
+      "updated_at",
+      "url",
+      "checkout",
+      "file_id",
+      "memory_store_id",
+      "access",
+      "description",
+      "instructions",
+      "name"
+    ]
+  },
+  "ManagedAgentsSessionRetriesExhausted": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionStats": {
+    "properties": [
+      "active_seconds",
+      "duration_seconds"
+    ]
+  },
+  "ManagedAgentsSessionStatusIdleEvent": {
+    "properties": [
+      "id",
+      "processed_at",
+      "stop_reason",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionStatusIdleEventStopReasonUnion": {
+    "properties": [
+      "type",
+      "event_ids"
+    ]
+  },
+  "ManagedAgentsSessionStatusRescheduledEvent": {
+    "properties": [
+      "id",
+      "processed_at",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionStatusRunningEvent": {
+    "properties": [
+      "id",
+      "processed_at",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionStatusTerminatedEvent": {
+    "properties": [
+      "id",
+      "processed_at",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionThread": {
+    "properties": [
+      "id",
+      "agent",
+      "archived_at",
+      "created_at",
+      "parent_thread_id",
+      "session_id",
+      "stats",
+      "status",
+      "type",
+      "updated_at",
+      "usage"
+    ]
+  },
+  "ManagedAgentsSessionThreadAgent": {
+    "properties": [
+      "id",
+      "description",
+      "mcp_servers",
+      "model",
+      "name",
+      "skills",
+      "system",
+      "tools",
+      "type",
+      "version"
+    ]
+  },
+  "ManagedAgentsSessionThreadAgentSkillUnion": {
+    "properties": [
+      "skill_id",
+      "type",
+      "version"
+    ]
+  },
+  "ManagedAgentsSessionThreadAgentToolUnion": {
+    "properties": [
+      "configs",
+      "default_config",
+      "type",
+      "mcp_server_name",
+      "description",
+      "input_schema",
+      "name"
+    ]
+  },
+  "ManagedAgentsSessionThreadAgentToolUnionConfigs": {
+    "variants": [
+      "ManagedAgentsAgentToolConfigUnion[]",
+      "ManagedAgentsMCPToolConfig[]"
+    ]
+  },
+  "ManagedAgentsSessionThreadAgentToolUnionDefaultConfig": {
+    "properties": [
+      "enabled",
+      "permission_policy"
+    ]
+  },
+  "ManagedAgentsSessionThreadAgentToolUnionDefaultConfigPermissionPolicy": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionThreadAgentUnion": {
+    "properties": [
+      "id",
+      "description",
+      "mcp_servers",
+      "model",
+      "name",
+      "skills",
+      "system",
+      "tools",
+      "type",
+      "version"
+    ]
+  },
+  "ManagedAgentsSessionThreadAgentUnionModel": {
+    "properties": [
+      "id",
+      "effort",
+      "inference_geo",
+      "speed"
+    ],
+    "variants": [
+      "string"
+    ]
+  },
+  "ManagedAgentsSessionThreadCreatedEvent": {
+    "properties": [
+      "id",
+      "agent_name",
+      "processed_at",
+      "session_thread_id",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionThreadStats": {
+    "properties": [
+      "active_seconds",
+      "duration_seconds",
+      "startup_seconds"
+    ]
+  },
+  "ManagedAgentsSessionThreadStatusIdleEvent": {
+    "properties": [
+      "id",
+      "agent_name",
+      "processed_at",
+      "session_thread_id",
+      "stop_reason",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionThreadStatusIdleEventStopReasonUnion": {
+    "properties": [
+      "type",
+      "event_ids"
+    ]
+  },
+  "ManagedAgentsSessionThreadStatusRescheduledEvent": {
+    "properties": [
+      "id",
+      "agent_name",
+      "processed_at",
+      "session_thread_id",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionThreadStatusRunningEvent": {
+    "properties": [
+      "id",
+      "agent_name",
+      "processed_at",
+      "session_thread_id",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionThreadStatusTerminatedEvent": {
+    "properties": [
+      "id",
+      "agent_name",
+      "processed_at",
+      "session_thread_id",
+      "type"
+    ]
+  },
+  "ManagedAgentsSessionThreadUsage": {
+    "properties": [
+      "active_seconds",
+      "cache_creation",
+      "cache_read_input_tokens",
+      "input_tokens",
+      "list_cost",
+      "output_tokens",
+      "server_tool_use"
+    ]
+  },
+  "ManagedAgentsSessionUpdatedEvent": {
+    "properties": [
+      "id",
+      "processed_at",
+      "type",
+      "agent",
+      "budget",
+      "metadata",
+      "title"
+    ]
+  },
+  "ManagedAgentsSessionUsage": {
+    "properties": [
+      "active_seconds",
+      "cache_creation",
+      "cache_read_input_tokens",
+      "input_tokens",
+      "list_cost",
+      "output_tokens",
+      "server_tool_use"
+    ]
+  },
+  "ManagedAgentsSessionUsageEvent": {
+    "properties": [
+      "id",
+      "processed_at",
+      "type",
+      "usage",
+      "budget"
+    ]
+  },
+  "ManagedAgentsSessionUsageSnapshot": {
+    "properties": [
+      "active_seconds",
+      "cache_creation",
+      "cache_read_input_tokens",
+      "input_tokens",
+      "list_cost",
+      "output_tokens",
+      "server_tool_use"
+    ]
+  },
+  "ManagedAgentsSkillNotFoundDeploymentPausedReasonError": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsSkillNotFoundRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsSkillParamsUnion": {
+    "variants": [
+      "ManagedAgentsQoderSkillParams",
+      "ManagedAgentsCustomSkillParams"
+    ]
+  },
+  "ManagedAgentsSpanModelRequestEndEvent": {
+    "properties": [
+      "id",
+      "is_error",
+      "model_request_start_id",
+      "model_usage",
+      "processed_at",
+      "type"
+    ]
+  },
+  "ManagedAgentsSpanModelRequestStartEvent": {
+    "properties": [
+      "id",
+      "processed_at",
+      "type"
+    ]
+  },
+  "ManagedAgentsSpanModelUsage": {
+    "properties": [
+      "cache_creation_input_tokens",
+      "cache_read_input_tokens",
+      "input_tokens",
+      "output_tokens",
+      "speed"
+    ]
+  },
+  "ManagedAgentsSpanOutcomeEvaluationEndEvent": {
+    "properties": [
+      "id",
+      "explanation",
+      "iteration",
+      "outcome_evaluation_start_id",
+      "outcome_id",
+      "processed_at",
+      "result",
+      "type",
+      "usage"
+    ]
+  },
+  "ManagedAgentsSpanOutcomeEvaluationOngoingEvent": {
+    "properties": [
+      "id",
+      "iteration",
+      "outcome_id",
+      "processed_at",
+      "type"
+    ]
+  },
+  "ManagedAgentsSpanOutcomeEvaluationStartEvent": {
+    "properties": [
+      "id",
+      "iteration",
+      "outcome_id",
+      "processed_at",
+      "type"
+    ]
+  },
+  "ManagedAgentsStartEvent": {
+    "properties": [
+      "event",
+      "type"
+    ]
+  },
+  "ManagedAgentsStartEventPreviewUnion": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "ManagedAgentsStaticBearerAuthResponse": {
+    "properties": [
+      "mcp_server_url",
+      "type"
+    ]
+  },
+  "ManagedAgentsStaticBearerCreateParams": {
+    "properties": [
+      "token",
+      "mcp_server_url",
+      "type"
+    ]
+  },
+  "ManagedAgentsStaticBearerUpdateParams": {
+    "properties": [
+      "type",
+      "token"
+    ]
+  },
+  "ManagedAgentsStreamSessionEventsUnion": {
+    "properties": [
+      "id",
+      "content",
+      "type",
+      "processed_at",
+      "session_thread_id",
+      "result",
+      "tool_use_id",
+      "deny_message",
+      "custom_tool_use_id",
+      "is_error",
+      "input",
+      "name",
+      "mcp_server_name",
+      "evaluated_permission",
+      "mcp_tool_use_id",
+      "from_session_thread_id",
+      "from_agent_name",
+      "to_session_thread_id",
+      "to_agent_name",
+      "error",
+      "stop_reason",
+      "agent_name",
+      "iteration",
+      "outcome_id",
+      "explanation",
+      "outcome_evaluation_start_id",
+      "usage",
+      "model_request_start_id",
+      "model_usage",
+      "description",
+      "max_iterations",
+      "rubric",
+      "agent",
+      "budget",
+      "metadata",
+      "title",
+      "event",
+      "delta",
+      "event_id"
+    ]
+  },
+  "ManagedAgentsStreamSessionEventsUnionContent": {
+    "variants": [
+      "ManagedAgentsUserMessageEventContentUnion[]",
+      "ManagedAgentsUserCustomToolResultEventContentUnion[]",
+      "ManagedAgentsAgentMessageEventContentUnion[]",
+      "ManagedAgentsAgentMCPToolResultEventContentUnion[]",
+      "ManagedAgentsAgentToolResultEventContentUnion[]",
+      "ManagedAgentsAgentThreadMessageReceivedEventContentUnion[]",
+      "ManagedAgentsAgentThreadMessageSentEventContentUnion[]",
+      "ManagedAgentsUserToolResultEventContentUnion[]",
+      "ManagedAgentsSystemContentBlock[]"
+    ]
+  },
+  "ManagedAgentsStreamSessionEventsUnionStopReason": {
+    "properties": [
+      "type",
+      "event_ids"
+    ]
+  },
+  "ManagedAgentsStreamSessionEventsUnionUsage": {
+    "properties": [
+      "cache_creation_input_tokens",
+      "cache_read_input_tokens",
+      "input_tokens",
+      "output_tokens",
+      "speed",
+      "active_seconds",
+      "cache_creation",
+      "list_cost",
+      "server_tool_use"
+    ]
+  },
+  "ManagedAgentsStreamSessionThreadEventsUnion": {
+    "properties": [
+      "id",
+      "content",
+      "type",
+      "processed_at",
+      "session_thread_id",
+      "result",
+      "tool_use_id",
+      "deny_message",
+      "custom_tool_use_id",
+      "is_error",
+      "input",
+      "name",
+      "mcp_server_name",
+      "evaluated_permission",
+      "mcp_tool_use_id",
+      "from_session_thread_id",
+      "from_agent_name",
+      "to_session_thread_id",
+      "to_agent_name",
+      "error",
+      "stop_reason",
+      "agent_name",
+      "iteration",
+      "outcome_id",
+      "explanation",
+      "outcome_evaluation_start_id",
+      "usage",
+      "model_request_start_id",
+      "model_usage",
+      "description",
+      "max_iterations",
+      "rubric",
+      "agent",
+      "budget",
+      "metadata",
+      "title",
+      "event",
+      "delta",
+      "event_id"
+    ]
+  },
+  "ManagedAgentsStreamSessionThreadEventsUnionContent": {
+    "variants": [
+      "ManagedAgentsUserMessageEventContentUnion[]",
+      "ManagedAgentsUserCustomToolResultEventContentUnion[]",
+      "ManagedAgentsAgentMessageEventContentUnion[]",
+      "ManagedAgentsAgentMCPToolResultEventContentUnion[]",
+      "ManagedAgentsAgentToolResultEventContentUnion[]",
+      "ManagedAgentsAgentThreadMessageReceivedEventContentUnion[]",
+      "ManagedAgentsAgentThreadMessageSentEventContentUnion[]",
+      "ManagedAgentsUserToolResultEventContentUnion[]",
+      "ManagedAgentsSystemContentBlock[]"
+    ]
+  },
+  "ManagedAgentsStreamSessionThreadEventsUnionStopReason": {
+    "properties": [
+      "type",
+      "event_ids"
+    ]
+  },
+  "ManagedAgentsStreamSessionThreadEventsUnionUsage": {
+    "properties": [
+      "cache_creation_input_tokens",
+      "cache_read_input_tokens",
+      "input_tokens",
+      "output_tokens",
+      "speed",
+      "active_seconds",
+      "cache_creation",
+      "list_cost",
+      "server_tool_use"
+    ]
+  },
+  "ManagedAgentsSystemContentBlock": {
+    "properties": [
+      "text",
+      "type"
+    ]
+  },
+  "ManagedAgentsSystemContentBlockParam": {
+    "properties": [
+      "text",
+      "type"
+    ]
+  },
+  "ManagedAgentsSystemMessageEvent": {
+    "properties": [
+      "id",
+      "content",
+      "type",
+      "processed_at"
+    ]
+  },
+  "ManagedAgentsSystemMessageEventParams": {
+    "properties": [
+      "content",
+      "type"
+    ]
+  },
+  "ManagedAgentsTextBlock": {
+    "properties": [
+      "text",
+      "type"
+    ]
+  },
+  "ManagedAgentsTextBlockParam": {
+    "properties": [
+      "text",
+      "type"
+    ]
+  },
+  "ManagedAgentsTextRubric": {
+    "properties": [
+      "content",
+      "type"
+    ]
+  },
+  "ManagedAgentsTextRubricParams": {
+    "properties": [
+      "content",
+      "type"
+    ]
+  },
+  "ManagedAgentsTokenEndpointAuthBasicParam": {
+    "properties": [
+      "client_secret",
+      "type"
+    ]
+  },
+  "ManagedAgentsTokenEndpointAuthBasicResponse": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsTokenEndpointAuthBasicUpdateParam": {
+    "properties": [
+      "type",
+      "client_secret"
+    ]
+  },
+  "ManagedAgentsTokenEndpointAuthNoneParam": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsTokenEndpointAuthNoneResponse": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsTokenEndpointAuthPostParam": {
+    "properties": [
+      "client_secret",
+      "type"
+    ]
+  },
+  "ManagedAgentsTokenEndpointAuthPostResponse": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsTokenEndpointAuthPostUpdateParam": {
+    "properties": [
+      "type",
+      "client_secret"
+    ]
+  },
+  "ManagedAgentsTriggerContextUnion": {
+    "properties": [
+      "scheduled_at",
+      "type"
+    ]
+  },
+  "ManagedAgentsURLDocumentSource": {
+    "properties": [
+      "type",
+      "url"
+    ]
+  },
+  "ManagedAgentsURLDocumentSourceParam": {
+    "properties": [
+      "type",
+      "url"
+    ]
+  },
+  "ManagedAgentsURLImageSource": {
+    "properties": [
+      "type",
+      "url"
+    ]
+  },
+  "ManagedAgentsURLImageSourceParam": {
+    "properties": [
+      "type",
+      "url"
+    ]
+  },
+  "ManagedAgentsURLMCPServerParams": {
+    "properties": [
+      "name",
+      "type",
+      "url"
+    ]
+  },
+  "ManagedAgentsUnknownDeploymentPausedReasonError": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsUnknownError": {
+    "properties": [
+      "message",
+      "retry_status",
+      "type"
+    ]
+  },
+  "ManagedAgentsUnknownErrorRetryStatusUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsUnknownRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsUnrestrictedCredentialNetworkingParams": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsUnrestrictedCredentialNetworkingResponse": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsUserActor": {
+    "properties": [
+      "type",
+      "user_id"
+    ]
+  },
+  "ManagedAgentsUserCustomToolResultEvent": {
+    "properties": [
+      "id",
+      "custom_tool_use_id",
+      "type",
+      "content",
+      "is_error",
+      "processed_at",
+      "session_thread_id"
+    ]
+  },
+  "ManagedAgentsUserCustomToolResultEventContentUnion": {
+    "properties": [
+      "text",
+      "type",
+      "source",
+      "context",
+      "title",
+      "citations",
+      "content"
+    ]
+  },
+  "ManagedAgentsUserCustomToolResultEventContentUnionSource": {
+    "properties": [
+      "data",
+      "media_type",
+      "type",
+      "url",
+      "file_id"
+    ],
+    "variants": [
+      "string"
+    ]
+  },
+  "ManagedAgentsUserCustomToolResultEventParams": {
+    "properties": [
+      "custom_tool_use_id",
+      "type",
+      "is_error",
+      "content"
+    ]
+  },
+  "ManagedAgentsUserCustomToolResultEventParamsContentUnion": {
+    "variants": [
+      "ManagedAgentsTextBlockParam",
+      "ManagedAgentsImageBlockParam",
+      "ManagedAgentsDocumentBlockParam",
+      "ManagedAgentsSearchResultBlockParam"
+    ]
+  },
+  "ManagedAgentsUserDefineOutcomeEvent": {
+    "properties": [
+      "id",
+      "description",
+      "max_iterations",
+      "outcome_id",
+      "processed_at",
+      "rubric",
+      "type"
+    ]
+  },
+  "ManagedAgentsUserDefineOutcomeEventParams": {
+    "properties": [
+      "description",
+      "rubric",
+      "type",
+      "max_iterations"
+    ]
+  },
+  "ManagedAgentsUserDefineOutcomeEventParamsRubricUnion": {
+    "variants": [
+      "ManagedAgentsFileRubricParams",
+      "ManagedAgentsTextRubricParams"
+    ]
+  },
+  "ManagedAgentsUserDefineOutcomeEventRubricUnion": {
+    "properties": [
+      "file_id",
+      "type",
+      "content"
+    ]
+  },
+  "ManagedAgentsUserInterruptEvent": {
+    "properties": [
+      "id",
+      "type",
+      "processed_at",
+      "session_thread_id"
+    ]
+  },
+  "ManagedAgentsUserInterruptEventParams": {
+    "properties": [
+      "type",
+      "session_thread_id"
+    ]
+  },
+  "ManagedAgentsUserLocation": {
+    "properties": [
+      "type",
+      "city",
+      "country",
+      "region",
+      "timezone"
+    ]
+  },
+  "ManagedAgentsUserLocationParam": {
+    "properties": [
+      "city",
+      "country",
+      "region",
+      "timezone",
+      "type"
+    ]
+  },
+  "ManagedAgentsUserMessageEvent": {
+    "properties": [
+      "id",
+      "content",
+      "type",
+      "processed_at"
+    ]
+  },
+  "ManagedAgentsUserMessageEventContentUnion": {
+    "properties": [
+      "text",
+      "type",
+      "source",
+      "context",
+      "title"
+    ]
+  },
+  "ManagedAgentsUserMessageEventContentUnionSource": {
+    "properties": [
+      "data",
+      "media_type",
+      "type",
+      "url",
+      "file_id"
+    ]
+  },
+  "ManagedAgentsUserMessageEventParams": {
+    "properties": [
+      "content",
+      "type"
+    ]
+  },
+  "ManagedAgentsUserMessageEventParamsContentUnion": {
+    "variants": [
+      "ManagedAgentsTextBlockParam",
+      "ManagedAgentsImageBlockParam",
+      "ManagedAgentsDocumentBlockParam",
+      "ManagedAgentsRedactedBlockParam"
+    ]
+  },
+  "ManagedAgentsUserToolConfirmationEvent": {
+    "properties": [
+      "id",
+      "result",
+      "tool_use_id",
+      "type",
+      "deny_message",
+      "processed_at",
+      "session_thread_id"
+    ]
+  },
+  "ManagedAgentsUserToolConfirmationEventParams": {
+    "properties": [
+      "result",
+      "tool_use_id",
+      "type",
+      "deny_message"
+    ]
+  },
+  "ManagedAgentsUserToolResultEvent": {
+    "properties": [
+      "id",
+      "tool_use_id",
+      "type",
+      "content",
+      "is_error",
+      "processed_at",
+      "session_thread_id"
+    ]
+  },
+  "ManagedAgentsUserToolResultEventContentUnion": {
+    "properties": [
+      "text",
+      "type",
+      "source",
+      "context",
+      "title",
+      "citations",
+      "content"
+    ]
+  },
+  "ManagedAgentsUserToolResultEventContentUnionSource": {
+    "properties": [
+      "data",
+      "media_type",
+      "type",
+      "url",
+      "file_id"
+    ],
+    "variants": [
+      "string"
+    ]
+  },
+  "ManagedAgentsUserToolResultEventParams": {
+    "properties": [
+      "tool_use_id",
+      "type",
+      "is_error",
+      "content"
+    ]
+  },
+  "ManagedAgentsUserToolResultEventParamsContentUnion": {
+    "variants": [
+      "ManagedAgentsTextBlockParam",
+      "ManagedAgentsImageBlockParam",
+      "ManagedAgentsDocumentBlockParam",
+      "ManagedAgentsSearchResultBlockParam"
+    ]
+  },
+  "ManagedAgentsVault": {
+    "properties": [
+      "id",
+      "archived_at",
+      "created_at",
+      "display_name",
+      "metadata",
+      "type",
+      "updated_at"
+    ]
+  },
+  "ManagedAgentsVaultArchivedDeploymentPausedReasonError": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsVaultArchivedRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsVaultNotFoundDeploymentPausedReasonError": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsVaultNotFoundRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsWebFetchToolConfig": {
+    "properties": [
+      "enabled",
+      "name",
+      "permission_policy",
+      "type",
+      "allowed_domains",
+      "blocked_domains",
+      "max_content_tokens"
+    ]
+  },
+  "ManagedAgentsWebFetchToolConfigParams": {
+    "properties": [
+      "enabled",
+      "max_content_tokens",
+      "permission_policy",
+      "allowed_domains",
+      "blocked_domains",
+      "type",
+      "name"
+    ]
+  },
+  "ManagedAgentsWebFetchToolConfigParamsPermissionPolicyUnion": {
+    "variants": [
+      "ManagedAgentsAlwaysAllowPolicyParam",
+      "ManagedAgentsAlwaysAskPolicyParam"
+    ]
+  },
+  "ManagedAgentsWebFetchToolConfigPermissionPolicyUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsWebSearchToolConfig": {
+    "properties": [
+      "enabled",
+      "name",
+      "permission_policy",
+      "type",
+      "allowed_domains",
+      "blocked_domains",
+      "user_location"
+    ]
+  },
+  "ManagedAgentsWebSearchToolConfigParams": {
+    "properties": [
+      "enabled",
+      "permission_policy",
+      "allowed_domains",
+      "blocked_domains",
+      "type",
+      "user_location",
+      "name"
+    ]
+  },
+  "ManagedAgentsWebSearchToolConfigParamsPermissionPolicyUnion": {
+    "variants": [
+      "ManagedAgentsAlwaysAllowPolicyParam",
+      "ManagedAgentsAlwaysAskPolicyParam"
+    ]
+  },
+  "ManagedAgentsWebSearchToolConfigPermissionPolicyUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsWorkspaceArchivedDeploymentPausedReasonError": {
+    "properties": [
+      "type"
+    ]
+  },
+  "ManagedAgentsWorkspaceArchivedRunError": {
+    "properties": [
+      "message",
+      "type"
+    ]
+  },
+  "ManagedAgentsWriteToolConfig": {
+    "properties": [
+      "enabled",
+      "name",
+      "permission_policy",
+      "type"
+    ]
+  },
+  "ManagedAgentsWriteToolConfigParams": {
+    "properties": [
+      "enabled",
+      "permission_policy",
+      "type",
+      "name"
+    ]
+  },
+  "ManagedAgentsWriteToolConfigParamsPermissionPolicyUnion": {
+    "variants": [
+      "ManagedAgentsAlwaysAllowPolicyParam",
+      "ManagedAgentsAlwaysAskPolicyParam"
+    ]
+  },
+  "ManagedAgentsWriteToolConfigPermissionPolicyUnion": {
+    "properties": [
+      "type"
+    ]
+  },
+  "MemoryStoreArchiveParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "MemoryStoreDeleteParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "MemoryStoreGetParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "MemoryStoreListParams": {
+    "properties": [
+      "created_at[gte]",
+      "created_at[lte]",
+      "include_archived",
+      "limit",
+      "page",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "MemoryStoreMemoryDeleteParams": {
+    "properties": [
+      "memory_store_id",
+      "expected_content_sha256",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "MemoryStoreMemoryGetParams": {
+    "properties": [
+      "memory_store_id",
+      "workspace_id",
+      "view",
+      "betas"
+    ]
+  },
+  "MemoryStoreMemoryListParams": {
+    "properties": [
+      "depth",
+      "limit",
+      "page",
+      "path_prefix",
+      "workspace_id",
+      "view",
+      "betas"
+    ]
+  },
+  "MemoryStoreMemoryNewParams": {
+    "properties": [
+      "content",
+      "path",
+      "workspace_id",
+      "view",
+      "betas"
+    ]
+  },
+  "MemoryStoresMemories": {},
+  "MemoryStoreMemoryUpdateParams": {
+    "properties": [
+      "memory_store_id",
+      "content",
+      "path",
+      "workspace_id",
+      "view",
+      "precondition",
+      "betas"
+    ]
+  },
+  "MemoryStoreMemoryVersionGetParams": {
+    "properties": [
+      "memory_store_id",
+      "workspace_id",
+      "view",
+      "betas"
+    ]
+  },
+  "MemoryStoreMemoryVersionListParams": {
+    "properties": [
+      "api_key_id",
+      "created_at[gte]",
+      "created_at[lte]",
+      "limit",
+      "memory_id",
+      "page",
+      "service_account_id",
+      "session_id",
+      "workspace_id",
+      "operation",
+      "view",
+      "betas"
+    ]
+  },
+  "MemoryStoreMemoryVersionRedactParams": {
+    "properties": [
+      "memory_store_id",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "MemoryStoresMemoryVersions": {},
+  "MemoryStoreNewParams": {
+    "properties": [
+      "name",
+      "description",
+      "workspace_id",
+      "metadata",
+      "betas"
+    ]
+  },
+  "MemoryStores": {
+    "properties": [
+      "memories",
+      "memoryVersions"
+    ]
+  },
+  "MemoryStoreUpdateParams": {
+    "properties": [
+      "description",
+      "name",
+      "workspace_id",
+      "metadata",
+      "betas"
+    ]
+  },
+  "ModelCapabilities": {
+    "properties": [
+      "batch",
+      "citations",
+      "code_execution",
+      "context_management",
+      "effort",
+      "image_input",
+      "pdf_input",
+      "structured_outputs",
+      "thinking"
+    ]
+  },
+  "ModelInfo": {
+    "properties": [
+      "id",
+      "allowed_fallback_models",
+      "capabilities",
+      "created_at",
+      "display_name",
+      "max_input_tokens",
+      "max_tokens",
+      "type"
+    ]
+  },
+  "ModelListParams": {
+    "properties": [
+      "after_id",
+      "before_id",
+      "limit",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "Models": {},
+  "MonetaryAmount": {
+    "properties": [
+      "amount",
+      "currency"
+    ]
+  },
+  "MonetaryAmountParam": {
+    "properties": [
+      "amount",
+      "currency"
+    ]
+  },
+  "OutputBehaviorCreateNew": {
+    "properties": [
+      "type"
+    ]
+  },
+  "OutputBehaviorCreateNewParam": {
+    "properties": [
+      "type"
+    ]
+  },
+  "OutputBehaviorUnion": {
+    "properties": [
+      "type",
+      "memory_store_id"
+    ]
+  },
+  "OutputBehaviorUnionParam": {
+    "variants": [
+      "OutputBehaviorCreateNewParam",
+      "OutputBehaviorUpdateExistingParam"
+    ]
+  },
+  "OutputBehaviorUpdateExisting": {
+    "properties": [
+      "memory_store_id",
+      "type"
+    ]
+  },
+  "OutputBehaviorUpdateExistingParam": {
+    "properties": [
+      "memory_store_id",
+      "type"
+    ]
+  },
+  "Packages": {
+    "properties": [
+      "apt",
+      "cargo",
+      "gem",
+      "go",
+      "npm",
+      "pip",
+      "type"
+    ]
+  },
+  "PackagesParams": {
+    "properties": [
+      "apt",
+      "cargo",
+      "gem",
+      "go",
+      "npm",
+      "pip",
+      "type"
+    ]
+  },
+  "PlainTextSourceParam": {
+    "properties": [
+      "data",
+      "media_type",
+      "type"
+    ]
+  },
+  "RedactedThinkingBlockParam": {
+    "properties": [
+      "data",
+      "type"
+    ]
+  },
+  "RequestDocumentBlockParam": {
+    "properties": [
+      "source",
+      "context",
+      "title",
+      "cache_control",
+      "citations",
+      "type"
+    ]
+  },
+  "RequestDocumentBlockSourceUnionParam": {
+    "variants": [
+      "Base64PDFSourceParam",
+      "PlainTextSourceParam",
+      "ContentBlockSourceParam",
+      "URLPDFSourceParam",
+      "FileDocumentSourceParam"
+    ]
+  },
+  "RequestMCPToolResultBlockParam": {
+    "properties": [
+      "tool_use_id",
+      "is_error",
+      "cache_control",
+      "content",
+      "type"
+    ]
+  },
+  "RequestMCPToolResultBlockParamContentUnion": {
+    "variants": [
+      "string",
+      "TextBlockParam[]"
+    ]
+  },
+  "RequestToolAdditionBlockParam": {
+    "properties": [
+      "tool",
+      "cache_control",
+      "type"
+    ]
+  },
+  "RequestToolAdditionBlockToolUnionParam": {
+    "variants": [
+      "ToolChangeToolReferenceParam",
+      "ToolChangeMCPToolReferenceParam",
+      "ToolChangeMCPToolsetReferenceParam"
+    ]
+  },
+  "RequestToolRemovalBlockParam": {
+    "properties": [
+      "tool",
+      "cache_control",
+      "type"
+    ]
+  },
+  "RequestToolRemovalBlockToolUnionParam": {
+    "variants": [
+      "ToolChangeToolReferenceParam",
+      "ToolChangeMCPToolReferenceParam",
+      "ToolChangeMCPToolsetReferenceParam"
+    ]
+  },
+  "SearchResultBlockParam": {
+    "properties": [
+      "content",
+      "source",
+      "title",
+      "cache_control",
+      "citations",
+      "type"
+    ]
+  },
+  "SelfHostedConfig": {
+    "properties": [
+      "type"
+    ]
+  },
+  "SelfHostedConfigParams": {
+    "properties": [
+      "type"
+    ]
+  },
+  "SelfHostedWork": {
+    "properties": [
+      "id",
+      "acknowledged_at",
+      "created_at",
+      "data",
+      "environment_id",
+      "latest_heartbeat_at",
+      "metadata",
+      "secret",
+      "started_at",
+      "state",
+      "stop_requested_at",
+      "stopped_at",
+      "type"
+    ]
+  },
+  "SelfHostedWorkHeartbeatResponse": {
+    "properties": [
+      "last_heartbeat",
+      "lease_extended",
+      "state",
+      "ttl_seconds",
+      "type"
+    ]
+  },
+  "SelfHostedWorkListResponse": {
+    "properties": [
+      "data",
+      "next_page"
+    ]
+  },
+  "SelfHostedWorkQueueStats": {
+    "properties": [
+      "depth",
+      "oldest_queued_at",
+      "pending",
+      "type",
+      "workers_polling"
+    ]
+  },
+  "SelfHostedWorkStopRequestParam": {
+    "properties": [
+      "force"
+    ]
+  },
+  "SelfHostedWorkUpdateRequestParam": {
+    "properties": [
+      "metadata"
+    ]
+  },
+  "ServerToolCaller20260120Param": {
+    "properties": [
+      "tool_id",
+      "type"
+    ]
+  },
+  "ServerToolCallerParam": {
+    "properties": [
+      "tool_id",
+      "type"
+    ]
+  },
+  "ServerToolUseBlockParam": {
+    "properties": [
+      "id",
+      "input",
+      "name",
+      "cache_control",
+      "caller",
+      "type"
+    ]
+  },
+  "ServerToolUseBlockParamCallerUnion": {
+    "variants": [
+      "DirectCallerParam",
+      "ServerToolCallerParam",
+      "ServerToolCaller20260120Param"
+    ]
+  },
+  "SessionArchiveParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SessionDeleteParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SessionEventListParams": {
+    "properties": [
+      "created_at[gt]",
+      "created_at[gte]",
+      "created_at[lt]",
+      "created_at[lte]",
+      "limit",
+      "page",
+      "workspace_id",
+      "order",
+      "types",
+      "betas"
+    ]
+  },
+  "SessionEventSendParams": {
+    "properties": [
+      "events",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SessionsEvents": {},
+  "SessionEventStreamParams": {
+    "properties": [
+      "workspace_id",
+      "event_deltas",
+      "betas"
+    ]
+  },
+  "SessionGetParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SessionListParams": {
+    "properties": [
+      "agent_id",
+      "agent_version",
+      "created_at[gt]",
+      "created_at[gte]",
+      "created_at[lt]",
+      "created_at[lte]",
+      "deployment_id",
+      "include_archived",
+      "limit",
+      "memory_store_id",
+      "page",
+      "workspace_id",
+      "order",
+      "statuses",
+      "betas"
+    ]
+  },
+  "SessionNewParams": {
+    "properties": [
+      "agent",
+      "environment_id",
+      "title",
+      "workspace_id",
+      "budget",
+      "initial_events",
+      "metadata",
+      "resources",
+      "vault_ids",
+      "betas"
+    ]
+  },
+  "SessionNewParamsAgentUnion": {
+    "variants": [
+      "string",
+      "ManagedAgentsAgentParams",
+      "ManagedAgentsAgentWithOverridesParams"
+    ]
+  },
+  "SessionNewParamsInitialEventUnion": {
+    "variants": [
+      "ManagedAgentsUserMessageEventParams",
+      "ManagedAgentsUserDefineOutcomeEventParams"
+    ]
+  },
+  "SessionNewParamsResourceUnion": {
+    "variants": [
+      "ManagedAgentsGitHubRepositoryResourceParams",
+      "ManagedAgentsFileResourceParams",
+      "ManagedAgentsMemoryStoreResourceParam"
+    ]
+  },
+  "SessionResourceAddParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ],
+    "flattenedBodies": [
+      "ManagedAgentsFileResourceParams"
+    ]
+  },
+  "SessionResourceDeleteParams": {
+    "properties": [
+      "session_id",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SessionResourceGetParams": {
+    "properties": [
+      "session_id",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SessionResourceGetResponseUnion": {
+    "properties": [
+      "id",
+      "created_at",
+      "mount_path",
+      "type",
+      "updated_at",
+      "url",
+      "checkout",
+      "file_id",
+      "memory_store_id",
+      "access",
+      "description",
+      "instructions",
+      "name"
+    ]
+  },
+  "SessionResourceListParams": {
+    "properties": [
+      "limit",
+      "page",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SessionsResources": {},
+  "SessionResourceUpdateParams": {
+    "properties": [
+      "session_id",
+      "authorization_token",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SessionResourceUpdateResponseUnion": {
+    "properties": [
+      "id",
+      "created_at",
+      "mount_path",
+      "type",
+      "updated_at",
+      "url",
+      "checkout",
+      "file_id",
+      "memory_store_id",
+      "access",
+      "description",
+      "instructions",
+      "name"
+    ]
+  },
+  "Sessions": {
+    "properties": [
+      "events",
+      "resources",
+      "threads"
+    ]
+  },
+  "SessionThreadArchiveParams": {
+    "properties": [
+      "session_id",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SessionThreadEventListParams": {
+    "properties": [
+      "session_id",
+      "limit",
+      "page",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SessionsThreadsEvents": {},
+  "SessionThreadEventStreamParams": {
+    "properties": [
+      "session_id",
+      "workspace_id",
+      "event_deltas",
+      "betas"
+    ]
+  },
+  "SessionThreadGetParams": {
+    "properties": [
+      "session_id",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SessionThreadListParams": {
+    "properties": [
+      "limit",
+      "page",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SessionsThreads": {
+    "properties": [
+      "events"
+    ]
+  },
+  "SessionUpdateParams": {
+    "properties": [
+      "title",
+      "workspace_id",
+      "metadata",
+      "agent",
+      "budget",
+      "vault_ids",
+      "betas"
+    ]
+  },
+  "SessionWorkData": {
+    "properties": [
+      "id",
+      "type"
+    ]
+  },
+  "Skill": {
+    "properties": [
+      "id",
+      "created_at",
+      "display_title",
+      "latest_version",
+      "source",
+      "type",
+      "updated_at"
+    ]
+  },
+  "SkillDeleteParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SkillGetParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SkillListParams": {
+    "properties": [
+      "page",
+      "source",
+      "limit",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SkillNewParams": {
+    "properties": [
+      "files",
+      "display_title",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "Skills": {
+    "properties": [
+      "versions"
+    ]
+  },
+  "SkillSource": {
+    "properties": [
+      "type"
+    ]
+  },
+  "SkillVersion": {
+    "properties": [
+      "id",
+      "created_at",
+      "description",
+      "name",
+      "skill_id",
+      "type"
+    ]
+  },
+  "SkillVersionDeleteParams": {
+    "properties": [
+      "skill_id",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SkillVersionDownloadParams": {
+    "properties": [
+      "skill_id",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SkillVersionGetParams": {
+    "properties": [
+      "skill_id",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SkillVersionListParams": {
+    "properties": [
+      "limit",
+      "page",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SkillVersionNewParams": {
+    "properties": [
+      "files",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "SkillsVersions": {},
+  "TextBlockParam": {
+    "properties": [
+      "text",
+      "citations",
+      "cache_control",
+      "type"
+    ]
+  },
+  "TextCitationParamUnion": {
+    "variants": [
+      "CitationCharLocationParam",
+      "CitationPageLocationParam",
+      "CitationContentBlockLocationParam",
+      "CitationWebSearchResultLocationParam",
+      "CitationSearchResultLocationParam"
+    ]
+  },
+  "TextEditorCodeExecutionCreateResultBlockParam": {
+    "properties": [
+      "is_file_update",
+      "type"
+    ]
+  },
+  "TextEditorCodeExecutionStrReplaceResultBlockParam": {
+    "properties": [
+      "new_lines",
+      "new_start",
+      "old_lines",
+      "old_start",
+      "lines",
+      "type"
+    ]
+  },
+  "TextEditorCodeExecutionToolResultBlockParam": {
+    "properties": [
+      "content",
+      "tool_use_id",
+      "cache_control",
+      "type"
+    ]
+  },
+  "TextEditorCodeExecutionToolResultBlockParamContentUnion": {
+    "variants": [
+      "TextEditorCodeExecutionToolResultErrorParam",
+      "TextEditorCodeExecutionViewResultBlockParam",
+      "TextEditorCodeExecutionCreateResultBlockParam",
+      "TextEditorCodeExecutionStrReplaceResultBlockParam"
+    ]
+  },
+  "TextEditorCodeExecutionToolResultErrorParam": {
+    "properties": [
+      "error_code",
+      "error_message",
+      "type"
+    ]
+  },
+  "TextEditorCodeExecutionViewResultBlockParam": {
+    "properties": [
+      "content",
+      "file_type",
+      "num_lines",
+      "start_line",
+      "total_lines",
+      "type"
+    ]
+  },
+  "ThinkingBlockParam": {
+    "properties": [
+      "signature",
+      "thinking",
+      "type"
+    ]
+  },
+  "ThinkingCapability": {
+    "properties": [
+      "supported",
+      "types"
+    ]
+  },
+  "ThinkingTypes": {
+    "properties": [
+      "adaptive",
+      "enabled"
+    ]
+  },
+  "ToolChangeMCPToolReferenceParam": {
+    "properties": [
+      "name",
+      "server_name",
+      "type"
+    ]
+  },
+  "ToolChangeMCPToolsetReferenceParam": {
+    "properties": [
+      "server_name",
+      "type"
+    ]
+  },
+  "ToolChangeToolReferenceParam": {
+    "properties": [
+      "name",
+      "type"
+    ]
+  },
+  "ToolReferenceBlockParam": {
+    "properties": [
+      "tool_name",
+      "cache_control",
+      "type"
+    ]
+  },
+  "ToolResultBlockParam": {
+    "properties": [
+      "tool_use_id",
+      "toolset_name",
+      "is_error",
+      "cache_control",
+      "content",
+      "type"
+    ]
+  },
+  "ToolResultBlockParamContentUnion": {
+    "variants": [
+      "TextBlockParam",
+      "ImageBlockParam",
+      "SearchResultBlockParam",
+      "RequestDocumentBlockParam",
+      "ToolReferenceBlockParam",
+      "BrowserStateBlockParam"
+    ]
+  },
+  "ToolSearchToolResultBlockParam": {
+    "properties": [
+      "content",
+      "tool_use_id",
+      "cache_control",
+      "type"
+    ]
+  },
+  "ToolSearchToolResultBlockParamContentUnion": {
+    "variants": [
+      "ToolSearchToolResultErrorParam",
+      "ToolSearchToolSearchResultBlockParam"
+    ]
+  },
+  "ToolSearchToolResultErrorParam": {
+    "properties": [
+      "error_code",
+      "error_message",
+      "type"
+    ]
+  },
+  "ToolSearchToolSearchResultBlockParam": {
+    "properties": [
+      "tool_references",
+      "type"
+    ]
+  },
+  "ToolUseBlockParam": {
+    "properties": [
+      "id",
+      "input",
+      "name",
+      "toolset_name",
+      "cache_control",
+      "caller",
+      "type"
+    ]
+  },
+  "ToolUseBlockParamCallerUnion": {
+    "variants": [
+      "DirectCallerParam",
+      "ServerToolCallerParam",
+      "ServerToolCaller20260120Param"
+    ]
+  },
+  "URLImageSourceParam": {
+    "properties": [
+      "url",
+      "type"
+    ]
+  },
+  "URLPDFSourceParam": {
+    "properties": [
+      "url",
+      "type"
+    ]
+  },
+  "UnrestrictedNetwork": {
+    "properties": [
+      "type"
+    ]
+  },
+  "UnrestrictedNetworkParam": {
+    "properties": [
+      "type"
+    ]
+  },
+  "VaultArchiveParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "VaultCredentialArchiveParams": {
+    "properties": [
+      "vault_id",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "VaultCredentialDeleteParams": {
+    "properties": [
+      "vault_id",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "VaultCredentialGetParams": {
+    "properties": [
+      "vault_id",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "VaultCredentialListParams": {
+    "properties": [
+      "include_archived",
+      "limit",
+      "page",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "VaultCredentialMCPOAuthValidateParams": {
+    "properties": [
+      "vault_id",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "VaultCredentialNewParams": {
+    "properties": [
+      "auth",
+      "display_name",
+      "workspace_id",
+      "metadata",
+      "betas"
+    ]
+  },
+  "VaultCredentialNewParamsAuthUnion": {
+    "variants": [
+      "ManagedAgentsMCPOAuthCreateParams",
+      "ManagedAgentsStaticBearerCreateParams",
+      "ManagedAgentsEnvironmentVariableCreateParams"
+    ]
+  },
+  "VaultsCredentials": {},
+  "VaultCredentialUpdateParams": {
+    "properties": [
+      "vault_id",
+      "display_name",
+      "workspace_id",
+      "metadata",
+      "auth",
+      "betas"
+    ]
+  },
+  "VaultCredentialUpdateParamsAuthUnion": {
+    "variants": [
+      "ManagedAgentsMCPOAuthUpdateParams",
+      "ManagedAgentsStaticBearerUpdateParams",
+      "ManagedAgentsEnvironmentVariableUpdateParams"
+    ]
+  },
+  "VaultDeleteParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "VaultGetParams": {
+    "properties": [
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "VaultListParams": {
+    "properties": [
+      "include_archived",
+      "limit",
+      "page",
+      "workspace_id",
+      "betas"
+    ]
+  },
+  "VaultNewParams": {
+    "properties": [
+      "display_name",
+      "workspace_id",
+      "metadata",
+      "betas"
+    ]
+  },
+  "Vaults": {
+    "properties": [
+      "credentials"
+    ]
+  },
+  "WebFetchBlockParam": {
+    "properties": [
+      "content",
+      "url",
+      "retrieved_at",
+      "type"
+    ]
+  },
+  "WebFetchToolResultBlockParam": {
+    "properties": [
+      "content",
+      "tool_use_id",
+      "cache_control",
+      "caller",
+      "type"
+    ]
+  },
+  "WebFetchToolResultBlockParamCallerUnion": {
+    "variants": [
+      "DirectCallerParam",
+      "ServerToolCallerParam",
+      "ServerToolCaller20260120Param"
+    ]
+  },
+  "WebFetchToolResultBlockParamContentUnion": {
+    "variants": [
+      "WebFetchToolResultErrorBlockParam",
+      "WebFetchBlockParam"
+    ]
+  },
+  "WebFetchToolResultErrorBlockParam": {
+    "properties": [
+      "error_code",
+      "type"
+    ]
+  },
+  "WebSearchResultBlockParam": {
+    "properties": [
+      "encrypted_content",
+      "title",
+      "url",
+      "page_age",
+      "type"
+    ]
+  },
+  "WebSearchToolRequestErrorParam": {
+    "properties": [
+      "error_code",
+      "type"
+    ]
+  },
+  "WebSearchToolResultBlockParam": {
+    "properties": [
+      "content",
+      "tool_use_id",
+      "cache_control",
+      "caller",
+      "type"
+    ]
+  },
+  "WebSearchToolResultBlockParamCallerUnion": {
+    "variants": [
+      "DirectCallerParam",
+      "ServerToolCallerParam",
+      "ServerToolCaller20260120Param"
+    ]
+  },
+  "WebSearchToolResultBlockParamContentUnion": {
+    "variants": [
+      "WebSearchResultBlockParam[]",
+      "WebSearchToolRequestErrorParam"
+    ]
+  }
+}

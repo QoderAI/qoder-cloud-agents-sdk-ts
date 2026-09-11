@@ -1,4 +1,4 @@
-// Go example/internal/live/{memory,turn}_test.go, independent of live model behavior.
+// Example memory and turn assertions, independent of live model behavior.
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { ProjectMemory, PROJECT_MEMORY_PATH } from '../examples/memory-proof.mjs';
@@ -10,7 +10,7 @@ const agentMessage = (text = answer, id = 'agent-final') => ({ id, type: 'agent.
 const idle = { id: 'idle-final', type: 'session.status_idle', stop_reason: { type: 'end_turn' } };
 const observe = events => { const result = new TurnResult(); for (const event of events) result.observe(event); return result; };
 
-test('Go TestProjectMemoryWithholdsFactsFromQuestion: natural question identifies project without answer or file hint', () => {
+test('project memory withholds facts from the question: it identifies the project without an answer or file hint', () => {
   const m = memory();
   assert.equal(m.prompt(), '请根据你记得的项目约定，为「青禾订单」拟一份简短的上线安排，涵盖开始时间、异常联系和回滚处理。只需给出计划，不要执行发布；如果缺少信息，请明确说明。');
   assert.ok(m.prompt().includes(m.project));
@@ -23,7 +23,7 @@ test('Go TestProjectMemoryWithholdsFactsFromQuestion: natural question identifie
   assert.equal(m.prompt().includes('MEMORY'), false);
 });
 
-test('Go MEMORY.md index contains only a pointer to the actual project entry', () => {
+test('MEMORY.md index contains only a pointer to the actual project entry', () => {
   const m = memory();
   assert.equal(PROJECT_MEMORY_PATH, 'projects/release-conventions.md');
   assert.equal(m.index(), '- [青禾订单 发布约定](projects/release-conventions.md) — 项目的发布窗口、异常联系人与回滚约定。\n');
@@ -47,7 +47,7 @@ test('randomized project memory varies facts on each run without putting them in
   assert.ok(projects.size > 1); assert.ok(versions.size > 1);
 });
 
-test('Go TestProjectMemoryRequiresAllFactsInCompletedAnswer: completed recall succeeds without tool event', () => {
+test('project memory requires all facts in a completed answer: recall succeeds without a tool event', () => {
   const result = observe([agentMessage(), idle]);
   assert.equal(result.toolUsed, false);
   assert.equal(memory().verify(result), result);

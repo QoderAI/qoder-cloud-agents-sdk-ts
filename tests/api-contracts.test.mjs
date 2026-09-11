@@ -1,10 +1,10 @@
-// Independent oracle: verbatim Go documentation fixtures and public Go signatures.
+// Independent oracle: verbatim documented fixtures and the frozen public API surface.
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { sdk, methods, contracts, operations, lookup, argumentsFor, invoke, resource, response, testClient, assertRequest } from './helpers.mjs';
 
 for (const mode of ['forward', 'managed']) {
-  test(`${mode}: public resource inventory exactly matches Go (${mode === 'forward' ? 110 : 95} APIs)`, () => {
+  test(`${mode}: public resource inventory exactly matches the frozen surface (${mode === 'forward' ? 110 : 95} APIs)`, () => {
     const client = testClient(mode, () => { throw Error('inventory must not call network'); });
     const expectedRoots = [...new Set(methods[mode].map(m => m.entry.split('.')[0]))];
     const actualRoots = Object.entries(client).filter(([, value]) => value && typeof value === 'object' && Object.hasOwn(value, '_client')).map(([key]) => key);
@@ -29,9 +29,9 @@ for (const mode of ['forward', 'managed']) {
     const m = lookup(mode, c);
     const op = mode === 'forward' ? operations.find(o => o.operation_id === c.operation_id) : undefined;
     const name = `${mode}.${m.entry}.${m.method}`;
-    const download = c.download || c.service === 'FileService' && c.name === 'Download';
-    const raw = c.raw || c.service === 'SkillVersionService' && c.name === 'Download';
-    const stream = c.stream || c.name === 'StreamEvents';
+    const download = !!c.download;
+    const raw = !!c.raw;
+    const stream = !!c.stream;
     test(`${name}: successful documented request/response`, async () => {
       let calls = 0;
       const client = testClient(mode, async req => {
@@ -66,7 +66,7 @@ for (const mode of ['forward', 'managed']) {
       assert.equal(calls, download ? 2 : 1);
     });
     for (const status of [400, 401, 403, 404, 409, 422, 429, 500, 503]) {
-      test(`${name}: HTTP ${status} preserves Go error contract`, async () => {
+      test(`${name}: HTTP ${status} preserves the documented error contract`, async () => {
         let calls = 0;
         const client = testClient(mode, () => { calls++; return response({ request_id: 'body-id', error: { type: 'test_error', code: 'TEST_FAILURE', message: 'expected failure' } }, status, { 'x-request-id': 'header-id' }); });
         const args = await argumentsFor(mode, m, op);
@@ -111,7 +111,7 @@ for (const mode of ['forward', 'managed']) {
       await assert.rejects(() => invoke(client, m, args, { signal: controller.signal }), e => /abort|cancel/i.test(`${e.name} ${e.message}`));
     });
     for (const [index, a] of m.args.entries()) {
-      const paths = a.type === 'string' ? [null] : (a.fields ?? []).filter(f => f.location === 'path').map(f => f.wire);
+      const paths = a.kind === 'path' ? [null] : (a.fields ?? []).filter(f => f.location === 'path').map(f => f.wire);
       for (const field of paths) test(`${name}: missing path ${field ?? a.name} fails before transport`, async () => {
         const client = testClient(mode, () => { assert.fail('missing required path reached transport'); });
         const args = await argumentsFor(mode, m, op);

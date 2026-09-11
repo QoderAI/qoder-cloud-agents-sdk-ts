@@ -1,9 +1,8 @@
 [
   {
+    "id": "templates.list",
     "operation_id": "listTemplates",
-    "service": "TemplateService",
     "entry": "Templates",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -20,16 +19,12 @@
       "last_id": "tmpl_support",
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "templates.create",
     "operation_id": "createTemplate",
-    "service": "TemplateService",
     "entry": "Templates",
-    "name": "New",
     "response": {
       "type": "template",
       "id": "tmpl_support",
@@ -82,16 +77,12 @@
       "created_at": "2026-06-18T10:00:00Z",
       "updated_at": "2026-06-18T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "templates.retrieve",
     "operation_id": "getTemplate",
-    "service": "TemplateService",
     "entry": "Templates",
-    "name": "Get",
     "response": {
       "type": "template",
       "id": "tmpl_support",
@@ -123,16 +114,12 @@
       "created_at": "2026-06-18T10:00:00Z",
       "updated_at": "2026-06-18T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "templates.update",
     "operation_id": "updateTemplate",
-    "service": "TemplateService",
     "entry": "Templates",
-    "name": "Update",
     "response": {
       "type": "template",
       "id": "tmpl_support",
@@ -188,16 +175,12 @@
       "created_at": "2026-06-18T10:00:00Z",
       "updated_at": "2026-06-18T10:30:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "templates.archive",
     "operation_id": "archiveTemplate",
-    "service": "TemplateService",
     "entry": "Templates",
-    "name": "Archive",
     "response": {
       "type": "template",
       "id": "tmpl_support",
@@ -223,16 +206,12 @@
       "created_at": "2026-06-18T10:00:00Z",
       "updated_at": "2026-06-18T10:30:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "templates.clone",
     "operation_id": "cloneTemplate",
-    "service": "TemplateService",
     "entry": "Templates",
-    "name": "Clone",
     "response": {
       "type": "template",
       "id": "tmpl_019eYYYY",
@@ -258,16 +237,12 @@
       "created_at": "2026-06-18T10:31:00Z",
       "updated_at": "2026-06-18T10:31:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.list",
     "operation_id": "listIdentities",
-    "service": "IdentityService",
     "entry": "Identities",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -285,16 +260,12 @@
       "last_id": "idn_019eabc123",
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.create",
     "operation_id": "createIdentity",
-    "service": "IdentityService",
     "entry": "Identities",
-    "name": "New",
     "response": {
       "id": "idn_019eabc123",
       "external_id": "user_456",
@@ -307,16 +278,12 @@
       "created_at": "2026-06-18T10:00:00Z",
       "updated_at": "2026-06-18T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.ensureAdmin",
     "operation_id": "ensureAdminIdentity",
-    "service": "IdentityService",
     "entry": "Identities",
-    "name": "EnsureAdmin",
     "response": {
       "id": "idn_admin",
       "external_id": "__qca_admin_identity__",
@@ -327,32 +294,24 @@
       "created_at": "2026-07-14T10:00:00Z",
       "updated_at": "2026-07-14T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.stats",
     "operation_id": "getIdentityStats",
-    "service": "IdentityService",
     "entry": "Identities",
-    "name": "Stats",
     "response": {
       "total_identities": 12,
       "active_identities": 8,
       "total_agents": 5,
       "total_sessions": 126
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.retrieve",
     "operation_id": "getIdentity",
-    "service": "IdentityService",
     "entry": "Identities",
-    "name": "Get",
     "response": {
       "id": "idn_019eabc123",
       "external_id": "user_456",
@@ -365,16 +324,12 @@
       "created_at": "2026-06-18T10:00:00Z",
       "updated_at": "2026-06-18T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.update",
     "operation_id": "updateIdentity",
-    "service": "IdentityService",
     "entry": "Identities",
-    "name": "Update",
     "response": {
       "id": "idn_019eabc123",
       "external_id": "user_456",
@@ -386,30 +341,22 @@
       "created_at": "2026-06-18T10:00:00Z",
       "updated_at": "2026-06-18T10:30:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.delete",
     "operation_id": "deleteIdentity",
-    "service": "IdentityService",
     "entry": "Identities",
-    "name": "Delete",
     "response": {
       "id": "idn_019eabc123",
       "deleted": true
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.listTemplates",
     "operation_id": "listIdentityAgents",
-    "service": "IdentityService",
     "entry": "Identities",
-    "name": "ListTemplates",
     "response": {
       "data": [
         {
@@ -420,16 +367,12 @@
         }
       ]
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.clear",
     "operation_id": "clearIdentity",
-    "service": "IdentityService",
     "entry": "Identities",
-    "name": "Clear",
     "response": {
       "identity_id": "idn_019eabc123",
       "status": "completed",
@@ -443,44 +386,32 @@
         "sessions_archived": 3
       }
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.disable",
     "operation_id": "disableIdentity",
-    "service": "IdentityService",
     "entry": "Identities",
-    "name": "Disable",
     "response": {
       "id": "idn_019eabc123",
       "enabled": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.enable",
     "operation_id": "enableIdentity",
-    "service": "IdentityService",
     "entry": "Identities",
-    "name": "Enable",
     "response": {
       "id": "idn_019eabc123",
       "enabled": true
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.configs.list",
     "operation_id": "listIdentityConfigs",
-    "service": "IdentityConfigService",
     "entry": "Identities.Configs",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -499,16 +430,12 @@
       "last_id": "cfg_support",
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.configs.retrieve",
     "operation_id": "getIdentityConfig",
-    "service": "IdentityConfigService",
     "entry": "Identities.Configs",
-    "name": "Get",
     "response": {
       "type": "config",
       "identity_id": "idn_019eabc123",
@@ -547,16 +474,12 @@
       "created_at": "2026-06-18T10:00:00Z",
       "updated_at": "2026-06-18T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.configs.upsert",
     "operation_id": "upsertIdentityConfig",
-    "service": "IdentityConfigService",
     "entry": "Identities.Configs",
-    "name": "Upsert",
     "response": {
       "type": "config",
       "identity_id": "idn_019eabc123",
@@ -567,16 +490,12 @@
       "created_at": "2026-06-18T10:00:00Z",
       "updated_at": "2026-06-18T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.configs.getEffective",
     "operation_id": "getEffectiveConfig",
-    "service": "IdentityConfigService",
     "entry": "Identities.Configs",
-    "name": "GetEffective",
     "response": {
       "type": "effective_spec",
       "id": "config_123",
@@ -632,16 +551,12 @@
         ]
       }
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.memoryStores.list",
     "operation_id": "listMemoryStoreMounts",
-    "service": "IdentityMemoryStoreService",
     "entry": "Identities.MemoryStores",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -671,16 +586,12 @@
       "last_id": "memstore_00mc7mukn7lkxr454tjd",
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.memoryStores.mount",
     "operation_id": "mountMemoryStore",
-    "service": "IdentityMemoryStoreService",
     "entry": "Identities.MemoryStores",
-    "name": "Mount",
     "response": {
       "memory_store_id": "memstore_00mc7mukn7lkxr454tjd",
       "identity_id": "idn_63ee28747a35cff93771c491",
@@ -692,31 +603,23 @@
       "entry_count": 12,
       "created_at": "2026-08-14T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "identities.memoryStores.detach",
     "operation_id": "detachMemoryStore",
-    "service": "IdentityMemoryStoreService",
     "entry": "Identities.MemoryStores",
-    "name": "Detach",
     "response": {
       "id": "memstore_00mc7mukn7lkxr454tjd",
       "type": "memory_store_binding_deleted",
       "deleted": true
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "sessions.list",
     "operation_id": "listSessions",
-    "service": "SessionService",
     "entry": "Sessions",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -767,16 +670,12 @@
       "last_id": "sess_xxx",
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "sessions.create",
     "operation_id": "createSession",
-    "service": "SessionService",
     "entry": "Sessions",
-    "name": "New",
     "response": {
       "id": "sess_xxx",
       "type": "session",
@@ -810,16 +709,12 @@
       "created_at": "2026-06-22T10:00:00Z",
       "updated_at": "2026-06-22T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "sessions.retrieve",
     "operation_id": "getSession",
-    "service": "SessionService",
     "entry": "Sessions",
-    "name": "Get",
     "response": {
       "id": "sess_xxx",
       "type": "session",
@@ -863,16 +758,12 @@
       "created_at": "2026-06-22T10:00:00Z",
       "updated_at": "2026-06-22T11:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "sessions.update",
     "operation_id": "updateSession",
-    "service": "SessionService",
     "entry": "Sessions",
-    "name": "Update",
     "response": {
       "id": "sess_xxx",
       "type": "session",
@@ -908,16 +799,12 @@
       "created_at": "2026-06-22T10:00:00Z",
       "updated_at": "2026-06-22T12:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "sessions.archive",
     "operation_id": "archiveSession",
-    "service": "SessionService",
     "entry": "Sessions",
-    "name": "Archive",
     "response": {
       "id": "sess_xxx",
       "type": "session",
@@ -949,31 +836,23 @@
       "created_at": "2026-06-22T10:00:00Z",
       "updated_at": "2026-06-22T12:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "sessions.cancel",
     "operation_id": "cancelSession",
-    "service": "SessionService",
     "entry": "Sessions",
-    "name": "Cancel",
     "response": {
       "id": "sess_xxx",
       "type": "session",
       "status": "canceling"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "sessions.events.list",
     "operation_id": "listSessionEvents",
-    "service": "SessionEventService",
     "entry": "Sessions.Events",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -993,16 +872,12 @@
       "last_id": "evt_xxx",
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "sessions.events.send",
     "operation_id": "sendSessionEvents",
-    "service": "SessionEventService",
     "entry": "Sessions.Events",
-    "name": "Send",
     "response": {
       "data": [
         {
@@ -1019,27 +894,20 @@
         }
       ]
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
-    "operation_id": "streamSessionEvents",
-    "service": "SessionEventService",
-    "entry": "Sessions.Events",
-    "name": "StreamEvents",
-    "response": {},
+    "id": "sessions.events.streamEvents",
     "stream": true,
-    "download": false,
-    "raw": false,
+    "operation_id": "streamSessionEvents",
+    "entry": "Sessions.Events",
+    "response": {},
     "empty": false
   },
   {
+    "id": "sessions.resources.add",
     "operation_id": "addSessionResource",
-    "service": "SessionResourceService",
     "entry": "Sessions.Resources",
-    "name": "Add",
     "response": {
       "id": "sesr_0e4323e8f47ba34853f5409e",
       "type": "file",
@@ -1048,16 +916,12 @@
       "created_at": "2026-06-23T05:53:19Z",
       "updated_at": "2026-06-23T05:53:38Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "sessions.threads.list",
     "operation_id": "listSessionThreads",
-    "service": "SessionThreadService",
     "entry": "Sessions.Threads",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -1078,16 +942,12 @@
       "last_id": "sthr_xxx",
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "sessions.threads.retrieve",
     "operation_id": "getSessionThread",
-    "service": "SessionThreadService",
     "entry": "Sessions.Threads",
-    "name": "Get",
     "response": {
       "id": "sthr_child_xxx",
       "type": "session_thread",
@@ -1104,16 +964,12 @@
       "created_at": "2026-06-22T11:00:00Z",
       "updated_at": "2026-06-22T11:05:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "sessions.threads.archive",
     "operation_id": "archiveSessionThread",
-    "service": "SessionThreadService",
     "entry": "Sessions.Threads",
-    "name": "Archive",
     "response": {
       "id": "sthr_child_xxx",
       "type": "session_thread",
@@ -1131,16 +987,12 @@
       "created_at": "2026-06-22T11:00:00Z",
       "updated_at": "2026-06-22T12:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "sessions.threads.events.list",
     "operation_id": "listSessionThreadEvents",
-    "service": "SessionThreadEventService",
     "entry": "Sessions.Threads.Events",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -1160,27 +1012,20 @@
       "last_id": "evt_xxx",
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
-    "operation_id": "streamSessionThreadEvents",
-    "service": "SessionThreadEventService",
-    "entry": "Sessions.Threads.Events",
-    "name": "StreamEvents",
-    "response": {},
+    "id": "sessions.threads.events.streamEvents",
     "stream": true,
-    "download": false,
-    "raw": false,
+    "operation_id": "streamSessionThreadEvents",
+    "entry": "Sessions.Threads.Events",
+    "response": {},
     "empty": false
   },
   {
+    "id": "schedules.list",
     "operation_id": "listSchedules",
-    "service": "ScheduleService",
     "entry": "Schedules",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -1230,16 +1075,12 @@
       "last_id": "sched_019f00112233445566778899aabbccdd",
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "schedules.create",
     "operation_id": "createSchedule",
-    "service": "ScheduleService",
     "entry": "Schedules",
-    "name": "New",
     "response": {
       "id": "sched_019f00112233445566778899aabbccdd",
       "identity_id": "idn_019eabc123",
@@ -1282,29 +1123,21 @@
       "created_at": "2026-06-22T10:00:00Z",
       "updated_at": "2026-06-22T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "schedules.archiveMany",
     "operation_id": "archiveSchedules",
-    "service": "ScheduleService",
     "entry": "Schedules",
-    "name": "ArchiveMany",
     "response": {
       "archived_count": 2
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "schedules.retrieve",
     "operation_id": "getSchedule",
-    "service": "ScheduleService",
     "entry": "Schedules",
-    "name": "Get",
     "response": {
       "id": "sched_019f00112233445566778899aabbccdd",
       "identity_id": "idn_019eabc123",
@@ -1347,16 +1180,12 @@
       "created_at": "2026-06-22T10:00:00Z",
       "updated_at": "2026-06-22T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "schedules.update",
     "operation_id": "updateSchedule",
-    "service": "ScheduleService",
     "entry": "Schedules",
-    "name": "Update",
     "response": {
       "id": "sched_019f00112233445566778899aabbccdd",
       "identity_id": "idn_019eabc123",
@@ -1399,16 +1228,12 @@
       "created_at": "2026-06-22T10:00:00Z",
       "updated_at": "2026-06-22T10:30:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "schedules.archive",
     "operation_id": "archiveSchedule",
-    "service": "ScheduleService",
     "entry": "Schedules",
-    "name": "Archive",
     "response": {
       "id": "sched_019f00112233445566778899aabbccdd",
       "identity_id": "idn_019eabc123",
@@ -1443,16 +1268,12 @@
       "created_at": "2026-06-22T10:00:00Z",
       "updated_at": "2026-06-22T12:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "schedules.pause",
     "operation_id": "pauseSchedule",
-    "service": "ScheduleService",
     "entry": "Schedules",
-    "name": "Pause",
     "response": {
       "id": "sched_019f00112233445566778899aabbccdd",
       "identity_id": "idn_019eabc123",
@@ -1489,16 +1310,12 @@
       "created_at": "2026-06-22T10:00:00Z",
       "updated_at": "2026-06-22T12:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "schedules.run",
     "operation_id": "runSchedule",
-    "service": "ScheduleService",
     "entry": "Schedules",
-    "name": "Run",
     "response": {
       "id": "srun_019f00112233445566778899aabbccdd",
       "schedule_id": "sched_019f00112233445566778899aabbccdd",
@@ -1514,16 +1331,12 @@
       "triggered_at": "2026-06-22T12:00:00Z",
       "created_at": "2026-06-22T12:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "schedules.unpause",
     "operation_id": "unpauseSchedule",
-    "service": "ScheduleService",
     "entry": "Schedules",
-    "name": "Unpause",
     "response": {
       "id": "sched_019f00112233445566778899aabbccdd",
       "identity_id": "idn_019eabc123",
@@ -1557,16 +1370,12 @@
       "created_at": "2026-06-22T10:00:00Z",
       "updated_at": "2026-06-22T12:10:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "scheduleRuns.list",
     "operation_id": "listScheduleRuns",
-    "service": "ScheduleRunService",
     "entry": "ScheduleRuns",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -1596,16 +1405,12 @@
       "last_id": "srun_019f00112233445566778899aabbccdd",
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "scheduleRuns.retrieve",
     "operation_id": "getScheduleRun",
-    "service": "ScheduleRunService",
     "entry": "ScheduleRuns",
-    "name": "Get",
     "response": {
       "id": "srun_019f00112233445566778899aabbccdd",
       "schedule_id": "sched_019f00112233445566778899aabbccdd",
@@ -1628,16 +1433,12 @@
       "duration_ms": 17000,
       "created_at": "2026-06-22T01:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "batches.list",
     "operation_id": "listBatches",
-    "service": "BatchService",
     "entry": "Batches",
-    "name": "List",
     "response": {
       "object": "list",
       "data": [
@@ -1689,16 +1490,12 @@
       "first_id": "batch_completed001",
       "last_id": "batch_processing001"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "batches.create",
     "operation_id": "createBatch",
-    "service": "BatchService",
     "entry": "Batches",
-    "name": "New",
     "response": {
       "id": "batch_example001",
       "object": "batch",
@@ -1718,16 +1515,12 @@
       },
       "usage": null
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "batches.retrieve",
     "operation_id": "getBatch",
-    "service": "BatchService",
     "entry": "Batches",
-    "name": "Get",
     "response": {
       "id": "batch_completed001",
       "object": "batch",
@@ -1750,16 +1543,12 @@
         "total_credits": 5.28
       }
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "batches.cancel",
     "operation_id": "cancelBatch",
-    "service": "BatchService",
     "entry": "Batches",
-    "name": "Cancel",
     "response": {
       "id": "batch_processing001",
       "object": "batch",
@@ -1781,44 +1570,32 @@
         "total_credits": 12.5
       }
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "batches.getError",
     "operation_id": "getBatchError",
-    "service": "BatchService",
     "entry": "Batches",
-    "name": "GetError",
     "response": {
       "url": "https://cloud-agents-storage.oss-cn-beijing.aliyuncs.com/files%2F<user_id>%2F<file_id>%2Fcontent?Expires=1783685162&OSSAccessKeyId=<ak>&Signature=<sig>&response-content-disposition=attachment%3B%20filename%3Dbatch-batch_failed001-error.jsonl",
       "expires_at": "2026-07-10T12:06:02Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "batches.getOutput",
     "operation_id": "getBatchOutput",
-    "service": "BatchService",
     "entry": "Batches",
-    "name": "GetOutput",
     "response": {
       "url": "https://cloud-agents-storage.oss-cn-beijing.aliyuncs.com/files%2F<user_id>%2F<file_id>%2Fcontent?Expires=1783685162&OSSAccessKeyId=<ak>&Signature=<sig>&response-content-disposition=attachment%3B%20filename%3Dbatch-batch_completed001-output.jsonl",
       "expires_at": "2026-07-10T12:06:02Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "batches.tasks.list",
     "operation_id": "listBatchTasks",
-    "service": "BatchTaskService",
     "entry": "Batches.Tasks",
-    "name": "List",
     "response": {
       "object": "list",
       "data": [
@@ -1859,16 +1636,12 @@
       "first_id": "task-001",
       "last_id": "task-002"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "channels.list",
     "operation_id": "listChannels",
-    "service": "ChannelService",
     "entry": "Channels",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -1897,16 +1670,12 @@
       "last_id": "channel_019eabc123",
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "channels.create",
     "operation_id": "createChannel",
-    "service": "ChannelService",
     "entry": "Channels",
-    "name": "New",
     "response": {
       "id": "channel_019eabc123",
       "type": "channel",
@@ -1928,16 +1697,12 @@
       "created_at": "2026-06-18T10:00:00Z",
       "updated_at": "2026-06-18T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "channels.retrieve",
     "operation_id": "getChannel",
-    "service": "ChannelService",
     "entry": "Channels",
-    "name": "Get",
     "response": {
       "id": "channel_019eabc123",
       "type": "channel",
@@ -1959,16 +1724,12 @@
       "created_at": "2026-06-18T10:00:00Z",
       "updated_at": "2026-06-18T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "channels.update",
     "operation_id": "updateChannel",
-    "service": "ChannelService",
     "entry": "Channels",
-    "name": "Update",
     "response": {
       "id": "channel_019eabc123",
       "type": "channel",
@@ -1990,30 +1751,22 @@
       "created_at": "2026-06-18T10:00:00Z",
       "updated_at": "2026-06-18T10:30:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "channels.delete",
     "operation_id": "deleteChannel",
-    "service": "ChannelService",
     "entry": "Channels",
-    "name": "Delete",
     "response": {
       "id": "channel_019eabc123",
       "deleted": true
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "channels.qrSessions.create",
     "operation_id": "createChannelQrSession",
-    "service": "ChannelQRSessionService",
     "entry": "Channels.QRSessions",
-    "name": "New",
     "response": {
       "session_key": "qr-a1b2c3d4",
       "channel_id": "channel_dingtalk_001",
@@ -2023,16 +1776,12 @@
       "qr_code_image_base64": "data:image/png;base64,...",
       "expires_at": "2026-06-18T10:05:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "channels.qrSessions.retrieve",
     "operation_id": "getChannelQrSession",
-    "service": "ChannelQRSessionService",
     "entry": "Channels.QRSessions",
-    "name": "Get",
     "response": {
       "session_key": "qr-a1b2c3d4",
       "channel_id": "channel_dingtalk_001",
@@ -2040,16 +1789,12 @@
       "status": "confirmed",
       "expires_at": "2026-06-18T10:05:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "channelPairings.create",
     "operation_id": "pairChannel",
-    "service": "ChannelPairingService",
     "entry": "ChannelPairings",
-    "name": "New",
     "response": {
       "id": "pair_019eabc123",
       "type": "channel_pairing",
@@ -2059,30 +1804,22 @@
       "status": "active",
       "paired_at": "2026-07-16T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "channelPairings.delete",
     "operation_id": "unpairChannel",
-    "service": "ChannelPairingService",
     "entry": "ChannelPairings",
-    "name": "Delete",
     "response": {
       "id": "pair_019eabc123",
       "deleted": true
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "environments.list",
     "operation_id": "listEnvironment",
-    "service": "EnvironmentService",
     "entry": "Environments",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -2106,16 +1843,12 @@
       "has_more": false,
       "next_page": null
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "environments.create",
     "operation_id": "createEnvironment",
-    "service": "EnvironmentService",
     "entry": "Environments",
-    "name": "New",
     "response": {
       "id": "env_xxx",
       "type": "environment",
@@ -2141,16 +1874,12 @@
       "updated_at": "2026-07-23T10:00:00Z",
       "identity_id": null
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "environments.retrieve",
     "operation_id": "getEnvironment",
-    "service": "EnvironmentService",
     "entry": "Environments",
-    "name": "Get",
     "response": {
       "id": "env_xxx",
       "type": "environment",
@@ -2166,16 +1895,12 @@
       "updated_at": "2026-07-23T10:00:00Z",
       "identity_id": null
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "environments.update",
     "operation_id": "updateEnvironment",
-    "service": "EnvironmentService",
     "entry": "Environments",
-    "name": "Update",
     "response": {
       "id": "env_xxx",
       "type": "environment",
@@ -2191,27 +1916,19 @@
       "updated_at": "2026-07-23T10:00:00Z",
       "identity_id": null
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "environments.delete",
     "operation_id": "deleteEnvironment",
-    "service": "EnvironmentService",
     "entry": "Environments",
-    "name": "Delete",
     "response": {},
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": true
   },
   {
+    "id": "files.list",
     "operation_id": "listFile",
-    "service": "FileService",
     "entry": "Files",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -2235,16 +1952,12 @@
       "has_more": false,
       "next_page": null
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "files.upload",
     "operation_id": "uploadFile",
-    "service": "FileService",
     "entry": "Files",
-    "name": "Upload",
     "response": {
       "id": "file_xxx",
       "type": "file",
@@ -2260,16 +1973,12 @@
       },
       "identity_id": null
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "files.getMetadata",
     "operation_id": "getFile",
-    "service": "FileService",
     "entry": "Files",
-    "name": "GetMetadata",
     "response": {
       "id": "file_xxx",
       "type": "file",
@@ -2285,41 +1994,30 @@
       },
       "identity_id": null
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "files.delete",
     "operation_id": "deleteFile",
-    "service": "FileService",
     "entry": "Files",
-    "name": "Delete",
     "response": {},
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": true
   },
   {
+    "id": "files.download",
+    "download": true,
     "operation_id": "downloadFile",
-    "service": "FileService",
     "entry": "Files",
-    "name": "Download",
     "response": {
       "url": "https://example.com/signed-url",
       "expires_at": "2026-07-23T12:00:00Z"
     },
-    "stream": false,
-    "download": true,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "skills.list",
     "operation_id": "listSkill",
-    "service": "SkillService",
     "entry": "Skills",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -2346,31 +2044,23 @@
       "has_more": false,
       "next_page": null
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "skills.create",
     "operation_id": "createSkill",
-    "service": "SkillService",
     "entry": "Skills",
-    "name": "New",
     "response": {
       "id": "skill_test",
       "type": "skill",
       "display_title": "test"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "skills.retrieve",
     "operation_id": "getSkill",
-    "service": "SkillService",
     "entry": "Skills",
-    "name": "Get",
     "response": {
       "id": "skill_xxx",
       "type": "skill",
@@ -2389,16 +2079,12 @@
         "agent_template_count": 0
       }
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "skills.update",
     "operation_id": "updateSkill",
-    "service": "SkillService",
     "entry": "Skills",
-    "name": "Update",
     "response": {
       "id": "skill_xxx",
       "type": "skill",
@@ -2417,27 +2103,19 @@
         "agent_template_count": 0
       }
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "skills.delete",
     "operation_id": "deleteSkill",
-    "service": "SkillService",
     "entry": "Skills",
-    "name": "Delete",
     "response": {},
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": true
   },
   {
+    "id": "skills.versions.list",
     "operation_id": "listSkillVersion",
-    "service": "SkillVersionService",
     "entry": "Skills.Versions",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -2456,31 +2134,23 @@
       ],
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "skills.versions.create",
     "operation_id": "createSkillVersion",
-    "service": "SkillVersionService",
     "entry": "Skills.Versions",
-    "name": "New",
     "response": {
       "id": "skillver_test",
       "skill_id": "skill_test",
       "version": "123"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "skills.versions.retrieve",
     "operation_id": "getSkillVersion",
-    "service": "SkillVersionService",
     "entry": "Skills.Versions",
-    "name": "Get",
     "response": {
       "id": "skillver_xxx",
       "skill_id": "skill_xxx",
@@ -2494,42 +2164,31 @@
       "created_at": "2026-08-17T13:31:31.917881Z",
       "metadata": {}
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "skills.versions.delete",
     "operation_id": "deleteSkillVersion",
-    "service": "SkillVersionService",
     "entry": "Skills.Versions",
-    "name": "Delete",
     "response": {
       "id": "1786973491821648",
       "type": "skill_version_deleted",
       "deleted": true
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
-    "operation_id": "downloadSkillVersion",
-    "service": "SkillVersionService",
-    "entry": "Skills.Versions",
-    "name": "Download",
-    "response": {},
-    "stream": false,
-    "download": false,
+    "id": "skills.versions.download",
     "raw": true,
+    "operation_id": "downloadSkillVersion",
+    "entry": "Skills.Versions",
+    "response": {},
     "empty": false
   },
   {
+    "id": "vaults.list",
     "operation_id": "listVault",
-    "service": "VaultService",
     "entry": "Vaults",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -2549,16 +2208,12 @@
       "has_more": false,
       "next_page": null
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "vaults.create",
     "operation_id": "createVault",
-    "service": "VaultService",
     "entry": "Vaults",
-    "name": "New",
     "response": {
       "id": "vault_xxx",
       "type": "vault",
@@ -2570,16 +2225,12 @@
       "updated_at": "2026-07-23T10:00:00Z",
       "identity_id": null
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "vaults.retrieve",
     "operation_id": "getVault",
-    "service": "VaultService",
     "entry": "Vaults",
-    "name": "Get",
     "response": {
       "id": "vault_xxx",
       "type": "vault",
@@ -2591,27 +2242,19 @@
       "updated_at": "2026-07-23T10:00:00Z",
       "identity_id": null
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "vaults.delete",
     "operation_id": "deleteVault",
-    "service": "VaultService",
     "entry": "Vaults",
-    "name": "Delete",
     "response": {},
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": true
   },
   {
+    "id": "vaults.credentials.list",
     "operation_id": "listVaultCredential",
-    "service": "VaultCredentialService",
     "entry": "Vaults.Credentials",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -2635,16 +2278,12 @@
       "has_more": false,
       "next_page": null
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "vaults.credentials.create",
     "operation_id": "createVaultCredential",
-    "service": "VaultCredentialService",
     "entry": "Vaults.Credentials",
-    "name": "New",
     "response": {
       "id": "vcred_xxx",
       "type": "vault_credential",
@@ -2660,16 +2299,12 @@
       "created_at": "2026-07-23T10:00:00Z",
       "updated_at": "2026-07-23T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "vaults.credentials.retrieve",
     "operation_id": "getVaultCredential",
-    "service": "VaultCredentialService",
     "entry": "Vaults.Credentials",
-    "name": "Get",
     "response": {
       "id": "vcred_xxx",
       "type": "vault_credential",
@@ -2685,27 +2320,19 @@
       "created_at": "2026-07-23T10:00:00Z",
       "updated_at": "2026-07-23T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "vaults.credentials.delete",
     "operation_id": "deleteVaultCredential",
-    "service": "VaultCredentialService",
     "entry": "Vaults.Credentials",
-    "name": "Delete",
     "response": {},
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": true
   },
   {
+    "id": "memoryStores.list",
     "operation_id": "listMemoryStore",
-    "service": "MemoryStoreService",
     "entry": "MemoryStores",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -2734,16 +2361,12 @@
       "last_id": "memstore_00mc7mukn7lkxr454tjd",
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "memoryStores.create",
     "operation_id": "createMemoryStore",
-    "service": "MemoryStoreService",
     "entry": "MemoryStores",
-    "name": "New",
     "response": {
       "id": "memstore_00mc7mukn7lkxr454tjd",
       "type": "memory_store",
@@ -2765,16 +2388,12 @@
         "identity_template_count": 0
       }
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "memoryStores.retrieve",
     "operation_id": "getMemoryStore",
-    "service": "MemoryStoreService",
     "entry": "MemoryStores",
-    "name": "Get",
     "response": {
       "id": "memstore_00mc7mukn7lkxr454tjd",
       "type": "memory_store",
@@ -2796,16 +2415,12 @@
         "identity_template_count": 1
       }
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "memoryStores.update",
     "operation_id": "updateMemoryStore",
-    "service": "MemoryStoreService",
     "entry": "MemoryStores",
-    "name": "Update",
     "response": {
       "id": "memstore_00mc7mukn7lkxr454tjd",
       "type": "memory_store",
@@ -2827,31 +2442,23 @@
         "identity_template_count": 1
       }
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "memoryStores.delete",
     "operation_id": "deleteMemoryStore",
-    "service": "MemoryStoreService",
     "entry": "MemoryStores",
-    "name": "Delete",
     "response": {
       "id": "memstore_00mc7mukn7lkxr454tjd",
       "type": "memory_store_deleted",
       "deleted": true
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "memoryStores.archive",
     "operation_id": "archiveMemoryStore",
-    "service": "MemoryStoreService",
     "entry": "MemoryStores",
-    "name": "Archive",
     "response": {
       "id": "memstore_00mc7mukn7lkxr454tjd",
       "type": "memory_store",
@@ -2873,16 +2480,12 @@
         "identity_template_count": 0
       }
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "memoryStores.memories.list",
     "operation_id": "listMemoryStoreMemoryMemories",
-    "service": "MemoryStoreMemoryService",
     "entry": "MemoryStores.Memories",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -2903,16 +2506,12 @@
       "last_id": "mem_00mc7mvag5u68kkfvxhy",
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "memoryStores.memories.create",
     "operation_id": "createMemoryStoreMemory",
-    "service": "MemoryStoreMemoryService",
     "entry": "MemoryStores.Memories",
-    "name": "New",
     "response": {
       "id": "mem_00mc7mvag5u68kkfvxhy",
       "type": "memory",
@@ -2927,16 +2526,12 @@
       "created_at": "2026-08-14T10:00:00Z",
       "updated_at": "2026-08-14T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "memoryStores.memories.retrieve",
     "operation_id": "getMemoryStoreMemory",
-    "service": "MemoryStoreMemoryService",
     "entry": "MemoryStores.Memories",
-    "name": "Get",
     "response": {
       "id": "mem_00mc7mvag5u68kkfvxhy",
       "type": "memory",
@@ -2951,16 +2546,12 @@
       "created_at": "2026-08-14T10:00:00Z",
       "updated_at": "2026-08-14T10:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "memoryStores.memories.update",
     "operation_id": "updateMemoryStoreMemory",
-    "service": "MemoryStoreMemoryService",
     "entry": "MemoryStores.Memories",
-    "name": "Update",
     "response": {
       "id": "mem_00mc7mvag5u68kkfvxhy",
       "type": "memory",
@@ -2975,31 +2566,23 @@
       "created_at": "2026-08-14T10:00:00Z",
       "updated_at": "2026-08-14T11:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "memoryStores.memories.delete",
     "operation_id": "deleteMemoryStoreMemory",
-    "service": "MemoryStoreMemoryService",
     "entry": "MemoryStores.Memories",
-    "name": "Delete",
     "response": {
       "id": "mem_00mc7mvag5u68kkfvxhy",
       "type": "memory_deleted",
       "deleted": true
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "memoryStores.memoryVersions.list",
     "operation_id": "listMemoryStoreMemoryVersion",
-    "service": "MemoryStoreMemoryVersionService",
     "entry": "MemoryStores.MemoryVersions",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -3033,16 +2616,12 @@
       "last_id": "memver_00mc7mvag5u68lh2y8gwh",
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "memoryStores.memoryVersions.retrieve",
     "operation_id": "getMemoryStoreMemoryVersion",
-    "service": "MemoryStoreMemoryVersionService",
     "entry": "MemoryStores.MemoryVersions",
-    "name": "Get",
     "response": {
       "id": "memver_00mc7mw0t337kbcx5q52",
       "type": "memory_version",
@@ -3057,16 +2636,12 @@
       "redacted_at": null,
       "created_at": "2026-08-14T11:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "memoryStores.memoryVersions.redact",
     "operation_id": "redactMemoryStoreMemoryVersion",
-    "service": "MemoryStoreMemoryVersionService",
     "entry": "MemoryStores.MemoryVersions",
-    "name": "Redact",
     "response": {
       "id": "memver_00mc7mw0t337kbcx5q52",
       "type": "memory_version",
@@ -3081,16 +2656,12 @@
       "redacted_at": "2026-08-14T12:00:00Z",
       "created_at": "2026-08-14T11:00:00Z"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "models.list",
     "operation_id": "listModels",
-    "service": "ModelService",
     "entry": "Models",
-    "name": "List",
     "response": {
       "data": [
         {
@@ -3124,16 +2695,12 @@
       ],
       "has_more": false
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   },
   {
+    "id": "environments.archive",
     "operation_id": "archiveEnvironment",
-    "service": "EnvironmentService",
     "entry": "Environments",
-    "name": "Archive",
     "response": {
       "id": "env_xxx",
       "type": "environment",
@@ -3150,9 +2717,6 @@
       "identity_id": null,
       "status": "archived"
     },
-    "stream": false,
-    "download": false,
-    "raw": false,
     "empty": false
   }
 ]

@@ -1,4 +1,4 @@
-// Ports Go cleanup_live_test.go with real SDK requests and deterministic failure injection.
+// Cleanup lifecycles with real SDK requests and deterministic failure injection.
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { testClient, response } from '../helpers.mjs';
@@ -8,7 +8,7 @@ import { forwardScenarios } from '../live/forward-scenarios.mjs';
 import { ManagedScenarioSuite } from '../live/managed-support.mjs';
 const key = req => `${req.method} ${new URL(req.url).pathname}`;
 
-test('Go TestScheduleCleanupOffline: pending run -> cancel -> idle -> archive', async () => {
+test('schedule cleanup: pending run -> cancel -> idle -> archive', async () => {
   const requests = []; let runs = 0, sessions = 0;
   const suite = new ForwardLiveSuite(testClient('forward', req => {
     const route = key(req); requests.push(route);
@@ -23,11 +23,11 @@ test('Go TestScheduleCleanupOffline: pending run -> cancel -> idle -> archive', 
   await suite.finishScheduleRun('run', 'identity');
   assert.deepEqual(requests, ['GET /api/v1/forward/schedule_runs/run', 'GET /api/v1/forward/schedule_runs/run', 'GET /api/v1/forward/sessions/session', 'POST /api/v1/forward/sessions/session/cancel', 'GET /api/v1/forward/sessions/session', 'POST /api/v1/forward/sessions/session/archive']);
 });
-test('Go TestPendingScheduleCleanupDeadlineOffline preserves run ID', async () => {
+test('pending schedule cleanup deadline preserves the run ID', async () => {
   const suite = new ForwardLiveSuite(testClient('forward', () => response({ id: 'run', status: 'pending' })), { pollInterval: 2 });
   await assert.rejects(() => suite.finishScheduleRun('run', 'identity', { signal: AbortSignal.timeout(10) }), /run=run/);
 });
-for (const state of ['failed', 'processing']) test(`Go TestBatchFailureCleanupOffline ${state}`, async () => {
+for (const state of ['failed', 'processing']) test(`batch failure cleanup ${state}`, async () => {
   const requests = []; let reads = 0;
   const suite = new ForwardLiveSuite(testClient('forward', req => {
     const route = key(req); requests.push(route);
@@ -47,11 +47,11 @@ for (const state of ['failed', 'processing']) test(`Go TestBatchFailureCleanupOf
   assert.equal(requests.at(-1), 'POST /api/v1/forward/sessions/session/archive');
   assert.equal(requests.some(r => r.includes('/files/')), false);
 });
-test('Go TestBatchMissingOutputCleanupOffline retains missing output failure', async () => {
+test('batch cleanup retains a missing-output failure', async () => {
   const suite = new ForwardLiveSuite(testClient('forward', req => new URL(req.url).pathname.endsWith('/output') ? response({ error: { message: 'output not generated' } }, 404) : response({ id: 'batch', status: 'cancelled', output_file_id: 'internal', request_counts: { total: 1 } })));
   await assert.rejects(() => suite.finishBatch('batch', 'task', 'identity', 'template'), e => e instanceof CleanupFailure && !resourceAlreadyGone(e));
 });
-for (const name of ['schedule_e2e', 'batch_e2e']) test(`Go TestExecutionFailureCleanupOffline ${name} resolves immutable ID after failed first poll`, async () => {
+for (const name of ['schedule_e2e', 'batch_e2e']) test(`execution failure cleanup ${name} resolves the immutable ID after a failed first poll`, async () => {
   const platform = new MockPlatform('forward'); let polls = 0, stableID;
   const client = testClient('forward', async req => {
     const path = new URL(req.url).pathname.replace('/api/v1/forward', '');
@@ -69,7 +69,7 @@ for (const name of ['schedule_e2e', 'batch_e2e']) test(`Go TestExecutionFailureC
   assert.ok(platform.logs.some(r => r.method === 'POST' && /^\/sessions\/[^/]+\/archive$/.test(r.path)));
   platform.assertCleanup();
 });
-test('Go TestManagedSessionCleanupOffline interrupts, waits then deletes', async () => {
+test('Managed session cleanup interrupts, waits then deletes', async () => {
   const requests = []; let reads = 0;
   const suite = new ManagedScenarioSuite(testClient('managed', async req => {
     const route = key(req); requests.push(route);

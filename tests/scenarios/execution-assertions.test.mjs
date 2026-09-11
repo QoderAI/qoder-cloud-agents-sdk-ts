@@ -9,7 +9,7 @@ for (const c of [
   { name: 'different answer', events: [message('wrong'), { type: 'session.status_idle', stop_reason: 'end_turn' }], valid: false },
   { name: 'earlier answer is not final', events: [message('marker'), message('wrong'), { type: 'session.status_idle', stop_reason: 'end_turn' }], valid: false },
   { name: 'completed', events: [message('marker'), { type: 'session.status_idle', stop_reason: { type: 'end_turn' } }], valid: true },
-]) test(`Go execution proof: ${c.name}`, () => {
+]) test(`execution proof: ${c.name}`, () => {
   const result = new TurnResult(); for (const event of c.events) result.observe(JSON.stringify(event));
   if (c.valid) result.verify(['marker']); else assert.throws(() => result.verify(['marker']));
 });

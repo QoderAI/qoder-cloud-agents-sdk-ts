@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import { MockPlatform } from '../scenario-harness.mjs';
 import { ForwardLiveSuite } from '../live/forward-support.mjs';
 import { forwardScenarios } from '../live/forward-scenarios.mjs';
-for (const scenario of forwardScenarios) test(`Forward offline ${scenario.goTest}/${scenario.name}`, async () => {
+for (const scenario of forwardScenarios) test(`Forward offline ${scenario.name}`, async () => {
   const platform = new MockPlatform('forward');
   const suite = new ForwardLiveSuite(platform.client, { timeout: 1000, scenarioTimeout: 2000, pollInterval: 1, model: 'model-test', fetch: platform.fetch });
   try {

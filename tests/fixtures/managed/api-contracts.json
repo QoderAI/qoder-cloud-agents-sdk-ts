@@ -1,11 +1,8 @@
 [
   {
-    "service": "AgentService",
-    "name": "New",
-    "method": "POST",
+    "id": "agents.create",
+    "httpMethod": "POST",
     "path": "/agents",
-    "file": "qoder-cloud-agents-sdk-go/managed/agent.go",
-    "line": 47,
     "doc": "agents/create.md",
     "route": "/agents",
     "response": {
@@ -47,12 +44,9 @@
     }
   },
   {
-    "service": "AgentService",
-    "name": "Get",
-    "method": "GET",
+    "id": "agents.retrieve",
+    "httpMethod": "GET",
     "path": "/agents/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/agent.go",
-    "line": 59,
     "doc": "agents/get.md",
     "route": "/agents/{agent_id}",
     "response": {
@@ -79,12 +73,9 @@
     }
   },
   {
-    "service": "AgentService",
-    "name": "Update",
-    "method": "POST",
+    "id": "agents.update",
+    "httpMethod": "POST",
     "path": "/agents/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/agent.go",
-    "line": 75,
     "doc": "agents/update.md",
     "route": "/agents/{agent_id}",
     "response": {
@@ -106,12 +97,9 @@
     }
   },
   {
-    "service": "AgentService",
-    "name": "List",
-    "method": "GET",
+    "id": "agents.list",
+    "httpMethod": "GET",
     "path": "/agents",
-    "file": "qoder-cloud-agents-sdk-go/managed/agent.go",
-    "line": 91,
     "doc": "agents/list.md",
     "route": "/agents",
     "response": {
@@ -158,12 +146,9 @@
     }
   },
   {
-    "service": "AgentService",
-    "name": "Archive",
-    "method": "POST",
+    "id": "agents.archive",
+    "httpMethod": "POST",
     "path": "/agents/{}/archive",
-    "file": "qoder-cloud-agents-sdk-go/managed/agent.go",
-    "line": 117,
     "doc": "agents/archive.md",
     "route": "/agents/{agent_id}/archive",
     "response": {
@@ -185,12 +170,9 @@
     }
   },
   {
-    "service": "DeploymentService",
-    "name": "New",
-    "method": "POST",
+    "id": "deployments.create",
+    "httpMethod": "POST",
     "path": "/deployments",
-    "file": "qoder-cloud-agents-sdk-go/managed/deployment.go",
-    "line": 43,
     "doc": "deployments/create.md",
     "route": "/deployments",
     "response": {
@@ -241,12 +223,9 @@
     }
   },
   {
-    "service": "DeploymentService",
-    "name": "Get",
-    "method": "GET",
+    "id": "deployments.retrieve",
+    "httpMethod": "GET",
     "path": "/deployments/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/deployment.go",
-    "line": 55,
     "doc": "deployments/get.md",
     "route": "/deployments/{id}",
     "response": {
@@ -295,12 +274,9 @@
     }
   },
   {
-    "service": "DeploymentService",
-    "name": "Update",
-    "method": "POST",
+    "id": "deployments.update",
+    "httpMethod": "POST",
     "path": "/deployments/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/deployment.go",
-    "line": 71,
     "doc": "deployments/update.md",
     "route": "/deployments/{id}",
     "response": {
@@ -349,12 +325,9 @@
     }
   },
   {
-    "service": "DeploymentService",
-    "name": "List",
-    "method": "GET",
+    "id": "deployments.list",
+    "httpMethod": "GET",
     "path": "/deployments",
-    "file": "qoder-cloud-agents-sdk-go/managed/deployment.go",
-    "line": 87,
     "doc": "deployments/list.md",
     "route": "/deployments",
     "response": {
@@ -411,12 +384,9 @@
     }
   },
   {
-    "service": "DeploymentService",
-    "name": "Archive",
-    "method": "POST",
+    "id": "deployments.archive",
+    "httpMethod": "POST",
     "path": "/deployments/{}/archive",
-    "file": "qoder-cloud-agents-sdk-go/managed/deployment.go",
-    "line": 113,
     "doc": "deployments/archive.md",
     "route": "/deployments/{id}/archive",
     "response": {
@@ -460,12 +430,9 @@
     }
   },
   {
-    "service": "DeploymentService",
-    "name": "Pause",
-    "method": "POST",
+    "id": "deployments.pause",
+    "httpMethod": "POST",
     "path": "/deployments/{}/pause",
-    "file": "qoder-cloud-agents-sdk-go/managed/deployment.go",
-    "line": 129,
     "doc": "deployments/pause.md",
     "route": "/deployments/{id}/pause",
     "response": {
@@ -517,12 +484,9 @@
     }
   },
   {
-    "service": "DeploymentService",
-    "name": "Run",
-    "method": "POST",
+    "id": "deployments.run",
+    "httpMethod": "POST",
     "path": "/deployments/{}/run",
-    "file": "qoder-cloud-agents-sdk-go/managed/deployment.go",
-    "line": 145,
     "doc": "deployments/run.md",
     "route": "/deployments/{id}/run",
     "response": {
@@ -543,12 +507,9 @@
     }
   },
   {
-    "service": "DeploymentService",
-    "name": "Unpause",
-    "method": "POST",
+    "id": "deployments.unpause",
+    "httpMethod": "POST",
     "path": "/deployments/{}/unpause",
-    "file": "qoder-cloud-agents-sdk-go/managed/deployment.go",
-    "line": 161,
     "doc": "deployments/unpause.md",
     "route": "/deployments/{id}/unpause",
     "response": {
@@ -598,12 +559,9 @@
     }
   },
   {
-    "service": "ModelService",
-    "name": "List",
-    "method": "GET",
+    "id": "models.list",
+    "httpMethod": "GET",
     "path": "/models",
-    "file": "qoder-cloud-agents-sdk-go/managed/model.go",
-    "line": 46,
     "doc": "models/list.md",
     "route": "/models",
     "response": {
@@ -637,12 +595,9 @@
     }
   },
   {
-    "service": "SessionEventService",
-    "name": "List",
-    "method": "GET",
+    "id": "sessions.events.list",
+    "httpMethod": "GET",
     "path": "/sessions/{}/events",
-    "file": "qoder-cloud-agents-sdk-go/managed/sessionevent.go",
-    "line": 44,
     "doc": "sessions/list-events.md",
     "route": "/sessions/{session_id}/events",
     "response": {
@@ -677,12 +632,9 @@
     }
   },
   {
-    "service": "SessionEventService",
-    "name": "Send",
-    "method": "POST",
+    "id": "sessions.events.send",
+    "httpMethod": "POST",
     "path": "/sessions/{}/events",
-    "file": "qoder-cloud-agents-sdk-go/managed/sessionevent.go",
-    "line": 74,
     "doc": "sessions/send-event.md",
     "route": "/sessions/{session_id}/events",
     "response": {
@@ -702,23 +654,18 @@
     }
   },
   {
-    "service": "SessionEventService",
-    "name": "StreamEvents",
-    "method": "GET",
+    "id": "sessions.events.streamEvents",
+    "httpMethod": "GET",
+    "stream": true,
     "path": "/sessions/{}/events/stream",
-    "file": "qoder-cloud-agents-sdk-go/managed/sessionevent.go",
-    "line": 90,
     "doc": "sessions/stream-events.md",
     "route": "/sessions/{session_id}/events/stream",
     "response": {}
   },
   {
-    "service": "DeploymentRunService",
-    "name": "Get",
-    "method": "GET",
+    "id": "deploymentRuns.retrieve",
+    "httpMethod": "GET",
     "path": "/deployment_runs/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/deploymentrun.go",
-    "line": 43,
     "doc": "deployments/get-run-global.md",
     "route": "/deployment_runs/{run_id}",
     "response": {
@@ -739,12 +686,9 @@
     }
   },
   {
-    "service": "DeploymentRunService",
-    "name": "List",
-    "method": "GET",
+    "id": "deploymentRuns.list",
+    "httpMethod": "GET",
     "path": "/deployment_runs",
-    "file": "qoder-cloud-agents-sdk-go/managed/deploymentrun.go",
-    "line": 59,
     "doc": "deployments/list-all-runs.md",
     "route": "/deployment_runs",
     "response": {
@@ -790,12 +734,9 @@
     }
   },
   {
-    "service": "VaultService",
-    "name": "New",
-    "method": "POST",
+    "id": "vaults.create",
+    "httpMethod": "POST",
     "path": "/vaults",
-    "file": "qoder-cloud-agents-sdk-go/managed/vault.go",
-    "line": 44,
     "doc": "vaults/create.md",
     "route": "/vaults",
     "response": {
@@ -812,12 +753,9 @@
     }
   },
   {
-    "service": "VaultService",
-    "name": "Get",
-    "method": "GET",
+    "id": "vaults.retrieve",
+    "httpMethod": "GET",
     "path": "/vaults/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/vault.go",
-    "line": 56,
     "doc": "vaults/get.md",
     "route": "/vaults/{vault_id}",
     "response": {
@@ -831,12 +769,9 @@
     }
   },
   {
-    "service": "VaultService",
-    "name": "List",
-    "method": "GET",
+    "id": "vaults.list",
+    "httpMethod": "GET",
     "path": "/vaults",
-    "file": "qoder-cloud-agents-sdk-go/managed/vault.go",
-    "line": 72,
     "doc": "vaults/list.md",
     "route": "/vaults",
     "response": {
@@ -858,12 +793,9 @@
     }
   },
   {
-    "service": "VaultService",
-    "name": "Delete",
-    "method": "DELETE",
+    "id": "vaults.delete",
+    "httpMethod": "DELETE",
     "path": "/vaults/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/vault.go",
-    "line": 98,
     "doc": "vaults/delete.md",
     "route": "/vaults/{vault_id}",
     "response": {
@@ -872,12 +804,9 @@
     }
   },
   {
-    "service": "VaultService",
-    "name": "Archive",
-    "method": "POST",
+    "id": "vaults.archive",
+    "httpMethod": "POST",
     "path": "/vaults/{}/archive",
-    "file": "qoder-cloud-agents-sdk-go/managed/vault.go",
-    "line": 114,
     "doc": "vaults/archive.md",
     "route": "/vaults/{vault_id}/archive",
     "response": {
@@ -891,111 +820,81 @@
     }
   },
   {
-    "service": "MemoryStoreMemoryVersionService",
-    "name": "Get",
-    "method": "GET",
+    "id": "memoryStores.memoryVersions.retrieve",
+    "httpMethod": "GET",
     "path": "/memory_stores/{}/memory_versions/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/memorystorememoryversion.go",
-    "line": 44,
     "doc": "memory-stores/get-version.md",
     "route": "/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}",
     "response": {}
   },
   {
-    "service": "MemoryStoreMemoryVersionService",
-    "name": "List",
-    "method": "GET",
+    "id": "memoryStores.memoryVersions.list",
+    "httpMethod": "GET",
     "path": "/memory_stores/{}/memory_versions",
-    "file": "qoder-cloud-agents-sdk-go/managed/memorystorememoryversion.go",
-    "line": 64,
     "doc": "memory-stores/list-versions.md",
     "route": "/memory_stores/{memory_store_id}/memory_versions",
     "response": {}
   },
   {
-    "service": "MemoryStoreMemoryVersionService",
-    "name": "Redact",
-    "method": "POST",
+    "id": "memoryStores.memoryVersions.redact",
+    "httpMethod": "POST",
     "path": "/memory_stores/{}/memory_versions/{}/redact",
-    "file": "qoder-cloud-agents-sdk-go/managed/memorystorememoryversion.go",
-    "line": 94,
     "doc": "memory-stores/redact-version.md",
     "route": "/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}/redact",
     "response": {}
   },
   {
-    "service": "MemoryStoreService",
-    "name": "New",
-    "method": "POST",
+    "id": "memoryStores.create",
+    "httpMethod": "POST",
     "path": "/memory_stores",
-    "file": "qoder-cloud-agents-sdk-go/managed/memorystore.go",
-    "line": 46,
     "doc": "memory-stores/create.md",
     "route": "/memory_stores",
     "response": {}
   },
   {
-    "service": "MemoryStoreService",
-    "name": "Get",
-    "method": "GET",
+    "id": "memoryStores.retrieve",
+    "httpMethod": "GET",
     "path": "/memory_stores/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/memorystore.go",
-    "line": 58,
     "doc": "memory-stores/get.md",
     "route": "/memory_stores/{memory_store_id}",
     "response": {}
   },
   {
-    "service": "MemoryStoreService",
-    "name": "Update",
-    "method": "POST",
+    "id": "memoryStores.update",
+    "httpMethod": "POST",
     "path": "/memory_stores/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/memorystore.go",
-    "line": 74,
     "doc": "memory-stores/update.md",
     "route": "/memory_stores/{memory_store_id}",
     "response": {}
   },
   {
-    "service": "MemoryStoreService",
-    "name": "List",
-    "method": "GET",
+    "id": "memoryStores.list",
+    "httpMethod": "GET",
     "path": "/memory_stores",
-    "file": "qoder-cloud-agents-sdk-go/managed/memorystore.go",
-    "line": 90,
     "doc": "memory-stores/list.md",
     "route": "/memory_stores",
     "response": {}
   },
   {
-    "service": "MemoryStoreService",
-    "name": "Delete",
-    "method": "DELETE",
+    "id": "memoryStores.delete",
+    "httpMethod": "DELETE",
     "path": "/memory_stores/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/memorystore.go",
-    "line": 116,
     "doc": "memory-stores/delete.md",
     "route": "/memory_stores/{memory_store_id}",
     "response": {}
   },
   {
-    "service": "MemoryStoreService",
-    "name": "Archive",
-    "method": "POST",
+    "id": "memoryStores.archive",
+    "httpMethod": "POST",
     "path": "/memory_stores/{}/archive",
-    "file": "qoder-cloud-agents-sdk-go/managed/memorystore.go",
-    "line": 132,
     "doc": "memory-stores/archive.md",
     "route": "/memory_stores/{memory_store_id}/archive",
     "response": {}
   },
   {
-    "service": "SessionResourceService",
-    "name": "Get",
-    "method": "GET",
+    "id": "sessions.resources.retrieve",
+    "httpMethod": "GET",
     "path": "/sessions/{}/resources/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/sessionresource.go",
-    "line": 43,
     "doc": "sessions/get-resource.md",
     "route": "/sessions/{session_id}/resources/{resource_id}",
     "response": {
@@ -1008,12 +907,9 @@
     }
   },
   {
-    "service": "SessionResourceService",
-    "name": "Update",
-    "method": "POST",
+    "id": "sessions.resources.update",
+    "httpMethod": "POST",
     "path": "/sessions/{}/resources/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/sessionresource.go",
-    "line": 63,
     "doc": "sessions/update-resource.md",
     "route": "/sessions/{session_id}/resources/{resource_id}",
     "response": {
@@ -1030,12 +926,9 @@
     }
   },
   {
-    "service": "SessionResourceService",
-    "name": "List",
-    "method": "GET",
+    "id": "sessions.resources.list",
+    "httpMethod": "GET",
     "path": "/sessions/{}/resources",
-    "file": "qoder-cloud-agents-sdk-go/managed/sessionresource.go",
-    "line": 83,
     "doc": "sessions/list-resources.md",
     "route": "/sessions/{session_id}/resources",
     "response": {
@@ -1056,12 +949,9 @@
     }
   },
   {
-    "service": "SessionResourceService",
-    "name": "Delete",
-    "method": "DELETE",
+    "id": "sessions.resources.delete",
+    "httpMethod": "DELETE",
     "path": "/sessions/{}/resources/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/sessionresource.go",
-    "line": 113,
     "doc": "sessions/delete-resource.md",
     "route": "/sessions/{session_id}/resources/{resource_id}",
     "response": {
@@ -1070,12 +960,9 @@
     }
   },
   {
-    "service": "SessionResourceService",
-    "name": "Add",
-    "method": "POST",
+    "id": "sessions.resources.add",
+    "httpMethod": "POST",
     "path": "/sessions/{}/resources",
-    "file": "qoder-cloud-agents-sdk-go/managed/sessionresource.go",
-    "line": 133,
     "doc": "sessions/add-resource.md",
     "route": "/sessions/{session_id}/resources",
     "response": {
@@ -1088,12 +975,9 @@
     }
   },
   {
-    "service": "SessionThreadEventService",
-    "name": "List",
-    "method": "GET",
+    "id": "sessions.threads.events.list",
+    "httpMethod": "GET",
     "path": "/sessions/{}/threads/{}/events",
-    "file": "qoder-cloud-agents-sdk-go/managed/sessionthreadevent.go",
-    "line": 40,
     "doc": "sessions/list-thread-events.md",
     "route": "/sessions/{session_id}/threads/{thread_id}/events",
     "response": {
@@ -1117,78 +1001,58 @@
     }
   },
   {
-    "service": "SessionThreadEventService",
-    "name": "StreamEvents",
-    "method": "GET",
+    "id": "sessions.threads.events.streamEvents",
+    "httpMethod": "GET",
+    "stream": true,
     "path": "/sessions/{}/threads/{}/stream",
-    "file": "qoder-cloud-agents-sdk-go/managed/sessionthreadevent.go",
-    "line": 74,
     "doc": "sessions/stream-thread-events.md",
     "route": "/sessions/{session_id}/threads/{thread_id}/stream",
     "response": {}
   },
   {
-    "service": "MemoryStoreMemoryService",
-    "name": "New",
-    "method": "POST",
+    "id": "memoryStores.memories.create",
+    "httpMethod": "POST",
     "path": "/memory_stores/{}/memories",
-    "file": "qoder-cloud-agents-sdk-go/managed/memorystorememory.go",
-    "line": 43,
     "doc": "memory-stores/create-memory.md",
     "route": "/memory_stores/{memory_store_id}/memories",
     "response": {}
   },
   {
-    "service": "MemoryStoreMemoryService",
-    "name": "Get",
-    "method": "GET",
+    "id": "memoryStores.memories.retrieve",
+    "httpMethod": "GET",
     "path": "/memory_stores/{}/memories/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/memorystorememory.go",
-    "line": 59,
     "doc": "memory-stores/get-memory.md",
     "route": "/memory_stores/{memory_store_id}/memories/{memory_id}",
     "response": {}
   },
   {
-    "service": "MemoryStoreMemoryService",
-    "name": "Update",
-    "method": "POST",
+    "id": "memoryStores.memories.update",
+    "httpMethod": "POST",
     "path": "/memory_stores/{}/memories/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/memorystorememory.go",
-    "line": 79,
     "doc": "memory-stores/update-memory.md",
     "route": "/memory_stores/{memory_store_id}/memories/{memory_id}",
     "response": {}
   },
   {
-    "service": "MemoryStoreMemoryService",
-    "name": "List",
-    "method": "GET",
+    "id": "memoryStores.memories.list",
+    "httpMethod": "GET",
     "path": "/memory_stores/{}/memories",
-    "file": "qoder-cloud-agents-sdk-go/managed/memorystorememory.go",
-    "line": 99,
     "doc": "memory-stores/list-memories.md",
     "route": "/memory_stores/{memory_store_id}/memories",
     "response": {}
   },
   {
-    "service": "MemoryStoreMemoryService",
-    "name": "Delete",
-    "method": "DELETE",
+    "id": "memoryStores.memories.delete",
+    "httpMethod": "DELETE",
     "path": "/memory_stores/{}/memories/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/memorystorememory.go",
-    "line": 129,
     "doc": "memory-stores/delete-memory.md",
     "route": "/memory_stores/{memory_store_id}/memories/{memory_id}",
     "response": {}
   },
   {
-    "service": "SkillService",
-    "name": "New",
-    "method": "POST",
+    "id": "skills.create",
+    "httpMethod": "POST",
     "path": "/skills",
-    "file": "qoder-cloud-agents-sdk-go/managed/skill.go",
-    "line": 49,
     "doc": "skills/create.md",
     "route": "/skills",
     "response": {
@@ -1205,12 +1069,9 @@
     }
   },
   {
-    "service": "SkillService",
-    "name": "Get",
-    "method": "GET",
+    "id": "skills.retrieve",
+    "httpMethod": "GET",
     "path": "/skills/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/skill.go",
-    "line": 60,
     "doc": "skills/get.md",
     "route": "/skills/{skill_id}",
     "response": {
@@ -1227,12 +1088,9 @@
     }
   },
   {
-    "service": "SkillService",
-    "name": "List",
-    "method": "GET",
+    "id": "skills.list",
+    "httpMethod": "GET",
     "path": "/skills",
-    "file": "qoder-cloud-agents-sdk-go/managed/skill.go",
-    "line": 75,
     "doc": "skills/list.md",
     "route": "/skills",
     "response": {
@@ -1257,12 +1115,9 @@
     }
   },
   {
-    "service": "SkillService",
-    "name": "Delete",
-    "method": "DELETE",
+    "id": "skills.delete",
+    "httpMethod": "DELETE",
     "path": "/skills/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/skill.go",
-    "line": 101,
     "doc": "skills/delete.md",
     "route": "/skills/{skill_id}",
     "response": {
@@ -1271,12 +1126,9 @@
     }
   },
   {
-    "service": "EnvironmentService",
-    "name": "New",
-    "method": "POST",
+    "id": "environments.create",
+    "httpMethod": "POST",
     "path": "/environments",
-    "file": "qoder-cloud-agents-sdk-go/managed/environment.go",
-    "line": 46,
     "doc": "environments/create.md",
     "route": "/environments",
     "response": {
@@ -1305,12 +1157,9 @@
     }
   },
   {
-    "service": "EnvironmentService",
-    "name": "Get",
-    "method": "GET",
+    "id": "environments.retrieve",
+    "httpMethod": "GET",
     "path": "/environments/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/environment.go",
-    "line": 58,
     "doc": "environments/get.md",
     "route": "/environments/{environment_id}",
     "response": {
@@ -1339,12 +1188,9 @@
     }
   },
   {
-    "service": "EnvironmentService",
-    "name": "Update",
-    "method": "POST",
+    "id": "environments.update",
+    "httpMethod": "POST",
     "path": "/environments/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/environment.go",
-    "line": 74,
     "doc": "environments/update.md",
     "route": "/environments/{environment_id}",
     "response": {
@@ -1373,12 +1219,9 @@
     }
   },
   {
-    "service": "EnvironmentService",
-    "name": "List",
-    "method": "GET",
+    "id": "environments.list",
+    "httpMethod": "GET",
     "path": "/environments",
-    "file": "qoder-cloud-agents-sdk-go/managed/environment.go",
-    "line": 90,
     "doc": "environments/list.md",
     "route": "/environments",
     "response": {
@@ -1437,12 +1280,9 @@
     }
   },
   {
-    "service": "EnvironmentService",
-    "name": "Delete",
-    "method": "DELETE",
+    "id": "environments.delete",
+    "httpMethod": "DELETE",
     "path": "/environments/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/environment.go",
-    "line": 116,
     "doc": "environments/delete.md",
     "route": "/environments/{environment_id}",
     "response": {
@@ -1451,12 +1291,9 @@
     }
   },
   {
-    "service": "EnvironmentService",
-    "name": "Archive",
-    "method": "POST",
+    "id": "environments.archive",
+    "httpMethod": "POST",
     "path": "/environments/{}/archive",
-    "file": "qoder-cloud-agents-sdk-go/managed/environment.go",
-    "line": 133,
     "doc": "environments/archive.md",
     "route": "/environments/{environment_id}/archive",
     "response": {
@@ -1485,12 +1322,9 @@
     }
   },
   {
-    "service": "EnvironmentWorkService",
-    "name": "Get",
-    "method": "GET",
+    "id": "environments.work.retrieve",
+    "httpMethod": "GET",
     "path": "/environments/{}/work/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/environmentwork.go",
-    "line": 47,
     "doc": "environments/work/get.md",
     "route": "/environments/{environment_id}/work/{work_id}",
     "response": {
@@ -1514,12 +1348,9 @@
     }
   },
   {
-    "service": "EnvironmentWorkService",
-    "name": "Update",
-    "method": "POST",
+    "id": "environments.work.update",
+    "httpMethod": "POST",
     "path": "/environments/{}/work/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/environmentwork.go",
-    "line": 72,
     "doc": "environments/work/update-metadata.md",
     "route": "/environments/{environment_id}/work/{work_id}",
     "response": {
@@ -1544,12 +1375,9 @@
     }
   },
   {
-    "service": "EnvironmentWorkService",
-    "name": "List",
-    "method": "GET",
+    "id": "environments.work.list",
+    "httpMethod": "GET",
     "path": "/environments/{}/work",
-    "file": "qoder-cloud-agents-sdk-go/managed/environmentwork.go",
-    "line": 97,
     "doc": "environments/work/list.md",
     "route": "/environments/{environment_id}/work",
     "response": {
@@ -1581,12 +1409,9 @@
     }
   },
   {
-    "service": "EnvironmentWorkService",
-    "name": "Ack",
-    "method": "POST",
+    "id": "environments.work.ack",
+    "httpMethod": "POST",
     "path": "/environments/{}/work/{}/ack",
-    "file": "qoder-cloud-agents-sdk-go/managed/environmentwork.go",
-    "line": 138,
     "doc": "environments/work/ack.md",
     "route": "/environments/{environment_id}/work/{work_id}/ack",
     "response": {
@@ -1608,12 +1433,9 @@
     }
   },
   {
-    "service": "EnvironmentWorkService",
-    "name": "Heartbeat",
-    "method": "POST",
+    "id": "environments.work.heartbeat",
+    "httpMethod": "POST",
     "path": "/environments/{}/work/{}/heartbeat",
-    "file": "qoder-cloud-agents-sdk-go/managed/environmentwork.go",
-    "line": 163,
     "doc": "environments/work/heartbeat.md",
     "route": "/environments/{environment_id}/work/{work_id}/heartbeat",
     "response": {
@@ -1625,23 +1447,17 @@
     }
   },
   {
-    "service": "EnvironmentWorkService",
-    "name": "Poll",
-    "method": "GET",
+    "id": "environments.work.poll",
+    "httpMethod": "GET",
     "path": "/environments/{}/work/poll",
-    "file": "qoder-cloud-agents-sdk-go/managed/environmentwork.go",
-    "line": 188,
     "doc": "environments/work/poll.md",
     "route": "/environments/{environment_id}/work/poll",
     "response": null
   },
   {
-    "service": "EnvironmentWorkService",
-    "name": "Stats",
-    "method": "GET",
+    "id": "environments.work.stats",
+    "httpMethod": "GET",
     "path": "/environments/{}/work/stats",
-    "file": "qoder-cloud-agents-sdk-go/managed/environmentwork.go",
-    "line": 207,
     "doc": "environments/work/stats.md",
     "route": "/environments/{environment_id}/work/stats",
     "response": {
@@ -1653,12 +1469,9 @@
     }
   },
   {
-    "service": "EnvironmentWorkService",
-    "name": "Stop",
-    "method": "POST",
+    "id": "environments.work.stop",
+    "httpMethod": "POST",
     "path": "/environments/{}/work/{}/stop",
-    "file": "qoder-cloud-agents-sdk-go/managed/environmentwork.go",
-    "line": 228,
     "doc": "environments/work/stop.md",
     "route": "/environments/{environment_id}/work/{work_id}/stop",
     "response": {
@@ -1680,12 +1493,9 @@
     }
   },
   {
-    "service": "DreamService",
-    "name": "New",
-    "method": "POST",
+    "id": "dreams.create",
+    "httpMethod": "POST",
     "path": "/dreams",
-    "file": "qoder-cloud-agents-sdk-go/managed/dream.go",
-    "line": 43,
     "doc": "dreams/create.md",
     "route": "/dreams",
     "response": {
@@ -1723,12 +1533,9 @@
     }
   },
   {
-    "service": "DreamService",
-    "name": "Get",
-    "method": "GET",
+    "id": "dreams.retrieve",
+    "httpMethod": "GET",
     "path": "/dreams/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/dream.go",
-    "line": 55,
     "doc": "dreams/get.md",
     "route": "/dreams/{id}",
     "response": {
@@ -1769,12 +1576,9 @@
     }
   },
   {
-    "service": "DreamService",
-    "name": "List",
-    "method": "GET",
+    "id": "dreams.list",
+    "httpMethod": "GET",
     "path": "/dreams",
-    "file": "qoder-cloud-agents-sdk-go/managed/dream.go",
-    "line": 71,
     "doc": "dreams/list.md",
     "route": "/dreams",
     "response": {
@@ -1818,12 +1622,9 @@
     }
   },
   {
-    "service": "DreamService",
-    "name": "Archive",
-    "method": "POST",
+    "id": "dreams.archive",
+    "httpMethod": "POST",
     "path": "/dreams/{}/archive",
-    "file": "qoder-cloud-agents-sdk-go/managed/dream.go",
-    "line": 97,
     "doc": "dreams/archive.md",
     "route": "/dreams/{id}/archive",
     "response": {
@@ -1863,12 +1664,9 @@
     }
   },
   {
-    "service": "DreamService",
-    "name": "Cancel",
-    "method": "POST",
+    "id": "dreams.cancel",
+    "httpMethod": "POST",
     "path": "/dreams/{}/cancel",
-    "file": "qoder-cloud-agents-sdk-go/managed/dream.go",
-    "line": 113,
     "doc": "dreams/cancel.md",
     "route": "/dreams/{id}/cancel",
     "response": {
@@ -1900,12 +1698,9 @@
     }
   },
   {
-    "service": "SessionThreadService",
-    "name": "Get",
-    "method": "GET",
+    "id": "sessions.threads.retrieve",
+    "httpMethod": "GET",
     "path": "/sessions/{}/threads/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/sessionthread.go",
-    "line": 45,
     "doc": "sessions/get-thread.md",
     "route": "/sessions/{session_id}/threads/{thread_id}",
     "response": {
@@ -1926,12 +1721,9 @@
     }
   },
   {
-    "service": "SessionThreadService",
-    "name": "List",
-    "method": "GET",
+    "id": "sessions.threads.list",
+    "httpMethod": "GET",
     "path": "/sessions/{}/threads",
-    "file": "qoder-cloud-agents-sdk-go/managed/sessionthread.go",
-    "line": 65,
     "doc": "sessions/list-threads.md",
     "route": "/sessions/{session_id}/threads",
     "response": {
@@ -1960,12 +1752,9 @@
     }
   },
   {
-    "service": "SessionThreadService",
-    "name": "Archive",
-    "method": "POST",
+    "id": "sessions.threads.archive",
+    "httpMethod": "POST",
     "path": "/sessions/{}/threads/{}/archive",
-    "file": "qoder-cloud-agents-sdk-go/managed/sessionthread.go",
-    "line": 95,
     "doc": "sessions/archive-thread.md",
     "route": "/sessions/{session_id}/threads/{thread_id}/archive",
     "response": {
@@ -2008,12 +1797,9 @@
     }
   },
   {
-    "service": "VaultCredentialService",
-    "name": "New",
-    "method": "POST",
+    "id": "vaults.credentials.create",
+    "httpMethod": "POST",
     "path": "/vaults/{}/credentials",
-    "file": "qoder-cloud-agents-sdk-go/managed/vaultcredential.go",
-    "line": 43,
     "doc": "vaults/create-credential.md",
     "route": "/vaults/{vault_id}/credentials",
     "response": {
@@ -2034,12 +1820,9 @@
     }
   },
   {
-    "service": "VaultCredentialService",
-    "name": "Get",
-    "method": "GET",
+    "id": "vaults.credentials.retrieve",
+    "httpMethod": "GET",
     "path": "/vaults/{}/credentials/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/vaultcredential.go",
-    "line": 59,
     "doc": "vaults/get-credential.md",
     "route": "/vaults/{vault_id}/credentials/{credential_id}",
     "response": {
@@ -2060,12 +1843,9 @@
     }
   },
   {
-    "service": "VaultCredentialService",
-    "name": "Update",
-    "method": "POST",
+    "id": "vaults.credentials.update",
+    "httpMethod": "POST",
     "path": "/vaults/{}/credentials/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/vaultcredential.go",
-    "line": 79,
     "doc": "vaults/update-credential.md",
     "route": "/vaults/{vault_id}/credentials/{credential_id}",
     "response": {
@@ -2087,12 +1867,9 @@
     }
   },
   {
-    "service": "VaultCredentialService",
-    "name": "List",
-    "method": "GET",
+    "id": "vaults.credentials.list",
+    "httpMethod": "GET",
     "path": "/vaults/{}/credentials",
-    "file": "qoder-cloud-agents-sdk-go/managed/vaultcredential.go",
-    "line": 99,
     "doc": "vaults/list-credentials.md",
     "route": "/vaults/{vault_id}/credentials",
     "response": {
@@ -2121,12 +1898,9 @@
     }
   },
   {
-    "service": "VaultCredentialService",
-    "name": "Delete",
-    "method": "DELETE",
+    "id": "vaults.credentials.delete",
+    "httpMethod": "DELETE",
     "path": "/vaults/{}/credentials/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/vaultcredential.go",
-    "line": 129,
     "doc": "vaults/delete-credential.md",
     "route": "/vaults/{vault_id}/credentials/{credential_id}",
     "response": {
@@ -2135,12 +1909,9 @@
     }
   },
   {
-    "service": "VaultCredentialService",
-    "name": "Archive",
-    "method": "POST",
+    "id": "vaults.credentials.archive",
+    "httpMethod": "POST",
     "path": "/vaults/{}/credentials/{}/archive",
-    "file": "qoder-cloud-agents-sdk-go/managed/vaultcredential.go",
-    "line": 149,
     "doc": "vaults/archive-credential.md",
     "route": "/vaults/{vault_id}/credentials/{credential_id}/archive",
     "response": {
@@ -2161,12 +1932,9 @@
     }
   },
   {
-    "service": "VaultCredentialService",
-    "name": "MCPOAuthValidate",
-    "method": "POST",
+    "id": "vaults.credentials.mcpOAuthValidate",
+    "httpMethod": "POST",
     "path": "/vaults/{}/credentials/{}/mcp_oauth_validate",
-    "file": "qoder-cloud-agents-sdk-go/managed/vaultcredential.go",
-    "line": 169,
     "doc": "vaults/validate-credential.md",
     "route": "/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate",
     "response": {
@@ -2192,12 +1960,9 @@
     }
   },
   {
-    "service": "SkillVersionService",
-    "name": "New",
-    "method": "POST",
+    "id": "skills.versions.create",
+    "httpMethod": "POST",
     "path": "/skills/{}/versions",
-    "file": "qoder-cloud-agents-sdk-go/managed/skillversion.go",
-    "line": 47,
     "doc": "skills/create-version.md",
     "route": "/skills/{skill_id}/versions",
     "response": {
@@ -2212,12 +1977,9 @@
     }
   },
   {
-    "service": "SkillVersionService",
-    "name": "Get",
-    "method": "GET",
+    "id": "skills.versions.retrieve",
+    "httpMethod": "GET",
     "path": "/skills/{}/versions/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/skillversion.go",
-    "line": 62,
     "doc": "skills/get-version.md",
     "route": "/skills/{skill_id}/versions/{version}",
     "response": {
@@ -2232,12 +1994,9 @@
     }
   },
   {
-    "service": "SkillVersionService",
-    "name": "List",
-    "method": "GET",
+    "id": "skills.versions.list",
+    "httpMethod": "GET",
     "path": "/skills/{}/versions",
-    "file": "qoder-cloud-agents-sdk-go/managed/skillversion.go",
-    "line": 81,
     "doc": "skills/list-versions.md",
     "route": "/skills/{skill_id}/versions",
     "response": {
@@ -2268,12 +2027,9 @@
     }
   },
   {
-    "service": "SkillVersionService",
-    "name": "Delete",
-    "method": "DELETE",
+    "id": "skills.versions.delete",
+    "httpMethod": "DELETE",
     "path": "/skills/{}/versions/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/skillversion.go",
-    "line": 111,
     "doc": "skills/delete-version.md",
     "route": "/skills/{skill_id}/versions/{version}",
     "response": {
@@ -2282,23 +2038,18 @@
     }
   },
   {
-    "service": "SkillVersionService",
-    "name": "Download",
-    "method": "GET",
+    "id": "skills.versions.download",
+    "httpMethod": "GET",
+    "raw": true,
     "path": "/skills/{}/versions/{}/content",
-    "file": "qoder-cloud-agents-sdk-go/managed/skillversion.go",
-    "line": 130,
     "doc": "skills/get-version-content.md",
     "route": "/skills/{skill_id}/versions/{version}/content",
     "response": {}
   },
   {
-    "service": "AgentVersionService",
-    "name": "List",
-    "method": "GET",
+    "id": "agents.versions.list",
+    "httpMethod": "GET",
     "path": "/agents/{}/versions",
-    "file": "qoder-cloud-agents-sdk-go/managed/agentversion.go",
-    "line": 39,
     "doc": "agents/list-versions.md",
     "route": "/agents/{agent_id}/versions",
     "response": {
@@ -2345,12 +2096,9 @@
     }
   },
   {
-    "service": "FileService",
-    "name": "List",
-    "method": "GET",
+    "id": "files.list",
+    "httpMethod": "GET",
     "path": "/files",
-    "file": "qoder-cloud-agents-sdk-go/managed/file.go",
-    "line": 47,
     "doc": "files/list.md",
     "route": "/files",
     "response": {
@@ -2379,12 +2127,9 @@
     }
   },
   {
-    "service": "FileService",
-    "name": "Delete",
-    "method": "DELETE",
+    "id": "files.delete",
+    "httpMethod": "DELETE",
     "path": "/files/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/file.go",
-    "line": 73,
     "doc": "files/delete.md",
     "route": "/files/{file_id}",
     "response": {
@@ -2393,12 +2138,10 @@
     }
   },
   {
-    "service": "FileService",
-    "name": "Download",
-    "method": "GET",
+    "id": "files.download",
+    "httpMethod": "GET",
+    "download": true,
     "path": "/files/{}/content",
-    "file": "qoder-cloud-agents-sdk-go/managed/file.go",
-    "line": 88,
     "doc": "files/download.md",
     "route": "/files/{file_id}/content",
     "response": {
@@ -2407,12 +2150,9 @@
     }
   },
   {
-    "service": "FileService",
-    "name": "GetMetadata",
-    "method": "GET",
+    "id": "files.getMetadata",
+    "httpMethod": "GET",
     "path": "/files/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/file.go",
-    "line": 104,
     "doc": "files/get.md",
     "route": "/files/{file_id}",
     "response": {
@@ -2433,12 +2173,9 @@
     }
   },
   {
-    "service": "FileService",
-    "name": "Upload",
-    "method": "POST",
+    "id": "files.upload",
+    "httpMethod": "POST",
     "path": "/files",
-    "file": "qoder-cloud-agents-sdk-go/managed/file.go",
-    "line": 119,
     "doc": "files/upload.md",
     "route": "/files",
     "response": {
@@ -2456,12 +2193,9 @@
     }
   },
   {
-    "service": "SessionService",
-    "name": "New",
-    "method": "POST",
+    "id": "sessions.create",
+    "httpMethod": "POST",
     "path": "/sessions",
-    "file": "qoder-cloud-agents-sdk-go/managed/session.go",
-    "line": 50,
     "doc": "sessions/create.md",
     "route": "/sessions",
     "response": {
@@ -2511,12 +2245,9 @@
     }
   },
   {
-    "service": "SessionService",
-    "name": "Get",
-    "method": "GET",
+    "id": "sessions.retrieve",
+    "httpMethod": "GET",
     "path": "/sessions/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/session.go",
-    "line": 62,
     "doc": "sessions/get.md",
     "route": "/sessions/{session_id}",
     "response": {
@@ -2573,23 +2304,17 @@
     }
   },
   {
-    "service": "SessionService",
-    "name": "Update",
-    "method": "POST",
+    "id": "sessions.update",
+    "httpMethod": "POST",
     "path": "/sessions/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/session.go",
-    "line": 78,
     "doc": "sessions/update.md",
     "route": "/sessions/{session_id}",
     "response": {}
   },
   {
-    "service": "SessionService",
-    "name": "List",
-    "method": "GET",
+    "id": "sessions.list",
+    "httpMethod": "GET",
     "path": "/sessions",
-    "file": "qoder-cloud-agents-sdk-go/managed/session.go",
-    "line": 94,
     "doc": "sessions/list.md",
     "route": "/sessions",
     "response": {
@@ -2652,12 +2377,9 @@
     }
   },
   {
-    "service": "SessionService",
-    "name": "Delete",
-    "method": "DELETE",
+    "id": "sessions.delete",
+    "httpMethod": "DELETE",
     "path": "/sessions/{}",
-    "file": "qoder-cloud-agents-sdk-go/managed/session.go",
-    "line": 120,
     "doc": "sessions/delete.md",
     "route": "/sessions/{session_id}",
     "response": {
@@ -2666,12 +2388,9 @@
     }
   },
   {
-    "service": "SessionService",
-    "name": "Archive",
-    "method": "POST",
+    "id": "sessions.archive",
+    "httpMethod": "POST",
     "path": "/sessions/{}/archive",
-    "file": "qoder-cloud-agents-sdk-go/managed/session.go",
-    "line": 136,
     "doc": "sessions/archive.md",
     "route": "/sessions/{session_id}/archive",
     "response": {

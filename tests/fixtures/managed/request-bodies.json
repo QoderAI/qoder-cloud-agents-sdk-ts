@@ -1,7 +1,6 @@
 [
   {
-    "service": "AgentService",
-    "method": "New",
+    "id": "agents.create",
     "doc": "agents/create.md",
     "case": 1,
     "body": {
@@ -33,8 +32,7 @@
     }
   },
   {
-    "service": "AgentService",
-    "method": "New",
+    "id": "agents.create",
     "doc": "agents/create.md",
     "case": 2,
     "body": {
@@ -48,8 +46,7 @@
     }
   },
   {
-    "service": "AgentService",
-    "method": "Update",
+    "id": "agents.update",
     "doc": "agents/update.md",
     "case": 1,
     "body": {
@@ -61,8 +58,7 @@
     }
   },
   {
-    "service": "DeploymentService",
-    "method": "Update",
+    "id": "deployments.update",
     "doc": "deployments/update.md",
     "case": 1,
     "body": {
@@ -75,8 +71,7 @@
     }
   },
   {
-    "service": "SessionEventService",
-    "method": "Send",
+    "id": "sessions.events.send",
     "doc": "sessions/send-event.md",
     "case": 1,
     "body": {
@@ -94,8 +89,7 @@
     }
   },
   {
-    "service": "VaultService",
-    "method": "New",
+    "id": "vaults.create",
     "doc": "vaults/create.md",
     "case": 1,
     "body": {
@@ -106,8 +100,7 @@
     }
   },
   {
-    "service": "MemoryStoreService",
-    "method": "New",
+    "id": "memoryStores.create",
     "doc": "memory-stores/create.md",
     "case": 1,
     "body": {
@@ -119,8 +112,7 @@
     }
   },
   {
-    "service": "MemoryStoreService",
-    "method": "Update",
+    "id": "memoryStores.update",
     "doc": "memory-stores/update.md",
     "case": 1,
     "body": {
@@ -132,8 +124,7 @@
     }
   },
   {
-    "service": "SessionResourceService",
-    "method": "Update",
+    "id": "sessions.resources.update",
     "doc": "sessions/update-resource.md",
     "case": 1,
     "body": {
@@ -141,8 +132,7 @@
     }
   },
   {
-    "service": "SessionResourceService",
-    "method": "Add",
+    "id": "sessions.resources.add",
     "doc": "sessions/add-resource.md",
     "case": 1,
     "body": {
@@ -152,8 +142,7 @@
     }
   },
   {
-    "service": "MemoryStoreMemoryService",
-    "method": "New",
+    "id": "memoryStores.memories.create",
     "doc": "memory-stores/create-memory.md",
     "case": 1,
     "body": {
@@ -162,8 +151,7 @@
     }
   },
   {
-    "service": "MemoryStoreMemoryService",
-    "method": "Update",
+    "id": "memoryStores.memories.update",
     "doc": "memory-stores/update-memory.md",
     "case": 1,
     "body": {
@@ -172,8 +160,7 @@
     }
   },
   {
-    "service": "EnvironmentService",
-    "method": "New",
+    "id": "environments.create",
     "doc": "environments/create.md",
     "case": 1,
     "body": {
@@ -189,8 +176,7 @@
     }
   },
   {
-    "service": "EnvironmentService",
-    "method": "New",
+    "id": "environments.create",
     "doc": "environments/create.md",
     "case": 2,
     "body": {
@@ -207,8 +193,7 @@
     }
   },
   {
-    "service": "EnvironmentService",
-    "method": "Update",
+    "id": "environments.update",
     "doc": "environments/update.md",
     "case": 1,
     "body": {
@@ -216,8 +201,7 @@
     }
   },
   {
-    "service": "EnvironmentWorkService",
-    "method": "Update",
+    "id": "environments.work.update",
     "doc": "environments/work/update-metadata.md",
     "case": 1,
     "body": {
@@ -228,15 +212,13 @@
     }
   },
   {
-    "service": "EnvironmentWorkService",
-    "method": "Stop",
+    "id": "environments.work.stop",
     "doc": "environments/work/stop.md",
     "case": 1,
     "body": {}
   },
   {
-    "service": "EnvironmentWorkService",
-    "method": "Stop",
+    "id": "environments.work.stop",
     "doc": "environments/work/stop.md",
     "case": 2,
     "body": {
@@ -244,8 +226,7 @@
     }
   },
   {
-    "service": "DreamService",
-    "method": "New",
+    "id": "dreams.create",
     "doc": "dreams/create.md",
     "case": 1,
     "body": {
@@ -266,8 +247,7 @@
     }
   },
   {
-    "service": "VaultCredentialService",
-    "method": "New",
+    "id": "vaults.credentials.create",
     "doc": "vaults/create-credential.md",
     "case": 1,
     "body": {
@@ -282,8 +262,7 @@
     }
   },
   {
-    "service": "VaultCredentialService",
-    "method": "New",
+    "id": "vaults.credentials.create",
     "doc": "vaults/create-credential.md",
     "case": 2,
     "body": {
@@ -310,8 +289,7 @@
     }
   },
   {
-    "service": "SessionService",
-    "method": "New",
+    "id": "sessions.create",
     "doc": "sessions/create.md",
     "case": 1,
     "body": {
@@ -349,8 +327,7 @@
     }
   },
   {
-    "service": "SessionService",
-    "method": "Update",
+    "id": "sessions.update",
     "doc": "sessions/update.md",
     "case": 1,
     "body": {

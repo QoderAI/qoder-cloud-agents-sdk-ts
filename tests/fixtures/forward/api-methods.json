@@ -1,0 +1,2804 @@
+[
+  {
+    "id": "templates.list",
+    "entry": "templates",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "status",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "templates.create",
+    "entry": "templates",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "model",
+            "location": "json"
+          },
+          {
+            "wire": "environment_id",
+            "location": "json"
+          },
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "system",
+            "location": "json"
+          },
+          {
+            "wire": "tools",
+            "location": "json"
+          },
+          {
+            "wire": "mcp_servers",
+            "location": "json"
+          },
+          {
+            "wire": "skills",
+            "location": "json"
+          },
+          {
+            "wire": "multiagent",
+            "location": "json"
+          },
+          {
+            "wire": "vaults",
+            "location": "json"
+          },
+          {
+            "wire": "files",
+            "location": "json"
+          },
+          {
+            "wire": "github_repositories",
+            "location": "json"
+          },
+          {
+            "wire": "environment_variables",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          },
+          {
+            "wire": "X-Qoder-Beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "templates.retrieve",
+    "entry": "templates",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "templateID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "templates.update",
+    "entry": "templates",
+    "method": "update",
+    "args": [
+      {
+        "name": "templateID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "model",
+            "location": "json"
+          },
+          {
+            "wire": "system",
+            "location": "json"
+          },
+          {
+            "wire": "tools",
+            "location": "json"
+          },
+          {
+            "wire": "mcp_servers",
+            "location": "json"
+          },
+          {
+            "wire": "skills",
+            "location": "json"
+          },
+          {
+            "wire": "multiagent",
+            "location": "json"
+          },
+          {
+            "wire": "environment_id",
+            "location": "json"
+          },
+          {
+            "wire": "vaults",
+            "location": "json"
+          },
+          {
+            "wire": "files",
+            "location": "json"
+          },
+          {
+            "wire": "github_repositories",
+            "location": "json"
+          },
+          {
+            "wire": "environment_variables",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          },
+          {
+            "wire": "X-Qoder-Beta",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "templates.archive",
+    "entry": "templates",
+    "method": "archive",
+    "args": [
+      {
+        "name": "templateID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "templates.clone",
+    "entry": "templates",
+    "method": "clone",
+    "args": [
+      {
+        "name": "templateID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "identities.list",
+    "entry": "identities",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "external_id",
+            "location": "query"
+          },
+          {
+            "wire": "identity_ids",
+            "location": "query"
+          },
+          {
+            "wire": "search",
+            "location": "query"
+          },
+          {
+            "wire": "enabled",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "identities.create",
+    "entry": "identities",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "external_id",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "enabled",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "identities.ensureAdmin",
+    "entry": "identities",
+    "method": "ensureAdmin",
+    "args": []
+  },
+  {
+    "id": "identities.stats",
+    "entry": "identities",
+    "method": "stats",
+    "args": []
+  },
+  {
+    "id": "identities.retrieve",
+    "entry": "identities",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "identityID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "identities.update",
+    "entry": "identities",
+    "method": "update",
+    "args": [
+      {
+        "name": "identityID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "external_id",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "enabled",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "identities.delete",
+    "entry": "identities",
+    "method": "delete",
+    "args": [
+      {
+        "name": "identityID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "identities.listTemplates",
+    "entry": "identities",
+    "method": "listTemplates",
+    "args": [
+      {
+        "name": "identityID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "identities.clear",
+    "entry": "identities",
+    "method": "clear",
+    "args": [
+      {
+        "name": "identityID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "reason",
+            "location": "json"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "identities.disable",
+    "entry": "identities",
+    "method": "disable",
+    "args": [
+      {
+        "name": "identityID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "identities.enable",
+    "entry": "identities",
+    "method": "enable",
+    "args": [
+      {
+        "name": "identityID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "identities.configs.list",
+    "entry": "identities.configs",
+    "method": "list",
+    "args": [
+      {
+        "name": "identityID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "template_id",
+            "location": "query"
+          },
+          {
+            "wire": "status",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "identities.configs.retrieve",
+    "entry": "identities.configs",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "identityID",
+        "kind": "path"
+      },
+      {
+        "name": "templateID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "identities.configs.upsert",
+    "entry": "identities.configs",
+    "method": "upsert",
+    "args": [
+      {
+        "name": "identityID",
+        "kind": "path"
+      },
+      {
+        "name": "templateID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "identity_config",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "identities.configs.getEffective",
+    "entry": "identities.configs",
+    "method": "getEffective",
+    "args": [
+      {
+        "name": "identityID",
+        "kind": "path"
+      },
+      {
+        "name": "templateID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "identities.memoryStores.list",
+    "entry": "identities.memoryStores",
+    "method": "list",
+    "args": [
+      {
+        "name": "identityID",
+        "kind": "path"
+      },
+      {
+        "name": "templateID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "identities.memoryStores.mount",
+    "entry": "identities.memoryStores",
+    "method": "mount",
+    "args": [
+      {
+        "name": "identityID",
+        "kind": "path"
+      },
+      {
+        "name": "templateID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "memory_store_id",
+            "location": "json"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "identities.memoryStores.detach",
+    "entry": "identities.memoryStores",
+    "method": "detach",
+    "args": [
+      {
+        "name": "identityID",
+        "kind": "path"
+      },
+      {
+        "name": "templateID",
+        "kind": "path"
+      },
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "sessions.list",
+    "entry": "sessions",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "identity_ids",
+            "location": "query"
+          },
+          {
+            "wire": "template_id",
+            "location": "query"
+          },
+          {
+            "wire": "source_type",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[gt]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[gte]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[lt]",
+            "location": "query"
+          },
+          {
+            "wire": "created_at[lte]",
+            "location": "query"
+          },
+          {
+            "wire": "updated_at[gt]",
+            "location": "query"
+          },
+          {
+            "wire": "updated_at[gte]",
+            "location": "query"
+          },
+          {
+            "wire": "updated_at[lt]",
+            "location": "query"
+          },
+          {
+            "wire": "updated_at[lte]",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "order",
+            "location": "query"
+          },
+          {
+            "wire": "include_archived",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "sessions.create",
+    "entry": "sessions",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "identity_id",
+            "location": "json"
+          },
+          {
+            "wire": "template_id",
+            "location": "json"
+          },
+          {
+            "wire": "title",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "config",
+            "location": "json"
+          },
+          {
+            "wire": "resources",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.retrieve",
+    "entry": "sessions",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "sessions.update",
+    "entry": "sessions",
+    "method": "update",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "title",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "config",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.archive",
+    "entry": "sessions",
+    "method": "archive",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.cancel",
+    "entry": "sessions",
+    "method": "cancel",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.events.list",
+    "entry": "sessions.events",
+    "method": "list",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "order",
+            "location": "query"
+          },
+          {
+            "wire": "type",
+            "location": "query"
+          },
+          {
+            "wire": "types[]",
+            "location": "query"
+          },
+          {
+            "wire": "include_tool_calls",
+            "location": "query"
+          },
+          {
+            "wire": "include_thinking",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "sessions.events.send",
+    "entry": "sessions.events",
+    "method": "send",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "events",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.events.streamEvents",
+    "entry": "sessions.events",
+    "method": "streamEvents",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "event_deltas[]",
+            "location": "query"
+          },
+          {
+            "wire": "include_tool_calls",
+            "location": "query"
+          },
+          {
+            "wire": "include_thinking",
+            "location": "query"
+          },
+          {
+            "wire": "Last-Event-ID",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.resources.add",
+    "entry": "sessions.resources",
+    "method": "add",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "type",
+            "location": "json"
+          },
+          {
+            "wire": "file_id",
+            "location": "json"
+          },
+          {
+            "wire": "mount_path",
+            "location": "json"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.threads.list",
+    "entry": "sessions.threads",
+    "method": "list",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "sessions.threads.retrieve",
+    "entry": "sessions.threads",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "threadID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "sessions.threads.archive",
+    "entry": "sessions.threads",
+    "method": "archive",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "threadID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sessions.threads.events.list",
+    "entry": "sessions.threads.events",
+    "method": "list",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "threadID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "sessions.threads.events.streamEvents",
+    "entry": "sessions.threads.events",
+    "method": "streamEvents",
+    "args": [
+      {
+        "name": "sessionID",
+        "kind": "path"
+      },
+      {
+        "name": "threadID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "Last-Event-ID",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "schedules.list",
+    "entry": "schedules",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "identity_id",
+            "location": "query"
+          },
+          {
+            "wire": "template_id",
+            "location": "query"
+          },
+          {
+            "wire": "status",
+            "location": "query"
+          },
+          {
+            "wire": "include_archived",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "sort_by",
+            "location": "query"
+          },
+          {
+            "wire": "order",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "schedules.create",
+    "entry": "schedules",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "identity_id",
+            "location": "json"
+          },
+          {
+            "wire": "template_id",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "initial_events",
+            "location": "json"
+          },
+          {
+            "wire": "execution",
+            "location": "json"
+          },
+          {
+            "wire": "trigger_policy",
+            "location": "json"
+          },
+          {
+            "wire": "environment_id",
+            "location": "json"
+          },
+          {
+            "wire": "sinks",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "schedules.archiveMany",
+    "entry": "schedules",
+    "method": "archiveMany",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "schedule_ids",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "schedules.retrieve",
+    "entry": "schedules",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "scheduleID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "schedules.update",
+    "entry": "schedules",
+    "method": "update",
+    "args": [
+      {
+        "name": "scheduleID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "template_id",
+            "location": "json"
+          },
+          {
+            "wire": "initial_events",
+            "location": "json"
+          },
+          {
+            "wire": "execution",
+            "location": "json"
+          },
+          {
+            "wire": "trigger_policy",
+            "location": "json"
+          },
+          {
+            "wire": "environment_id",
+            "location": "json"
+          },
+          {
+            "wire": "sinks",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "schedules.archive",
+    "entry": "schedules",
+    "method": "archive",
+    "args": [
+      {
+        "name": "scheduleID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "schedules.pause",
+    "entry": "schedules",
+    "method": "pause",
+    "args": [
+      {
+        "name": "scheduleID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "schedules.run",
+    "entry": "schedules",
+    "method": "run",
+    "args": [
+      {
+        "name": "scheduleID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "schedules.unpause",
+    "entry": "schedules",
+    "method": "unpause",
+    "args": [
+      {
+        "name": "scheduleID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "scheduleRuns.list",
+    "entry": "scheduleRuns",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "identity_id",
+            "location": "query"
+          },
+          {
+            "wire": "schedule_id",
+            "location": "query"
+          },
+          {
+            "wire": "status",
+            "location": "query"
+          },
+          {
+            "wire": "trigger_type",
+            "location": "query"
+          },
+          {
+            "wire": "has_error",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "sort_by",
+            "location": "query"
+          },
+          {
+            "wire": "order",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "scheduleRuns.retrieve",
+    "entry": "scheduleRuns",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "runID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "identity_id",
+            "location": "query"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "batches.list",
+    "entry": "batches",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "status",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "batches.create",
+    "entry": "batches",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "input_file_id",
+            "location": "json"
+          },
+          {
+            "wire": "completion_window",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "batches.retrieve",
+    "entry": "batches",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "batchID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "batches.cancel",
+    "entry": "batches",
+    "method": "cancel",
+    "args": [
+      {
+        "name": "batchID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "batches.getError",
+    "entry": "batches",
+    "method": "getError",
+    "args": [
+      {
+        "name": "batchID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "batches.getOutput",
+    "entry": "batches",
+    "method": "getOutput",
+    "args": [
+      {
+        "name": "batchID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "batches.tasks.list",
+    "entry": "batches.tasks",
+    "method": "list",
+    "args": [
+      {
+        "name": "batchID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "status",
+            "location": "query"
+          },
+          {
+            "wire": "custom_id",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "channels.list",
+    "entry": "channels",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "channel_type",
+            "location": "query"
+          },
+          {
+            "wire": "enabled",
+            "location": "query"
+          },
+          {
+            "wire": "binding_status",
+            "location": "query"
+          },
+          {
+            "wire": "identity_id",
+            "location": "query"
+          },
+          {
+            "wire": "template_id",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "channels.create",
+    "entry": "channels",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "identity_id",
+            "location": "json"
+          },
+          {
+            "wire": "identity_resolution",
+            "location": "json"
+          },
+          {
+            "wire": "template_id",
+            "location": "json"
+          },
+          {
+            "wire": "channel_type",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "enabled",
+            "location": "json"
+          },
+          {
+            "wire": "channel_config",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "channels.retrieve",
+    "entry": "channels",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "channelID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "channels.update",
+    "entry": "channels",
+    "method": "update",
+    "args": [
+      {
+        "name": "channelID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "identity_id",
+            "location": "json"
+          },
+          {
+            "wire": "template_id",
+            "location": "json"
+          },
+          {
+            "wire": "enabled",
+            "location": "json"
+          },
+          {
+            "wire": "channel_config",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "channels.delete",
+    "entry": "channels",
+    "method": "delete",
+    "args": [
+      {
+        "name": "channelID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "channels.qrSessions.create",
+    "entry": "channels.qrSessions",
+    "method": "create",
+    "args": [
+      {
+        "name": "channelID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "channels.qrSessions.retrieve",
+    "entry": "channels.qrSessions",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "sessionKey",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "channelPairings.create",
+    "entry": "channelPairings",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "code",
+            "location": "json"
+          },
+          {
+            "wire": "identity_id",
+            "location": "json"
+          },
+          {
+            "wire": "template_id",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "channelPairings.delete",
+    "entry": "channelPairings",
+    "method": "delete",
+    "args": [
+      {
+        "name": "pairingID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "environments.list",
+    "entry": "environments",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "environments.create",
+    "entry": "environments",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "config",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "environments.retrieve",
+    "entry": "environments",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "environments.update",
+    "entry": "environments",
+    "method": "update",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "config",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "environments.delete",
+    "entry": "environments",
+    "method": "delete",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "files.list",
+    "entry": "files",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "name",
+            "location": "query"
+          },
+          {
+            "wire": "scope_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "files.upload",
+    "entry": "files",
+    "method": "upload",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "file",
+            "location": "json",
+            "binary": true
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "purpose",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "files.getMetadata",
+    "entry": "files",
+    "method": "getMetadata",
+    "args": [
+      {
+        "name": "fileID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "files.delete",
+    "entry": "files",
+    "method": "delete",
+    "args": [
+      {
+        "name": "fileID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "files.download",
+    "entry": "files",
+    "method": "download",
+    "args": [
+      {
+        "name": "fileID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "skills.list",
+    "entry": "skills",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "display_title",
+            "location": "query"
+          },
+          {
+            "wire": "source",
+            "location": "query"
+          },
+          {
+            "wire": "name",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "skills.create",
+    "entry": "skills",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "files",
+            "location": "json",
+            "binary": true,
+            "binaryArray": true
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "icon_id",
+            "location": "json"
+          },
+          {
+            "wire": "file",
+            "location": "json",
+            "binary": true
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "type",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "skills.retrieve",
+    "entry": "skills",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "include_content",
+            "location": "query"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "skills.update",
+    "entry": "skills",
+    "method": "update",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "content",
+            "location": "json"
+          },
+          {
+            "wire": "content_encoding",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "icon_id",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "skills.delete",
+    "entry": "skills",
+    "method": "delete",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "skills.versions.list",
+    "entry": "skills.versions",
+    "method": "list",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "skills.versions.create",
+    "entry": "skills.versions",
+    "method": "create",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "files",
+            "location": "json",
+            "binary": true,
+            "binaryArray": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "skills.versions.retrieve",
+    "entry": "skills.versions",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      },
+      {
+        "name": "version",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "skills.versions.delete",
+    "entry": "skills.versions",
+    "method": "delete",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      },
+      {
+        "name": "version",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "skills.versions.download",
+    "entry": "skills.versions",
+    "method": "download",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      },
+      {
+        "name": "version",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "vaults.list",
+    "entry": "vaults",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "name",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "vaults.create",
+    "entry": "vaults",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "display_name",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "vaults.retrieve",
+    "entry": "vaults",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "vaults.delete",
+    "entry": "vaults",
+    "method": "delete",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "vaults.credentials.list",
+    "entry": "vaults.credentials",
+    "method": "list",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "name",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "vaults.credentials.create",
+    "entry": "vaults.credentials",
+    "method": "create",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "auth",
+            "location": "json"
+          },
+          {
+            "wire": "display_name",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "vaults.credentials.retrieve",
+    "entry": "vaults.credentials",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      },
+      {
+        "name": "credID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "vaults.credentials.delete",
+    "entry": "vaults.credentials",
+    "method": "delete",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      },
+      {
+        "name": "credID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.list",
+    "entry": "memoryStores",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "system_managed",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "memoryStores.create",
+    "entry": "memoryStores",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.retrieve",
+    "entry": "memoryStores",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.update",
+    "entry": "memoryStores",
+    "method": "update",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "description",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.delete",
+    "entry": "memoryStores",
+    "method": "delete",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.archive",
+    "entry": "memoryStores",
+    "method": "archive",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.memories.list",
+    "entry": "memoryStores.memories",
+    "method": "list",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "path_prefix",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "memoryStores.memories.create",
+    "entry": "memoryStores.memories",
+    "method": "create",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "path",
+            "location": "json"
+          },
+          {
+            "wire": "content",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.memories.retrieve",
+    "entry": "memoryStores.memories",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "memoryID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.memories.update",
+    "entry": "memoryStores.memories",
+    "method": "update",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "memoryID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "content",
+            "location": "json"
+          },
+          {
+            "wire": "content_sha256",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.memories.delete",
+    "entry": "memoryStores.memories",
+    "method": "delete",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "memoryID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.memoryVersions.list",
+    "entry": "memoryStores.memoryVersions",
+    "method": "list",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "memory_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "memoryStores.memoryVersions.retrieve",
+    "entry": "memoryStores.memoryVersions",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "memoryVersionID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "memoryStores.memoryVersions.redact",
+    "entry": "memoryStores.memoryVersions",
+    "method": "redact",
+    "args": [
+      {
+        "name": "memoryStoreID",
+        "kind": "path"
+      },
+      {
+        "name": "memoryVersionID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "models.list",
+    "entry": "models",
+    "method": "list",
+    "args": []
+  },
+  {
+    "id": "environments.archive",
+    "entry": "environments",
+    "method": "archive",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      }
+    ]
+  }
+]

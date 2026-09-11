@@ -1,4 +1,4 @@
-// Ports convention/ssestream/ssestream_test.go and forward/protocol_test.go.
+// Server-sent event stream decoding and the streaming wire protocol.
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { sdk, testClient, response } from './helpers.mjs';

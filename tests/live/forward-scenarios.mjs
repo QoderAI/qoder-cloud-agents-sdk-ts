@@ -5,9 +5,9 @@ import { batchTerminal, liveName, marker } from './forward-support.mjs';
 
 // Each run function is also executed by offline scenario tests with an injected SDK client.
 // Operation fixtures separately cover all 110 API methods, including destructive variants
-// that the Go SDK deliberately does not invoke in the live lifecycle suite.
+// that the live lifecycle suite deliberately does not invoke.
 export const forwardScenarios = [];
-const scenario = (name, goTest, run, extras = {}) => forwardScenarios.push({ name, goTest, gates: ['WRITE'], run, ...extras });
+const scenario = (name, run, extras = {}) => forwardScenarios.push({ name, gates: ['WRITE'], run, ...extras });
 
 const shared = {
   valid_token: async (s) => { await s.client.templates.list({ limit: 1 }, s.options); },
@@ -46,15 +46,15 @@ const shared = {
 };
 
 const sharedManifest = JSON.parse(readFileSync(new URL('../fixtures/forward/sdk-forward-cases.json', import.meta.url), 'utf8'));
-assert.deepEqual(sharedManifest.cases.map((item) => item.scenario).sort(), Object.keys(shared).sort(), 'shared Go live scenario inventory drift');
+assert.deepEqual(sharedManifest.cases.map((item) => item.scenario).sort(), Object.keys(shared).sort(), 'shared live scenario inventory drift');
 for (const item of sharedManifest.cases) {
-  scenario(item.scenario, 'TestAOneForwardCasesThroughGoSDKLive', shared[item.scenario], {
+  scenario(item.scenario, shared[item.scenario], {
     gates: item.scenario.startsWith('create_identity') ? ['WRITE'] : [],
     requiresSession: item.scenario.startsWith('stream_session'), sharedCaseID: item.id,
   });
 }
 
-scenario('collections', 'TestForwardCollectionsLive', async (s) => {
+scenario('collections', async (s) => {
   await s.client.models.list(s.options);
   for (const resource of ['identities', 'sessions', 'schedules', 'batches', 'channels', 'environments', 'files', 'skills', 'vaults', 'memoryStores']) {
     const result = await s.client[resource].list({ limit: 1 }, s.options);
@@ -62,7 +62,7 @@ scenario('collections', 'TestForwardCollectionsLive', async (s) => {
   }
 }, { gates: [] });
 
-scenario('template_lifecycle', 'TestTemplateLifecycleLive', async (s) => {
+scenario('template_lifecycle', async (s) => {
   const template = await s.template((await s.environment()).id);
   const got = await s.client.templates.retrieve(template.id, s.options);
   assert.equal(got.id, template.id);
@@ -73,7 +73,7 @@ scenario('template_lifecycle', 'TestTemplateLifecycleLive', async (s) => {
   assert.notEqual(clone.id, template.id);
 });
 
-scenario('identity_config_lifecycle', 'TestIdentityAndConfigLifecycleLive', async (s) => {
+scenario('identity_config_lifecycle', async (s) => {
   const identity = await s.identity();
   const template = await s.template((await s.environment()).id);
   assert.equal((await s.client.identities.update(identity.id, { name: 'SDK renamed identity' }, s.options)).name, 'SDK renamed identity');
@@ -89,7 +89,7 @@ scenario('identity_config_lifecycle', 'TestIdentityAndConfigLifecycleLive', asyn
   await s.client.identities.listTemplates(identity.id, s.options);
 });
 
-scenario('environment_lifecycle', 'TestEnvironmentLifecycleLive', async (s) => {
+scenario('environment_lifecycle', async (s) => {
   const environment = await s.environment();
   const got = await s.client.environments.retrieve(environment.id, s.options);
   assert.equal(got.id, environment.id);
@@ -97,7 +97,7 @@ scenario('environment_lifecycle', 'TestEnvironmentLifecycleLive', async (s) => {
   assert.equal((await s.client.environments.update(environment.id, { description: 'SDK updated environment' }, s.options)).description, 'SDK updated environment');
 });
 
-scenario('session_resource_thread_lifecycle', 'TestSessionResourceAndThreadLifecycleLive', async (s) => {
+scenario('session_resource_thread_lifecycle', async (s) => {
   const identity = await s.identity();
   const template = await s.template((await s.environment()).id);
   const session = await s.session(identity.id, template.id);
@@ -113,7 +113,7 @@ scenario('session_resource_thread_lifecycle', 'TestSessionResourceAndThreadLifec
   }
 });
 
-scenario('file_upload_download_lifecycle', 'TestFileUploadDownloadLifecycleLive', async (s) => {
+scenario('file_upload_download_lifecycle', async (s) => {
   const file = await s.file('sdk-live.txt', 'user_upload', 'SDK live file content');
   assert.equal((await s.client.files.getMetadata(file.id, s.options)).id, file.id);
   assert.equal(await (await s.client.files.download(file.id, s.options)).text(), 'SDK live file content');
@@ -132,7 +132,7 @@ export function assertNonemptyZip(bytes) {
   assert.equal(data.readUInt32LE(offset), 0x02014b50, 'invalid skill ZIP central directory');
 }
 
-scenario('skill_version_lifecycle', 'TestSkillAndVersionLifecycleLive', async (s) => {
+scenario('skill_version_lifecycle', async (s) => {
   const name = liveName('skill');
   const files = async (content) => [await toFile(`---\nname: ${name}\ndescription: SDK live skill\n---\n# SDK\n${content}\n`, `${name}/SKILL.md`)];
   const skill = await s.client.skills.create({ files: await files('version one'), metadata: { suite: 'sdk-live' } }, s.options);
@@ -145,7 +145,7 @@ scenario('skill_version_lifecycle', 'TestSkillAndVersionLifecycleLive', async (s
   assertNonemptyZip(await (await s.client.skills.versions.download(skill.id, version.version, s.options)).arrayBuffer());
 });
 
-scenario('vault_credential_lifecycle', 'TestVaultAndCredentialLifecycleLive', async (s) => {
+scenario('vault_credential_lifecycle', async (s) => {
   const vault = await s.client.vaults.create({ display_name: liveName('vault') }, s.options);
   s.cleanup('vault', (options) => s.client.vaults.delete(vault.id, options));
   assert.equal((await s.client.vaults.retrieve(vault.id, s.options)).id, vault.id);
@@ -158,7 +158,7 @@ scenario('vault_credential_lifecycle', 'TestVaultAndCredentialLifecycleLive', as
   await s.client.vaults.credentials.list(vault.id, {}, s.options);
 });
 
-scenario('channel_qr_session_lifecycle', 'TestChannelAndQRSessionLifecycleLive', async (s) => {
+scenario('channel_qr_session_lifecycle', async (s) => {
   const identity = await s.identity();
   const template = await s.template((await s.environment()).id);
   const channel = await s.client.channels.create({ channel_type: 'wechat', identity_id: identity.id, template_id: template.id, name: liveName('channel') }, s.options);
@@ -170,7 +170,7 @@ scenario('channel_qr_session_lifecycle', 'TestChannelAndQRSessionLifecycleLive',
   assert.equal((await s.client.channels.update(channel.id, { enabled: false }, s.options)).enabled, false);
 }, { gates: ['WRITE', 'CHANNEL'] });
 
-scenario('memory_store_memory_lifecycle', 'TestMemoryStoreAndMemoryLifecycleLive', async (s) => {
+scenario('memory_store_memory_lifecycle', async (s) => {
   const store = await s.client.memoryStores.create({ name: liveName('memory'), idempotency_key: liveName('key') }, s.options);
   s.cleanup('memory store', (options) => s.client.memoryStores.delete(store.id, options));
   const memory = await s.client.memoryStores.memories.create(store.id, { path: 'sdk/live.md', content: 'SDK initial content' }, s.options);
@@ -186,7 +186,7 @@ scenario('memory_store_memory_lifecycle', 'TestMemoryStoreAndMemoryLifecycleLive
   await s.client.identities.memoryStores.list(identity.id, template.id, s.options);
 });
 
-scenario('schedule_lifecycle', 'TestScheduleLifecycleLive', async (s) => {
+scenario('schedule_lifecycle', async (s) => {
   const environment = await s.environment();
   const identity = await s.identity();
   const template = await s.template(environment.id);
@@ -201,7 +201,7 @@ scenario('schedule_lifecycle', 'TestScheduleLifecycleLive', async (s) => {
   assert.equal((await s.client.schedules.archiveMany({ schedule_ids: [schedule.id, schedule.id] }, s.options)).archived_count, 1);
 });
 
-scenario('validation_only_batch_lifecycle', 'TestValidationOnlyBatchLifecycleLive', async (s) => {
+scenario('validation_only_batch_lifecycle', async (s) => {
   const file = await s.file('sdk-validation.jsonl', 'session_resource', '{"custom_id":"sdk-live-validation","body":{"input":"missing required Forward batch fields"}}\n');
   const batch = await s.client.batches.create({ input_file_id: file.id, completion_window: '24h' }, s.options);
   s.cleanup('batch', async (options) => {
@@ -212,7 +212,7 @@ scenario('validation_only_batch_lifecycle', 'TestValidationOnlyBatchLifecycleLiv
   await s.client.batches.tasks.list(batch.id, {}, s.options);
 }, { gates: ['WRITE', 'EXECUTION'] });
 
-scenario('execution_e2e', 'TestForwardExecutionE2ELive', async (s, t) => {
+scenario('execution_e2e', async (s, t) => {
   const environment = await s.environment();
   const identity = await s.identity();
   const fileToken = marker(), envToken = marker(), skillToken = marker(), memoryToken = marker();
@@ -253,7 +253,7 @@ scenario('execution_e2e', 'TestForwardExecutionE2ELive', async (s, t) => {
   }
 }, { gates: ['WRITE', 'EXECUTION'], execution: true });
 
-scenario('schedule_e2e', 'TestForwardScheduleE2ELive', async (s) => {
+scenario('schedule_e2e', async (s) => {
   const environment = await s.environment();
   const identity = await s.identity();
   const template = await s.template(environment.id);
@@ -277,7 +277,7 @@ scenario('schedule_e2e', 'TestForwardScheduleE2ELive', async (s) => {
   await s.waitTurn(sessionID, '', [token], false, false);
 }, { gates: ['WRITE', 'EXECUTION'], execution: true });
 
-scenario('batch_e2e', 'TestForwardBatchE2ELive', async (s) => {
+scenario('batch_e2e', async (s) => {
   const identity = await s.identity();
   const template = await s.template((await s.environment()).id);
   const token = marker(), customID = liveName('task');

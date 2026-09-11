@@ -9,7 +9,7 @@ function positiveSeconds(name, fallback, max = Number.MAX_SAFE_INTEGER) {
   return value * 1000;
 }
 
-// Identical authorization gates to Go's live suite. The ordinary npm test never
+// Live runs require explicit authorization gates. The ordinary npm test never
 // loads this runner; enabling live reads alone cannot start writes or inference.
 for (const scenario of managedScenarios) {
   test(scenario.name, async (t) => {
