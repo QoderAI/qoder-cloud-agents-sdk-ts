@@ -48,7 +48,7 @@ jobs:
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
 
-      - run: npm stage publish --tag '${{ steps.meta.outputs.tag }}' --provenance
+      - run: npm stage publish --tag '${{ steps.meta.outputs.tag }}' --access public --provenance
         env:
           # Delete this secret and the env block once a trust relationship is
           # configured with `npm trust github qca --allow-stage-publish`; npm
