@@ -63,8 +63,7 @@
   "sideEffects": false,
   "files": [
     "dist",
-    "README.md",
-    "docs"
+    "README.md"
   ],
   "scripts": {
     "build": "node scripts/build.mjs",

@@ -4,8 +4,6 @@ The client is structured after `anthropic-sdk-typescript`. Its HTTP API surface 
 
 Requires Node.js 20.12 or later. Ships CommonJS, ES modules and strict TypeScript types, with no third-party runtime dependencies.
 
-Full SDK API reference: [Forward API](docs/forward-api.md) (110 operations) and [Managed API](docs/managed-api.md) (95 operations), covering call examples, parameters, return types, pagination and error handling.
-
 ```sh
 npm install qca-sdk
 ```
