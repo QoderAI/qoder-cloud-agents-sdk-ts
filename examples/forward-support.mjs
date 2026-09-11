@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { randomBytes } from 'node:crypto';
-import { ForwardLiveSuite, CleanupFailure, resourceAlreadyGone, batchTerminal } from '../test/live/forward-support.mjs';
+import { ForwardLiveSuite, CleanupFailure, resourceAlreadyGone, batchTerminal } from '../tests/live/forward-support.mjs';
 import { TurnResult } from './execution.mjs';
 
 export const exampleMarker = () => randomBytes(8).toString('hex');

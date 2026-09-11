@@ -16,7 +16,7 @@ for (const selected of modes) {
     if (!process.env[`${prefix}_MODEL`]) throw new Error(`${prefix}_MODEL is required for E2E`);
   }
 }
-const files = readdirSync('test/live').filter(name => name.endsWith('.test.mjs') && modes.some(mode => name.startsWith(mode))).map(name => `test/live/${name}`);
+const files = readdirSync('tests/live').filter(name => name.endsWith('.test.mjs') && modes.some(mode => name.startsWith(mode))).map(name => `tests/live/${name}`);
 const args = ['--test', '--test-concurrency=1'];
 if (mode === 'e2e') args.push('--test-name-pattern=E2E');
 args.push(...files);

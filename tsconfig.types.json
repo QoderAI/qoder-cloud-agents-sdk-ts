@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": { "rootDir": ".", "noEmit": true },
-  "include": ["test/types-smoke.ts", "test/managed-types.ts"]
+  "include": ["tests/types-smoke.ts", "tests/managed-types.ts"]
 }

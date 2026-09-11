@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { toFile } from '../dist/forward/index.js';
-import { batchTerminal } from '../test/live/forward-support.mjs';
+import { batchTerminal } from '../tests/live/forward-support.mjs';
 import { exampleMarker, exampleName } from './forward-support.mjs';
 import { ProjectMemory, PROJECT_MEMORY_PATH } from './memory-proof.mjs';
 

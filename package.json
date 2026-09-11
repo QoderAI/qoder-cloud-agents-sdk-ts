@@ -68,10 +68,10 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.types.json",
-    "test": "npm run build && npm run test:types && node --test test/*.test.mjs test/scenarios/*.test.mjs",
+    "test": "npm run build && npm run test:types && node --test tests/*.test.mjs tests/scenarios/*.test.mjs",
     "test:unit": "npm test",
-    "test:contract": "npm run build && node --test test/api-contracts.test.mjs",
-    "test:scenarios": "npm run build && node --test test/scenarios/*.test.mjs",
+    "test:contract": "npm run build && node --test tests/api-contracts.test.mjs",
+    "test:scenarios": "npm run build && node --test tests/scenarios/*.test.mjs",
     "test:live": "npm run build && node scripts/run-live.mjs all",
     "prepack": "npm run build",
     "test:types": "tsc -p tsconfig.types.json",
