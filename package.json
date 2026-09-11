@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "description": "TypeScript SDK for Qoder Cloud Agents Forward and Managed APIs",
   "author": "Qoder",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.alibaba-inc.com/cloud-agent/qoder-cloud-agents-sdk-ts.git"
+    "url": "git+https://github.com/QoderAI/qoder-cloud-agents-sdk-ts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/QoderAI/qoder-cloud-agents-sdk-ts/issues"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
