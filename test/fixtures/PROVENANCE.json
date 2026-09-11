@@ -1,0 +1,36 @@
+{
+  "repository": "qoder-cloud-agents-sdk-go",
+  "commit": "f0ee3bf04afb6023386fbc89ecd55551165028ca",
+  "fixtures": [
+    {
+      "source": "forward/testdata/sdk-forward-cases.json",
+      "target": "test/fixtures/forward/sdk-forward-cases.json",
+      "sha256": "4d790d4f9f629b39007375bb3e1212905bbab79063c560ba11f5826da7e86bfe"
+    },
+    {
+      "source": "forward/testdata/api-operation-cases.json",
+      "target": "test/fixtures/forward/api-operation-cases.json",
+      "sha256": "06f2c4e4fcfce158eca136fb57428c504d36cf69bdde4a7f80e102668f783566"
+    },
+    {
+      "source": "forward/testdata/api-contracts.json",
+      "target": "test/fixtures/forward/api-contracts.json",
+      "sha256": "ba4dfb203529a2d16f4f1222f99a0740aad7721abbb0c3c86fafce5dcb559f78"
+    },
+    {
+      "source": "managed/testdata/api-contracts.json",
+      "target": "test/fixtures/managed/api-contracts.json",
+      "sha256": "2712a3f1eb6b41da4f534765425a31bdfd582428eedccb3c20d634e8792fcdc5"
+    },
+    {
+      "source": "managed/testdata/upstream-fields.json",
+      "target": "test/fixtures/managed/upstream-fields.json",
+      "sha256": "72210d71793044b5b1555b4257ca462151b56c559cf03fab6f6c3070b8e4ab00"
+    },
+    {
+      "source": "managed/testdata/request-bodies.json",
+      "target": "test/fixtures/managed/request-bodies.json",
+      "sha256": "ec3c63c3443a84cfba8ab87508b460d5c674a2420faf8c684ef6bf1ac4bce404"
+    }
+  ]
+}

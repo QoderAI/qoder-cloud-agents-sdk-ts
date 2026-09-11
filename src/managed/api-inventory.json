@@ -1,0 +1,6309 @@
+[
+  {
+    "entry": "agents.create",
+    "resource": "agents",
+    "method": "create",
+    "goService": "AgentService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "path": "/agents",
+    "params": [
+      {
+        "name": "params",
+        "type": "AgentCreateParams",
+        "goType": "AgentNewParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "model",
+            "goName": "Model",
+            "type": "ManagedAgentsModelConfigParams",
+            "location": "body",
+            "wireName": "model",
+            "required": true
+          },
+          {
+            "name": "name",
+            "goName": "Name",
+            "type": "string",
+            "location": "body",
+            "wireName": "name",
+            "required": true
+          },
+          {
+            "name": "description",
+            "goName": "Description",
+            "type": "string",
+            "location": "body",
+            "wireName": "description",
+            "required": false
+          },
+          {
+            "name": "system",
+            "goName": "System",
+            "type": "string",
+            "location": "body",
+            "wireName": "system",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "mcp_servers",
+            "goName": "MCPServers",
+            "type": "Array<ManagedAgentsURLMCPServerParams>",
+            "location": "body",
+            "wireName": "mcp_servers",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, string>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "multiagent",
+            "goName": "Multiagent",
+            "type": "ManagedAgentsMultiagentParams",
+            "location": "body",
+            "wireName": "multiagent",
+            "required": false
+          },
+          {
+            "name": "skills",
+            "goName": "Skills",
+            "type": "Array<ManagedAgentsSkillParamsUnion>",
+            "location": "body",
+            "wireName": "skills",
+            "required": false
+          },
+          {
+            "name": "tools",
+            "goName": "Tools",
+            "type": "Array<AgentNewParamsToolUnion>",
+            "location": "body",
+            "wireName": "tools",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsAgent",
+    "responseMode": "json",
+    "goFile": "agent.go"
+  },
+  {
+    "entry": "agents.retrieve",
+    "resource": "agents",
+    "method": "retrieve",
+    "goService": "AgentService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/agents/{agent_id}",
+    "params": [
+      {
+        "name": "agentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "AgentRetrieveParams",
+        "goType": "AgentGetParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "version",
+            "goName": "Version",
+            "type": "number",
+            "location": "query",
+            "wireName": "version",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsAgent",
+    "responseMode": "json",
+    "goFile": "agent.go"
+  },
+  {
+    "entry": "agents.update",
+    "resource": "agents",
+    "method": "update",
+    "goService": "AgentService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "path": "/agents/{agent_id}",
+    "params": [
+      {
+        "name": "agentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "AgentUpdateParams",
+        "goType": "AgentUpdateParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "description",
+            "goName": "Description",
+            "type": "string",
+            "location": "body",
+            "wireName": "description",
+            "required": false
+          },
+          {
+            "name": "system",
+            "goName": "System",
+            "type": "string",
+            "location": "body",
+            "wireName": "system",
+            "required": false
+          },
+          {
+            "name": "name",
+            "goName": "Name",
+            "type": "string",
+            "location": "body",
+            "wireName": "name",
+            "required": false
+          },
+          {
+            "name": "version",
+            "goName": "Version",
+            "type": "number",
+            "location": "body",
+            "wireName": "version",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "mcp_servers",
+            "goName": "MCPServers",
+            "type": "Array<ManagedAgentsURLMCPServerParams>",
+            "location": "body",
+            "wireName": "mcp_servers",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, unknown>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "skills",
+            "goName": "Skills",
+            "type": "Array<ManagedAgentsSkillParamsUnion>",
+            "location": "body",
+            "wireName": "skills",
+            "required": false
+          },
+          {
+            "name": "tools",
+            "goName": "Tools",
+            "type": "Array<AgentUpdateParamsToolUnion>",
+            "location": "body",
+            "wireName": "tools",
+            "required": false
+          },
+          {
+            "name": "model",
+            "goName": "Model",
+            "type": "ManagedAgentsModelConfigParams",
+            "location": "body",
+            "wireName": "model",
+            "required": false
+          },
+          {
+            "name": "multiagent",
+            "goName": "Multiagent",
+            "type": "ManagedAgentsMultiagentParams",
+            "location": "body",
+            "wireName": "multiagent",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsAgent",
+    "responseMode": "json",
+    "goFile": "agent.go"
+  },
+  {
+    "entry": "agents.list",
+    "resource": "agents",
+    "method": "list",
+    "goService": "AgentService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/agents",
+    "params": [
+      {
+        "name": "params",
+        "type": "AgentListParams",
+        "goType": "AgentListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "created_at[gte]",
+            "goName": "CreatedAtGte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[gte]",
+            "required": false
+          },
+          {
+            "name": "created_at[lte]",
+            "goName": "CreatedAtLte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[lte]",
+            "required": false
+          },
+          {
+            "name": "include_archived",
+            "goName": "IncludeArchived",
+            "type": "boolean",
+            "location": "query",
+            "wireName": "include_archived",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsAgent",
+    "responseMode": "page",
+    "goFile": "agent.go"
+  },
+  {
+    "entry": "agents.archive",
+    "resource": "agents",
+    "method": "archive",
+    "goService": "AgentService",
+    "goMethod": "Archive",
+    "httpMethod": "POST",
+    "path": "/agents/{agent_id}/archive",
+    "params": [
+      {
+        "name": "agentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "AgentArchiveParams",
+        "goType": "AgentArchiveParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsAgent",
+    "responseMode": "json",
+    "goFile": "agent.go"
+  },
+  {
+    "entry": "agents.versions.list",
+    "resource": "agents.versions",
+    "method": "list",
+    "goService": "AgentVersionService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/agents/{agent_id}/versions",
+    "params": [
+      {
+        "name": "agentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "AgentVersionListParams",
+        "goType": "AgentVersionListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsAgent",
+    "responseMode": "page",
+    "goFile": "agentversion.go"
+  },
+  {
+    "entry": "deployments.create",
+    "resource": "deployments",
+    "method": "create",
+    "goService": "DeploymentService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "path": "/deployments",
+    "params": [
+      {
+        "name": "params",
+        "type": "DeploymentCreateParams",
+        "goType": "DeploymentNewParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "environment_variables",
+            "goName": "EnvironmentVariables",
+            "type": "string",
+            "location": "body",
+            "wireName": "environment_variables",
+            "required": false
+          },
+          {
+            "name": "agent",
+            "goName": "Agent",
+            "type": "DeploymentNewParamsAgentUnion",
+            "location": "body",
+            "wireName": "agent",
+            "required": true
+          },
+          {
+            "name": "environment_id",
+            "goName": "EnvironmentID",
+            "type": "string",
+            "location": "body",
+            "wireName": "environment_id",
+            "required": true
+          },
+          {
+            "name": "initial_events",
+            "goName": "InitialEvents",
+            "type": "Array<ManagedAgentsDeploymentInitialEventParamsUnion>",
+            "location": "body",
+            "wireName": "initial_events",
+            "required": true
+          },
+          {
+            "name": "name",
+            "goName": "Name",
+            "type": "string",
+            "location": "body",
+            "wireName": "name",
+            "required": true
+          },
+          {
+            "name": "description",
+            "goName": "Description",
+            "type": "string",
+            "location": "body",
+            "wireName": "description",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "budget",
+            "goName": "Budget",
+            "type": "ManagedAgentsBudgetLimitParam",
+            "location": "body",
+            "wireName": "budget",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, string>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "resources",
+            "goName": "Resources",
+            "type": "Array<DeploymentNewParamsResourceUnion>",
+            "location": "body",
+            "wireName": "resources",
+            "required": false
+          },
+          {
+            "name": "schedule",
+            "goName": "Schedule",
+            "type": "ManagedAgentsScheduleParams",
+            "location": "body",
+            "wireName": "schedule",
+            "required": false
+          },
+          {
+            "name": "vault_ids",
+            "goName": "VaultIDs",
+            "type": "Array<string>",
+            "location": "body",
+            "wireName": "vault_ids",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeployment",
+    "responseMode": "json",
+    "goFile": "deployment.go"
+  },
+  {
+    "entry": "deployments.retrieve",
+    "resource": "deployments",
+    "method": "retrieve",
+    "goService": "DeploymentService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/deployments/{id}",
+    "params": [
+      {
+        "name": "deploymentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "DeploymentRetrieveParams",
+        "goType": "DeploymentGetParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeployment",
+    "responseMode": "json",
+    "goFile": "deployment.go"
+  },
+  {
+    "entry": "deployments.update",
+    "resource": "deployments",
+    "method": "update",
+    "goService": "DeploymentService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "path": "/deployments/{id}",
+    "params": [
+      {
+        "name": "deploymentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "DeploymentUpdateParams",
+        "goType": "DeploymentUpdateParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "environment_variables",
+            "goName": "EnvironmentVariables",
+            "type": "string",
+            "location": "body",
+            "wireName": "environment_variables",
+            "required": false
+          },
+          {
+            "name": "description",
+            "goName": "Description",
+            "type": "string",
+            "location": "body",
+            "wireName": "description",
+            "required": false
+          },
+          {
+            "name": "environment_id",
+            "goName": "EnvironmentID",
+            "type": "string",
+            "location": "body",
+            "wireName": "environment_id",
+            "required": false
+          },
+          {
+            "name": "name",
+            "goName": "Name",
+            "type": "string",
+            "location": "body",
+            "wireName": "name",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, unknown>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "resources",
+            "goName": "Resources",
+            "type": "Array<DeploymentUpdateParamsResourceUnion>",
+            "location": "body",
+            "wireName": "resources",
+            "required": false
+          },
+          {
+            "name": "vault_ids",
+            "goName": "VaultIDs",
+            "type": "Array<string>",
+            "location": "body",
+            "wireName": "vault_ids",
+            "required": false
+          },
+          {
+            "name": "agent",
+            "goName": "Agent",
+            "type": "DeploymentUpdateParamsAgentUnion",
+            "location": "body",
+            "wireName": "agent",
+            "required": false
+          },
+          {
+            "name": "budget",
+            "goName": "Budget",
+            "type": "ManagedAgentsBudgetLimitParam",
+            "location": "body",
+            "wireName": "budget",
+            "required": false
+          },
+          {
+            "name": "initial_events",
+            "goName": "InitialEvents",
+            "type": "Array<ManagedAgentsDeploymentInitialEventParamsUnion>",
+            "location": "body",
+            "wireName": "initial_events",
+            "required": false
+          },
+          {
+            "name": "schedule",
+            "goName": "Schedule",
+            "type": "ManagedAgentsScheduleParams",
+            "location": "body",
+            "wireName": "schedule",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeployment",
+    "responseMode": "json",
+    "goFile": "deployment.go"
+  },
+  {
+    "entry": "deployments.list",
+    "resource": "deployments",
+    "method": "list",
+    "goService": "DeploymentService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/deployments",
+    "params": [
+      {
+        "name": "params",
+        "type": "DeploymentListParams",
+        "goType": "DeploymentListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "before_id",
+            "goName": "BeforeID",
+            "type": "string",
+            "location": "query",
+            "wireName": "before_id",
+            "required": false
+          },
+          {
+            "name": "after_id",
+            "goName": "AfterID",
+            "type": "string",
+            "location": "query",
+            "wireName": "after_id",
+            "required": false
+          },
+          {
+            "name": "agent_id",
+            "goName": "AgentID",
+            "type": "string",
+            "location": "query",
+            "wireName": "agent_id",
+            "required": false
+          },
+          {
+            "name": "created_at[gte]",
+            "goName": "CreatedAtGte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[gte]",
+            "required": false
+          },
+          {
+            "name": "created_at[lte]",
+            "goName": "CreatedAtLte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[lte]",
+            "required": false
+          },
+          {
+            "name": "include_archived",
+            "goName": "IncludeArchived",
+            "type": "boolean",
+            "location": "query",
+            "wireName": "include_archived",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "status",
+            "goName": "Status",
+            "type": "ManagedAgentsDeploymentStatus",
+            "location": "query",
+            "wireName": "status",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeployment",
+    "responseMode": "page",
+    "goFile": "deployment.go"
+  },
+  {
+    "entry": "deployments.archive",
+    "resource": "deployments",
+    "method": "archive",
+    "goService": "DeploymentService",
+    "goMethod": "Archive",
+    "httpMethod": "POST",
+    "path": "/deployments/{id}/archive",
+    "params": [
+      {
+        "name": "deploymentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "DeploymentArchiveParams",
+        "goType": "DeploymentArchiveParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeployment",
+    "responseMode": "json",
+    "goFile": "deployment.go"
+  },
+  {
+    "entry": "deployments.pause",
+    "resource": "deployments",
+    "method": "pause",
+    "goService": "DeploymentService",
+    "goMethod": "Pause",
+    "httpMethod": "POST",
+    "path": "/deployments/{id}/pause",
+    "params": [
+      {
+        "name": "deploymentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "DeploymentPauseParams",
+        "goType": "DeploymentPauseParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeployment",
+    "responseMode": "json",
+    "goFile": "deployment.go"
+  },
+  {
+    "entry": "deployments.run",
+    "resource": "deployments",
+    "method": "run",
+    "goService": "DeploymentService",
+    "goMethod": "Run",
+    "httpMethod": "POST",
+    "path": "/deployments/{id}/run",
+    "params": [
+      {
+        "name": "deploymentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "DeploymentRunParams",
+        "goType": "DeploymentRunParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeploymentRun",
+    "responseMode": "json",
+    "goFile": "deployment.go"
+  },
+  {
+    "entry": "deployments.unpause",
+    "resource": "deployments",
+    "method": "unpause",
+    "goService": "DeploymentService",
+    "goMethod": "Unpause",
+    "httpMethod": "POST",
+    "path": "/deployments/{id}/unpause",
+    "params": [
+      {
+        "name": "deploymentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "DeploymentUnpauseParams",
+        "goType": "DeploymentUnpauseParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeployment",
+    "responseMode": "json",
+    "goFile": "deployment.go"
+  },
+  {
+    "entry": "deploymentRuns.retrieve",
+    "resource": "deploymentRuns",
+    "method": "retrieve",
+    "goService": "DeploymentRunService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/deployment_runs/{run_id}",
+    "params": [
+      {
+        "name": "deploymentRunID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "DeploymentRunRetrieveParams",
+        "goType": "DeploymentRunGetParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeploymentRun",
+    "responseMode": "json",
+    "goFile": "deploymentrun.go"
+  },
+  {
+    "entry": "deploymentRuns.list",
+    "resource": "deploymentRuns",
+    "method": "list",
+    "goService": "DeploymentRunService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/deployment_runs",
+    "params": [
+      {
+        "name": "params",
+        "type": "DeploymentRunListParams",
+        "goType": "DeploymentRunListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "before_id",
+            "goName": "BeforeID",
+            "type": "string",
+            "location": "query",
+            "wireName": "before_id",
+            "required": false
+          },
+          {
+            "name": "after_id",
+            "goName": "AfterID",
+            "type": "string",
+            "location": "query",
+            "wireName": "after_id",
+            "required": false
+          },
+          {
+            "name": "created_at[gt]",
+            "goName": "CreatedAtGt",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[gt]",
+            "required": false
+          },
+          {
+            "name": "created_at[gte]",
+            "goName": "CreatedAtGte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[gte]",
+            "required": false
+          },
+          {
+            "name": "created_at[lt]",
+            "goName": "CreatedAtLt",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[lt]",
+            "required": false
+          },
+          {
+            "name": "created_at[lte]",
+            "goName": "CreatedAtLte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[lte]",
+            "required": false
+          },
+          {
+            "name": "deployment_id",
+            "goName": "DeploymentID",
+            "type": "string",
+            "location": "query",
+            "wireName": "deployment_id",
+            "required": false
+          },
+          {
+            "name": "has_error",
+            "goName": "HasError",
+            "type": "boolean",
+            "location": "query",
+            "wireName": "has_error",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "trigger_type",
+            "goName": "TriggerType",
+            "type": "ManagedAgentsTriggerType",
+            "location": "query",
+            "wireName": "trigger_type",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeploymentRun",
+    "responseMode": "page",
+    "goFile": "deploymentrun.go"
+  },
+  {
+    "entry": "dreams.create",
+    "resource": "dreams",
+    "method": "create",
+    "goService": "DreamService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "path": "/dreams",
+    "params": [
+      {
+        "name": "params",
+        "type": "DreamCreateParams",
+        "goType": "DreamNewParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "inputs",
+            "goName": "Inputs",
+            "type": "Array<DreamInputUnionParam>",
+            "location": "body",
+            "wireName": "inputs",
+            "required": true
+          },
+          {
+            "name": "model",
+            "goName": "Model",
+            "type": "DreamNewParamsModelUnion",
+            "location": "body",
+            "wireName": "model",
+            "required": true
+          },
+          {
+            "name": "instructions",
+            "goName": "Instructions",
+            "type": "string",
+            "location": "body",
+            "wireName": "instructions",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "output_behavior",
+            "goName": "OutputBehavior",
+            "type": "OutputBehaviorUnionParam",
+            "location": "body",
+            "wireName": "output_behavior",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "Dream",
+    "responseMode": "json",
+    "goFile": "dream.go"
+  },
+  {
+    "entry": "dreams.retrieve",
+    "resource": "dreams",
+    "method": "retrieve",
+    "goService": "DreamService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/dreams/{id}",
+    "params": [
+      {
+        "name": "dreamID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "DreamRetrieveParams",
+        "goType": "DreamGetParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "Dream",
+    "responseMode": "json",
+    "goFile": "dream.go"
+  },
+  {
+    "entry": "dreams.list",
+    "resource": "dreams",
+    "method": "list",
+    "goService": "DreamService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/dreams",
+    "params": [
+      {
+        "name": "params",
+        "type": "DreamListParams",
+        "goType": "DreamListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "created_at[gt]",
+            "goName": "CreatedAtGt",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[gt]",
+            "required": false
+          },
+          {
+            "name": "created_at[lt]",
+            "goName": "CreatedAtLt",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[lt]",
+            "required": false
+          },
+          {
+            "name": "include_archived",
+            "goName": "IncludeArchived",
+            "type": "boolean",
+            "location": "query",
+            "wireName": "include_archived",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "statuses",
+            "goName": "Statuses",
+            "type": "Array<DreamStatus>",
+            "location": "query",
+            "wireName": "statuses",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "Dream",
+    "responseMode": "page",
+    "goFile": "dream.go"
+  },
+  {
+    "entry": "dreams.archive",
+    "resource": "dreams",
+    "method": "archive",
+    "goService": "DreamService",
+    "goMethod": "Archive",
+    "httpMethod": "POST",
+    "path": "/dreams/{id}/archive",
+    "params": [
+      {
+        "name": "dreamID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "DreamArchiveParams",
+        "goType": "DreamArchiveParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "Dream",
+    "responseMode": "json",
+    "goFile": "dream.go"
+  },
+  {
+    "entry": "dreams.cancel",
+    "resource": "dreams",
+    "method": "cancel",
+    "goService": "DreamService",
+    "goMethod": "Cancel",
+    "httpMethod": "POST",
+    "path": "/dreams/{id}/cancel",
+    "params": [
+      {
+        "name": "dreamID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "DreamCancelParams",
+        "goType": "DreamCancelParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "Dream",
+    "responseMode": "json",
+    "goFile": "dream.go"
+  },
+  {
+    "entry": "environments.create",
+    "resource": "environments",
+    "method": "create",
+    "goService": "EnvironmentService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "path": "/environments",
+    "params": [
+      {
+        "name": "params",
+        "type": "EnvironmentCreateParams",
+        "goType": "EnvironmentNewParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "name",
+            "goName": "Name",
+            "type": "string",
+            "location": "body",
+            "wireName": "name",
+            "required": true
+          },
+          {
+            "name": "description",
+            "goName": "Description",
+            "type": "string",
+            "location": "body",
+            "wireName": "description",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "config",
+            "goName": "Config",
+            "type": "EnvironmentNewParamsConfigUnion",
+            "location": "body",
+            "wireName": "config",
+            "required": false
+          },
+          {
+            "name": "scope",
+            "goName": "Scope",
+            "type": "EnvironmentNewParamsScope",
+            "location": "body",
+            "wireName": "scope",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, string>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "Environment",
+    "responseMode": "json",
+    "goFile": "environment.go"
+  },
+  {
+    "entry": "environments.retrieve",
+    "resource": "environments",
+    "method": "retrieve",
+    "goService": "EnvironmentService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/environments/{environment_id}",
+    "params": [
+      {
+        "name": "environmentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "EnvironmentRetrieveParams",
+        "goType": "EnvironmentGetParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "Environment",
+    "responseMode": "json",
+    "goFile": "environment.go"
+  },
+  {
+    "entry": "environments.update",
+    "resource": "environments",
+    "method": "update",
+    "goService": "EnvironmentService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "path": "/environments/{environment_id}",
+    "params": [
+      {
+        "name": "environmentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "EnvironmentUpdateParams",
+        "goType": "EnvironmentUpdateParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "description",
+            "goName": "Description",
+            "type": "string",
+            "location": "body",
+            "wireName": "description",
+            "required": false
+          },
+          {
+            "name": "name",
+            "goName": "Name",
+            "type": "string",
+            "location": "body",
+            "wireName": "name",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "config",
+            "goName": "Config",
+            "type": "EnvironmentUpdateParamsConfigUnion",
+            "location": "body",
+            "wireName": "config",
+            "required": false
+          },
+          {
+            "name": "scope",
+            "goName": "Scope",
+            "type": "EnvironmentUpdateParamsScope",
+            "location": "body",
+            "wireName": "scope",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, unknown>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "Environment",
+    "responseMode": "json",
+    "goFile": "environment.go"
+  },
+  {
+    "entry": "environments.list",
+    "resource": "environments",
+    "method": "list",
+    "goService": "EnvironmentService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/environments",
+    "params": [
+      {
+        "name": "params",
+        "type": "EnvironmentListParams",
+        "goType": "EnvironmentListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "created_at[gte]",
+            "goName": "CreatedAtGte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[gte]",
+            "required": false
+          },
+          {
+            "name": "created_at[lte]",
+            "goName": "CreatedAtLte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[lte]",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "include_archived",
+            "goName": "IncludeArchived",
+            "type": "boolean",
+            "location": "query",
+            "wireName": "include_archived",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "Environment",
+    "responseMode": "page",
+    "goFile": "environment.go"
+  },
+  {
+    "entry": "environments.delete",
+    "resource": "environments",
+    "method": "delete",
+    "goService": "EnvironmentService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "path": "/environments/{environment_id}",
+    "params": [
+      {
+        "name": "environmentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "EnvironmentDeleteParams",
+        "goType": "EnvironmentDeleteParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "EnvironmentDeleteResponse",
+    "responseMode": "json",
+    "goFile": "environment.go"
+  },
+  {
+    "entry": "environments.archive",
+    "resource": "environments",
+    "method": "archive",
+    "goService": "EnvironmentService",
+    "goMethod": "Archive",
+    "httpMethod": "POST",
+    "path": "/environments/{environment_id}/archive",
+    "params": [
+      {
+        "name": "environmentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "EnvironmentArchiveParams",
+        "goType": "EnvironmentArchiveParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "Environment",
+    "responseMode": "json",
+    "goFile": "environment.go"
+  },
+  {
+    "entry": "environments.work.retrieve",
+    "resource": "environments.work",
+    "method": "retrieve",
+    "goService": "EnvironmentWorkService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/environments/{environment_id}/work/{work_id}",
+    "params": [
+      {
+        "name": "workID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "EnvironmentWorkRetrieveParams",
+        "goType": "EnvironmentWorkGetParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "environment_id",
+            "goName": "EnvironmentID",
+            "type": "string",
+            "location": "path",
+            "wireName": "environment_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "SelfHostedWork",
+    "responseMode": "json",
+    "goFile": "environmentwork.go"
+  },
+  {
+    "entry": "environments.work.update",
+    "resource": "environments.work",
+    "method": "update",
+    "goService": "EnvironmentWorkService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "path": "/environments/{environment_id}/work/{work_id}",
+    "params": [
+      {
+        "name": "workID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "EnvironmentWorkUpdateParams",
+        "goType": "EnvironmentWorkUpdateParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "environment_id",
+            "goName": "EnvironmentID",
+            "type": "string",
+            "location": "path",
+            "wireName": "environment_id",
+            "required": true
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, unknown>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "SelfHostedWork",
+    "responseMode": "json",
+    "goFile": "environmentwork.go"
+  },
+  {
+    "entry": "environments.work.list",
+    "resource": "environments.work",
+    "method": "list",
+    "goService": "EnvironmentWorkService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/environments/{environment_id}/work",
+    "params": [
+      {
+        "name": "environmentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "EnvironmentWorkListParams",
+        "goType": "EnvironmentWorkListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "before_id",
+            "goName": "BeforeID",
+            "type": "string",
+            "location": "query",
+            "wireName": "before_id",
+            "required": false
+          },
+          {
+            "name": "after_id",
+            "goName": "AfterID",
+            "type": "string",
+            "location": "query",
+            "wireName": "after_id",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "SelfHostedWork",
+    "responseMode": "page",
+    "goFile": "environmentwork.go"
+  },
+  {
+    "entry": "environments.work.ack",
+    "resource": "environments.work",
+    "method": "ack",
+    "goService": "EnvironmentWorkService",
+    "goMethod": "Ack",
+    "httpMethod": "POST",
+    "path": "/environments/{environment_id}/work/{work_id}/ack",
+    "params": [
+      {
+        "name": "workID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "EnvironmentWorkAckParams",
+        "goType": "EnvironmentWorkAckParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "environment_id",
+            "goName": "EnvironmentID",
+            "type": "string",
+            "location": "path",
+            "wireName": "environment_id",
+            "required": true
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "SelfHostedWork",
+    "responseMode": "json",
+    "goFile": "environmentwork.go"
+  },
+  {
+    "entry": "environments.work.heartbeat",
+    "resource": "environments.work",
+    "method": "heartbeat",
+    "goService": "EnvironmentWorkService",
+    "goMethod": "Heartbeat",
+    "httpMethod": "POST",
+    "path": "/environments/{environment_id}/work/{work_id}/heartbeat",
+    "params": [
+      {
+        "name": "workID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "EnvironmentWorkHeartbeatParams",
+        "goType": "EnvironmentWorkHeartbeatParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "environment_id",
+            "goName": "EnvironmentID",
+            "type": "string",
+            "location": "path",
+            "wireName": "environment_id",
+            "required": true
+          },
+          {
+            "name": "desired_ttl_seconds",
+            "goName": "DesiredTTLSeconds",
+            "type": "number",
+            "location": "query",
+            "wireName": "desired_ttl_seconds",
+            "required": false
+          },
+          {
+            "name": "expected_last_heartbeat",
+            "goName": "ExpectedLastHeartbeat",
+            "type": "string",
+            "location": "query",
+            "wireName": "expected_last_heartbeat",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "SelfHostedWorkHeartbeatResponse",
+    "responseMode": "json",
+    "goFile": "environmentwork.go"
+  },
+  {
+    "entry": "environments.work.poll",
+    "resource": "environments.work",
+    "method": "poll",
+    "goService": "EnvironmentWorkService",
+    "goMethod": "Poll",
+    "httpMethod": "GET",
+    "path": "/environments/{environment_id}/work/poll",
+    "params": [
+      {
+        "name": "environmentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "EnvironmentWorkPollParams",
+        "goType": "EnvironmentWorkPollParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "block_ms",
+            "goName": "BlockMs",
+            "type": "number",
+            "location": "query",
+            "wireName": "block_ms",
+            "required": false
+          },
+          {
+            "name": "reclaim_older_than_ms",
+            "goName": "ReclaimOlderThanMs",
+            "type": "number",
+            "location": "query",
+            "wireName": "reclaim_older_than_ms",
+            "required": false
+          },
+          {
+            "name": "qoder_worker_id",
+            "goName": "QoderWorkerID",
+            "type": "string",
+            "location": "header",
+            "wireName": "Worker-ID",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "SelfHostedWork",
+    "responseMode": "json",
+    "goFile": "environmentwork.go"
+  },
+  {
+    "entry": "environments.work.stats",
+    "resource": "environments.work",
+    "method": "stats",
+    "goService": "EnvironmentWorkService",
+    "goMethod": "Stats",
+    "httpMethod": "GET",
+    "path": "/environments/{environment_id}/work/stats",
+    "params": [
+      {
+        "name": "environmentID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "EnvironmentWorkStatsParams",
+        "goType": "EnvironmentWorkStatsParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "SelfHostedWorkQueueStats",
+    "responseMode": "json",
+    "goFile": "environmentwork.go"
+  },
+  {
+    "entry": "environments.work.stop",
+    "resource": "environments.work",
+    "method": "stop",
+    "goService": "EnvironmentWorkService",
+    "goMethod": "Stop",
+    "httpMethod": "POST",
+    "path": "/environments/{environment_id}/work/{work_id}/stop",
+    "params": [
+      {
+        "name": "workID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "EnvironmentWorkStopParams",
+        "goType": "EnvironmentWorkStopParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "environment_id",
+            "goName": "EnvironmentID",
+            "type": "string",
+            "location": "path",
+            "wireName": "environment_id",
+            "required": true
+          },
+          {
+            "name": "force",
+            "goName": "Force",
+            "type": "boolean",
+            "location": "body",
+            "wireName": "force",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "SelfHostedWork",
+    "responseMode": "json",
+    "goFile": "environmentwork.go"
+  },
+  {
+    "entry": "files.list",
+    "resource": "files",
+    "method": "list",
+    "goService": "FileService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/files",
+    "params": [
+      {
+        "name": "params",
+        "type": "FileListParams",
+        "goType": "FileListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "name",
+            "goName": "Name",
+            "type": "string",
+            "location": "query",
+            "wireName": "name",
+            "required": false
+          },
+          {
+            "name": "before_id",
+            "goName": "BeforeID",
+            "type": "string",
+            "location": "query",
+            "wireName": "before_id",
+            "required": false
+          },
+          {
+            "name": "after_id",
+            "goName": "AfterID",
+            "type": "string",
+            "location": "query",
+            "wireName": "after_id",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "scope_id",
+            "goName": "ScopeID",
+            "type": "string",
+            "location": "query",
+            "wireName": "scope_id",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "ids",
+            "goName": "IDs",
+            "type": "Array<string>",
+            "location": "query",
+            "wireName": "ids",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "FileMetadata",
+    "responseMode": "page",
+    "goFile": "file.go"
+  },
+  {
+    "entry": "files.delete",
+    "resource": "files",
+    "method": "delete",
+    "goService": "FileService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "path": "/files/{file_id}",
+    "params": [
+      {
+        "name": "fileID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "FileDeleteParams",
+        "goType": "FileDeleteParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "DeletedFile",
+    "responseMode": "json",
+    "goFile": "file.go"
+  },
+  {
+    "entry": "files.download",
+    "resource": "files",
+    "method": "download",
+    "goService": "FileService",
+    "goMethod": "Download",
+    "httpMethod": "GET",
+    "path": "/files/{file_id}/content",
+    "params": [
+      {
+        "name": "fileID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "FileDownloadParams",
+        "goType": "FileDownloadParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "http.Response",
+    "responseMode": "response",
+    "goFile": "file.go"
+  },
+  {
+    "entry": "files.getMetadata",
+    "resource": "files",
+    "method": "getMetadata",
+    "goService": "FileService",
+    "goMethod": "GetMetadata",
+    "httpMethod": "GET",
+    "path": "/files/{file_id}",
+    "params": [
+      {
+        "name": "fileID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "FileGetMetadataParams",
+        "goType": "FileGetMetadataParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "FileMetadata",
+    "responseMode": "json",
+    "goFile": "file.go"
+  },
+  {
+    "entry": "files.upload",
+    "resource": "files",
+    "method": "upload",
+    "goService": "FileService",
+    "goMethod": "Upload",
+    "httpMethod": "POST",
+    "path": "/files",
+    "params": [
+      {
+        "name": "params",
+        "type": "FileUploadParams",
+        "goType": "FileUploadParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "name",
+            "goName": "Name",
+            "type": "string",
+            "location": "body",
+            "wireName": "name",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, string>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "file",
+            "goName": "File",
+            "type": "Uploadable",
+            "location": "body",
+            "wireName": "file",
+            "required": true
+          },
+          {
+            "name": "expires_in_seconds",
+            "goName": "ExpiresInSeconds",
+            "type": "number",
+            "location": "body",
+            "wireName": "expires_in_seconds",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "FileMetadata",
+    "responseMode": "json",
+    "goFile": "file.go"
+  },
+  {
+    "entry": "memoryStores.create",
+    "resource": "memoryStores",
+    "method": "create",
+    "goService": "MemoryStoreService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "path": "/memory_stores",
+    "params": [
+      {
+        "name": "params",
+        "type": "MemoryStoreCreateParams",
+        "goType": "MemoryStoreNewParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "name",
+            "goName": "Name",
+            "type": "string",
+            "location": "body",
+            "wireName": "name",
+            "required": true
+          },
+          {
+            "name": "description",
+            "goName": "Description",
+            "type": "string",
+            "location": "body",
+            "wireName": "description",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, string>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsMemoryStore",
+    "responseMode": "json",
+    "goFile": "memorystore.go"
+  },
+  {
+    "entry": "memoryStores.retrieve",
+    "resource": "memoryStores",
+    "method": "retrieve",
+    "goService": "MemoryStoreService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/memory_stores/{memory_store_id}",
+    "params": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "MemoryStoreRetrieveParams",
+        "goType": "MemoryStoreGetParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsMemoryStore",
+    "responseMode": "json",
+    "goFile": "memorystore.go"
+  },
+  {
+    "entry": "memoryStores.update",
+    "resource": "memoryStores",
+    "method": "update",
+    "goService": "MemoryStoreService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "path": "/memory_stores/{memory_store_id}",
+    "params": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "MemoryStoreUpdateParams",
+        "goType": "MemoryStoreUpdateParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "description",
+            "goName": "Description",
+            "type": "string",
+            "location": "body",
+            "wireName": "description",
+            "required": false
+          },
+          {
+            "name": "name",
+            "goName": "Name",
+            "type": "string",
+            "location": "body",
+            "wireName": "name",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, unknown>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsMemoryStore",
+    "responseMode": "json",
+    "goFile": "memorystore.go"
+  },
+  {
+    "entry": "memoryStores.list",
+    "resource": "memoryStores",
+    "method": "list",
+    "goService": "MemoryStoreService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/memory_stores",
+    "params": [
+      {
+        "name": "params",
+        "type": "MemoryStoreListParams",
+        "goType": "MemoryStoreListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "name",
+            "goName": "Name",
+            "type": "string",
+            "location": "query",
+            "wireName": "name",
+            "required": false
+          },
+          {
+            "name": "created_at[gte]",
+            "goName": "CreatedAtGte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[gte]",
+            "required": false
+          },
+          {
+            "name": "created_at[lte]",
+            "goName": "CreatedAtLte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[lte]",
+            "required": false
+          },
+          {
+            "name": "include_archived",
+            "goName": "IncludeArchived",
+            "type": "boolean",
+            "location": "query",
+            "wireName": "include_archived",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsMemoryStore",
+    "responseMode": "page",
+    "goFile": "memorystore.go"
+  },
+  {
+    "entry": "memoryStores.delete",
+    "resource": "memoryStores",
+    "method": "delete",
+    "goService": "MemoryStoreService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "path": "/memory_stores/{memory_store_id}",
+    "params": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "MemoryStoreDeleteParams",
+        "goType": "MemoryStoreDeleteParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeletedMemoryStore",
+    "responseMode": "json",
+    "goFile": "memorystore.go"
+  },
+  {
+    "entry": "memoryStores.archive",
+    "resource": "memoryStores",
+    "method": "archive",
+    "goService": "MemoryStoreService",
+    "goMethod": "Archive",
+    "httpMethod": "POST",
+    "path": "/memory_stores/{memory_store_id}/archive",
+    "params": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "MemoryStoreArchiveParams",
+        "goType": "MemoryStoreArchiveParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsMemoryStore",
+    "responseMode": "json",
+    "goFile": "memorystore.go"
+  },
+  {
+    "entry": "memoryStores.memories.create",
+    "resource": "memoryStores.memories",
+    "method": "create",
+    "goService": "MemoryStoreMemoryService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "path": "/memory_stores/{memory_store_id}/memories",
+    "params": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "MemoryStoreMemoryCreateParams",
+        "goType": "MemoryStoreMemoryNewParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, string>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "content",
+            "goName": "Content",
+            "type": "string",
+            "location": "body",
+            "wireName": "content",
+            "required": true
+          },
+          {
+            "name": "path",
+            "goName": "Path",
+            "type": "string",
+            "location": "body",
+            "wireName": "path",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "view",
+            "goName": "View",
+            "type": "ManagedAgentsMemoryView",
+            "location": "query",
+            "wireName": "view",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsMemory",
+    "responseMode": "json",
+    "goFile": "memorystorememory.go"
+  },
+  {
+    "entry": "memoryStores.memories.retrieve",
+    "resource": "memoryStores.memories",
+    "method": "retrieve",
+    "goService": "MemoryStoreMemoryService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/memory_stores/{memory_store_id}/memories/{memory_id}",
+    "params": [
+      {
+        "name": "memoryID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "MemoryStoreMemoryRetrieveParams",
+        "goType": "MemoryStoreMemoryGetParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "memory_store_id",
+            "goName": "MemoryStoreID",
+            "type": "string",
+            "location": "path",
+            "wireName": "memory_store_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "view",
+            "goName": "View",
+            "type": "ManagedAgentsMemoryView",
+            "location": "query",
+            "wireName": "view",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsMemory",
+    "responseMode": "json",
+    "goFile": "memorystorememory.go"
+  },
+  {
+    "entry": "memoryStores.memories.update",
+    "resource": "memoryStores.memories",
+    "method": "update",
+    "goService": "MemoryStoreMemoryService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "path": "/memory_stores/{memory_store_id}/memories/{memory_id}",
+    "params": [
+      {
+        "name": "memoryID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "MemoryStoreMemoryUpdateParams",
+        "goType": "MemoryStoreMemoryUpdateParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "content_sha256",
+            "goName": "ContentSha256",
+            "type": "string",
+            "location": "body",
+            "wireName": "content_sha256",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, unknown>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "memory_store_id",
+            "goName": "MemoryStoreID",
+            "type": "string",
+            "location": "path",
+            "wireName": "memory_store_id",
+            "required": true
+          },
+          {
+            "name": "content",
+            "goName": "Content",
+            "type": "string",
+            "location": "body",
+            "wireName": "content",
+            "required": false
+          },
+          {
+            "name": "path",
+            "goName": "Path",
+            "type": "string",
+            "location": "body",
+            "wireName": "path",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "view",
+            "goName": "View",
+            "type": "ManagedAgentsMemoryView",
+            "location": "query",
+            "wireName": "view",
+            "required": false
+          },
+          {
+            "name": "precondition",
+            "goName": "Precondition",
+            "type": "ManagedAgentsPreconditionParam",
+            "location": "body",
+            "wireName": "precondition",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsMemory",
+    "responseMode": "json",
+    "goFile": "memorystorememory.go"
+  },
+  {
+    "entry": "memoryStores.memories.list",
+    "resource": "memoryStores.memories",
+    "method": "list",
+    "goService": "MemoryStoreMemoryService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/memory_stores/{memory_store_id}/memories",
+    "params": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "MemoryStoreMemoryListParams",
+        "goType": "MemoryStoreMemoryListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "depth",
+            "goName": "Depth",
+            "type": "number",
+            "location": "query",
+            "wireName": "depth",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "path_prefix",
+            "goName": "PathPrefix",
+            "type": "string",
+            "location": "query",
+            "wireName": "path_prefix",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "view",
+            "goName": "View",
+            "type": "ManagedAgentsMemoryView",
+            "location": "query",
+            "wireName": "view",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsMemoryListItemUnion",
+    "responseMode": "page",
+    "goFile": "memorystorememory.go"
+  },
+  {
+    "entry": "memoryStores.memories.delete",
+    "resource": "memoryStores.memories",
+    "method": "delete",
+    "goService": "MemoryStoreMemoryService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "path": "/memory_stores/{memory_store_id}/memories/{memory_id}",
+    "params": [
+      {
+        "name": "memoryID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "MemoryStoreMemoryDeleteParams",
+        "goType": "MemoryStoreMemoryDeleteParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "memory_store_id",
+            "goName": "MemoryStoreID",
+            "type": "string",
+            "location": "path",
+            "wireName": "memory_store_id",
+            "required": true
+          },
+          {
+            "name": "expected_content_sha256",
+            "goName": "ExpectedContentSha256",
+            "type": "string",
+            "location": "query",
+            "wireName": "expected_content_sha256",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeletedMemory",
+    "responseMode": "json",
+    "goFile": "memorystorememory.go"
+  },
+  {
+    "entry": "memoryStores.memoryVersions.retrieve",
+    "resource": "memoryStores.memoryVersions",
+    "method": "retrieve",
+    "goService": "MemoryStoreMemoryVersionService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}",
+    "params": [
+      {
+        "name": "memoryVersionID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "MemoryStoreMemoryVersionRetrieveParams",
+        "goType": "MemoryStoreMemoryVersionGetParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "memory_store_id",
+            "goName": "MemoryStoreID",
+            "type": "string",
+            "location": "path",
+            "wireName": "memory_store_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "view",
+            "goName": "View",
+            "type": "ManagedAgentsMemoryView",
+            "location": "query",
+            "wireName": "view",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsMemoryVersion",
+    "responseMode": "json",
+    "goFile": "memorystorememoryversion.go"
+  },
+  {
+    "entry": "memoryStores.memoryVersions.list",
+    "resource": "memoryStores.memoryVersions",
+    "method": "list",
+    "goService": "MemoryStoreMemoryVersionService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/memory_stores/{memory_store_id}/memory_versions",
+    "params": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "MemoryStoreMemoryVersionListParams",
+        "goType": "MemoryStoreMemoryVersionListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "api_key_id",
+            "goName": "APIKeyID",
+            "type": "string",
+            "location": "query",
+            "wireName": "api_key_id",
+            "required": false
+          },
+          {
+            "name": "created_at[gte]",
+            "goName": "CreatedAtGte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[gte]",
+            "required": false
+          },
+          {
+            "name": "created_at[lte]",
+            "goName": "CreatedAtLte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[lte]",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "memory_id",
+            "goName": "MemoryID",
+            "type": "string",
+            "location": "query",
+            "wireName": "memory_id",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "service_account_id",
+            "goName": "ServiceAccountID",
+            "type": "string",
+            "location": "query",
+            "wireName": "service_account_id",
+            "required": false
+          },
+          {
+            "name": "session_id",
+            "goName": "SessionID",
+            "type": "string",
+            "location": "query",
+            "wireName": "session_id",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "operation",
+            "goName": "Operation",
+            "type": "ManagedAgentsMemoryVersionOperation",
+            "location": "query",
+            "wireName": "operation",
+            "required": false
+          },
+          {
+            "name": "view",
+            "goName": "View",
+            "type": "ManagedAgentsMemoryView",
+            "location": "query",
+            "wireName": "view",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsMemoryVersion",
+    "responseMode": "page",
+    "goFile": "memorystorememoryversion.go"
+  },
+  {
+    "entry": "memoryStores.memoryVersions.redact",
+    "resource": "memoryStores.memoryVersions",
+    "method": "redact",
+    "goService": "MemoryStoreMemoryVersionService",
+    "goMethod": "Redact",
+    "httpMethod": "POST",
+    "path": "/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}/redact",
+    "params": [
+      {
+        "name": "memoryVersionID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "MemoryStoreMemoryVersionRedactParams",
+        "goType": "MemoryStoreMemoryVersionRedactParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "memory_store_id",
+            "goName": "MemoryStoreID",
+            "type": "string",
+            "location": "path",
+            "wireName": "memory_store_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsMemoryVersion",
+    "responseMode": "json",
+    "goFile": "memorystorememoryversion.go"
+  },
+  {
+    "entry": "models.list",
+    "resource": "models",
+    "method": "list",
+    "goService": "ModelService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/models",
+    "params": [
+      {
+        "name": "params",
+        "type": "ModelListParams",
+        "goType": "ModelListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "after_id",
+            "goName": "AfterID",
+            "type": "string",
+            "location": "query",
+            "wireName": "after_id",
+            "required": false
+          },
+          {
+            "name": "before_id",
+            "goName": "BeforeID",
+            "type": "string",
+            "location": "query",
+            "wireName": "before_id",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ModelInfo",
+    "responseMode": "page",
+    "goFile": "model.go"
+  },
+  {
+    "entry": "sessions.create",
+    "resource": "sessions",
+    "method": "create",
+    "goService": "SessionService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "path": "/sessions",
+    "params": [
+      {
+        "name": "params",
+        "type": "SessionCreateParams",
+        "goType": "SessionNewParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "environment_variables",
+            "goName": "EnvironmentVariables",
+            "type": "Record<string, string>",
+            "location": "body",
+            "wireName": "environment_variables",
+            "required": false
+          },
+          {
+            "name": "agent",
+            "goName": "Agent",
+            "type": "SessionNewParamsAgentUnion",
+            "location": "body",
+            "wireName": "agent",
+            "required": true
+          },
+          {
+            "name": "environment_id",
+            "goName": "EnvironmentID",
+            "type": "string",
+            "location": "body",
+            "wireName": "environment_id",
+            "required": true
+          },
+          {
+            "name": "title",
+            "goName": "Title",
+            "type": "string",
+            "location": "body",
+            "wireName": "title",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "budget",
+            "goName": "Budget",
+            "type": "ManagedAgentsBudgetLimitParam",
+            "location": "body",
+            "wireName": "budget",
+            "required": false
+          },
+          {
+            "name": "initial_events",
+            "goName": "InitialEvents",
+            "type": "Array<SessionNewParamsInitialEventUnion>",
+            "location": "body",
+            "wireName": "initial_events",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, string>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "resources",
+            "goName": "Resources",
+            "type": "Array<SessionNewParamsResourceUnion>",
+            "location": "body",
+            "wireName": "resources",
+            "required": false
+          },
+          {
+            "name": "vault_ids",
+            "goName": "VaultIDs",
+            "type": "Array<string>",
+            "location": "body",
+            "wireName": "vault_ids",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsSession",
+    "responseMode": "json",
+    "goFile": "session.go"
+  },
+  {
+    "entry": "sessions.retrieve",
+    "resource": "sessions",
+    "method": "retrieve",
+    "goService": "SessionService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/sessions/{session_id}",
+    "params": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionRetrieveParams",
+        "goType": "SessionGetParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsSession",
+    "responseMode": "json",
+    "goFile": "session.go"
+  },
+  {
+    "entry": "sessions.update",
+    "resource": "sessions",
+    "method": "update",
+    "goService": "SessionService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "path": "/sessions/{session_id}",
+    "params": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionUpdateParams",
+        "goType": "SessionUpdateParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "environment_variables",
+            "goName": "EnvironmentVariables",
+            "type": "Record<string, string>",
+            "location": "body",
+            "wireName": "environment_variables",
+            "required": false
+          },
+          {
+            "name": "title",
+            "goName": "Title",
+            "type": "string",
+            "location": "body",
+            "wireName": "title",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, unknown>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "agent",
+            "goName": "Agent",
+            "type": "ManagedAgentsSessionAgentUpdateParam",
+            "location": "body",
+            "wireName": "agent",
+            "required": false
+          },
+          {
+            "name": "budget",
+            "goName": "Budget",
+            "type": "ManagedAgentsBudgetLimitParam",
+            "location": "body",
+            "wireName": "budget",
+            "required": false
+          },
+          {
+            "name": "vault_ids",
+            "goName": "VaultIDs",
+            "type": "Array<string>",
+            "location": "body",
+            "wireName": "vault_ids",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsSession",
+    "responseMode": "json",
+    "goFile": "session.go"
+  },
+  {
+    "entry": "sessions.list",
+    "resource": "sessions",
+    "method": "list",
+    "goService": "SessionService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/sessions",
+    "params": [
+      {
+        "name": "params",
+        "type": "SessionListParams",
+        "goType": "SessionListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "agent_id",
+            "goName": "AgentID",
+            "type": "string",
+            "location": "query",
+            "wireName": "agent_id",
+            "required": false
+          },
+          {
+            "name": "agent_version",
+            "goName": "AgentVersion",
+            "type": "number",
+            "location": "query",
+            "wireName": "agent_version",
+            "required": false
+          },
+          {
+            "name": "created_at[gt]",
+            "goName": "CreatedAtGt",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[gt]",
+            "required": false
+          },
+          {
+            "name": "created_at[gte]",
+            "goName": "CreatedAtGte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[gte]",
+            "required": false
+          },
+          {
+            "name": "created_at[lt]",
+            "goName": "CreatedAtLt",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[lt]",
+            "required": false
+          },
+          {
+            "name": "created_at[lte]",
+            "goName": "CreatedAtLte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[lte]",
+            "required": false
+          },
+          {
+            "name": "deployment_id",
+            "goName": "DeploymentID",
+            "type": "string",
+            "location": "query",
+            "wireName": "deployment_id",
+            "required": false
+          },
+          {
+            "name": "include_archived",
+            "goName": "IncludeArchived",
+            "type": "boolean",
+            "location": "query",
+            "wireName": "include_archived",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "memory_store_id",
+            "goName": "MemoryStoreID",
+            "type": "string",
+            "location": "query",
+            "wireName": "memory_store_id",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "order",
+            "goName": "Order",
+            "type": "SessionListParamsOrder",
+            "location": "query",
+            "wireName": "order",
+            "required": false
+          },
+          {
+            "name": "statuses",
+            "goName": "Statuses",
+            "type": "Array<string>",
+            "location": "query",
+            "wireName": "statuses",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsSession",
+    "responseMode": "page",
+    "goFile": "session.go"
+  },
+  {
+    "entry": "sessions.delete",
+    "resource": "sessions",
+    "method": "delete",
+    "goService": "SessionService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "path": "/sessions/{session_id}",
+    "params": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionDeleteParams",
+        "goType": "SessionDeleteParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeletedSession",
+    "responseMode": "json",
+    "goFile": "session.go"
+  },
+  {
+    "entry": "sessions.archive",
+    "resource": "sessions",
+    "method": "archive",
+    "goService": "SessionService",
+    "goMethod": "Archive",
+    "httpMethod": "POST",
+    "path": "/sessions/{session_id}/archive",
+    "params": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionArchiveParams",
+        "goType": "SessionArchiveParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsSession",
+    "responseMode": "json",
+    "goFile": "session.go"
+  },
+  {
+    "entry": "sessions.events.list",
+    "resource": "sessions.events",
+    "method": "list",
+    "goService": "SessionEventService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/sessions/{session_id}/events",
+    "params": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionEventListParams",
+        "goType": "SessionEventListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "before_id",
+            "goName": "BeforeID",
+            "type": "string",
+            "location": "query",
+            "wireName": "before_id",
+            "required": false
+          },
+          {
+            "name": "after_id",
+            "goName": "AfterID",
+            "type": "string",
+            "location": "query",
+            "wireName": "after_id",
+            "required": false
+          },
+          {
+            "name": "created_at[gt]",
+            "goName": "CreatedAtGt",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[gt]",
+            "required": false
+          },
+          {
+            "name": "created_at[gte]",
+            "goName": "CreatedAtGte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[gte]",
+            "required": false
+          },
+          {
+            "name": "created_at[lt]",
+            "goName": "CreatedAtLt",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[lt]",
+            "required": false
+          },
+          {
+            "name": "created_at[lte]",
+            "goName": "CreatedAtLte",
+            "type": "string",
+            "location": "query",
+            "wireName": "created_at[lte]",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "order",
+            "goName": "Order",
+            "type": "SessionEventListParamsOrder",
+            "location": "query",
+            "wireName": "order",
+            "required": false
+          },
+          {
+            "name": "types",
+            "goName": "Types",
+            "type": "Array<string>",
+            "location": "query",
+            "wireName": "types",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsSessionEventUnion",
+    "responseMode": "page",
+    "goFile": "sessionevent.go"
+  },
+  {
+    "entry": "sessions.events.send",
+    "resource": "sessions.events",
+    "method": "send",
+    "goService": "SessionEventService",
+    "goMethod": "Send",
+    "httpMethod": "POST",
+    "path": "/sessions/{session_id}/events",
+    "params": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionEventSendParams",
+        "goType": "SessionEventSendParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "events",
+            "goName": "Events",
+            "type": "Array<ManagedAgentsEventParamsUnion>",
+            "location": "body",
+            "wireName": "events",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsSendSessionEvents",
+    "responseMode": "json",
+    "goFile": "sessionevent.go"
+  },
+  {
+    "entry": "sessions.events.streamEvents",
+    "resource": "sessions.events",
+    "method": "streamEvents",
+    "goService": "SessionEventService",
+    "goMethod": "StreamEvents",
+    "httpMethod": "GET",
+    "path": "/sessions/{session_id}/events/stream",
+    "params": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionEventStreamParams",
+        "goType": "SessionEventStreamParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "event_deltas",
+            "goName": "EventDeltas",
+            "type": "Array<ManagedAgentsDeltaType>",
+            "location": "query",
+            "wireName": "event_deltas",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsStreamSessionEventsUnion",
+    "responseMode": "stream",
+    "goFile": "sessionevent.go"
+  },
+  {
+    "entry": "sessions.resources.retrieve",
+    "resource": "sessions.resources",
+    "method": "retrieve",
+    "goService": "SessionResourceService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/sessions/{session_id}/resources/{resource_id}",
+    "params": [
+      {
+        "name": "resourceID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionResourceRetrieveParams",
+        "goType": "SessionResourceGetParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "session_id",
+            "goName": "SessionID",
+            "type": "string",
+            "location": "path",
+            "wireName": "session_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "SessionResourceGetResponseUnion",
+    "responseMode": "json",
+    "goFile": "sessionresource.go"
+  },
+  {
+    "entry": "sessions.resources.update",
+    "resource": "sessions.resources",
+    "method": "update",
+    "goService": "SessionResourceService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "path": "/sessions/{session_id}/resources/{resource_id}",
+    "params": [
+      {
+        "name": "resourceID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionResourceUpdateParams",
+        "goType": "SessionResourceUpdateParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "password",
+            "goName": "Password",
+            "type": "string",
+            "location": "body",
+            "wireName": "password",
+            "required": false
+          },
+          {
+            "name": "session_id",
+            "goName": "SessionID",
+            "type": "string",
+            "location": "path",
+            "wireName": "session_id",
+            "required": true
+          },
+          {
+            "name": "authorization_token",
+            "goName": "AuthorizationToken",
+            "type": "string",
+            "location": "body",
+            "wireName": "authorization_token",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "SessionResourceUpdateResponseUnion",
+    "responseMode": "json",
+    "goFile": "sessionresource.go"
+  },
+  {
+    "entry": "sessions.resources.list",
+    "resource": "sessions.resources",
+    "method": "list",
+    "goService": "SessionResourceService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/sessions/{session_id}/resources",
+    "params": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionResourceListParams",
+        "goType": "SessionResourceListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "before_id",
+            "goName": "BeforeID",
+            "type": "string",
+            "location": "query",
+            "wireName": "before_id",
+            "required": false
+          },
+          {
+            "name": "after_id",
+            "goName": "AfterID",
+            "type": "string",
+            "location": "query",
+            "wireName": "after_id",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsSessionResourceUnion",
+    "responseMode": "page",
+    "goFile": "sessionresource.go"
+  },
+  {
+    "entry": "sessions.resources.delete",
+    "resource": "sessions.resources",
+    "method": "delete",
+    "goService": "SessionResourceService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "path": "/sessions/{session_id}/resources/{resource_id}",
+    "params": [
+      {
+        "name": "resourceID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionResourceDeleteParams",
+        "goType": "SessionResourceDeleteParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "session_id",
+            "goName": "SessionID",
+            "type": "string",
+            "location": "path",
+            "wireName": "session_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeleteSessionResource",
+    "responseMode": "json",
+    "goFile": "sessionresource.go"
+  },
+  {
+    "entry": "sessions.resources.add",
+    "resource": "sessions.resources",
+    "method": "add",
+    "goService": "SessionResourceService",
+    "goMethod": "Add",
+    "httpMethod": "POST",
+    "path": "/sessions/{session_id}/resources",
+    "params": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionResourceAddParams",
+        "goType": "SessionResourceAddParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "file_id",
+            "goName": "FileID",
+            "type": "string",
+            "location": "body",
+            "wireName": "file_id",
+            "required": true
+          },
+          {
+            "name": "type",
+            "goName": "Type",
+            "type": "ManagedAgentsFileResourceParamsType",
+            "location": "body",
+            "wireName": "type",
+            "required": true
+          },
+          {
+            "name": "mount_path",
+            "goName": "MountPath",
+            "type": "string",
+            "location": "body",
+            "wireName": "mount_path",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsFileResource",
+    "responseMode": "json",
+    "goFile": "sessionresource.go"
+  },
+  {
+    "entry": "sessions.threads.retrieve",
+    "resource": "sessions.threads",
+    "method": "retrieve",
+    "goService": "SessionThreadService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/sessions/{session_id}/threads/{thread_id}",
+    "params": [
+      {
+        "name": "threadID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionThreadRetrieveParams",
+        "goType": "SessionThreadGetParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "session_id",
+            "goName": "SessionID",
+            "type": "string",
+            "location": "path",
+            "wireName": "session_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsSessionThread",
+    "responseMode": "json",
+    "goFile": "sessionthread.go"
+  },
+  {
+    "entry": "sessions.threads.list",
+    "resource": "sessions.threads",
+    "method": "list",
+    "goService": "SessionThreadService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/sessions/{session_id}/threads",
+    "params": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionThreadListParams",
+        "goType": "SessionThreadListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsSessionThread",
+    "responseMode": "page",
+    "goFile": "sessionthread.go"
+  },
+  {
+    "entry": "sessions.threads.archive",
+    "resource": "sessions.threads",
+    "method": "archive",
+    "goService": "SessionThreadService",
+    "goMethod": "Archive",
+    "httpMethod": "POST",
+    "path": "/sessions/{session_id}/threads/{thread_id}/archive",
+    "params": [
+      {
+        "name": "threadID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionThreadArchiveParams",
+        "goType": "SessionThreadArchiveParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "session_id",
+            "goName": "SessionID",
+            "type": "string",
+            "location": "path",
+            "wireName": "session_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsSessionThread",
+    "responseMode": "json",
+    "goFile": "sessionthread.go"
+  },
+  {
+    "entry": "sessions.threads.events.list",
+    "resource": "sessions.threads.events",
+    "method": "list",
+    "goService": "SessionThreadEventService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/sessions/{session_id}/threads/{thread_id}/events",
+    "params": [
+      {
+        "name": "threadID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionThreadEventListParams",
+        "goType": "SessionThreadEventListParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "before_id",
+            "goName": "BeforeID",
+            "type": "string",
+            "location": "query",
+            "wireName": "before_id",
+            "required": false
+          },
+          {
+            "name": "after_id",
+            "goName": "AfterID",
+            "type": "string",
+            "location": "query",
+            "wireName": "after_id",
+            "required": false
+          },
+          {
+            "name": "session_id",
+            "goName": "SessionID",
+            "type": "string",
+            "location": "path",
+            "wireName": "session_id",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsSessionEventUnion",
+    "responseMode": "page",
+    "goFile": "sessionthreadevent.go"
+  },
+  {
+    "entry": "sessions.threads.events.streamEvents",
+    "resource": "sessions.threads.events",
+    "method": "streamEvents",
+    "goService": "SessionThreadEventService",
+    "goMethod": "StreamEvents",
+    "httpMethod": "GET",
+    "path": "/sessions/{session_id}/threads/{thread_id}/stream",
+    "params": [
+      {
+        "name": "threadID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionThreadEventStreamParams",
+        "goType": "SessionThreadEventStreamParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "session_id",
+            "goName": "SessionID",
+            "type": "string",
+            "location": "path",
+            "wireName": "session_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "event_deltas",
+            "goName": "EventDeltas",
+            "type": "Array<ManagedAgentsDeltaType>",
+            "location": "query",
+            "wireName": "event_deltas",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsStreamSessionThreadEventsUnion",
+    "responseMode": "stream",
+    "goFile": "sessionthreadevent.go"
+  },
+  {
+    "entry": "skills.create",
+    "resource": "skills",
+    "method": "create",
+    "goService": "SkillService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "path": "/skills",
+    "params": [
+      {
+        "name": "params",
+        "type": "SkillCreateParams",
+        "goType": "SkillNewParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, string>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "files",
+            "goName": "Files",
+            "type": "Array<Uploadable>",
+            "location": "body",
+            "wireName": "files",
+            "required": true
+          },
+          {
+            "name": "display_title",
+            "goName": "DisplayName",
+            "type": "string",
+            "location": "body",
+            "wireName": "display_title",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "Skill",
+    "responseMode": "json",
+    "goFile": "skill.go"
+  },
+  {
+    "entry": "skills.retrieve",
+    "resource": "skills",
+    "method": "retrieve",
+    "goService": "SkillService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/skills/{skill_id}",
+    "params": [
+      {
+        "name": "skillID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SkillRetrieveParams",
+        "goType": "SkillGetParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "Skill",
+    "responseMode": "json",
+    "goFile": "skill.go"
+  },
+  {
+    "entry": "skills.list",
+    "resource": "skills",
+    "method": "list",
+    "goService": "SkillService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/skills",
+    "params": [
+      {
+        "name": "params",
+        "type": "SkillListParams",
+        "goType": "SkillListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "display_title",
+            "goName": "DisplayName",
+            "type": "string",
+            "location": "query",
+            "wireName": "display_title",
+            "required": false
+          },
+          {
+            "name": "name",
+            "goName": "Name",
+            "type": "string",
+            "location": "query",
+            "wireName": "name",
+            "required": false
+          },
+          {
+            "name": "before_id",
+            "goName": "BeforeID",
+            "type": "string",
+            "location": "query",
+            "wireName": "before_id",
+            "required": false
+          },
+          {
+            "name": "after_id",
+            "goName": "AfterID",
+            "type": "string",
+            "location": "query",
+            "wireName": "after_id",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "source",
+            "goName": "Source",
+            "type": "string",
+            "location": "query",
+            "wireName": "source",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "Skill",
+    "responseMode": "page",
+    "goFile": "skill.go"
+  },
+  {
+    "entry": "skills.delete",
+    "resource": "skills",
+    "method": "delete",
+    "goService": "SkillService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "path": "/skills/{skill_id}",
+    "params": [
+      {
+        "name": "skillID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SkillDeleteParams",
+        "goType": "SkillDeleteParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "DeletedSkill",
+    "responseMode": "json",
+    "goFile": "skill.go"
+  },
+  {
+    "entry": "skills.versions.create",
+    "resource": "skills.versions",
+    "method": "create",
+    "goService": "SkillVersionService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "path": "/skills/{skill_id}/versions",
+    "params": [
+      {
+        "name": "skillID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SkillVersionCreateParams",
+        "goType": "SkillVersionNewParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "files",
+            "goName": "Files",
+            "type": "Array<Uploadable>",
+            "location": "body",
+            "wireName": "files",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "SkillVersion",
+    "responseMode": "json",
+    "goFile": "skillversion.go"
+  },
+  {
+    "entry": "skills.versions.retrieve",
+    "resource": "skills.versions",
+    "method": "retrieve",
+    "goService": "SkillVersionService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/skills/{skill_id}/versions/{version}",
+    "params": [
+      {
+        "name": "version",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SkillVersionRetrieveParams",
+        "goType": "SkillVersionGetParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "skill_id",
+            "goName": "SkillID",
+            "type": "string",
+            "location": "path",
+            "wireName": "skill_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "SkillVersion",
+    "responseMode": "json",
+    "goFile": "skillversion.go"
+  },
+  {
+    "entry": "skills.versions.list",
+    "resource": "skills.versions",
+    "method": "list",
+    "goService": "SkillVersionService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/skills/{skill_id}/versions",
+    "params": [
+      {
+        "name": "skillID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SkillVersionListParams",
+        "goType": "SkillVersionListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "SkillVersion",
+    "responseMode": "page",
+    "goFile": "skillversion.go"
+  },
+  {
+    "entry": "skills.versions.delete",
+    "resource": "skills.versions",
+    "method": "delete",
+    "goService": "SkillVersionService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "path": "/skills/{skill_id}/versions/{version}",
+    "params": [
+      {
+        "name": "version",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SkillVersionDeleteParams",
+        "goType": "SkillVersionDeleteParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "skill_id",
+            "goName": "SkillID",
+            "type": "string",
+            "location": "path",
+            "wireName": "skill_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "DeletedSkillVersion",
+    "responseMode": "json",
+    "goFile": "skillversion.go"
+  },
+  {
+    "entry": "skills.versions.download",
+    "resource": "skills.versions",
+    "method": "download",
+    "goService": "SkillVersionService",
+    "goMethod": "Download",
+    "httpMethod": "GET",
+    "path": "/skills/{skill_id}/versions/{version}/content",
+    "params": [
+      {
+        "name": "version",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SkillVersionDownloadParams",
+        "goType": "SkillVersionDownloadParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "skill_id",
+            "goName": "SkillID",
+            "type": "string",
+            "location": "path",
+            "wireName": "skill_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "http.Response",
+    "responseMode": "response",
+    "goFile": "skillversion.go"
+  },
+  {
+    "entry": "vaults.create",
+    "resource": "vaults",
+    "method": "create",
+    "goService": "VaultService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "path": "/vaults",
+    "params": [
+      {
+        "name": "params",
+        "type": "VaultCreateParams",
+        "goType": "VaultNewParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "display_name",
+            "goName": "DisplayName",
+            "type": "string",
+            "location": "body",
+            "wireName": "display_name",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, string>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsVault",
+    "responseMode": "json",
+    "goFile": "vault.go"
+  },
+  {
+    "entry": "vaults.retrieve",
+    "resource": "vaults",
+    "method": "retrieve",
+    "goService": "VaultService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/vaults/{vault_id}",
+    "params": [
+      {
+        "name": "vaultID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "VaultRetrieveParams",
+        "goType": "VaultGetParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsVault",
+    "responseMode": "json",
+    "goFile": "vault.go"
+  },
+  {
+    "entry": "vaults.list",
+    "resource": "vaults",
+    "method": "list",
+    "goService": "VaultService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/vaults",
+    "params": [
+      {
+        "name": "params",
+        "type": "VaultListParams",
+        "goType": "VaultListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "name",
+            "goName": "Name",
+            "type": "string",
+            "location": "query",
+            "wireName": "name",
+            "required": false
+          },
+          {
+            "name": "before_id",
+            "goName": "BeforeID",
+            "type": "string",
+            "location": "query",
+            "wireName": "before_id",
+            "required": false
+          },
+          {
+            "name": "after_id",
+            "goName": "AfterID",
+            "type": "string",
+            "location": "query",
+            "wireName": "after_id",
+            "required": false
+          },
+          {
+            "name": "include_archived",
+            "goName": "IncludeArchived",
+            "type": "boolean",
+            "location": "query",
+            "wireName": "include_archived",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsVault",
+    "responseMode": "page",
+    "goFile": "vault.go"
+  },
+  {
+    "entry": "vaults.delete",
+    "resource": "vaults",
+    "method": "delete",
+    "goService": "VaultService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "path": "/vaults/{vault_id}",
+    "params": [
+      {
+        "name": "vaultID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "VaultDeleteParams",
+        "goType": "VaultDeleteParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeletedVault",
+    "responseMode": "json",
+    "goFile": "vault.go"
+  },
+  {
+    "entry": "vaults.archive",
+    "resource": "vaults",
+    "method": "archive",
+    "goService": "VaultService",
+    "goMethod": "Archive",
+    "httpMethod": "POST",
+    "path": "/vaults/{vault_id}/archive",
+    "params": [
+      {
+        "name": "vaultID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "VaultArchiveParams",
+        "goType": "VaultArchiveParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsVault",
+    "responseMode": "json",
+    "goFile": "vault.go"
+  },
+  {
+    "entry": "vaults.credentials.create",
+    "resource": "vaults.credentials",
+    "method": "create",
+    "goService": "VaultCredentialService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "path": "/vaults/{vault_id}/credentials",
+    "params": [
+      {
+        "name": "vaultID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "VaultCredentialCreateParams",
+        "goType": "VaultCredentialNewParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "auth",
+            "goName": "Auth",
+            "type": "VaultCredentialNewParamsAuthUnion",
+            "location": "body",
+            "wireName": "auth",
+            "required": true
+          },
+          {
+            "name": "display_name",
+            "goName": "DisplayName",
+            "type": "string",
+            "location": "body",
+            "wireName": "display_name",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, string>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsCredential",
+    "responseMode": "json",
+    "goFile": "vaultcredential.go"
+  },
+  {
+    "entry": "vaults.credentials.retrieve",
+    "resource": "vaults.credentials",
+    "method": "retrieve",
+    "goService": "VaultCredentialService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "path": "/vaults/{vault_id}/credentials/{credential_id}",
+    "params": [
+      {
+        "name": "credentialID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "VaultCredentialRetrieveParams",
+        "goType": "VaultCredentialGetParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "vault_id",
+            "goName": "VaultID",
+            "type": "string",
+            "location": "path",
+            "wireName": "vault_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsCredential",
+    "responseMode": "json",
+    "goFile": "vaultcredential.go"
+  },
+  {
+    "entry": "vaults.credentials.update",
+    "resource": "vaults.credentials",
+    "method": "update",
+    "goService": "VaultCredentialService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "path": "/vaults/{vault_id}/credentials/{credential_id}",
+    "params": [
+      {
+        "name": "credentialID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "VaultCredentialUpdateParams",
+        "goType": "VaultCredentialUpdateParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "vault_id",
+            "goName": "VaultID",
+            "type": "string",
+            "location": "path",
+            "wireName": "vault_id",
+            "required": true
+          },
+          {
+            "name": "display_name",
+            "goName": "DisplayName",
+            "type": "string",
+            "location": "body",
+            "wireName": "display_name",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "metadata",
+            "goName": "Metadata",
+            "type": "Record<string, unknown>",
+            "location": "body",
+            "wireName": "metadata",
+            "required": false
+          },
+          {
+            "name": "auth",
+            "goName": "Auth",
+            "type": "VaultCredentialUpdateParamsAuthUnion",
+            "location": "body",
+            "wireName": "auth",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsCredential",
+    "responseMode": "json",
+    "goFile": "vaultcredential.go"
+  },
+  {
+    "entry": "vaults.credentials.list",
+    "resource": "vaults.credentials",
+    "method": "list",
+    "goService": "VaultCredentialService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "path": "/vaults/{vault_id}/credentials",
+    "params": [
+      {
+        "name": "vaultID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "VaultCredentialListParams",
+        "goType": "VaultCredentialListParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "name",
+            "goName": "Name",
+            "type": "string",
+            "location": "query",
+            "wireName": "name",
+            "required": false
+          },
+          {
+            "name": "before_id",
+            "goName": "BeforeID",
+            "type": "string",
+            "location": "query",
+            "wireName": "before_id",
+            "required": false
+          },
+          {
+            "name": "after_id",
+            "goName": "AfterID",
+            "type": "string",
+            "location": "query",
+            "wireName": "after_id",
+            "required": false
+          },
+          {
+            "name": "include_archived",
+            "goName": "IncludeArchived",
+            "type": "boolean",
+            "location": "query",
+            "wireName": "include_archived",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "goName": "Limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "page",
+            "goName": "Page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsCredential",
+    "responseMode": "page",
+    "goFile": "vaultcredential.go"
+  },
+  {
+    "entry": "vaults.credentials.delete",
+    "resource": "vaults.credentials",
+    "method": "delete",
+    "goService": "VaultCredentialService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "path": "/vaults/{vault_id}/credentials/{credential_id}",
+    "params": [
+      {
+        "name": "credentialID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "VaultCredentialDeleteParams",
+        "goType": "VaultCredentialDeleteParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "vault_id",
+            "goName": "VaultID",
+            "type": "string",
+            "location": "path",
+            "wireName": "vault_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeletedCredential",
+    "responseMode": "json",
+    "goFile": "vaultcredential.go"
+  },
+  {
+    "entry": "vaults.credentials.archive",
+    "resource": "vaults.credentials",
+    "method": "archive",
+    "goService": "VaultCredentialService",
+    "goMethod": "Archive",
+    "httpMethod": "POST",
+    "path": "/vaults/{vault_id}/credentials/{credential_id}/archive",
+    "params": [
+      {
+        "name": "credentialID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "VaultCredentialArchiveParams",
+        "goType": "VaultCredentialArchiveParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "vault_id",
+            "goName": "VaultID",
+            "type": "string",
+            "location": "path",
+            "wireName": "vault_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsCredential",
+    "responseMode": "json",
+    "goFile": "vaultcredential.go"
+  },
+  {
+    "entry": "vaults.credentials.mcpOAuthValidate",
+    "resource": "vaults.credentials",
+    "method": "mcpOAuthValidate",
+    "goService": "VaultCredentialService",
+    "goMethod": "MCPOAuthValidate",
+    "httpMethod": "POST",
+    "path": "/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate",
+    "params": [
+      {
+        "name": "credentialID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "VaultCredentialMCPOAuthValidateParams",
+        "goType": "VaultCredentialMCPOAuthValidateParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "vault_id",
+            "goName": "VaultID",
+            "type": "string",
+            "location": "path",
+            "wireName": "vault_id",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "goName": "WorkspaceID",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "goName": "Betas",
+            "type": "Array<QoderBeta>",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsCredentialValidation",
+    "responseMode": "json",
+    "goFile": "vaultcredential.go"
+  }
+]

@@ -1,0 +1,4738 @@
+[
+  {
+    "operationId": "listBatches",
+    "entry": "batches",
+    "method": "list",
+    "goService": "BatchService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [],
+    "paramsType": "BatchListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "Batch",
+    "path": "/batches",
+    "parameterFields": [
+      {
+        "name": "status",
+        "wireName": "status",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "createBatch",
+    "entry": "batches",
+    "method": "create",
+    "goService": "BatchService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "BatchNewParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Batch",
+    "path": "/batches",
+    "parameterFields": [
+      {
+        "name": "input_file_id",
+        "wireName": "input_file_id",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "completion_window",
+        "wireName": "completion_window",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getBatch",
+    "entry": "batches",
+    "method": "retrieve",
+    "goService": "BatchService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "batchID",
+        "type": "string",
+        "location": "path",
+        "wireName": "batch_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Batch",
+    "path": "/batches/{batch_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "cancelBatch",
+    "entry": "batches",
+    "method": "cancel",
+    "goService": "BatchService",
+    "goMethod": "Cancel",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "batchID",
+        "type": "string",
+        "location": "path",
+        "wireName": "batch_id"
+      }
+    ],
+    "paramsType": "BatchCancelParams",
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Batch",
+    "path": "/batches/{batch_id}/cancel",
+    "parameterFields": [
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getBatchError",
+    "entry": "batches",
+    "method": "getError",
+    "goService": "BatchService",
+    "goMethod": "GetError",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "batchID",
+        "type": "string",
+        "location": "path",
+        "wireName": "batch_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "BatchFile",
+    "path": "/batches/{batch_id}/error",
+    "parameterFields": []
+  },
+  {
+    "operationId": "getBatchOutput",
+    "entry": "batches",
+    "method": "getOutput",
+    "goService": "BatchService",
+    "goMethod": "GetOutput",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "batchID",
+        "type": "string",
+        "location": "path",
+        "wireName": "batch_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "BatchFile",
+    "path": "/batches/{batch_id}/output",
+    "parameterFields": []
+  },
+  {
+    "operationId": "listBatchTasks",
+    "entry": "batches.tasks",
+    "method": "list",
+    "goService": "BatchTaskService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "batchID",
+        "type": "string",
+        "location": "path",
+        "wireName": "batch_id"
+      }
+    ],
+    "paramsType": "BatchTaskListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "BatchTask",
+    "path": "/batches/{batch_id}/tasks",
+    "parameterFields": [
+      {
+        "name": "status",
+        "wireName": "status",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "custom_id",
+        "wireName": "custom_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "listChannels",
+    "entry": "channels",
+    "method": "list",
+    "goService": "ChannelService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [],
+    "paramsType": "ChannelListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "Channel",
+    "path": "/channels",
+    "parameterFields": [
+      {
+        "name": "channel_type",
+        "wireName": "channel_type",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "enabled",
+        "wireName": "enabled",
+        "location": "query",
+        "required": false,
+        "type": "boolean | null"
+      },
+      {
+        "name": "binding_status",
+        "wireName": "binding_status",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "template_id",
+        "wireName": "template_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "createChannel",
+    "entry": "channels",
+    "method": "create",
+    "goService": "ChannelService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "ChannelNewParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Channel",
+    "path": "/channels",
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "identity_resolution",
+        "wireName": "identity_resolution",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "template_id",
+        "wireName": "template_id",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "channel_type",
+        "wireName": "channel_type",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "enabled",
+        "wireName": "enabled",
+        "location": "body",
+        "required": false,
+        "type": "boolean | null"
+      },
+      {
+        "name": "channel_config",
+        "wireName": "channel_config",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getChannel",
+    "entry": "channels",
+    "method": "retrieve",
+    "goService": "ChannelService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "channelID",
+        "type": "string",
+        "location": "path",
+        "wireName": "channel_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Channel",
+    "path": "/channels/{channel_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "updateChannel",
+    "entry": "channels",
+    "method": "update",
+    "goService": "ChannelService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "channelID",
+        "type": "string",
+        "location": "path",
+        "wireName": "channel_id"
+      }
+    ],
+    "paramsType": "ChannelUpdateParams",
+    "paramsOptional": true,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Channel",
+    "path": "/channels/{channel_id}",
+    "parameterFields": [
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "template_id",
+        "wireName": "template_id",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "enabled",
+        "wireName": "enabled",
+        "location": "body",
+        "required": false,
+        "type": "boolean | null"
+      },
+      {
+        "name": "channel_config",
+        "wireName": "channel_config",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "deleteChannel",
+    "entry": "channels",
+    "method": "delete",
+    "goService": "ChannelService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "parameters": [
+      {
+        "name": "channelID",
+        "type": "string",
+        "location": "path",
+        "wireName": "channel_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "DeletedChannel",
+    "path": "/channels/{channel_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "pairChannel",
+    "entry": "channelPairings",
+    "method": "create",
+    "goService": "ChannelPairingService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "ChannelPairingNewParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "ChannelPairing",
+    "path": "/channel_pairings",
+    "parameterFields": [
+      {
+        "name": "code",
+        "wireName": "code",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "template_id",
+        "wireName": "template_id",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "unpairChannel",
+    "entry": "channelPairings",
+    "method": "delete",
+    "goService": "ChannelPairingService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "parameters": [
+      {
+        "name": "pairingID",
+        "type": "string",
+        "location": "path",
+        "wireName": "pairing_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "DeletedChannelPairing",
+    "path": "/channel_pairings/{pairing_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "createChannelQrSession",
+    "entry": "channels.qrSessions",
+    "method": "create",
+    "goService": "ChannelQRSessionService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "channelID",
+        "type": "string",
+        "location": "path",
+        "wireName": "channel_id"
+      }
+    ],
+    "paramsType": "ChannelQRSessionNewParams",
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "ChannelQRSession",
+    "path": "/channels/{channel_id}/qr_sessions",
+    "parameterFields": [
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getChannelQrSession",
+    "entry": "channels.qrSessions",
+    "method": "retrieve",
+    "goService": "ChannelQRSessionService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "sessionKey",
+        "type": "string",
+        "location": "path",
+        "wireName": "session_key"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "ChannelQRSession",
+    "path": "/qr_sessions/{session_key}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "listEnvironment",
+    "entry": "environments",
+    "method": "list",
+    "goService": "EnvironmentService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [],
+    "paramsType": "EnvironmentListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "page",
+    "itemType": "Environment",
+    "path": "/environments",
+    "parameterFields": [
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "page",
+        "wireName": "page",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "createEnvironment",
+    "entry": "environments",
+    "method": "create",
+    "goService": "EnvironmentService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "EnvironmentNewParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Environment",
+    "path": "/environments",
+    "parameterFields": [
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "description",
+        "wireName": "description",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "config",
+        "wireName": "config",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getEnvironment",
+    "entry": "environments",
+    "method": "retrieve",
+    "goService": "EnvironmentService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Environment",
+    "path": "/environments/{id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "updateEnvironment",
+    "entry": "environments",
+    "method": "update",
+    "goService": "EnvironmentService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      }
+    ],
+    "paramsType": "EnvironmentUpdateParams",
+    "paramsOptional": true,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Environment",
+    "path": "/environments/{id}",
+    "parameterFields": [
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "description",
+        "wireName": "description",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "config",
+        "wireName": "config",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      }
+    ]
+  },
+  {
+    "operationId": "archiveEnvironment",
+    "entry": "environments",
+    "method": "archive",
+    "goService": "EnvironmentService",
+    "goMethod": "Archive",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Environment",
+    "path": "/environments/{id}/archive",
+    "parameterFields": []
+  },
+  {
+    "operationId": "deleteEnvironment",
+    "entry": "environments",
+    "method": "delete",
+    "goService": "EnvironmentService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "void",
+    "pagination": "cursor",
+    "itemType": "void",
+    "path": "/environments/{id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "listFile",
+    "entry": "files",
+    "method": "list",
+    "goService": "FileService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [],
+    "paramsType": "FileListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "page",
+    "itemType": "FileMetadata",
+    "path": "/files",
+    "parameterFields": [
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "page",
+        "wireName": "page",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "scope_id",
+        "wireName": "scope_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "uploadFile",
+    "entry": "files",
+    "method": "upload",
+    "goService": "FileService",
+    "goMethod": "Upload",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "FileUploadParams",
+    "paramsOptional": false,
+    "paramsLocation": "multipart",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "FileMetadata",
+    "path": "/files",
+    "parameterFields": [
+      {
+        "name": "file",
+        "wireName": "file",
+        "location": "body",
+        "required": true,
+        "type": "Uploadable"
+      },
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "purpose",
+        "wireName": "purpose",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getFile",
+    "entry": "files",
+    "method": "getMetadata",
+    "goService": "FileService",
+    "goMethod": "GetMetadata",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "fileID",
+        "type": "string",
+        "location": "path",
+        "wireName": "file_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "FileMetadata",
+    "path": "/files/{file_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "deleteFile",
+    "entry": "files",
+    "method": "delete",
+    "goService": "FileService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "parameters": [
+      {
+        "name": "fileID",
+        "type": "string",
+        "location": "path",
+        "wireName": "file_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "void",
+    "pagination": "cursor",
+    "itemType": "void",
+    "path": "/files/{file_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "downloadFile",
+    "entry": "files",
+    "method": "download",
+    "goService": "FileService",
+    "goMethod": "Download",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "fileID",
+        "type": "string",
+        "location": "path",
+        "wireName": "file_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "response",
+    "pagination": "cursor",
+    "itemType": "Response",
+    "path": "/files/{file_id}/content",
+    "parameterFields": []
+  },
+  {
+    "operationId": "listIdentities",
+    "entry": "identities",
+    "method": "list",
+    "goService": "IdentityService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [],
+    "paramsType": "IdentityListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "Identity",
+    "path": "/identities",
+    "parameterFields": [
+      {
+        "name": "external_id",
+        "wireName": "external_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "identity_ids",
+        "wireName": "identity_ids",
+        "location": "query",
+        "required": false,
+        "type": "Array<string> | null"
+      },
+      {
+        "name": "search",
+        "wireName": "search",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "enabled",
+        "wireName": "enabled",
+        "location": "query",
+        "required": false,
+        "type": "boolean | null"
+      },
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "createIdentity",
+    "entry": "identities",
+    "method": "create",
+    "goService": "IdentityService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "IdentityNewParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Identity",
+    "path": "/identities",
+    "parameterFields": [
+      {
+        "name": "external_id",
+        "wireName": "external_id",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "enabled",
+        "wireName": "enabled",
+        "location": "body",
+        "required": false,
+        "type": "boolean | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "ensureAdminIdentity",
+    "entry": "identities",
+    "method": "ensureAdmin",
+    "goService": "IdentityService",
+    "goMethod": "EnsureAdmin",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Identity",
+    "path": "/identities/admin/ensure",
+    "parameterFields": []
+  },
+  {
+    "operationId": "getIdentityStats",
+    "entry": "identities",
+    "method": "stats",
+    "goService": "IdentityService",
+    "goMethod": "Stats",
+    "httpMethod": "GET",
+    "parameters": [],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "IdentityStats",
+    "path": "/identities/stats",
+    "parameterFields": []
+  },
+  {
+    "operationId": "getIdentity",
+    "entry": "identities",
+    "method": "retrieve",
+    "goService": "IdentityService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "identityID",
+        "type": "string",
+        "location": "path",
+        "wireName": "identity_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Identity",
+    "path": "/identities/{identity_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "updateIdentity",
+    "entry": "identities",
+    "method": "update",
+    "goService": "IdentityService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "identityID",
+        "type": "string",
+        "location": "path",
+        "wireName": "identity_id"
+      }
+    ],
+    "paramsType": "IdentityUpdateParams",
+    "paramsOptional": true,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Identity",
+    "path": "/identities/{identity_id}",
+    "parameterFields": [
+      {
+        "name": "external_id",
+        "wireName": "external_id",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "enabled",
+        "wireName": "enabled",
+        "location": "body",
+        "required": false,
+        "type": "boolean | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "deleteIdentity",
+    "entry": "identities",
+    "method": "delete",
+    "goService": "IdentityService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "parameters": [
+      {
+        "name": "identityID",
+        "type": "string",
+        "location": "path",
+        "wireName": "identity_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "DeletedIdentity",
+    "path": "/identities/{identity_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "listIdentityAgents",
+    "entry": "identities",
+    "method": "listTemplates",
+    "goService": "IdentityService",
+    "goMethod": "ListTemplates",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "identityID",
+        "type": "string",
+        "location": "path",
+        "wireName": "identity_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "IdentityListTemplatesResponse",
+    "path": "/identities/{identity_id}/agents",
+    "parameterFields": []
+  },
+  {
+    "operationId": "clearIdentity",
+    "entry": "identities",
+    "method": "clear",
+    "goService": "IdentityService",
+    "goMethod": "Clear",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "identityID",
+        "type": "string",
+        "location": "path",
+        "wireName": "identity_id"
+      }
+    ],
+    "paramsType": "IdentityClearParams",
+    "paramsOptional": true,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "IdentityClearResponse",
+    "path": "/identities/{identity_id}/clear",
+    "parameterFields": [
+      {
+        "name": "reason",
+        "wireName": "reason",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "disableIdentity",
+    "entry": "identities",
+    "method": "disable",
+    "goService": "IdentityService",
+    "goMethod": "Disable",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "identityID",
+        "type": "string",
+        "location": "path",
+        "wireName": "identity_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Identity",
+    "path": "/identities/{identity_id}/disable",
+    "parameterFields": []
+  },
+  {
+    "operationId": "enableIdentity",
+    "entry": "identities",
+    "method": "enable",
+    "goService": "IdentityService",
+    "goMethod": "Enable",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "identityID",
+        "type": "string",
+        "location": "path",
+        "wireName": "identity_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Identity",
+    "path": "/identities/{identity_id}/enable",
+    "parameterFields": []
+  },
+  {
+    "operationId": "listIdentityConfigs",
+    "entry": "identities.configs",
+    "method": "list",
+    "goService": "IdentityConfigService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "identityID",
+        "type": "string",
+        "location": "path",
+        "wireName": "identity_id"
+      }
+    ],
+    "paramsType": "IdentityConfigListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "IdentityConfig",
+    "path": "/identities/{identity_id}/templates",
+    "parameterFields": [
+      {
+        "name": "template_id",
+        "wireName": "template_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "status",
+        "wireName": "status",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getIdentityConfig",
+    "entry": "identities.configs",
+    "method": "retrieve",
+    "goService": "IdentityConfigService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "identityID",
+        "type": "string",
+        "location": "path",
+        "wireName": "identity_id"
+      },
+      {
+        "name": "templateID",
+        "type": "string",
+        "location": "path",
+        "wireName": "template_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "IdentityConfig",
+    "path": "/identities/{identity_id}/templates/{template_id}/config",
+    "parameterFields": []
+  },
+  {
+    "operationId": "upsertIdentityConfig",
+    "entry": "identities.configs",
+    "method": "upsert",
+    "goService": "IdentityConfigService",
+    "goMethod": "Upsert",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "identityID",
+        "type": "string",
+        "location": "path",
+        "wireName": "identity_id"
+      },
+      {
+        "name": "templateID",
+        "type": "string",
+        "location": "path",
+        "wireName": "template_id"
+      }
+    ],
+    "paramsType": "IdentityConfigUpsertParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "IdentityConfig",
+    "path": "/identities/{identity_id}/templates/{template_id}/config",
+    "parameterFields": [
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "identity_config",
+        "wireName": "identity_config",
+        "location": "body",
+        "required": true,
+        "type": "IdentityConfigSpecParam"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getEffectiveConfig",
+    "entry": "identities.configs",
+    "method": "getEffective",
+    "goService": "IdentityConfigService",
+    "goMethod": "GetEffective",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "identityID",
+        "type": "string",
+        "location": "path",
+        "wireName": "identity_id"
+      },
+      {
+        "name": "templateID",
+        "type": "string",
+        "location": "path",
+        "wireName": "template_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "EffectiveConfig",
+    "path": "/identities/{identity_id}/templates/{template_id}/effective",
+    "parameterFields": []
+  },
+  {
+    "operationId": "listMemoryStoreMounts",
+    "entry": "identities.memoryStores",
+    "method": "list",
+    "goService": "IdentityMemoryStoreService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "identityID",
+        "type": "string",
+        "location": "path",
+        "wireName": "identity_id"
+      },
+      {
+        "name": "templateID",
+        "type": "string",
+        "location": "path",
+        "wireName": "template_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "IdentityMemoryStoreListResponse",
+    "path": "/identities/{identity_id}/templates/{template_id}/memory_stores",
+    "parameterFields": []
+  },
+  {
+    "operationId": "mountMemoryStore",
+    "entry": "identities.memoryStores",
+    "method": "mount",
+    "goService": "IdentityMemoryStoreService",
+    "goMethod": "Mount",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "identityID",
+        "type": "string",
+        "location": "path",
+        "wireName": "identity_id"
+      },
+      {
+        "name": "templateID",
+        "type": "string",
+        "location": "path",
+        "wireName": "template_id"
+      }
+    ],
+    "paramsType": "IdentityMemoryStoreMountParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "MemoryStoreMount",
+    "path": "/identities/{identity_id}/templates/{template_id}/memory_stores",
+    "parameterFields": [
+      {
+        "name": "memory_store_id",
+        "wireName": "memory_store_id",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "operationId": "detachMemoryStore",
+    "entry": "identities.memoryStores",
+    "method": "detach",
+    "goService": "IdentityMemoryStoreService",
+    "goMethod": "Detach",
+    "httpMethod": "DELETE",
+    "parameters": [
+      {
+        "name": "identityID",
+        "type": "string",
+        "location": "path",
+        "wireName": "identity_id"
+      },
+      {
+        "name": "templateID",
+        "type": "string",
+        "location": "path",
+        "wireName": "template_id"
+      },
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_store_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "DeletedMemoryStoreMount",
+    "path": "/identities/{identity_id}/templates/{template_id}/memory_stores/{memory_store_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "listMemoryStore",
+    "entry": "memoryStores",
+    "method": "list",
+    "goService": "MemoryStoreService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [],
+    "paramsType": "MemoryStoreListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "MemoryStore",
+    "path": "/memory_stores",
+    "parameterFields": [
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "system_managed",
+        "wireName": "system_managed",
+        "location": "query",
+        "required": false,
+        "type": "boolean | null"
+      }
+    ]
+  },
+  {
+    "operationId": "createMemoryStore",
+    "entry": "memoryStores",
+    "method": "create",
+    "goService": "MemoryStoreService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "MemoryStoreNewParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "MemoryStore",
+    "path": "/memory_stores",
+    "parameterFields": [
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "description",
+        "wireName": "description",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": true,
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "operationId": "getMemoryStore",
+    "entry": "memoryStores",
+    "method": "retrieve",
+    "goService": "MemoryStoreService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_store_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "MemoryStore",
+    "path": "/memory_stores/{memory_store_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "updateMemoryStore",
+    "entry": "memoryStores",
+    "method": "update",
+    "goService": "MemoryStoreService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_store_id"
+      }
+    ],
+    "paramsType": "MemoryStoreUpdateParams",
+    "paramsOptional": true,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "MemoryStore",
+    "path": "/memory_stores/{memory_store_id}",
+    "parameterFields": [
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "description",
+        "wireName": "description",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      }
+    ]
+  },
+  {
+    "operationId": "deleteMemoryStore",
+    "entry": "memoryStores",
+    "method": "delete",
+    "goService": "MemoryStoreService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "parameters": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_store_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "DeletedMemoryStore",
+    "path": "/memory_stores/{memory_store_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "archiveMemoryStore",
+    "entry": "memoryStores",
+    "method": "archive",
+    "goService": "MemoryStoreService",
+    "goMethod": "Archive",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_store_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "MemoryStore",
+    "path": "/memory_stores/{memory_store_id}/archive",
+    "parameterFields": []
+  },
+  {
+    "operationId": "listMemoryStoreMemoryMemories",
+    "entry": "memoryStores.memories",
+    "method": "list",
+    "goService": "MemoryStoreMemoryService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_store_id"
+      }
+    ],
+    "paramsType": "MemoryStoreMemoryListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "Memory",
+    "path": "/memory_stores/{memory_store_id}/memories",
+    "parameterFields": [
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "path_prefix",
+        "wireName": "path_prefix",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "createMemoryStoreMemory",
+    "entry": "memoryStores.memories",
+    "method": "create",
+    "goService": "MemoryStoreMemoryService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_store_id"
+      }
+    ],
+    "paramsType": "MemoryStoreMemoryNewParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Memory",
+    "path": "/memory_stores/{memory_store_id}/memories",
+    "parameterFields": [
+      {
+        "name": "path",
+        "wireName": "path",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "content",
+        "wireName": "content",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getMemoryStoreMemory",
+    "entry": "memoryStores.memories",
+    "method": "retrieve",
+    "goService": "MemoryStoreMemoryService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_store_id"
+      },
+      {
+        "name": "memoryID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Memory",
+    "path": "/memory_stores/{memory_store_id}/memories/{memory_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "updateMemoryStoreMemory",
+    "entry": "memoryStores.memories",
+    "method": "update",
+    "goService": "MemoryStoreMemoryService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_store_id"
+      },
+      {
+        "name": "memoryID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_id"
+      }
+    ],
+    "paramsType": "MemoryStoreMemoryUpdateParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Memory",
+    "path": "/memory_stores/{memory_store_id}/memories/{memory_id}",
+    "parameterFields": [
+      {
+        "name": "content",
+        "wireName": "content",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "content_sha256",
+        "wireName": "content_sha256",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      }
+    ]
+  },
+  {
+    "operationId": "deleteMemoryStoreMemory",
+    "entry": "memoryStores.memories",
+    "method": "delete",
+    "goService": "MemoryStoreMemoryService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "parameters": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_store_id"
+      },
+      {
+        "name": "memoryID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "DeletedMemory",
+    "path": "/memory_stores/{memory_store_id}/memories/{memory_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "listMemoryStoreMemoryVersion",
+    "entry": "memoryStores.memoryVersions",
+    "method": "list",
+    "goService": "MemoryStoreMemoryVersionService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_store_id"
+      }
+    ],
+    "paramsType": "MemoryStoreMemoryVersionListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "MemoryVersion",
+    "path": "/memory_stores/{memory_store_id}/memory_versions",
+    "parameterFields": [
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "memory_id",
+        "wireName": "memory_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getMemoryStoreMemoryVersion",
+    "entry": "memoryStores.memoryVersions",
+    "method": "retrieve",
+    "goService": "MemoryStoreMemoryVersionService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_store_id"
+      },
+      {
+        "name": "memoryVersionID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_version_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "MemoryVersion",
+    "path": "/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "redactMemoryStoreMemoryVersion",
+    "entry": "memoryStores.memoryVersions",
+    "method": "redact",
+    "goService": "MemoryStoreMemoryVersionService",
+    "goMethod": "Redact",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "memoryStoreID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_store_id"
+      },
+      {
+        "name": "memoryVersionID",
+        "type": "string",
+        "location": "path",
+        "wireName": "memory_version_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "MemoryVersion",
+    "path": "/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}/redact",
+    "parameterFields": []
+  },
+  {
+    "operationId": "listModels",
+    "entry": "models",
+    "method": "list",
+    "goService": "ModelService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "ModelListResponse",
+    "path": "/models",
+    "parameterFields": []
+  },
+  {
+    "operationId": "listSchedules",
+    "entry": "schedules",
+    "method": "list",
+    "goService": "ScheduleService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [],
+    "paramsType": "ScheduleListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "Schedule",
+    "path": "/schedules",
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "template_id",
+        "wireName": "template_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "status",
+        "wireName": "status",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "include_archived",
+        "wireName": "include_archived",
+        "location": "query",
+        "required": false,
+        "type": "boolean | null"
+      },
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "sort_by",
+        "wireName": "sort_by",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "order",
+        "wireName": "order",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "createSchedule",
+    "entry": "schedules",
+    "method": "create",
+    "goService": "ScheduleService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "ScheduleNewParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Schedule",
+    "path": "/schedules",
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "template_id",
+        "wireName": "template_id",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "description",
+        "wireName": "description",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "initial_events",
+        "wireName": "initial_events",
+        "location": "body",
+        "required": true,
+        "type": "Array<Record<string, unknown>>"
+      },
+      {
+        "name": "execution",
+        "wireName": "execution",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "trigger_policy",
+        "wireName": "trigger_policy",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "environment_id",
+        "wireName": "environment_id",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "sinks",
+        "wireName": "sinks",
+        "location": "body",
+        "required": false,
+        "type": "Array<Record<string, unknown>> | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "archiveSchedules",
+    "entry": "schedules",
+    "method": "archiveMany",
+    "goService": "ScheduleService",
+    "goMethod": "ArchiveMany",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "ScheduleArchiveManyParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "ScheduleArchiveManyResponse",
+    "path": "/schedules/archive",
+    "parameterFields": [
+      {
+        "name": "schedule_ids",
+        "wireName": "schedule_ids",
+        "location": "body",
+        "required": true,
+        "type": "Array<string>"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getSchedule",
+    "entry": "schedules",
+    "method": "retrieve",
+    "goService": "ScheduleService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "scheduleID",
+        "type": "string",
+        "location": "path",
+        "wireName": "schedule_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Schedule",
+    "path": "/schedules/{schedule_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "updateSchedule",
+    "entry": "schedules",
+    "method": "update",
+    "goService": "ScheduleService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "scheduleID",
+        "type": "string",
+        "location": "path",
+        "wireName": "schedule_id"
+      }
+    ],
+    "paramsType": "ScheduleUpdateParams",
+    "paramsOptional": true,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Schedule",
+    "path": "/schedules/{schedule_id}",
+    "parameterFields": [
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "description",
+        "wireName": "description",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "template_id",
+        "wireName": "template_id",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "initial_events",
+        "wireName": "initial_events",
+        "location": "body",
+        "required": false,
+        "type": "Array<Record<string, unknown>> | null"
+      },
+      {
+        "name": "execution",
+        "wireName": "execution",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "trigger_policy",
+        "wireName": "trigger_policy",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "environment_id",
+        "wireName": "environment_id",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "sinks",
+        "wireName": "sinks",
+        "location": "body",
+        "required": false,
+        "type": "Array<Record<string, unknown>> | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "archiveSchedule",
+    "entry": "schedules",
+    "method": "archive",
+    "goService": "ScheduleService",
+    "goMethod": "Archive",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "scheduleID",
+        "type": "string",
+        "location": "path",
+        "wireName": "schedule_id"
+      }
+    ],
+    "paramsType": "ScheduleArchiveParams",
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Schedule",
+    "path": "/schedules/{schedule_id}/archive",
+    "parameterFields": [
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "pauseSchedule",
+    "entry": "schedules",
+    "method": "pause",
+    "goService": "ScheduleService",
+    "goMethod": "Pause",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "scheduleID",
+        "type": "string",
+        "location": "path",
+        "wireName": "schedule_id"
+      }
+    ],
+    "paramsType": "SchedulePauseParams",
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Schedule",
+    "path": "/schedules/{schedule_id}/pause",
+    "parameterFields": [
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "runSchedule",
+    "entry": "schedules",
+    "method": "run",
+    "goService": "ScheduleService",
+    "goMethod": "Run",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "scheduleID",
+        "type": "string",
+        "location": "path",
+        "wireName": "schedule_id"
+      }
+    ],
+    "paramsType": "ScheduleRunParams",
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "ScheduleRun",
+    "path": "/schedules/{schedule_id}/run",
+    "parameterFields": [
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "unpauseSchedule",
+    "entry": "schedules",
+    "method": "unpause",
+    "goService": "ScheduleService",
+    "goMethod": "Unpause",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "scheduleID",
+        "type": "string",
+        "location": "path",
+        "wireName": "schedule_id"
+      }
+    ],
+    "paramsType": "ScheduleUnpauseParams",
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Schedule",
+    "path": "/schedules/{schedule_id}/unpause",
+    "parameterFields": [
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "listScheduleRuns",
+    "entry": "scheduleRuns",
+    "method": "list",
+    "goService": "ScheduleRunService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [],
+    "paramsType": "ScheduleRunListParams",
+    "paramsOptional": false,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "ScheduleRun",
+    "path": "/schedule_runs",
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "schedule_id",
+        "wireName": "schedule_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "status",
+        "wireName": "status",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "trigger_type",
+        "wireName": "trigger_type",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "has_error",
+        "wireName": "has_error",
+        "location": "query",
+        "required": false,
+        "type": "boolean | null"
+      },
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "sort_by",
+        "wireName": "sort_by",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "order",
+        "wireName": "order",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getScheduleRun",
+    "entry": "scheduleRuns",
+    "method": "retrieve",
+    "goService": "ScheduleRunService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "runID",
+        "type": "string",
+        "location": "path",
+        "wireName": "run_id"
+      }
+    ],
+    "paramsType": "ScheduleRunGetParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "ScheduleRun",
+    "path": "/schedule_runs/{run_id}",
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "listSessions",
+    "entry": "sessions",
+    "method": "list",
+    "goService": "SessionService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [],
+    "paramsType": "SessionListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "Session",
+    "path": "/sessions",
+    "parameterFields": [
+      {
+        "name": "identity_ids",
+        "wireName": "identity_ids",
+        "location": "query",
+        "required": false,
+        "type": "Array<string> | null"
+      },
+      {
+        "name": "template_id",
+        "wireName": "template_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "source_type",
+        "wireName": "source_type",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "created_at[gt]",
+        "wireName": "created_at[gt]",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "created_at[gte]",
+        "wireName": "created_at[gte]",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "created_at[lt]",
+        "wireName": "created_at[lt]",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "created_at[lte]",
+        "wireName": "created_at[lte]",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "updated_at[gt]",
+        "wireName": "updated_at[gt]",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "updated_at[gte]",
+        "wireName": "updated_at[gte]",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "updated_at[lt]",
+        "wireName": "updated_at[lt]",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "updated_at[lte]",
+        "wireName": "updated_at[lte]",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "order",
+        "wireName": "order",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "include_archived",
+        "wireName": "include_archived",
+        "location": "query",
+        "required": false,
+        "type": "boolean | null"
+      }
+    ]
+  },
+  {
+    "operationId": "createSession",
+    "entry": "sessions",
+    "method": "create",
+    "goService": "SessionService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "SessionNewParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Session",
+    "path": "/sessions",
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "template_id",
+        "wireName": "template_id",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "title",
+        "wireName": "title",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "config",
+        "wireName": "config",
+        "location": "body",
+        "required": false,
+        "type": "SessionNewParamsConfigParam | null"
+      },
+      {
+        "name": "resources",
+        "wireName": "resources",
+        "location": "body",
+        "required": false,
+        "type": "Array<SessionResourceSpecParam> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getSession",
+    "entry": "sessions",
+    "method": "retrieve",
+    "goService": "SessionService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "wireName": "session_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Session",
+    "path": "/sessions/{session_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "updateSession",
+    "entry": "sessions",
+    "method": "update",
+    "goService": "SessionService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "wireName": "session_id"
+      }
+    ],
+    "paramsType": "SessionUpdateParams",
+    "paramsOptional": true,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Session",
+    "path": "/sessions/{session_id}",
+    "parameterFields": [
+      {
+        "name": "title",
+        "wireName": "title",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "config",
+        "wireName": "config",
+        "location": "body",
+        "required": false,
+        "type": "SessionUpdateParamsConfigParam | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "archiveSession",
+    "entry": "sessions",
+    "method": "archive",
+    "goService": "SessionService",
+    "goMethod": "Archive",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "wireName": "session_id"
+      }
+    ],
+    "paramsType": "SessionArchiveParams",
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Session",
+    "path": "/sessions/{session_id}/archive",
+    "parameterFields": [
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "cancelSession",
+    "entry": "sessions",
+    "method": "cancel",
+    "goService": "SessionService",
+    "goMethod": "Cancel",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "wireName": "session_id"
+      }
+    ],
+    "paramsType": "SessionCancelParams",
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Session",
+    "path": "/sessions/{session_id}/cancel",
+    "parameterFields": [
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "listSessionEvents",
+    "entry": "sessions.events",
+    "method": "list",
+    "goService": "SessionEventService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "wireName": "session_id"
+      }
+    ],
+    "paramsType": "SessionEventListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "SessionEvent",
+    "path": "/sessions/{session_id}/events",
+    "parameterFields": [
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "order",
+        "wireName": "order",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "type",
+        "wireName": "type",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "types[]",
+        "wireName": "types[]",
+        "location": "query",
+        "required": false,
+        "type": "Array<string> | null"
+      },
+      {
+        "name": "include_tool_calls",
+        "wireName": "include_tool_calls",
+        "location": "query",
+        "required": false,
+        "type": "boolean | null"
+      },
+      {
+        "name": "include_thinking",
+        "wireName": "include_thinking",
+        "location": "query",
+        "required": false,
+        "type": "boolean | null"
+      }
+    ]
+  },
+  {
+    "operationId": "sendSessionEvents",
+    "entry": "sessions.events",
+    "method": "send",
+    "goService": "SessionEventService",
+    "goMethod": "Send",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "wireName": "session_id"
+      }
+    ],
+    "paramsType": "SessionEventSendParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "SessionEventSendResponse",
+    "path": "/sessions/{session_id}/events",
+    "parameterFields": [
+      {
+        "name": "events",
+        "wireName": "events",
+        "location": "body",
+        "required": true,
+        "type": "Array<SessionEventParam>"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "streamSessionEvents",
+    "entry": "sessions.events",
+    "method": "streamEvents",
+    "goService": "SessionEventService",
+    "goMethod": "StreamEvents",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "wireName": "session_id"
+      }
+    ],
+    "paramsType": "SessionEventStreamParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "stream",
+    "pagination": "cursor",
+    "itemType": "SessionEvent",
+    "path": "/sessions/{session_id}/events/stream",
+    "parameterFields": [
+      {
+        "name": "event_deltas[]",
+        "wireName": "event_deltas[]",
+        "location": "query",
+        "required": false,
+        "type": "Array<string> | null"
+      },
+      {
+        "name": "include_tool_calls",
+        "wireName": "include_tool_calls",
+        "location": "query",
+        "required": false,
+        "type": "boolean | null"
+      },
+      {
+        "name": "include_thinking",
+        "wireName": "include_thinking",
+        "location": "query",
+        "required": false,
+        "type": "boolean | null"
+      },
+      {
+        "name": "last_event_id",
+        "wireName": "Last-Event-ID",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "addSessionResource",
+    "entry": "sessions.resources",
+    "method": "add",
+    "goService": "SessionResourceService",
+    "goMethod": "Add",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "wireName": "session_id"
+      }
+    ],
+    "paramsType": "SessionResourceAddParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "SessionResource",
+    "path": "/sessions/{session_id}/resources",
+    "parameterFields": [
+      {
+        "name": "type",
+        "wireName": "type",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "file_id",
+        "wireName": "file_id",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "mount_path",
+        "wireName": "mount_path",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "listSessionThreads",
+    "entry": "sessions.threads",
+    "method": "list",
+    "goService": "SessionThreadService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "wireName": "session_id"
+      }
+    ],
+    "paramsType": "SessionThreadListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "SessionThread",
+    "path": "/sessions/{session_id}/threads",
+    "parameterFields": [
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getSessionThread",
+    "entry": "sessions.threads",
+    "method": "retrieve",
+    "goService": "SessionThreadService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "wireName": "session_id"
+      },
+      {
+        "name": "threadID",
+        "type": "string",
+        "location": "path",
+        "wireName": "thread_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "SessionThread",
+    "path": "/sessions/{session_id}/threads/{thread_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "archiveSessionThread",
+    "entry": "sessions.threads",
+    "method": "archive",
+    "goService": "SessionThreadService",
+    "goMethod": "Archive",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "wireName": "session_id"
+      },
+      {
+        "name": "threadID",
+        "type": "string",
+        "location": "path",
+        "wireName": "thread_id"
+      }
+    ],
+    "paramsType": "SessionThreadArchiveParams",
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "SessionThread",
+    "path": "/sessions/{session_id}/threads/{thread_id}/archive",
+    "parameterFields": [
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "listSessionThreadEvents",
+    "entry": "sessions.threads.events",
+    "method": "list",
+    "goService": "SessionThreadEventService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "wireName": "session_id"
+      },
+      {
+        "name": "threadID",
+        "type": "string",
+        "location": "path",
+        "wireName": "thread_id"
+      }
+    ],
+    "paramsType": "SessionThreadEventListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "SessionEvent",
+    "path": "/sessions/{session_id}/threads/{thread_id}/events",
+    "parameterFields": [
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "streamSessionThreadEvents",
+    "entry": "sessions.threads.events",
+    "method": "streamEvents",
+    "goService": "SessionThreadEventService",
+    "goMethod": "StreamEvents",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "sessionID",
+        "type": "string",
+        "location": "path",
+        "wireName": "session_id"
+      },
+      {
+        "name": "threadID",
+        "type": "string",
+        "location": "path",
+        "wireName": "thread_id"
+      }
+    ],
+    "paramsType": "SessionThreadEventStreamParams",
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "stream",
+    "pagination": "cursor",
+    "itemType": "SessionEvent",
+    "path": "/sessions/{session_id}/threads/{thread_id}/stream",
+    "parameterFields": [
+      {
+        "name": "last_event_id",
+        "wireName": "Last-Event-ID",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "listSkill",
+    "entry": "skills",
+    "method": "list",
+    "goService": "SkillService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [],
+    "paramsType": "SkillListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "page",
+    "itemType": "Skill",
+    "path": "/skills",
+    "parameterFields": [
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "page",
+        "wireName": "page",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "display_title",
+        "wireName": "display_title",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "source",
+        "wireName": "source",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "createSkill",
+    "entry": "skills",
+    "method": "create",
+    "goService": "SkillService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "SkillNewParams",
+    "paramsOptional": true,
+    "paramsLocation": "multipart",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Skill",
+    "path": "/skills",
+    "parameterFields": [
+      {
+        "name": "files",
+        "wireName": "files",
+        "location": "body",
+        "required": false,
+        "type": "Array<Uploadable> | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "icon_id",
+        "wireName": "icon_id",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "file",
+        "wireName": "file",
+        "location": "body",
+        "required": false,
+        "type": "Uploadable | null"
+      },
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "description",
+        "wireName": "description",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "type",
+        "wireName": "type",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getSkill",
+    "entry": "skills",
+    "method": "retrieve",
+    "goService": "SkillService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      }
+    ],
+    "paramsType": "SkillGetParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Skill",
+    "path": "/skills/{id}",
+    "parameterFields": [
+      {
+        "name": "include_content",
+        "wireName": "include_content",
+        "location": "query",
+        "required": false,
+        "type": "boolean | null"
+      }
+    ]
+  },
+  {
+    "operationId": "updateSkill",
+    "entry": "skills",
+    "method": "update",
+    "goService": "SkillService",
+    "goMethod": "Update",
+    "httpMethod": "PUT",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      }
+    ],
+    "paramsType": "SkillUpdateParams",
+    "paramsOptional": true,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Skill",
+    "path": "/skills/{id}",
+    "parameterFields": [
+      {
+        "name": "description",
+        "wireName": "description",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "content",
+        "wireName": "content",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "content_encoding",
+        "wireName": "content_encoding",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "icon_id",
+        "wireName": "icon_id",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "deleteSkill",
+    "entry": "skills",
+    "method": "delete",
+    "goService": "SkillService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "void",
+    "pagination": "cursor",
+    "itemType": "void",
+    "path": "/skills/{id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "listSkillVersion",
+    "entry": "skills.versions",
+    "method": "list",
+    "goService": "SkillVersionService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      }
+    ],
+    "paramsType": "SkillVersionListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "page",
+    "itemType": "SkillVersion",
+    "path": "/skills/{id}/versions",
+    "parameterFields": [
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "page",
+        "wireName": "page",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "createSkillVersion",
+    "entry": "skills.versions",
+    "method": "create",
+    "goService": "SkillVersionService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      }
+    ],
+    "paramsType": "SkillVersionNewParams",
+    "paramsOptional": false,
+    "paramsLocation": "multipart",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "SkillVersion",
+    "path": "/skills/{id}/versions",
+    "parameterFields": [
+      {
+        "name": "files",
+        "wireName": "files",
+        "location": "body",
+        "required": true,
+        "type": "Array<Uploadable>"
+      }
+    ]
+  },
+  {
+    "operationId": "getSkillVersion",
+    "entry": "skills.versions",
+    "method": "retrieve",
+    "goService": "SkillVersionService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "location": "path",
+        "wireName": "version"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "SkillVersion",
+    "path": "/skills/{id}/versions/{version}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "deleteSkillVersion",
+    "entry": "skills.versions",
+    "method": "delete",
+    "goService": "SkillVersionService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "location": "path",
+        "wireName": "version"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "DeletedSkillVersion",
+    "path": "/skills/{id}/versions/{version}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "downloadSkillVersion",
+    "entry": "skills.versions",
+    "method": "download",
+    "goService": "SkillVersionService",
+    "goMethod": "Download",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "location": "path",
+        "wireName": "version"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "response",
+    "pagination": "cursor",
+    "itemType": "Response",
+    "path": "/skills/{id}/versions/{version}/content",
+    "parameterFields": []
+  },
+  {
+    "operationId": "listTemplates",
+    "entry": "templates",
+    "method": "list",
+    "goService": "TemplateService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [],
+    "paramsType": "TemplateListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "Template",
+    "path": "/templates",
+    "parameterFields": [
+      {
+        "name": "status",
+        "wireName": "status",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "createTemplate",
+    "entry": "templates",
+    "method": "create",
+    "goService": "TemplateService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "TemplateNewParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Template",
+    "path": "/templates",
+    "parameterFields": [
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "model",
+        "wireName": "model",
+        "location": "body",
+        "required": true,
+        "type": "ModelConfigUnionParam"
+      },
+      {
+        "name": "environment_id",
+        "wireName": "environment_id",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "description",
+        "wireName": "description",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "system",
+        "wireName": "system",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "tools",
+        "wireName": "tools",
+        "location": "body",
+        "required": false,
+        "type": "Array<ToolParam> | null"
+      },
+      {
+        "name": "mcp_servers",
+        "wireName": "mcp_servers",
+        "location": "body",
+        "required": false,
+        "type": "Array<MCPServerParam> | null"
+      },
+      {
+        "name": "skills",
+        "wireName": "skills",
+        "location": "body",
+        "required": false,
+        "type": "Array<SkillBindingParam> | null"
+      },
+      {
+        "name": "multiagent",
+        "wireName": "multiagent",
+        "location": "body",
+        "required": false,
+        "type": "MultiagentConfigParam | null"
+      },
+      {
+        "name": "vaults",
+        "wireName": "vaults",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, ResourceBindingParam> | null"
+      },
+      {
+        "name": "files",
+        "wireName": "files",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, ResourceBindingParam> | null"
+      },
+      {
+        "name": "github_repositories",
+        "wireName": "github_repositories",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, GitHubRepositoryParam> | null"
+      },
+      {
+        "name": "environment_variables",
+        "wireName": "environment_variables",
+        "location": "body",
+        "required": false,
+        "type": "EnvironmentVariablesUnionParam | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "x_qoder_beta",
+        "wireName": "X-Qoder-Beta",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getTemplate",
+    "entry": "templates",
+    "method": "retrieve",
+    "goService": "TemplateService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "templateID",
+        "type": "string",
+        "location": "path",
+        "wireName": "template_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Template",
+    "path": "/templates/{template_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "updateTemplate",
+    "entry": "templates",
+    "method": "update",
+    "goService": "TemplateService",
+    "goMethod": "Update",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "templateID",
+        "type": "string",
+        "location": "path",
+        "wireName": "template_id"
+      }
+    ],
+    "paramsType": "TemplateUpdateParams",
+    "paramsOptional": true,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Template",
+    "path": "/templates/{template_id}",
+    "parameterFields": [
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "description",
+        "wireName": "description",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "model",
+        "wireName": "model",
+        "location": "body",
+        "required": false,
+        "type": "ModelConfigUnionParam | null"
+      },
+      {
+        "name": "system",
+        "wireName": "system",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "tools",
+        "wireName": "tools",
+        "location": "body",
+        "required": false,
+        "type": "Array<ToolParam> | null"
+      },
+      {
+        "name": "mcp_servers",
+        "wireName": "mcp_servers",
+        "location": "body",
+        "required": false,
+        "type": "Array<MCPServerParam> | null"
+      },
+      {
+        "name": "skills",
+        "wireName": "skills",
+        "location": "body",
+        "required": false,
+        "type": "Array<SkillBindingParam> | null"
+      },
+      {
+        "name": "multiagent",
+        "wireName": "multiagent",
+        "location": "body",
+        "required": false,
+        "type": "MultiagentConfigParam | null"
+      },
+      {
+        "name": "environment_id",
+        "wireName": "environment_id",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "vaults",
+        "wireName": "vaults",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, ResourceBindingParam> | null"
+      },
+      {
+        "name": "files",
+        "wireName": "files",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, ResourceBindingParam> | null"
+      },
+      {
+        "name": "github_repositories",
+        "wireName": "github_repositories",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, GitHubRepositoryParam> | null"
+      },
+      {
+        "name": "environment_variables",
+        "wireName": "environment_variables",
+        "location": "body",
+        "required": false,
+        "type": "EnvironmentVariablesUnionParam | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "x_qoder_beta",
+        "wireName": "X-Qoder-Beta",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "archiveTemplate",
+    "entry": "templates",
+    "method": "archive",
+    "goService": "TemplateService",
+    "goMethod": "Archive",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "templateID",
+        "type": "string",
+        "location": "path",
+        "wireName": "template_id"
+      }
+    ],
+    "paramsType": "TemplateArchiveParams",
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Template",
+    "path": "/templates/{template_id}/archive",
+    "parameterFields": [
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "cloneTemplate",
+    "entry": "templates",
+    "method": "clone",
+    "goService": "TemplateService",
+    "goMethod": "Clone",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "templateID",
+        "type": "string",
+        "location": "path",
+        "wireName": "template_id"
+      }
+    ],
+    "paramsType": "TemplateCloneParams",
+    "paramsOptional": true,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Template",
+    "path": "/templates/{template_id}/clone",
+    "parameterFields": [
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "description",
+        "wireName": "description",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "listVault",
+    "entry": "vaults",
+    "method": "list",
+    "goService": "VaultService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [],
+    "paramsType": "VaultListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "page",
+    "itemType": "Vault",
+    "path": "/vaults",
+    "parameterFields": [
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "page",
+        "wireName": "page",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "createVault",
+    "entry": "vaults",
+    "method": "create",
+    "goService": "VaultService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "VaultNewParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Vault",
+    "path": "/vaults",
+    "parameterFields": [
+      {
+        "name": "display_name",
+        "wireName": "display_name",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getVault",
+    "entry": "vaults",
+    "method": "retrieve",
+    "goService": "VaultService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "Vault",
+    "path": "/vaults/{id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "deleteVault",
+    "entry": "vaults",
+    "method": "delete",
+    "goService": "VaultService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "void",
+    "pagination": "cursor",
+    "itemType": "void",
+    "path": "/vaults/{id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "listVaultCredential",
+    "entry": "vaults.credentials",
+    "method": "list",
+    "goService": "VaultCredentialService",
+    "goMethod": "List",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      }
+    ],
+    "paramsType": "VaultCredentialListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "page",
+    "itemType": "VaultCredential",
+    "path": "/vaults/{id}/credentials",
+    "parameterFields": [
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number | null"
+      },
+      {
+        "name": "page",
+        "wireName": "page",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "after_id",
+        "wireName": "after_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "before_id",
+        "wireName": "before_id",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "query",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "createVaultCredential",
+    "entry": "vaults.credentials",
+    "method": "create",
+    "goService": "VaultCredentialService",
+    "goMethod": "New",
+    "httpMethod": "POST",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      }
+    ],
+    "paramsType": "VaultCredentialNewParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "VaultCredential",
+    "path": "/vaults/{id}/credentials",
+    "parameterFields": [
+      {
+        "name": "auth",
+        "wireName": "auth",
+        "location": "body",
+        "required": true,
+        "type": "Record<string, unknown>"
+      },
+      {
+        "name": "display_name",
+        "wireName": "display_name",
+        "location": "body",
+        "required": false,
+        "type": "string | null"
+      },
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "idempotency_key",
+        "wireName": "Idempotency-Key",
+        "location": "header",
+        "required": false,
+        "type": "string | null"
+      }
+    ]
+  },
+  {
+    "operationId": "getVaultCredential",
+    "entry": "vaults.credentials",
+    "method": "retrieve",
+    "goService": "VaultCredentialService",
+    "goMethod": "Get",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      },
+      {
+        "name": "credID",
+        "type": "string",
+        "location": "path",
+        "wireName": "cred_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "json",
+    "pagination": "cursor",
+    "itemType": "VaultCredential",
+    "path": "/vaults/{id}/credentials/{cred_id}",
+    "parameterFields": []
+  },
+  {
+    "operationId": "deleteVaultCredential",
+    "entry": "vaults.credentials",
+    "method": "delete",
+    "goService": "VaultCredentialService",
+    "goMethod": "Delete",
+    "httpMethod": "DELETE",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      },
+      {
+        "name": "credID",
+        "type": "string",
+        "location": "path",
+        "wireName": "cred_id"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": true,
+    "paramsLocation": "none",
+    "responseType": "void",
+    "pagination": "cursor",
+    "itemType": "void",
+    "path": "/vaults/{id}/credentials/{cred_id}",
+    "parameterFields": []
+  }
+]

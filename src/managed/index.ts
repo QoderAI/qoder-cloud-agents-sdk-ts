@@ -1,0 +1,11 @@
+export { ManagedClient, ManagedClient as default } from './client.js';
+export type { ClientOptions, ClientOptions as ManagedClientOptions } from './client.js';
+export * from './types.js';
+export * from './resources/index.js';
+export * from '../core/credentials.js';
+export * from '../core/error.js';
+export { APIPromise } from '../core/api-promise.js';
+export { Page, PagePromise } from '../core/pagination.js';
+export { Stream } from '../core/streaming.js';
+export { toFile, type Uploadable } from '../core/uploads.js';
+export type { RequestOptions } from '../core/client.js';

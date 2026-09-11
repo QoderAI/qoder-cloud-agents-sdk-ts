@@ -1,0 +1,81 @@
+{
+  "name": "qoder-cloud-agents-sdk-ts",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for Qoder Cloud Agents Forward and Managed APIs",
+  "author": "Qoder",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.alibaba-inc.com/cloud-agent/qoder-cloud-agents-sdk-ts.git"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./forward": {
+      "import": {
+        "types": "./dist/esm/forward/index.d.ts",
+        "default": "./dist/esm/forward/index.js"
+      },
+      "require": {
+        "types": "./dist/forward/index.d.ts",
+        "default": "./dist/forward/index.js"
+      }
+    },
+    "./managed": {
+      "import": {
+        "types": "./dist/esm/managed/index.d.ts",
+        "default": "./dist/esm/managed/index.js"
+      },
+      "require": {
+        "types": "./dist/managed/index.d.ts",
+        "default": "./dist/managed/index.js"
+      }
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "forward": [
+        "dist/forward/index.d.ts"
+      ],
+      "managed": [
+        "dist/managed/index.d.ts"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "docs"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.types.json",
+    "test": "npm run build && npm run test:types && node --test test/*.test.mjs test/scenarios/*.test.mjs",
+    "test:unit": "npm test",
+    "test:contract": "npm run build && node --test test/api-contracts.test.mjs",
+    "test:scenarios": "npm run build && node --test test/scenarios/*.test.mjs",
+    "test:live": "npm run build && node scripts/run-live.mjs all",
+    "prepack": "npm run build",
+    "test:types": "tsc -p tsconfig.types.json",
+    "test:e2e": "npm test && node scripts/run-live.mjs e2e",
+    "example": "npm run build && node examples/run.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20.12.0"
+  }
+}
