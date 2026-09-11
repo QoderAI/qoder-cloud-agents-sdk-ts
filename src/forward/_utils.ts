@@ -9,11 +9,11 @@ export function pathParam(value: string, name: string): string {
   return encodeURIComponent(value);
 }
 
-/** Per-request headers take precedence, matching Go option.WithHeader semantics. */
+/** Per-request headers take precedence over typed header parameters. */
 export function requestHeaders(base: Record<string, string | null | undefined>, extra: RequestOptions['headers']): Record<string, string | null | undefined> {
   const headers: Record<string, string | null | undefined> = {};
   for (const [key, value] of Object.entries(base)) {
-    // Go param.Opt.Valid() omits both absent and explicitly null header params.
+    // Absent and explicitly null header params are both omitted.
     if (value !== undefined && value !== null) headers[key.toLowerCase()] = value;
   }
   if (extra instanceof Headers) {

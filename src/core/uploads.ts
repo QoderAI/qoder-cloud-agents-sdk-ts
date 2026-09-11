@@ -31,7 +31,7 @@ export async function toFile(input: Uploadable | string, name?: string, options?
   return new File(chunks, name ?? 'upload', options);
 }
 
-/** File tree names and repeated `files` parts match the Go multipart encoder. */
+/** File tree names and repeated `files` parts follow the API's multipart encoding. */
 export async function toMultipartForm(params: object): Promise<FormData> {
   const form = new FormData();
   for (const [key, value] of Object.entries(params)) {

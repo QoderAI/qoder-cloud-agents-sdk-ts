@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -13,7 +13,6 @@ export class Batches extends APIResource {
   /**
    * 列出 Batches.
    *
-   * @see Go BatchService.List
    * @operation listBatches
    */
   list(params: BatchListParams = {}, options?: RequestOptions): PagePromise<Batch> {
@@ -24,7 +23,6 @@ export class Batches extends APIResource {
   /**
    * 创建 Batch.
    *
-   * @see Go BatchService.New
    * @operation createBatch
    */
   create(params: BatchCreateParams, options?: RequestOptions): APIPromise<Batch> {
@@ -42,7 +40,6 @@ export class Batches extends APIResource {
   /**
    * 查询 Batch 详情.
    *
-   * @see Go BatchService.Get
    * @operation getBatch
    */
   retrieve(batchID: string, options?: RequestOptions): APIPromise<Batch> {
@@ -57,7 +54,6 @@ export class Batches extends APIResource {
   /**
    * 取消 Batch.
    *
-   * @see Go BatchService.Cancel
    * @operation cancelBatch
    */
   cancel(batchID: string, params: BatchCancelParams = {}, options?: RequestOptions): APIPromise<Batch> {
@@ -74,7 +70,6 @@ export class Batches extends APIResource {
   /**
    * 获取错误文件.
    *
-   * @see Go BatchService.GetError
    * @operation getBatchError
    */
   getError(batchID: string, options?: RequestOptions): APIPromise<BatchFile> {
@@ -89,7 +84,6 @@ export class Batches extends APIResource {
   /**
    * 获取输出文件.
    *
-   * @see Go BatchService.GetOutput
    * @operation getBatchOutput
    */
   getOutput(batchID: string, options?: RequestOptions): APIPromise<BatchFile> {

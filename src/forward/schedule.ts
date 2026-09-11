@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -10,7 +10,6 @@ export class Schedules extends APIResource {
   /**
    * 列出 Schedules.
    *
-   * @see Go ScheduleService.List
    * @operation listSchedules
    */
   list(params: ScheduleListParams = {}, options?: RequestOptions): PagePromise<Schedule> {
@@ -21,7 +20,6 @@ export class Schedules extends APIResource {
   /**
    * 创建 Schedule.
    *
-   * @see Go ScheduleService.New
    * @operation createSchedule
    */
   create(params: ScheduleCreateParams, options?: RequestOptions): APIPromise<Schedule> {
@@ -39,7 +37,6 @@ export class Schedules extends APIResource {
   /**
    * 批量归档 Schedules.
    *
-   * @see Go ScheduleService.ArchiveMany
    * @operation archiveSchedules
    */
   archiveMany(
@@ -60,7 +57,6 @@ export class Schedules extends APIResource {
   /**
    * 获取 Schedule.
    *
-   * @see Go ScheduleService.Get
    * @operation getSchedule
    */
   retrieve(scheduleID: string, options?: RequestOptions): APIPromise<Schedule> {
@@ -75,7 +71,6 @@ export class Schedules extends APIResource {
   /**
    * 更新 Schedule.
    *
-   * @see Go ScheduleService.Update
    * @operation updateSchedule
    */
   update(
@@ -97,7 +92,6 @@ export class Schedules extends APIResource {
   /**
    * 归档 Schedule.
    *
-   * @see Go ScheduleService.Archive
    * @operation archiveSchedule
    */
   archive(
@@ -118,7 +112,6 @@ export class Schedules extends APIResource {
   /**
    * 暂停 Schedule.
    *
-   * @see Go ScheduleService.Pause
    * @operation pauseSchedule
    */
   pause(
@@ -139,7 +132,6 @@ export class Schedules extends APIResource {
   /**
    * 运行 Schedule.
    *
-   * @see Go ScheduleService.Run
    * @operation runSchedule
    */
   run(scheduleID: string, params: ScheduleRunParams = {}, options?: RequestOptions): APIPromise<ScheduleRun> {
@@ -156,7 +148,6 @@ export class Schedules extends APIResource {
   /**
    * 恢复 Schedule.
    *
-   * @see Go ScheduleService.Unpause
    * @operation unpauseSchedule
    */
   unpause(

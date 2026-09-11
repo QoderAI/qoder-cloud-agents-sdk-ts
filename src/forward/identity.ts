@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -15,7 +15,6 @@ export class Identities extends APIResource {
   /**
    * 列出 Identities.
    *
-   * @see Go IdentityService.List
    * @operation listIdentities
    */
   list(params: IdentityListParams = {}, options?: RequestOptions): PagePromise<Identity> {
@@ -26,7 +25,6 @@ export class Identities extends APIResource {
   /**
    * 创建 Identity.
    *
-   * @see Go IdentityService.New
    * @operation createIdentity
    */
   create(params: IdentityCreateParams, options?: RequestOptions): APIPromise<Identity> {
@@ -44,7 +42,6 @@ export class Identities extends APIResource {
   /**
    * 确保管理员 Identity.
    *
-   * @see Go IdentityService.EnsureAdmin
    * @operation ensureAdminIdentity
    */
   ensureAdmin(options?: RequestOptions): APIPromise<Identity> {
@@ -59,7 +56,6 @@ export class Identities extends APIResource {
   /**
    * 获取 Identity 统计.
    *
-   * @see Go IdentityService.Stats
    * @operation getIdentityStats
    */
   stats(options?: RequestOptions): APIPromise<IdentityStats> {
@@ -74,7 +70,6 @@ export class Identities extends APIResource {
   /**
    * 获取 Identity.
    *
-   * @see Go IdentityService.Get
    * @operation getIdentity
    */
   retrieve(identityID: string, options?: RequestOptions): APIPromise<Identity> {
@@ -89,7 +84,6 @@ export class Identities extends APIResource {
   /**
    * 更新 Identity.
    *
-   * @see Go IdentityService.Update
    * @operation updateIdentity
    */
   update(
@@ -111,7 +105,6 @@ export class Identities extends APIResource {
   /**
    * 删除 Identity.
    *
-   * @see Go IdentityService.Delete
    * @operation deleteIdentity
    */
   delete(identityID: string, options?: RequestOptions): APIPromise<DeletedIdentity> {
@@ -126,7 +119,6 @@ export class Identities extends APIResource {
   /**
    * 列出 Identity 使用的 Template.
    *
-   * @see Go IdentityService.ListTemplates
    * @operation listIdentityAgents
    */
   listTemplates(identityID: string, options?: RequestOptions): APIPromise<IdentityListTemplatesResponse> {
@@ -141,7 +133,6 @@ export class Identities extends APIResource {
   /**
    * 清理 Identity.
    *
-   * @see Go IdentityService.Clear
    * @operation clearIdentity
    */
   clear(
@@ -161,7 +152,6 @@ export class Identities extends APIResource {
   /**
    * 停用 Identity.
    *
-   * @see Go IdentityService.Disable
    * @operation disableIdentity
    */
   disable(identityID: string, options?: RequestOptions): APIPromise<Identity> {
@@ -176,7 +166,6 @@ export class Identities extends APIResource {
   /**
    * 启用 Identity.
    *
-   * @see Go IdentityService.Enable
    * @operation enableIdentity
    */
   enable(identityID: string, options?: RequestOptions): APIPromise<Identity> {

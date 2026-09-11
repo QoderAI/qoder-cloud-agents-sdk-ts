@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -11,7 +11,6 @@ export class SkillVersions extends APIResource {
   /**
    * 列出 Skill 版本.
    *
-   * @see Go SkillVersionService.List
    * @operation listSkillVersion
    */
   list(id: string, params: SkillVersionListParams = {}, options?: RequestOptions): PagePromise<SkillVersion> {
@@ -22,7 +21,6 @@ export class SkillVersions extends APIResource {
   /**
    * 创建 Skill 版本.
    *
-   * @see Go SkillVersionService.New
    * @operation createSkillVersion
    */
   create(id: string, params: SkillVersionCreateParams, options?: RequestOptions): APIPromise<SkillVersion> {
@@ -38,7 +36,6 @@ export class SkillVersions extends APIResource {
   /**
    * 查询 Skill 版本.
    *
-   * @see Go SkillVersionService.Get
    * @operation getSkillVersion
    */
   retrieve(id: string, version: string, options?: RequestOptions): APIPromise<SkillVersion> {
@@ -53,7 +50,6 @@ export class SkillVersions extends APIResource {
   /**
    * 删除 Skill 版本.
    *
-   * @see Go SkillVersionService.Delete
    * @operation deleteSkillVersion
    */
   delete(id: string, version: string, options?: RequestOptions): APIPromise<DeletedSkillVersion> {
@@ -68,7 +64,6 @@ export class SkillVersions extends APIResource {
   /**
    * 下载 Skill 版本内容.
    *
-   * @see Go SkillVersionService.Download
    * @operation downloadSkillVersion
    */
   download(id: string, version: string, options?: RequestOptions): APIPromise<Response> {

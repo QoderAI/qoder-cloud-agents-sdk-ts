@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -15,7 +15,6 @@ export class MemoryStores extends APIResource {
   /**
    * 列出 Memory Store.
    *
-   * @see Go MemoryStoreService.List
    * @operation listMemoryStore
    */
   list(params: MemoryStoreListParams = {}, options?: RequestOptions): PagePromise<MemoryStore> {
@@ -26,7 +25,6 @@ export class MemoryStores extends APIResource {
   /**
    * 创建 Memory Store.
    *
-   * @see Go MemoryStoreService.New
    * @operation createMemoryStore
    */
   create(params: MemoryStoreCreateParams, options?: RequestOptions): APIPromise<MemoryStore> {
@@ -44,7 +42,6 @@ export class MemoryStores extends APIResource {
   /**
    * 查询 Memory Store.
    *
-   * @see Go MemoryStoreService.Get
    * @operation getMemoryStore
    */
   retrieve(memoryStoreID: string, options?: RequestOptions): APIPromise<MemoryStore> {
@@ -59,7 +56,6 @@ export class MemoryStores extends APIResource {
   /**
    * 更新 Memory Store.
    *
-   * @see Go MemoryStoreService.Update
    * @operation updateMemoryStore
    */
   update(
@@ -79,7 +75,6 @@ export class MemoryStores extends APIResource {
   /**
    * 删除 Memory Store.
    *
-   * @see Go MemoryStoreService.Delete
    * @operation deleteMemoryStore
    */
   delete(memoryStoreID: string, options?: RequestOptions): APIPromise<DeletedMemoryStore> {
@@ -94,7 +89,6 @@ export class MemoryStores extends APIResource {
   /**
    * 归档 Memory Store.
    *
-   * @see Go MemoryStoreService.Archive
    * @operation archiveMemoryStore
    */
   archive(memoryStoreID: string, options?: RequestOptions): APIPromise<MemoryStore> {

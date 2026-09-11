@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -10,7 +10,6 @@ export class Templates extends APIResource {
   /**
    * 列出 Templates.
    *
-   * @see Go TemplateService.List
    * @operation listTemplates
    */
   list(params: TemplateListParams = {}, options?: RequestOptions): PagePromise<Template> {
@@ -21,7 +20,6 @@ export class Templates extends APIResource {
   /**
    * 创建 Template.
    *
-   * @see Go TemplateService.New
    * @operation createTemplate
    */
   create(params: TemplateCreateParams, options?: RequestOptions): APIPromise<Template> {
@@ -39,7 +37,6 @@ export class Templates extends APIResource {
   /**
    * 获取 Template.
    *
-   * @see Go TemplateService.Get
    * @operation getTemplate
    */
   retrieve(templateID: string, options?: RequestOptions): APIPromise<Template> {
@@ -54,7 +51,6 @@ export class Templates extends APIResource {
   /**
    * 更新 Template.
    *
-   * @see Go TemplateService.Update
    * @operation updateTemplate
    */
   update(
@@ -76,7 +72,6 @@ export class Templates extends APIResource {
   /**
    * 归档 Template.
    *
-   * @see Go TemplateService.Archive
    * @operation archiveTemplate
    */
   archive(
@@ -97,7 +92,6 @@ export class Templates extends APIResource {
   /**
    * 克隆 Template.
    *
-   * @see Go TemplateService.Clone
    * @operation cloneTemplate
    */
   clone(

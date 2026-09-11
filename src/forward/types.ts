@@ -1,8 +1,7 @@
-// Generated from qoder-cloud-agents-sdk-go/forward by scripts/generate-forward.py.
-// Wire names and required/nullable fields follow the Go JSON, query and header tags.
+// Generated wire types, verified against the API contracts.
+// Wire names and required/nullable fields follow the API's JSON, query and header contracts.
 import type { Uploadable } from '../core/uploads.js';
 
-/** See Go forward/batch.go: BatchListParams. */
 export interface BatchListParams {
   /**
    * 按状态过滤。
@@ -24,7 +23,6 @@ export interface BatchListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/batch.go: BatchNewParams. */
 export interface BatchNewParams {
   /**
    * 通过 Files API 上传的 JSONL 文件 ID。
@@ -46,7 +44,6 @@ export interface BatchNewParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/batch.go: BatchCancelParams. */
 export interface BatchCancelParams {
   /**
    * 有副作用请求可选的幂等键。
@@ -56,7 +53,6 @@ export interface BatchCancelParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/batch.go: BatchFile. */
 export interface BatchFile {
   /**
    * OSS 预签名下载链接，含 `Expires` / `OSSAccessKeyId` / `Signature` 及 `response-content-disposition`，下载文件名为 `batch-<batch_id>-output.jsonl`。
@@ -70,7 +66,6 @@ export interface BatchFile {
   [key: string]: unknown;
 }
 
-/** See Go forward/batch.go: Batch. */
 export interface Batch {
   /**
    * Batch ID，前缀 `batch_`。
@@ -156,14 +151,12 @@ export interface Batch {
   [key: string]: unknown;
 }
 
-/** See Go forward/batch.go: BatchUsage. */
 export interface BatchUsage {
   total_credits: number;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/batch.go: BatchRequestCounts. */
 export interface BatchRequestCounts {
   total: number;
   pending: number;
@@ -176,7 +169,6 @@ export interface BatchRequestCounts {
   [key: string]: unknown;
 }
 
-/** See Go forward/batchtask.go: BatchTaskListParams. */
 export interface BatchTaskListParams {
   /**
    * 按任务状态过滤：`pending`、`running`、`completed`、`failed`、`cancelled`、`expired`。
@@ -198,7 +190,6 @@ export interface BatchTaskListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/batchtask.go: BatchTask. */
 export interface BatchTask {
   custom_id: string;
   status: string;
@@ -212,7 +203,6 @@ export interface BatchTask {
   [key: string]: unknown;
 }
 
-/** See Go forward/batchtask.go: BatchTaskError. */
 export interface BatchTaskError {
   code: string;
   message: string;
@@ -220,7 +210,6 @@ export interface BatchTaskError {
   [key: string]: unknown;
 }
 
-/** See Go forward/batchtask.go: BatchTaskArtifactsItem. */
 export interface BatchTaskArtifactsItem {
   file_id: string;
   name: string;
@@ -230,14 +219,12 @@ export interface BatchTaskArtifactsItem {
   [key: string]: unknown;
 }
 
-/** See Go forward/batchtask.go: BatchTaskUsage. */
 export interface BatchTaskUsage {
   total_credits: number;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/channel.go: ChannelListParams. */
 export interface ChannelListParams {
   /**
    * 按 `wechat`、`wecom`、`feishu`、`dingtalk` 或 `teams`（Global）过滤。
@@ -275,7 +262,6 @@ export interface ChannelListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/channel.go: ChannelNewParams. */
 export interface ChannelNewParams {
   /**
    * `fixed` 模式必填；`pairing` 模式不传。
@@ -307,7 +293,6 @@ export interface ChannelNewParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/channel.go: ChannelUpdateParams. */
 export interface ChannelUpdateParams {
   /**
    * Channel 展示名。
@@ -334,7 +319,6 @@ export interface ChannelUpdateParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/channel.go: DeletedChannel. */
 export interface DeletedChannel {
   /**
    * 被删除的 Channel ID。
@@ -348,7 +332,6 @@ export interface DeletedChannel {
   [key: string]: unknown;
 }
 
-/** See Go forward/channel.go: Channel. */
 export interface Channel {
   /**
    * Channel ID，示例前缀 `channel_`。
@@ -387,14 +370,12 @@ export interface Channel {
   [key: string]: unknown;
 }
 
-/** See Go forward/channel.go: ChannelChannelConfig. */
 export interface ChannelChannelConfig {
   response_options: ChannelChannelConfigResponseOptions;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/channel.go: ChannelChannelConfigResponseOptions. */
 export interface ChannelChannelConfigResponseOptions {
   include_tool_calls: boolean;
   include_thinking: boolean;
@@ -402,14 +383,12 @@ export interface ChannelChannelConfigResponseOptions {
   [key: string]: unknown;
 }
 
-/** See Go forward/channel.go: ChannelIdentityResolution. */
 export interface ChannelIdentityResolution {
   mode: string;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/channelpairing.go: ChannelPairingNewParams. */
 export interface ChannelPairingNewParams {
   /**
    * Channel 消息中显示的 6 位配对码。
@@ -431,7 +410,6 @@ export interface ChannelPairingNewParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/channelpairing.go: DeletedChannelPairing. */
 export interface DeletedChannelPairing {
   /**
    * Pairing ID。
@@ -445,7 +423,6 @@ export interface DeletedChannelPairing {
   [key: string]: unknown;
 }
 
-/** See Go forward/channelpairing.go: ChannelPairing. */
 export interface ChannelPairing {
   /**
    * Pairing ID，解除配对时使用。
@@ -479,7 +456,6 @@ export interface ChannelPairing {
   [key: string]: unknown;
 }
 
-/** See Go forward/channelqrsession.go: ChannelQRSessionNewParams. */
 export interface ChannelQRSessionNewParams {
   /**
    * 有副作用请求可选的幂等键。
@@ -489,7 +465,6 @@ export interface ChannelQRSessionNewParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/channelqrsession.go: ChannelQRSession. */
 export interface ChannelQRSession {
   /**
    * 用于轮询状态的不透明 QR session key。
@@ -531,21 +506,18 @@ export interface ChannelQRSession {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: ResourceBinding. */
 export interface ResourceBinding {
   enabled: boolean;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: ResourceBindingParam. */
 export interface ResourceBindingParam {
   enabled?: boolean | null;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: GitHubRepository. */
 export interface GitHubRepository {
   url: string;
   mount_path: string;
@@ -554,7 +526,6 @@ export interface GitHubRepository {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: GitHubRepositoryParam. */
 export interface GitHubRepositoryParam {
   url?: string | null;
   mount_path?: string | null;
@@ -564,21 +535,18 @@ export interface GitHubRepositoryParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: PermissionPolicy. */
 export interface PermissionPolicy {
   type: string;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: PermissionPolicyParam. */
 export interface PermissionPolicyParam {
   type: string;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: ToolConfig. */
 export interface ToolConfig {
   name: string;
   enabled: boolean;
@@ -587,7 +555,6 @@ export interface ToolConfig {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: ToolConfigParam. */
 export interface ToolConfigParam {
   name: string;
   enabled?: boolean | null;
@@ -596,7 +563,6 @@ export interface ToolConfigParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: Tool. */
 export interface Tool {
   type: string;
   enabled_tools: Array<string>;
@@ -610,7 +576,6 @@ export interface Tool {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: ToolParam. */
 export interface ToolParam {
   type: string;
   enabled_tools?: Array<string> | null;
@@ -624,7 +589,6 @@ export interface ToolParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: MCPServer. */
 export interface MCPServer {
   type: string;
   name: string;
@@ -633,7 +597,6 @@ export interface MCPServer {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: MCPServerParam. */
 export interface MCPServerParam {
   type?: string | null;
   name: string;
@@ -642,7 +605,6 @@ export interface MCPServerParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: SkillBinding. */
 export interface SkillBinding {
   type: string;
   skill_id: string;
@@ -652,7 +614,6 @@ export interface SkillBinding {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: SkillBindingParam. */
 export interface SkillBindingParam {
   type: string;
   skill_id: string;
@@ -662,7 +623,6 @@ export interface SkillBindingParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: MultiagentEntry. */
 export interface MultiagentEntry {
   type: string;
   template_id: string;
@@ -671,7 +631,6 @@ export interface MultiagentEntry {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: MultiagentEntryParam. */
 export interface MultiagentEntryParam {
   type: string;
   template_id?: string | null;
@@ -680,7 +639,6 @@ export interface MultiagentEntryParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: MultiagentConfig. */
 export interface MultiagentConfig {
   type: string;
   agents: Array<MultiagentEntry>;
@@ -688,7 +646,6 @@ export interface MultiagentConfig {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: MultiagentConfigParam. */
 export interface MultiagentConfigParam {
   type: string;
   agents: Array<MultiagentEntryParam>;
@@ -696,7 +653,6 @@ export interface MultiagentConfigParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: ImageSource. */
 export interface ImageSource {
   type: string;
   media_type: string;
@@ -707,7 +663,6 @@ export interface ImageSource {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: ImageSourceParam. */
 export interface ImageSourceParam {
   type: string;
   media_type?: string | null;
@@ -718,7 +673,6 @@ export interface ImageSourceParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: ContentBlock. */
 export interface ContentBlock {
   type: string;
   text: string;
@@ -728,7 +682,6 @@ export interface ContentBlock {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: ContentBlockParam. */
 export interface ContentBlockParam {
   type: string;
   text?: string | null;
@@ -738,7 +691,6 @@ export interface ContentBlockParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: SessionResourceSpec. */
 export interface SessionResourceSpec {
   type: string;
   file_id: string;
@@ -747,7 +699,6 @@ export interface SessionResourceSpec {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: SessionResourceSpecParam. */
 export interface SessionResourceSpecParam {
   type: string;
   file_id: string;
@@ -756,7 +707,6 @@ export interface SessionResourceSpecParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: EnvironmentVariableOverride. */
 export interface EnvironmentVariableOverride {
   op: string;
   value: string;
@@ -764,7 +714,6 @@ export interface EnvironmentVariableOverride {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: EnvironmentVariableOverrideParam. */
 export interface EnvironmentVariableOverrideParam {
   op: string;
   value?: string | null;
@@ -772,7 +721,6 @@ export interface EnvironmentVariableOverrideParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: SystemOverride. */
 export interface SystemOverride {
   mode: string;
   content: string;
@@ -780,7 +728,6 @@ export interface SystemOverride {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: SystemOverrideParam. */
 export interface SystemOverrideParam {
   mode?: string | null;
   content?: string | null;
@@ -788,7 +735,6 @@ export interface SystemOverrideParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: ToolOverride. */
 export interface ToolOverride {
   enabled: boolean;
   permission_policy: PermissionPolicy;
@@ -796,7 +742,6 @@ export interface ToolOverride {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: ToolOverrideParam. */
 export interface ToolOverrideParam {
   enabled?: boolean | null;
   permission_policy?: PermissionPolicyParam | null;
@@ -804,7 +749,6 @@ export interface ToolOverrideParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: MCPServerOverride. */
 export interface MCPServerOverride {
   enabled: boolean;
   type: string;
@@ -813,7 +757,6 @@ export interface MCPServerOverride {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: MCPServerOverrideParam. */
 export interface MCPServerOverrideParam {
   enabled?: boolean | null;
   type?: string | null;
@@ -822,7 +765,6 @@ export interface MCPServerOverrideParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: SkillOverride. */
 export interface SkillOverride {
   enabled: boolean;
   type: string;
@@ -831,7 +773,6 @@ export interface SkillOverride {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: SkillOverrideParam. */
 export interface SkillOverrideParam {
   enabled?: boolean | null;
   type?: string | null;
@@ -840,7 +781,6 @@ export interface SkillOverrideParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: IdentityConfigSpec. */
 export interface IdentityConfigSpec {
   system: SystemOverride;
   model: ModelConfig;
@@ -857,7 +797,6 @@ export interface IdentityConfigSpec {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: IdentityConfigSpecParam. */
 export interface IdentityConfigSpecParam {
   system?: SystemOverrideParam | null;
   model?: ModelConfigUnionParam | null;
@@ -874,7 +813,6 @@ export interface IdentityConfigSpecParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/configuration_types.go: SessionEventParam. */
 export interface SessionEventParam {
   type: string;
   content?: EventContentUnionParam | null;
@@ -891,7 +829,6 @@ export interface SessionEventParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/environment.go: EnvironmentListParams. */
 export interface EnvironmentListParams {
   /**
    * 分页大小，最大 100。
@@ -913,7 +850,6 @@ export interface EnvironmentListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/environment.go: EnvironmentNewParams. */
 export interface EnvironmentNewParams {
   /**
    * Environment 名称；去除首尾空白后不能为空。
@@ -939,7 +875,6 @@ export interface EnvironmentNewParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/environment.go: EnvironmentUpdateParams. */
 export interface EnvironmentUpdateParams {
   /**
    * 新名称。
@@ -961,7 +896,6 @@ export interface EnvironmentUpdateParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/environment.go: Environment. */
 export interface Environment {
   id: string;
   type: string;
@@ -977,7 +911,6 @@ export interface Environment {
   [key: string]: unknown;
 }
 
-/** See Go forward/environment.go: EnvironmentConfig. */
 export interface EnvironmentConfig {
   type: string;
   packages: EnvironmentConfigPackages;
@@ -985,7 +918,6 @@ export interface EnvironmentConfig {
   [key: string]: unknown;
 }
 
-/** See Go forward/environment.go: EnvironmentConfigPackages. */
 export interface EnvironmentConfigPackages {
   type: string;
   apt: Array<string>;
@@ -998,7 +930,6 @@ export interface EnvironmentConfigPackages {
   [key: string]: unknown;
 }
 
-/** See Go forward/file.go: FileListParams. */
 export interface FileListParams {
   /**
    * 分页大小，最大 100。
@@ -1028,7 +959,6 @@ export interface FileListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/file.go: FileUploadParams. */
 export interface FileUploadParams {
   /**
    * 待上传文件内容。支持类型见[支持上传的文件类型](./schemas.md#支持上传的文件类型)。
@@ -1054,7 +984,6 @@ export interface FileUploadParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/file.go: FileMetadata. */
 export interface FileMetadata {
   /**
    * File ID。
@@ -1104,7 +1033,6 @@ export interface FileMetadata {
   [key: string]: unknown;
 }
 
-/** See Go forward/identity.go: IdentityListParams. */
 export interface IdentityListParams {
   /**
    * 按集成方终端用户 ID 过滤。
@@ -1138,7 +1066,6 @@ export interface IdentityListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/identity.go: IdentityNewParams. */
 export interface IdentityNewParams {
   /**
    * 集成方系统中的终端用户 ID，不能是空串或纯空白。
@@ -1164,7 +1091,6 @@ export interface IdentityNewParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/identity.go: IdentityUpdateParams. */
 export interface IdentityUpdateParams {
   /**
    * 替换原有终端用户 ID。
@@ -1190,7 +1116,6 @@ export interface IdentityUpdateParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/identity.go: IdentityClearParams. */
 export interface IdentityClearParams {
   /**
    * 清理原因，仅用于记录调用意图。
@@ -1200,7 +1125,6 @@ export interface IdentityClearParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/identity.go: IdentityClearResponse. */
 export interface IdentityClearResponse {
   /**
    * 被清理的 Identity ID。
@@ -1219,7 +1143,6 @@ export interface IdentityClearResponse {
   [key: string]: unknown;
 }
 
-/** See Go forward/identity.go: IdentityClearResponseSummary. */
 export interface IdentityClearResponseSummary {
   identity_configs_archived: number;
   resource_bindings_archived: number;
@@ -1231,7 +1154,6 @@ export interface IdentityClearResponseSummary {
   [key: string]: unknown;
 }
 
-/** See Go forward/identity.go: IdentityTemplate. */
 export interface IdentityTemplate {
   template_id: string;
   template_name: string;
@@ -1241,7 +1163,6 @@ export interface IdentityTemplate {
   [key: string]: unknown;
 }
 
-/** See Go forward/identity.go: DeletedIdentity. */
 export interface DeletedIdentity {
   /**
    * 被删除的 Identity ID。
@@ -1255,7 +1176,6 @@ export interface DeletedIdentity {
   [key: string]: unknown;
 }
 
-/** See Go forward/identity.go: IdentityStats. */
 export interface IdentityStats {
   /**
    * 当前账号的 Identity 总数。
@@ -1277,7 +1197,6 @@ export interface IdentityStats {
   [key: string]: unknown;
 }
 
-/** See Go forward/identity.go: Identity. */
 export interface Identity {
   /**
    * Forward Identity ID，建议前缀 `idn_`。
@@ -1315,14 +1234,12 @@ export interface Identity {
   [key: string]: unknown;
 }
 
-/** See Go forward/identity.go: IdentityListTemplatesResponse. */
 export interface IdentityListTemplatesResponse {
   data: Array<IdentityTemplate>;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/identityconfig.go: IdentityConfigListParams. */
 export interface IdentityConfigListParams {
   /**
    * 按 Forward Template ID 过滤。
@@ -1348,7 +1265,6 @@ export interface IdentityConfigListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/identityconfig.go: IdentityConfigUpsertParams. */
 export interface IdentityConfigUpsertParams {
   /**
    * Config 展示名。
@@ -1370,7 +1286,6 @@ export interface IdentityConfigUpsertParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/identityconfig.go: EffectiveConfig. */
 export interface EffectiveConfig {
   /**
    * 固定为 `effective_spec`。
@@ -1403,7 +1318,6 @@ export interface EffectiveConfig {
   [key: string]: unknown;
 }
 
-/** See Go forward/identityconfig.go: EffectiveConfigSession. */
 export interface EffectiveConfigSession {
   environment_id: string;
   environment_variables: Record<string, string>;
@@ -1413,7 +1327,6 @@ export interface EffectiveConfigSession {
   [key: string]: unknown;
 }
 
-/** See Go forward/identityconfig.go: EffectiveConfigSessionResourcesItem. */
 export interface EffectiveConfigSessionResourcesItem {
   type: string;
   file_id: string;
@@ -1423,7 +1336,6 @@ export interface EffectiveConfigSessionResourcesItem {
   [key: string]: unknown;
 }
 
-/** See Go forward/identityconfig.go: EffectiveConfigAgent. */
 export interface EffectiveConfigAgent {
   model: ModelConfig;
   system: string;
@@ -1434,7 +1346,6 @@ export interface EffectiveConfigAgent {
   [key: string]: unknown;
 }
 
-/** See Go forward/identityconfig.go: EffectiveConfigAgentToolsItem. */
 export interface EffectiveConfigAgentToolsItem {
   type: string;
   configs: Array<EffectiveConfigAgentToolsItemConfigsItem>;
@@ -1442,7 +1353,6 @@ export interface EffectiveConfigAgentToolsItem {
   [key: string]: unknown;
 }
 
-/** See Go forward/identityconfig.go: EffectiveConfigAgentToolsItemConfigsItem. */
 export interface EffectiveConfigAgentToolsItemConfigsItem {
   name: string;
   enabled: boolean;
@@ -1450,7 +1360,6 @@ export interface EffectiveConfigAgentToolsItemConfigsItem {
   [key: string]: unknown;
 }
 
-/** See Go forward/identityconfig.go: IdentityConfig. */
 export interface IdentityConfig {
   /**
    * 固定为 `config`。
@@ -1482,7 +1391,6 @@ export interface IdentityConfig {
   [key: string]: unknown;
 }
 
-/** See Go forward/identitymemorystore.go: IdentityMemoryStoreMountParams. */
 export interface IdentityMemoryStoreMountParams {
   /**
    * 要挂载的 Memory Store ID（`memstore_...`）。必须是当前调用方可见的 active Store。
@@ -1492,7 +1400,6 @@ export interface IdentityMemoryStoreMountParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/identitymemorystore.go: DeletedMemoryStoreMount. */
 export interface DeletedMemoryStoreMount {
   /**
    * 被解绑的 Memory Store ID。
@@ -1510,7 +1417,6 @@ export interface DeletedMemoryStoreMount {
   [key: string]: unknown;
 }
 
-/** See Go forward/identitymemorystore.go: MemoryStoreMount. */
 export interface MemoryStoreMount {
   memory_store_id: string;
   identity_id: string;
@@ -1525,7 +1431,6 @@ export interface MemoryStoreMount {
   [key: string]: unknown;
 }
 
-/** See Go forward/identitymemorystore.go: IdentityMemoryStoreListResponse. */
 export interface IdentityMemoryStoreListResponse {
   data: Array<MemoryStoreMount>;
   has_more: boolean;
@@ -1533,7 +1438,6 @@ export interface IdentityMemoryStoreListResponse {
   [key: string]: unknown;
 }
 
-/** See Go forward/memorystore.go: MemoryStoreListParams. */
 export interface MemoryStoreListParams {
   /**
    * 每页返回数量上限，1..100，默认 20。
@@ -1555,7 +1459,6 @@ export interface MemoryStoreListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/memorystore.go: MemoryStoreNewParams. */
 export interface MemoryStoreNewParams {
   /**
    * Store 展示名，非空。不允许非打印控制字符（`U+0000`–`U+001F`、`U+007F`），换行 `\n`、回车 `\r`、制表 `\t` 除外。
@@ -1577,7 +1480,6 @@ export interface MemoryStoreNewParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/memorystore.go: MemoryStoreUpdateParams. */
 export interface MemoryStoreUpdateParams {
   /**
    * 新名称。传入时非空且不含非打印控制字符。
@@ -1595,7 +1497,6 @@ export interface MemoryStoreUpdateParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/memorystore.go: DeletedMemoryStore. */
 export interface DeletedMemoryStore {
   /**
    * 被删除的 Memory Store ID。
@@ -1613,7 +1514,6 @@ export interface DeletedMemoryStore {
   [key: string]: unknown;
 }
 
-/** See Go forward/memorystore.go: MemoryStore. */
 export interface MemoryStore {
   id: string;
   type: string;
@@ -1633,7 +1533,6 @@ export interface MemoryStore {
   [key: string]: unknown;
 }
 
-/** See Go forward/memorystorememory.go: MemoryStoreMemoryListParams. */
 export interface MemoryStoreMemoryListParams {
   /**
    * 每页返回数量上限，1..100，默认 20。
@@ -1655,7 +1554,6 @@ export interface MemoryStoreMemoryListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/memorystorememory.go: MemoryStoreMemoryNewParams. */
 export interface MemoryStoreMemoryNewParams {
   /**
    * 库内相对路径，大小写敏感。约束详见 [path 规则](../MemoryStore数据结构.md#path-规则)。
@@ -1673,7 +1571,6 @@ export interface MemoryStoreMemoryNewParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/memorystorememory.go: MemoryStoreMemoryUpdateParams. */
 export interface MemoryStoreMemoryUpdateParams {
   /**
    * 新内容，UTF-8 明文；原始字节 ≤100 KiB。约束详见 [content 约束](../MemoryStore数据结构.md#content-约束)。
@@ -1691,7 +1588,6 @@ export interface MemoryStoreMemoryUpdateParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/memorystorememory.go: DeletedMemory. */
 export interface DeletedMemory {
   /**
    * 被删除的 Memory ID。
@@ -1709,7 +1605,6 @@ export interface DeletedMemory {
   [key: string]: unknown;
 }
 
-/** See Go forward/memorystorememory.go: Memory. */
 export interface Memory {
   id: string;
   type: string;
@@ -1725,7 +1620,6 @@ export interface Memory {
   [key: string]: unknown;
 }
 
-/** See Go forward/memorystorememoryversion.go: MemoryStoreMemoryVersionListParams. */
 export interface MemoryStoreMemoryVersionListParams {
   /**
    * 每页返回数量上限，1..100，默认 20。
@@ -1747,7 +1641,6 @@ export interface MemoryStoreMemoryVersionListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/memorystorememoryversion.go: MemoryVersion. */
 export interface MemoryVersion {
   id: string;
   type: string;
@@ -1765,7 +1658,6 @@ export interface MemoryVersion {
   [key: string]: unknown;
 }
 
-/** See Go forward/model.go: Model. */
 export interface Model {
   id: string;
   display_name: string;
@@ -1784,7 +1676,6 @@ export interface Model {
   [key: string]: unknown;
 }
 
-/** See Go forward/model.go: ModelListResponse. */
 export interface ModelListResponse {
   data: Array<Model>;
   has_more: boolean;
@@ -1792,7 +1683,6 @@ export interface ModelListResponse {
   [key: string]: unknown;
 }
 
-/** See Go forward/params.go: ModelConfig. */
 export type ModelConfig = string | ModelConfigObject;
 
 export interface ModelConfigObject {
@@ -1803,7 +1693,6 @@ export interface ModelConfigObject {
   [key: string]: unknown;
 }
 
-/** See Go forward/params.go: ModelConfigParam. */
 export interface ModelConfigParam {
   id: string;
   effort?: string | null;
@@ -1812,16 +1701,12 @@ export interface ModelConfigParam {
   [key: string]: unknown;
 }
 
-/** See Go forward/params.go: ModelConfigUnionParam. */
 export type ModelConfigUnionParam = string | null | ModelConfigParam | null;
 
-/** See Go forward/params.go: EnvironmentVariablesUnionParam. */
 export type EnvironmentVariablesUnionParam = Record<string, unknown> | null | string | null;
 
-/** See Go forward/params.go: EventContentUnionParam. */
 export type EventContentUnionParam = Array<ContentBlockParam> | null | string | null | Record<string, unknown> | null;
 
-/** See Go forward/schedule.go: ScheduleListParams. */
 export interface ScheduleListParams {
   /**
    * PAT 或管理员 SAT 可省略，省略时查询当前 owner 全部 Identity；Identity-bound SAT 省略时自动绑定自身，显式传其他 Identity 返回 403。
@@ -1863,7 +1748,6 @@ export interface ScheduleListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedule.go: ScheduleNewParams. */
 export interface ScheduleNewParams {
   /**
    * Schedule 所属 Forward Identity ID。
@@ -1913,7 +1797,6 @@ export interface ScheduleNewParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedule.go: ScheduleArchiveManyParams. */
 export interface ScheduleArchiveManyParams {
   /**
    * 去重后必须包含 1～50 个非空 Schedule ID。
@@ -1927,7 +1810,6 @@ export interface ScheduleArchiveManyParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedule.go: ScheduleUpdateParams. */
 export interface ScheduleUpdateParams {
   /**
    * 新的 Schedule 名称。
@@ -1973,7 +1855,6 @@ export interface ScheduleUpdateParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedule.go: ScheduleArchiveParams. */
 export interface ScheduleArchiveParams {
   /**
    * 有副作用请求可选的幂等键。
@@ -1983,7 +1864,6 @@ export interface ScheduleArchiveParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedule.go: SchedulePauseParams. */
 export interface SchedulePauseParams {
   /**
    * 有副作用请求可选的幂等键。
@@ -1993,7 +1873,6 @@ export interface SchedulePauseParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedule.go: ScheduleRunParams. */
 export interface ScheduleRunParams {
   /**
    * 有副作用请求可选的幂等键。
@@ -2003,7 +1882,6 @@ export interface ScheduleRunParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedule.go: ScheduleUnpauseParams. */
 export interface ScheduleUnpauseParams {
   /**
    * 有副作用请求可选的幂等键。
@@ -2013,7 +1891,6 @@ export interface ScheduleUnpauseParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedule.go: ScheduleArchiveManyResponse. */
 export interface ScheduleArchiveManyResponse {
   /**
    * 本次从未归档状态变为已归档的 Schedule 数量；已经归档的目标不重复计数。
@@ -2023,7 +1900,6 @@ export interface ScheduleArchiveManyResponse {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedule.go: Schedule. */
 export interface Schedule {
   id: string;
   identity_id: string;
@@ -2045,14 +1921,12 @@ export interface Schedule {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedule.go: SchedulePausedReason. */
 export interface SchedulePausedReason {
   type: string;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/schedule.go: ScheduleSinksItem. */
 export interface ScheduleSinksItem {
   type: string;
   channel_id: string;
@@ -2061,7 +1935,6 @@ export interface ScheduleSinksItem {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedule.go: ScheduleSinksItemTarget. */
 export interface ScheduleSinksItemTarget {
   type: string;
   external_id: string;
@@ -2069,7 +1942,6 @@ export interface ScheduleSinksItemTarget {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedule.go: ScheduleTriggerPolicy. */
 export interface ScheduleTriggerPolicy {
   type: string;
   expression: string;
@@ -2079,7 +1951,6 @@ export interface ScheduleTriggerPolicy {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedule.go: ScheduleExecution. */
 export interface ScheduleExecution {
   session_mode: string;
   max_concurrent_runs: number;
@@ -2089,7 +1960,6 @@ export interface ScheduleExecution {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedule.go: ScheduleInitialEventsItem. */
 export interface ScheduleInitialEventsItem {
   type: string;
   content: string;
@@ -2097,7 +1967,6 @@ export interface ScheduleInitialEventsItem {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedulerun.go: ScheduleRunListParams. */
 export interface ScheduleRunListParams {
   /**
    * Run 所属 Forward Identity ID。
@@ -2143,7 +2012,6 @@ export interface ScheduleRunListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedulerun.go: ScheduleRunGetParams. */
 export interface ScheduleRunGetParams {
   /**
    * 额外归属约束。
@@ -2153,7 +2021,6 @@ export interface ScheduleRunGetParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedulerun.go: ScheduleRun. */
 export interface ScheduleRun {
   /**
    * Schedule Run ID。
@@ -2235,7 +2102,6 @@ export interface ScheduleRun {
   [key: string]: unknown;
 }
 
-/** See Go forward/schedulerun.go: ScheduleRunTriggerContext. */
 export interface ScheduleRunTriggerContext {
   type: string;
   scheduled_at: string;
@@ -2243,7 +2109,6 @@ export interface ScheduleRunTriggerContext {
   [key: string]: unknown;
 }
 
-/** See Go forward/session.go: SessionListParams. */
 export interface SessionListParams {
   /**
    * 按一个或多个 Identity ID 过滤，支持逗号分隔。
@@ -2313,7 +2178,6 @@ export interface SessionListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/session.go: SessionNewParams. */
 export interface SessionNewParams {
   /**
    * Forward Identity ID。
@@ -2341,14 +2205,12 @@ export interface SessionNewParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/session.go: SessionNewParamsConfigParam. */
 export interface SessionNewParamsConfigParam {
   environment_variables?: Record<string, unknown> | null;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/session.go: SessionUpdateParams. */
 export interface SessionUpdateParams {
   /**
    * 新的 Session 标题。
@@ -2367,14 +2229,12 @@ export interface SessionUpdateParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/session.go: SessionUpdateParamsConfigParam. */
 export interface SessionUpdateParamsConfigParam {
   environment_variables?: Record<string, unknown> | null;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/session.go: SessionArchiveParams. */
 export interface SessionArchiveParams {
   /**
    * 有副作用请求可选的幂等键。
@@ -2384,7 +2244,6 @@ export interface SessionArchiveParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/session.go: SessionCancelParams. */
 export interface SessionCancelParams {
   /**
    * 有副作用请求可选的幂等键。
@@ -2394,7 +2253,6 @@ export interface SessionCancelParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/session.go: Session. */
 export interface Session {
   /**
    * Session ID。
@@ -2433,14 +2291,12 @@ export interface Session {
   [key: string]: unknown;
 }
 
-/** See Go forward/session.go: SessionUsage. */
 export interface SessionUsage {
   total_credits: number;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/session.go: SessionStats. */
 export interface SessionStats {
   active_seconds: number;
   duration_seconds: number;
@@ -2448,14 +2304,12 @@ export interface SessionStats {
   [key: string]: unknown;
 }
 
-/** See Go forward/session.go: SessionConfig. */
 export interface SessionConfig {
   environment_variables: Record<string, string>;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/session.go: SessionTemplate. */
 export interface SessionTemplate {
   id: string;
   type: string;
@@ -2466,7 +2320,6 @@ export interface SessionTemplate {
   [key: string]: unknown;
 }
 
-/** See Go forward/sessionevent.go: SessionEventListParams. */
 export interface SessionEventListParams {
   /**
    * 分页大小，最大 100。
@@ -2504,7 +2357,6 @@ export interface SessionEventListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/sessionevent.go: SessionEventSendParams. */
 export interface SessionEventSendParams {
   events: Array<SessionEventParam>;
   /**
@@ -2515,7 +2367,6 @@ export interface SessionEventSendParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/sessionevent.go: SessionEventStreamParams. */
 export interface SessionEventStreamParams {
   /**
    * 订阅指定公开事件类型的流式增量事件。支持重复传参，取值见 [流式增量事件](../Session&Event数据结构.md#流式增量事件)。
@@ -2537,7 +2388,6 @@ export interface SessionEventStreamParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/sessionevent.go: SessionEvent. */
 export interface SessionEvent {
   id: string;
   type: string;
@@ -2584,14 +2434,12 @@ export interface SessionEvent {
   [key: string]: unknown;
 }
 
-/** See Go forward/sessionevent.go: SessionEventSendResponse. */
 export interface SessionEventSendResponse {
   data: Array<SessionEvent>;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/sessionresource.go: SessionResourceAddParams. */
 export interface SessionResourceAddParams {
   /**
    * 资源类型，必须为 `file`。
@@ -2609,7 +2457,6 @@ export interface SessionResourceAddParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/sessionresource.go: SessionResource. */
 export interface SessionResource {
   /**
    * Session 资源 ID，以 `sesr_` 为前缀。
@@ -2639,7 +2486,6 @@ export interface SessionResource {
   [key: string]: unknown;
 }
 
-/** See Go forward/sessionthread.go: SessionThreadListParams. */
 export interface SessionThreadListParams {
   /**
    * 分页大小，范围为 1–100。
@@ -2657,7 +2503,6 @@ export interface SessionThreadListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/sessionthread.go: SessionThreadArchiveParams. */
 export interface SessionThreadArchiveParams {
   /**
    * 标识一次逻辑归档尝试；建议为每次新的逻辑尝试生成唯一值。
@@ -2667,7 +2512,6 @@ export interface SessionThreadArchiveParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/sessionthread.go: SessionThread. */
 export interface SessionThread {
   id: string;
   type: string;
@@ -2686,14 +2530,12 @@ export interface SessionThread {
   [key: string]: unknown;
 }
 
-/** See Go forward/sessionthread.go: SessionThreadStopReason. */
 export interface SessionThreadStopReason {
   type: string;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
-/** See Go forward/sessionthreadevent.go: SessionThreadEventListParams. */
 export interface SessionThreadEventListParams {
   /**
    * 分页大小，范围为 1–100。
@@ -2711,7 +2553,6 @@ export interface SessionThreadEventListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/sessionthreadevent.go: SessionThreadEventStreamParams. */
 export interface SessionThreadEventStreamParams {
   /**
    * 从该 Thread Event 之后继续订阅。
@@ -2721,7 +2562,6 @@ export interface SessionThreadEventStreamParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/skill.go: SkillListParams. */
 export interface SkillListParams {
   /**
    * 分页大小，最大 100。
@@ -2755,7 +2595,6 @@ export interface SkillListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/skill.go: SkillNewParams. */
 export interface SkillNewParams {
   /**
    * 推荐上传字段，可**重复出现**多次。支持两种形态： ① 单个 `.zip` 包； ② 裸文件树——每个 part 独立上传一个文件，`filename` 携带相对路径（如 `code-review/SKILL.md`、`code-review/scripts/run.sh`）。 压缩包本身与解压后总大小均不超过 50 MB。
@@ -2793,7 +2632,6 @@ export interface SkillNewParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/skill.go: SkillGetParams. */
 export interface SkillGetParams {
   /**
    * ⚠️ **已弃用**：为 `true` 时随响应返回 `content` 与 `content_encoding`（base64 zip）。命中时响应头会返回 `Deprecation: true`。请改用 [下载 Skill 版本内容](./Versions/download.md)。
@@ -2803,7 +2641,6 @@ export interface SkillGetParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/skill.go: SkillUpdateParams. */
 export interface SkillUpdateParams {
   /**
    * 新描述。
@@ -2833,7 +2670,6 @@ export interface SkillUpdateParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/skill.go: Skill. */
 export interface Skill {
   id: string;
   type: string;
@@ -2851,7 +2687,6 @@ export interface Skill {
   [key: string]: unknown;
 }
 
-/** See Go forward/skillversion.go: SkillVersionListParams. */
 export interface SkillVersionListParams {
   /**
    * 分页大小，最大 100，默认 20。
@@ -2865,7 +2700,6 @@ export interface SkillVersionListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/skillversion.go: SkillVersionNewParams. */
 export interface SkillVersionNewParams {
   /**
    * 上传字段，可**重复**出现多次。支持两种形态： • 单个 `.zip` 包； • 裸文件树——每个 part 独立上传一个文件，`filename` 携带相对路径（如 `customer-reply/SKILL.md`、`customer-reply/scripts/run.sh`）。 压缩包本身与解压后总大小均不超过 50 MB。
@@ -2875,7 +2709,6 @@ export interface SkillVersionNewParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/skillversion.go: DeletedSkillVersion. */
 export interface DeletedSkillVersion {
   /**
    * 被删除的版本号。
@@ -2893,7 +2726,6 @@ export interface DeletedSkillVersion {
   [key: string]: unknown;
 }
 
-/** See Go forward/skillversion.go: SkillVersion. */
 export interface SkillVersion {
   id: string;
   skill_id: string;
@@ -2910,7 +2742,6 @@ export interface SkillVersion {
   [key: string]: unknown;
 }
 
-/** See Go forward/template.go: TemplateListParams. */
 export interface TemplateListParams {
   /**
    * 按 `active` 或 `archived` 过滤。
@@ -2932,7 +2763,6 @@ export interface TemplateListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/template.go: TemplateNewParams. */
 export interface TemplateNewParams {
   /**
    * Template 名称，1-256 个字符，租户内唯一。
@@ -3002,7 +2832,6 @@ export interface TemplateNewParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/template.go: TemplateUpdateParams. */
 export interface TemplateUpdateParams {
   /**
    * 新的 Template 名称。
@@ -3072,7 +2901,6 @@ export interface TemplateUpdateParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/template.go: TemplateArchiveParams. */
 export interface TemplateArchiveParams {
   /**
    * 有副作用请求可选的幂等键。
@@ -3082,7 +2910,6 @@ export interface TemplateArchiveParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/template.go: TemplateCloneParams. */
 export interface TemplateCloneParams {
   /**
    * 新 Template 名称；不传时使用 `<源名称> Copy <随机短 ID>`。
@@ -3100,7 +2927,6 @@ export interface TemplateCloneParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/template.go: Template. */
 export interface Template {
   /**
    * 固定为 `template`。
@@ -3146,7 +2972,6 @@ export interface Template {
   [key: string]: unknown;
 }
 
-/** See Go forward/vault.go: VaultListParams. */
 export interface VaultListParams {
   /**
    * 分页大小，最大 100。
@@ -3172,7 +2997,6 @@ export interface VaultListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/vault.go: VaultNewParams. */
 export interface VaultNewParams {
   /**
    * Vault 展示名。
@@ -3190,7 +3014,6 @@ export interface VaultNewParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/vault.go: Vault. */
 export interface Vault {
   /**
    * Vault ID。
@@ -3224,7 +3047,6 @@ export interface Vault {
   [key: string]: unknown;
 }
 
-/** See Go forward/vaultcredential.go: VaultCredentialListParams. */
 export interface VaultCredentialListParams {
   /**
    * 分页大小，最大 100。
@@ -3250,7 +3072,6 @@ export interface VaultCredentialListParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/vaultcredential.go: VaultCredentialNewParams. */
 export interface VaultCredentialNewParams {
   /**
    * Credential 认证信息，支持 `static_bearer`、`mcp_oauth`；响应只返回脱敏后的非密文字段。
@@ -3272,7 +3093,6 @@ export interface VaultCredentialNewParams {
   [key: string]: unknown;
 }
 
-/** See Go forward/vaultcredential.go: VaultCredential. */
 export interface VaultCredential {
   /**
    * Credential ID。
@@ -3310,7 +3130,6 @@ export interface VaultCredential {
   [key: string]: unknown;
 }
 
-/** See Go forward/vaultcredential.go: VaultCredentialAuth. */
 export interface VaultCredentialAuth {
   type: string;
   mcp_server_url: string;

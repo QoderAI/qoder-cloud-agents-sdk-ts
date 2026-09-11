@@ -16,7 +16,7 @@ export function splitParams(
     if (value != null) headers.set(header, Array.isArray(value) ? value.join(',') : String(value));
   }
   for (const field of pathFields) delete values[field];
-  // Per-request options override typed headers, as they do in the Go SDK.
+  // Per-request options override typed headers.
   headers = mergeHeaders(headers, options?.headers);
   const removedHeaders = Object.entries(options?.headers ?? {}).filter(([, value]) => value === null);
   return {

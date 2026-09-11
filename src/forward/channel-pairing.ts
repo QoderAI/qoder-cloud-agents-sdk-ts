@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -9,7 +9,6 @@ export class ChannelPairings extends APIResource {
   /**
    * 完成 Channel 配对.
    *
-   * @see Go ChannelPairingService.New
    * @operation pairChannel
    */
   create(params: ChannelPairingCreateParams, options?: RequestOptions): APIPromise<ChannelPairing> {
@@ -27,7 +26,6 @@ export class ChannelPairings extends APIResource {
   /**
    * 解除 Channel 配对.
    *
-   * @see Go ChannelPairingService.Delete
    * @operation unpairChannel
    */
   delete(pairingID: string, options?: RequestOptions): APIPromise<DeletedChannelPairing> {

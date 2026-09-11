@@ -189,11 +189,10 @@ for legacy in ('apis', 'models'):
 for legacy in ('credentials.ts', 'errors.ts', 'files.ts', 'pagination.ts', 'retry.ts', 'runtime.ts', 'sse.ts'):
     (OUT / legacy).unlink(missing_ok=True)
 
-types = ['// Generated from qoder-cloud-agents-sdk-go/forward by scripts/generate-forward.py.',
-         '// Wire names and required/nullable fields follow the Go JSON, query and header tags.',
+types = ['// Generated wire types, verified against the API contracts.',
+         "// Wire names and required/nullable fields follow the API's JSON, query and header contracts.",
          "import type { Uploadable } from '../core/uploads.js';", '']
 for name, model in structs.items():
-    types += [f'/** See Go forward/{model["file"]}: {name}. */']
     if model['union']:
         types += ['export type ' + name + ' = ' + ' | '.join(field['type'] for field in model['fields']) + ';', '']
         continue
@@ -228,11 +227,11 @@ export function pathParam(value: string, name: string): string {
   return encodeURIComponent(value);
 }
 
-/** Per-request headers take precedence, matching Go option.WithHeader semantics. */
+/** Per-request headers take precedence over typed header parameters. */
 export function requestHeaders(base: Record<string, string | null | undefined>, extra: RequestOptions['headers']): Record<string, string | null | undefined> {
   const headers: Record<string, string | null | undefined> = {};
   for (const [key, value] of Object.entries(base)) {
-    // Go param.Opt.Valid() omits both absent and explicitly null header params.
+    // Absent and explicitly null header params are both omitted.
     if (value !== undefined && value !== null) headers[key.toLowerCase()] = value;
   }
   if (extra instanceof Headers) {
@@ -265,13 +264,13 @@ for service, entry in service_entries.items():
     children = {child_service: child_entry for child_service, child_entry in service_entries.items() if child_entry.rpartition('.')[0] == entry}
     for child_service in children:
         imports += [f"import {{ {service_classes[child_service]} }} from './{service_files[child_service].removesuffix('.ts')}.js';"]
-    code = ['// Generated from the Go SDK and verified against its API contracts.', *imports, '', f'export class {service_classes[service]} extends APIResource {{']
+    code = ['// Generated code, verified against the API contracts.', *imports, '', f'export class {service_classes[service]} extends APIResource {{']
     for child_service, child_entry in children.items():
         code += [f'  readonly {lower_camel(child_entry.rpartition(".")[2])}: {service_classes[child_service]} = new {service_classes[child_service]}(this._client);']
     if children:
         code += ['']
     for method in resource_methods:
-        docs = method['docs'] + ['', f'@see Go {method["goService"]}.{method["goMethod"]}', f'@operation {method["operationId"]}']
+        docs = method['docs'] + ['', f'@operation {method["operationId"]}']
         code += comment(docs, '  ')
         arguments = [f'{p["name"]}: {p["type"]}' for p in method['parameters']]
         if method['paramsType']:
@@ -326,7 +325,7 @@ for service, entry in service_entries.items():
     (OUT / service_files[service]).write_text('\n'.join(code))
 
 top_level = {service: entry for service, entry in service_entries.items() if '.' not in entry}
-client = ['// Resource hierarchy mirrors qoder-cloud-agents-sdk-go/forward.Client.',
+client = ['// Resource hierarchy mirrors the Forward API surface.',
           "import { APIClient, type ClientOptions } from '../core/client.js';"]
 for service in top_level:
     client += [f"import {{ {service_classes[service]} }} from './{service_files[service].removesuffix('.ts')}.js';"]
@@ -340,7 +339,7 @@ for service in service_entries:
     index += [f"export {{ {service_classes[service]} }} from './{service_files[service].removesuffix('.ts')}.js';"]
 index += ["export type { RequestOptions, ClientOptions } from '../core/client.js';", "export { APIPromise } from '../core/api-promise.js';", "export { Page, PagePromise } from '../core/pagination.js';", "export { Stream } from '../core/streaming.js';", "export { toFile } from '../core/uploads.js';", "export type { Uploadable } from '../core/uploads.js';", "export { PATCredential } from '../core/credentials.js';", "export type { Credential } from '../core/credentials.js';", "export * from '../core/error.js';", '']
 (OUT / 'index.ts').write_text('\n'.join(index))
-inventory = [{key: method[key] for key in ('operationId', 'entry', 'method', 'goService', 'goMethod', 'httpMethod', 'parameters', 'paramsType', 'paramsOptional', 'paramsLocation', 'responseType', 'pagination', 'itemType')} |
+inventory = [{key: method[key] for key in ('operationId', 'entry', 'method', 'httpMethod', 'parameters', 'paramsType', 'paramsOptional', 'paramsLocation', 'responseType', 'pagination', 'itemType')} |
              {'path': method['wirePath'], 'parameterFields': [{key: field[key] for key in ('name', 'wireName', 'location', 'required', 'type')} for field in method['parameterFields']]} for method in methods.values()]
 (OUT / 'api-inventory.json').write_text(json.dumps(inventory, indent=2, ensure_ascii=False) + '\n')
 print(f'Generated {len(methods)} Forward API methods, {len(service_entries)} resources, and {len(structs)} types.')

@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -11,7 +11,6 @@ export class SessionThreadEvents extends APIResource {
   /**
    * 列出 Session Thread Events.
    *
-   * @see Go SessionThreadEventService.List
    * @operation listSessionThreadEvents
    */
   list(
@@ -27,7 +26,6 @@ export class SessionThreadEvents extends APIResource {
   /**
    * 订阅 Session Thread Event Stream.
    *
-   * @see Go SessionThreadEventService.StreamEvents
    * @operation streamSessionThreadEvents
    */
   streamEvents(

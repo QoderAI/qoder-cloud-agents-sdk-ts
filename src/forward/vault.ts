@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -13,7 +13,6 @@ export class Vaults extends APIResource {
   /**
    * 列出 Vault.
    *
-   * @see Go VaultService.List
    * @operation listVault
    */
   list(params: VaultListParams = {}, options?: RequestOptions): PagePromise<Vault> {
@@ -24,7 +23,6 @@ export class Vaults extends APIResource {
   /**
    * 创建 Vault.
    *
-   * @see Go VaultService.New
    * @operation createVault
    */
   create(params: VaultCreateParams, options?: RequestOptions): APIPromise<Vault> {
@@ -42,7 +40,6 @@ export class Vaults extends APIResource {
   /**
    * 查询 Vault.
    *
-   * @see Go VaultService.Get
    * @operation getVault
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<Vault> {
@@ -57,7 +54,6 @@ export class Vaults extends APIResource {
   /**
    * 删除 Vault.
    *
-   * @see Go VaultService.Delete
    * @operation deleteVault
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {

@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -17,7 +17,6 @@ export class Sessions extends APIResource {
   /**
    * 列出 Sessions.
    *
-   * @see Go SessionService.List
    * @operation listSessions
    */
   list(params: SessionListParams = {}, options?: RequestOptions): PagePromise<Session> {
@@ -28,7 +27,6 @@ export class Sessions extends APIResource {
   /**
    * 创建 Session.
    *
-   * @see Go SessionService.New
    * @operation createSession
    */
   create(params: SessionCreateParams, options?: RequestOptions): APIPromise<Session> {
@@ -46,7 +44,6 @@ export class Sessions extends APIResource {
   /**
    * 获取 Session.
    *
-   * @see Go SessionService.Get
    * @operation getSession
    */
   retrieve(sessionID: string, options?: RequestOptions): APIPromise<Session> {
@@ -61,7 +58,6 @@ export class Sessions extends APIResource {
   /**
    * 更新 Session.
    *
-   * @see Go SessionService.Update
    * @operation updateSession
    */
   update(sessionID: string, params: SessionUpdateParams = {}, options?: RequestOptions): APIPromise<Session> {
@@ -79,7 +75,6 @@ export class Sessions extends APIResource {
   /**
    * 归档 Session.
    *
-   * @see Go SessionService.Archive
    * @operation archiveSession
    */
   archive(
@@ -100,7 +95,6 @@ export class Sessions extends APIResource {
   /**
    * 取消当前 Turn.
    *
-   * @see Go SessionService.Cancel
    * @operation cancelSession
    */
   cancel(sessionID: string, params: SessionCancelParams = {}, options?: RequestOptions): APIPromise<Session> {

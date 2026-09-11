@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -9,7 +9,6 @@ export class ChannelQRSessions extends APIResource {
   /**
    * 创建 Channel QR Session.
    *
-   * @see Go ChannelQRSessionService.New
    * @operation createChannelQrSession
    */
   create(
@@ -30,7 +29,6 @@ export class ChannelQRSessions extends APIResource {
   /**
    * 获取 Channel QR Session.
    *
-   * @see Go ChannelQRSessionService.Get
    * @operation getChannelQrSession
    */
   retrieve(sessionKey: string, options?: RequestOptions): APIPromise<ChannelQRSession> {

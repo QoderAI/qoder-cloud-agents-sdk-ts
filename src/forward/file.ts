@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -11,7 +11,6 @@ export class Files extends APIResource {
   /**
    * 列出 File.
    *
-   * @see Go FileService.List
    * @operation listFile
    */
   list(params: FileListParams = {}, options?: RequestOptions): PagePromise<FileMetadata> {
@@ -22,7 +21,6 @@ export class Files extends APIResource {
   /**
    * 上传 File.
    *
-   * @see Go FileService.Upload
    * @operation uploadFile
    */
   upload(params: FileUploadParams, options?: RequestOptions): APIPromise<FileMetadata> {
@@ -40,7 +38,6 @@ export class Files extends APIResource {
   /**
    * 查询 File.
    *
-   * @see Go FileService.GetMetadata
    * @operation getFile
    */
   getMetadata(fileID: string, options?: RequestOptions): APIPromise<FileMetadata> {
@@ -55,7 +52,6 @@ export class Files extends APIResource {
   /**
    * 删除 File.
    *
-   * @see Go FileService.Delete
    * @operation deleteFile
    */
   delete(fileID: string, options?: RequestOptions): APIPromise<void> {
@@ -71,7 +67,6 @@ export class Files extends APIResource {
   /**
    * 下载 File.
    *
-   * @see Go FileService.Download
    * @operation downloadFile
    */
   download(fileID: string, options?: RequestOptions): APIPromise<Response> {

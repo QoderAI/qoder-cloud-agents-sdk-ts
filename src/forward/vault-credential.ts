@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -10,7 +10,6 @@ export class VaultCredentials extends APIResource {
   /**
    * 列出 Credential.
    *
-   * @see Go VaultCredentialService.List
    * @operation listVaultCredential
    */
   list(
@@ -25,7 +24,6 @@ export class VaultCredentials extends APIResource {
   /**
    * 创建 Credential.
    *
-   * @see Go VaultCredentialService.New
    * @operation createVaultCredential
    */
   create(
@@ -47,7 +45,6 @@ export class VaultCredentials extends APIResource {
   /**
    * 查询 Credential.
    *
-   * @see Go VaultCredentialService.Get
    * @operation getVaultCredential
    */
   retrieve(id: string, credID: string, options?: RequestOptions): APIPromise<VaultCredential> {
@@ -62,7 +59,6 @@ export class VaultCredentials extends APIResource {
   /**
    * 删除 Credential.
    *
-   * @see Go VaultCredentialService.Delete
    * @operation deleteVaultCredential
    */
   delete(id: string, credID: string, options?: RequestOptions): APIPromise<void> {

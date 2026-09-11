@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -10,7 +10,6 @@ export class MemoryStoreMemories extends APIResource {
   /**
    * 列出 Memory.
    *
-   * @see Go MemoryStoreMemoryService.List
    * @operation listMemoryStoreMemoryMemories
    */
   list(
@@ -25,7 +24,6 @@ export class MemoryStoreMemories extends APIResource {
   /**
    * 创建 Memory.
    *
-   * @see Go MemoryStoreMemoryService.New
    * @operation createMemoryStoreMemory
    */
   create(
@@ -45,7 +43,6 @@ export class MemoryStoreMemories extends APIResource {
   /**
    * 查询 Memory.
    *
-   * @see Go MemoryStoreMemoryService.Get
    * @operation getMemoryStoreMemory
    */
   retrieve(memoryStoreID: string, memoryID: string, options?: RequestOptions): APIPromise<Memory> {
@@ -60,7 +57,6 @@ export class MemoryStoreMemories extends APIResource {
   /**
    * 更新 Memory.
    *
-   * @see Go MemoryStoreMemoryService.Update
    * @operation updateMemoryStoreMemory
    */
   update(
@@ -81,7 +77,6 @@ export class MemoryStoreMemories extends APIResource {
   /**
    * 删除 Memory.
    *
-   * @see Go MemoryStoreMemoryService.Delete
    * @operation deleteMemoryStoreMemory
    */
   delete(memoryStoreID: string, memoryID: string, options?: RequestOptions): APIPromise<DeletedMemory> {

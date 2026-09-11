@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -10,7 +10,6 @@ export class ScheduleRuns extends APIResource {
   /**
    * 列出 Schedule Runs.
    *
-   * @see Go ScheduleRunService.List
    * @operation listScheduleRuns
    */
   list(params: ScheduleRunListParams, options?: RequestOptions): PagePromise<ScheduleRun> {
@@ -21,7 +20,6 @@ export class ScheduleRuns extends APIResource {
   /**
    * 获取 Schedule Run.
    *
-   * @see Go ScheduleRunService.Get
    * @operation getScheduleRun
    */
   retrieve(

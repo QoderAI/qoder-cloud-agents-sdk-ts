@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -13,7 +13,6 @@ export class Channels extends APIResource {
   /**
    * 列出 Channels.
    *
-   * @see Go ChannelService.List
    * @operation listChannels
    */
   list(params: ChannelListParams = {}, options?: RequestOptions): PagePromise<Channel> {
@@ -24,7 +23,6 @@ export class Channels extends APIResource {
   /**
    * 创建 Channel.
    *
-   * @see Go ChannelService.New
    * @operation createChannel
    */
   create(params: ChannelCreateParams, options?: RequestOptions): APIPromise<Channel> {
@@ -42,7 +40,6 @@ export class Channels extends APIResource {
   /**
    * 获取 Channel.
    *
-   * @see Go ChannelService.Get
    * @operation getChannel
    */
   retrieve(channelID: string, options?: RequestOptions): APIPromise<Channel> {
@@ -57,7 +54,6 @@ export class Channels extends APIResource {
   /**
    * 更新 Channel.
    *
-   * @see Go ChannelService.Update
    * @operation updateChannel
    */
   update(channelID: string, params: ChannelUpdateParams = {}, options?: RequestOptions): APIPromise<Channel> {
@@ -75,7 +71,6 @@ export class Channels extends APIResource {
   /**
    * 删除 Channel.
    *
-   * @see Go ChannelService.Delete
    * @operation deleteChannel
    */
   delete(channelID: string, options?: RequestOptions): APIPromise<DeletedChannel> {

@@ -1,4 +1,4 @@
-// Generated from qoder-cloud-agents-sdk-go/managed.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../../core/resource.js';
 import type { RequestOptions } from '../../core/client.js';
 import type { APIPromise } from '../../core/api-promise.js';

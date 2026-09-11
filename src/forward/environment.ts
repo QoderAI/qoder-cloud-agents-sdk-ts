@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -10,7 +10,6 @@ export class Environments extends APIResource {
   /**
    * 列出 Environment.
    *
-   * @see Go EnvironmentService.List
    * @operation listEnvironment
    */
   list(params: EnvironmentListParams = {}, options?: RequestOptions): PagePromise<Environment> {
@@ -21,7 +20,6 @@ export class Environments extends APIResource {
   /**
    * 创建 Environment.
    *
-   * @see Go EnvironmentService.New
    * @operation createEnvironment
    */
   create(params: EnvironmentCreateParams, options?: RequestOptions): APIPromise<Environment> {
@@ -39,7 +37,6 @@ export class Environments extends APIResource {
   /**
    * 查询 Environment.
    *
-   * @see Go EnvironmentService.Get
    * @operation getEnvironment
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<Environment> {
@@ -54,7 +51,6 @@ export class Environments extends APIResource {
   /**
    * 修改 Environment.
    *
-   * @see Go EnvironmentService.Update
    * @operation updateEnvironment
    */
   update(
@@ -74,7 +70,6 @@ export class Environments extends APIResource {
   /**
    * Archive an environment retained by historical sessions or tool calls.
    *
-   * @see Go EnvironmentService.Archive
    * @operation archiveEnvironment
    */
   archive(id: string, options?: RequestOptions): APIPromise<Environment> {
@@ -89,7 +84,6 @@ export class Environments extends APIResource {
   /**
    * 删除 Environment.
    *
-   * @see Go EnvironmentService.Delete
    * @operation deleteEnvironment
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {

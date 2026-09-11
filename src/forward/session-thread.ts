@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -13,7 +13,6 @@ export class SessionThreads extends APIResource {
   /**
    * 列出 Session Threads.
    *
-   * @see Go SessionThreadService.List
    * @operation listSessionThreads
    */
   list(
@@ -28,7 +27,6 @@ export class SessionThreads extends APIResource {
   /**
    * 获取 Session Thread.
    *
-   * @see Go SessionThreadService.Get
    * @operation getSessionThread
    */
   retrieve(sessionID: string, threadID: string, options?: RequestOptions): APIPromise<SessionThread> {
@@ -43,7 +41,6 @@ export class SessionThreads extends APIResource {
   /**
    * 归档 Session Thread.
    *
-   * @see Go SessionThreadService.Archive
    * @operation archiveSessionThread
    */
   archive(

@@ -1,4 +1,4 @@
-// Resource hierarchy mirrors qoder-cloud-agents-sdk-go/forward.Client.
+// Resource hierarchy mirrors the Forward API surface.
 import { APIClient, type ClientOptions } from '../core/client.js';
 import { Templates } from './template.js';
 import { Identities } from './identity.js';

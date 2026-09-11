@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -9,7 +9,6 @@ export class IdentityMemoryStores extends APIResource {
   /**
    * 列出 Identity 上的 Memory Store 挂载.
    *
-   * @see Go IdentityMemoryStoreService.List
    * @operation listMemoryStoreMounts
    */
   list(
@@ -28,7 +27,6 @@ export class IdentityMemoryStores extends APIResource {
   /**
    * 挂载 Memory Store 到 Identity.
    *
-   * @see Go IdentityMemoryStoreService.Mount
    * @operation mountMemoryStore
    */
   mount(
@@ -49,7 +47,6 @@ export class IdentityMemoryStores extends APIResource {
   /**
    * 解绑 Identity 上的 Memory Store.
    *
-   * @see Go IdentityMemoryStoreService.Detach
    * @operation detachMemoryStore
    */
   detach(

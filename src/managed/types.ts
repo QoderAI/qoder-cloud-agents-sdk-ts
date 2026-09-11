@@ -1,4 +1,4 @@
-// Generated from qoder-cloud-agents-sdk-go/managed. Run scripts/generate-managed.py.
+// Generated wire types, verified against the API contracts.
 
 import type { Uploadable } from '../core/uploads.js';
 

@@ -1,4 +1,4 @@
-// Generated from the Go SDK and verified against its API contracts.
+// Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -10,7 +10,6 @@ export class MemoryStoreMemoryVersions extends APIResource {
   /**
    * 列出 Memory 版本.
    *
-   * @see Go MemoryStoreMemoryVersionService.List
    * @operation listMemoryStoreMemoryVersion
    */
   list(
@@ -25,7 +24,6 @@ export class MemoryStoreMemoryVersions extends APIResource {
   /**
    * 查询 Memory 版本.
    *
-   * @see Go MemoryStoreMemoryVersionService.Get
    * @operation getMemoryStoreMemoryVersion
    */
   retrieve(
@@ -44,7 +42,6 @@ export class MemoryStoreMemoryVersions extends APIResource {
   /**
    * Redact Memory 版本.
    *
-   * @see Go MemoryStoreMemoryVersionService.Redact
    * @operation redactMemoryStoreMemoryVersion
    */
   redact(

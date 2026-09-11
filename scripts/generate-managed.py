@@ -162,7 +162,7 @@ def field_decl(name, f):
 
 # Public data types include scalar enums and native discriminated unions. Go-only
 # JSON wrappers, accessors and param.Opt wrappers are intentionally not exposed.
-type_lines = ["// Generated from qoder-cloud-agents-sdk-go/managed. Run scripts/generate-managed.py.\n", "import type { Uploadable } from '../core/uploads.js';\n"]
+type_lines = ["// Generated wire types, verified against the API contracts.\n", "import type { Uploadable } from '../core/uploads.js';\n"]
 compact_types = {'ManagedAgentsModelConfig', 'ManagedAgentsModelConfigParams', 'SkillSource', 'ManagedAgentsModelConfigEffortUnion'}
 for name, t in types.items():
     if not name[0].isupper() or name in ['Client', 'Error'] or name.endswith('Service'):
@@ -238,8 +238,8 @@ for m in methods:
     for p in args:
         if p is param_arg:
             signature.append(f'params: Types.{alias}' + ('' if required else ' | null | undefined = {}'))
-            inv_args.append({'name': 'params', 'type': alias, 'goType': param_type, 'location': 'params', 'required': required,
-                'fields': [{'name': wire(f), 'goName': f['name'], 'type': ts_type(f['type']), 'location': location(f), 'wireName': f['tags'].get(location(f), wire(f)).split(',')[0], 'required': 'required' in f['tags'].get('api', '') or location(f) == 'path'} for f in fields]})
+            inv_args.append({'name': 'params', 'type': alias, 'location': 'params', 'required': required,
+                'fields': [{'name': wire(f), 'type': ts_type(f['type']), 'location': location(f), 'wireName': f['tags'].get(location(f), wire(f)).split(',')[0], 'required': 'required' in f['tags'].get('api', '') or location(f) == 'path'} for f in fields]})
         else:
             signature.append(f'{p["name"]}: {ts_type(p["type"])}')
             inv_args.append({'name': p['name'], 'type': ts_type(p['type']), 'location': 'path', 'required': True})
@@ -293,7 +293,7 @@ for m in methods:
         rt = f'Stream<Types.{result}>' if streamed else ('Response' if binary else f'Types.{result}')
         body += [f'    return this._client.request<{rt}>({{ ...request.options, method: {json.dumps(contract["method"])}, path: {path_ts}' + (', ' + ', '.join(extra) if extra else '') + ' });']
     grouped[s].append(comment(m['doc'], '  ') + f'  {name}({", ".join(signature)}): {return_type} {{\n' + '\n'.join(body) + '\n  }\n')
-    inventory.append({'entry': entries[s] + '.' + name, 'resource': entries[s], 'method': name, 'goService': s, 'goMethod': m['name'], 'httpMethod': contract['method'], 'path': contract['route'], 'params': inv_args, 'responseType': result, 'responseMode': 'page' if paged else ('stream' if streamed else ('response' if binary else 'json')), 'goFile': m['file']})
+    inventory.append({'entry': entries[s] + '.' + name, 'resource': entries[s], 'method': name, 'httpMethod': contract['method'], 'path': contract['route'], 'params': inv_args, 'responseType': result, 'responseMode': 'page' if paged else ('stream' if streamed else ('response' if binary else 'json'))})
 
 OUT.mkdir(parents=True, exist_ok=True)
 # Remove obsolete generated APIs/models and standalone duplicated HTTP runtimes.
@@ -311,7 +311,7 @@ for s, chunks in grouped.items():
     imports = ["import { APIResource } from '../../core/resource.js';", "import type { RequestOptions } from '../../core/client.js';", "import type { APIPromise } from '../../core/api-promise.js';", "import type { PagePromise } from '../../core/pagination.js';", "import type { Stream } from '../../core/streaming.js';", "import type * as Types from '../types.js';", "import { splitParams, pathParam, managedMultipart } from '../internal.js';"]
     for f in nested:
         imports.append(f'import {{ {classes[f["type"]]} }} from "./{files[f["type"]]}.js";')
-    content = '// Generated from qoder-cloud-agents-sdk-go/managed.\n' + '\n'.join(imports) + '\n\n'
+    content = '// Generated code, verified against the API contracts.\n' + '\n'.join(imports) + '\n\n'
     content += f'export class {classes[s]} extends APIResource {{\n'
     for f in nested:
         content += f'  readonly {camel(f["name"])} = new {classes[f["type"]]}(this._client);\n'
@@ -352,7 +352,7 @@ export function splitParams(
     if (value != null) headers.set(header, Array.isArray(value) ? value.join(',') : String(value));
   }
   for (const field of pathFields) delete values[field];
-  // Per-request options override typed headers, as they do in the Go SDK.
+  // Per-request options override typed headers.
   headers = mergeHeaders(headers, options?.headers);
   const removedHeaders = Object.entries(options?.headers ?? {}).filter(([, value]) => value === null);
   return {
@@ -389,4 +389,4 @@ export async function managedMultipart(values: Record<string, unknown>): Promise
   return form;
 }
 ''')
-print(f'Generated {len(methods)} Managed APIs and {sum(1 for t in types if t[0].isupper())} Go wire types.')
+print(f'Generated {len(methods)} Managed APIs and {sum(1 for t in types if t[0].isupper())} wire types.')
