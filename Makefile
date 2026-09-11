@@ -10,10 +10,10 @@ test:
 	npm test
 
 test-unit: build
-	node --test test/*.test.mjs
+	node --test tests/*.test.mjs
 
 test-contract: build
-	node --test test/api-contracts.test.mjs
+	node --test tests/api-contracts.test.mjs
 
 test-scenarios:
 	npm run test:scenarios
@@ -28,7 +28,7 @@ test-live-all: build
 	LIVE_ENV_FILE="$(LIVE_ENV_FILE)" node scripts/run-live.mjs all
 
 test-live-check: build
-	@for file in test/live/*.mjs; do node --check "$$file" || exit; done
+	@for file in tests/live/*.mjs; do node --check "$$file" || exit; done
 
 test-e2e: test
 	LIVE_ENV_FILE="$(LIVE_ENV_FILE)" node scripts/run-live.mjs e2e
