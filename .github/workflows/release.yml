@@ -51,10 +51,10 @@ jobs:
       - run: npm stage publish --tag '${{ steps.meta.outputs.tag }}' --access public --provenance
         env:
           # Delete this secret and the env block once a trust relationship is
-          # configured with `npm trust github qca --allow-stage-publish`; npm
+          # configured with `npm trust github qca-sdk --allow-stage-publish`; npm
           # then authenticates through OIDC.
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - run: |
-          echo "Staged qca@${{ steps.meta.outputs.version }} under tag ${{ steps.meta.outputs.tag }}." >> "$GITHUB_STEP_SUMMARY"
-          echo 'Approve it locally: `npm stage list qca` then `npm stage approve <stage-id>`.' >> "$GITHUB_STEP_SUMMARY"
+          echo "Staged qca-sdk@${{ steps.meta.outputs.version }} under tag ${{ steps.meta.outputs.tag }}." >> "$GITHUB_STEP_SUMMARY"
+          echo 'Approve it locally: `npm stage list qca-sdk` then `npm stage approve <stage-id>`.' >> "$GITHUB_STEP_SUMMARY"

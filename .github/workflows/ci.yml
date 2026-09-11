@@ -22,7 +22,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: npm
       - run: npm ci
-      # typecheck resolves `qca` through package exports, so dist must exist first.
+      # typecheck resolves `qca-sdk` through package exports, so dist must exist first.
       - run: npm run build
       - run: npm run typecheck
       - run: npm test

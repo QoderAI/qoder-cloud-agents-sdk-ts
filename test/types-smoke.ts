@@ -1,8 +1,8 @@
-import { ForwardClient, ManagedClient, APIPromise, Stream, toFile } from 'qca';
-import Forward from 'qca/forward';
-import Managed from 'qca/managed';
-import type { TemplateUpdateParams, SessionEvent } from 'qca/forward';
-import type { AgentUpdateParams } from 'qca/managed';
+import { ForwardClient, ManagedClient, APIPromise, Stream, toFile } from 'qca-sdk';
+import Forward from 'qca-sdk/forward';
+import Managed from 'qca-sdk/managed';
+import type { TemplateUpdateParams, SessionEvent } from 'qca-sdk/forward';
+import type { AgentUpdateParams } from 'qca-sdk/managed';
 
 const forward: ForwardClient = new Forward({ accessToken: async () => 'token', timeout: 5000 });
 const managed: ManagedClient = new Managed();

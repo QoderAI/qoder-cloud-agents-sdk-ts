@@ -7,11 +7,11 @@ Requires Node.js 20.12 or later. Ships CommonJS, ES modules and strict TypeScrip
 Full SDK API reference: [Forward API](docs/forward-api.md) (110 operations) and [Managed API](docs/managed-api.md) (95 operations), covering call examples, parameters, return types, pagination and error handling.
 
 ```sh
-npm install qca
+npm install qca-sdk
 ```
 
 ```ts
-import { ForwardClient, ManagedClient, PATCredential } from 'qca';
+import { ForwardClient, ManagedClient, PATCredential } from 'qca-sdk';
 
 const forward = new ForwardClient({ credential: PATCredential.fromEnv() });
 const managed = new ManagedClient({ accessToken: process.env.QODER_ACCESS_TOKEN });
@@ -31,7 +31,7 @@ const agent = await managed.agents.retrieve('agent_id');
 const version = await managed.skills.versions.retrieve('version_id', { skill_id: 'skill_id' });
 ```
 
-Each entry point can also be imported on its own — `qca/forward` and `qca/managed` — both providing a default client and named exports. The `*Api` and `*Raw` methods of the previous OpenAPI Generator output are gone, as are APIs outside the Go SDK surface such as Service Account Token, Managed Search and Webhook.
+Each entry point can also be imported on its own — `qca-sdk/forward` and `qca-sdk/managed` — both providing a default client and named exports. The `*Api` and `*Raw` methods of the previous OpenAPI Generator output are gone, as are APIs outside the Go SDK surface such as Service Account Token, Managed Search and Webhook.
 
 ## Configuration and responses
 
@@ -86,7 +86,7 @@ try {
 The SSE reader preserves delta frames that share an ID as well as unknown event types, skips pings, terminates on `[DONE]`, and throws an `APIError` on error events. Read `stream.lastEventID` to get a reconnect cursor and pass it back as the `last_event_id` method parameter. The SDK does not reconnect and replay events on your behalf.
 
 ```ts
-import { toFile } from 'qca';
+import { toFile } from 'qca-sdk';
 
 const file = await forward.files.upload({
   file: await toFile(new TextEncoder().encode('Hello'), 'hello.txt'),
