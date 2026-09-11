@@ -1,131 +1,308 @@
+> [!IMPORTANT]
+> This SDK is in preview. The published versions are pre-releases, and the API surface may still change.
+
 # Qoder Cloud Agents TypeScript SDK
 
-The client is structured after `anthropic-sdk-typescript`. Its HTTP API surface and request protocol follow `qoder-cloud-agents-sdk-go`: **110** Forward operations and **95** Managed operations, **205** in total.
+TypeScript and JavaScript library for the Qoder Cloud Agents API. It provides typed access to the Forward and Managed APIs, ships CommonJS, ES modules and strict TypeScript types, and has no third-party runtime dependencies.
 
-Requires Node.js 20.12 or later. Ships CommonJS, ES modules and strict TypeScript types, with no third-party runtime dependencies.
+## Installation
 
 ```sh
 npm install qca-sdk
 ```
 
+Node.js 20.12 or later is required.
+
+## Usage
+
+The library exposes two clients, one per API. Both are constructed the same way and share the same transport behaviour.
+
 ```ts
-import { ForwardClient, ManagedClient, PATCredential } from 'qca-sdk';
+import { ForwardClient } from 'qca-sdk';
 
-const forward = new ForwardClient({ credential: PATCredential.fromEnv() });
-const managed = new ManagedClient({ accessToken: process.env.QODER_ACCESS_TOKEN });
+const client = new ForwardClient({
+  accessToken: process.env.QODER_ACCESS_TOKEN, // this is the default and can be omitted
+});
 
-for await (const model of managed.models.list()) {
-  console.log(model.id);
+const session = await client.sessions.create({
+  identity_id: 'identity_id',
+  template_id: 'template_id',
+});
+
+await client.sessions.events.send(session.id, {
+  events: [{ type: 'user.message', content: [{ type: 'text', text: 'Hello, Qoder' }] }],
+});
+
+for await (const event of client.sessions.events.list(session.id, { order: 'asc' })) {
+  console.log(event.type);
 }
-
-const template = await forward.templates.create({ name: 'Support', model: 'ultimate', environment_id: 'env_id' });
-console.log(template.id);
 ```
 
-The client exposes the same resource tree as the Go SDK. Go's `New` maps to `create` and `Get` maps to `retrieve`; all other methods use lowerCamelCase, so `Identities.Configs.Upsert` becomes `identities.configs.upsert`. Positional argument order is preserved, and path fields that live in a Go parameter object stay in the parameter object here. All request and response fields keep the snake_case naming used on the wire.
+`ForwardClient` covers the Forward API — `templates`, `identities`, `sessions`, `schedules`, `scheduleRuns`, `batches`, `channels`, `channelPairings`, `environments`, `files`, `skills`, `vaults`, `memoryStores` and `models`.
 
 ```ts
-const agent = await managed.agents.retrieve('agent_id');
-const version = await managed.skills.versions.retrieve('version_id', { skill_id: 'skill_id' });
+import { ManagedClient } from 'qca-sdk';
+
+const client = new ManagedClient();
+
+const session = await client.sessions.create({
+  agent: 'agent_id',
+  environment_id: 'environment_id',
+});
 ```
 
-Each entry point can also be imported on its own — `qca-sdk/forward` and `qca-sdk/managed` — both providing a default client and named exports. The `*Api` and `*Raw` methods of the previous OpenAPI Generator output are gone, as are APIs outside the Go SDK surface such as Service Account Token, Managed Search and Webhook.
+`ManagedClient` covers the Managed API — `agents`, `sessions`, `deployments`, `deploymentRuns`, `dreams`, `environments`, `skills`, `vaults`, `files`, `memoryStores` and `models`.
 
-## Configuration and responses
-
-The default credential environment variable is `QODER_ACCESS_TOKEN`. Forward reads `QODER_FORWARD_BASE_URL`, defaulting to `https://api.qoder.com/api/v1/forward`; Managed reads `QODER_BASE_URL`, defaulting to `https://api.qoder.com/api/v1/cloud`. Explicit constructor options take precedence.
+Nested resources are reached through their parent. On a `ForwardClient`, path segments are positional arguments:
 
 ```ts
+const version = await forward.skills.versions.retrieve('skill_id', 'version');
+```
+
+On a `ManagedClient`, the parent ID stays in the parameter object:
+
+```ts
+const version = await managed.skills.versions.retrieve('version', { skill_id: 'skill_id' });
+```
+
+Each client also has its own entry point — `qca-sdk/forward` and `qca-sdk/managed` — exported both by name and as the default export, so you can pull in only the half you use.
+
+```ts
+import ForwardClient from 'qca-sdk/forward';
+```
+
+### Configuration
+
+`accessToken` accepts a string or a function returning a string or a promise, which is re-resolved before every request attempt — useful for short-lived tokens. A `Credential` object can be supplied instead; `PATCredential.fromEnv()` reads `QODER_ACCESS_TOKEN`.
+
+The base URL comes from `QODER_FORWARD_BASE_URL` for Forward and `QODER_BASE_URL` for Managed, defaulting to `https://api.qoder.com/api/v1/forward` and `https://api.qoder.com/api/v1/cloud`. Explicit constructor options always win.
+
+```ts
+import { ManagedClient, PATCredential } from 'qca-sdk';
+
 const client = new ManagedClient({
-  accessToken: process.env.QODER_ACCESS_TOKEN,
+  credential: PATCredential.fromEnv(),
   baseURL: 'https://api.qoder.com/api/v1/cloud',
   timeout: 30_000,
   maxRetries: 2,
   defaultHeaders: { 'X-Application': 'my-app' },
 });
-
-const { data, response, request_id } = await client.agents
-  .retrieve('agent_id', { signal: AbortSignal.timeout(5_000) })
-  .withResponse();
 ```
 
-`APIPromise` supports `await`, `.asResponse()` and `.withResponse()`. The latter two preserve the raw response; `.asResponse()` hands the body to the caller to read or discard. JSON decoding keeps unknown fields, and on the way out `undefined` is omitted while `null`, empty arrays, empty strings and `false` are sent as-is.
+## Request and response types
 
-`APIError` carries `status`, `type`, `code`, `request_id`, `request`, `response` and the raw error payload. A `request_id` in the error body takes precedence over the response header. Network failures, request timeouts and caller-initiated cancellation surface as `APIConnectionError`, `APIConnectionTimeoutError` and `APIUserAbortError` respectively.
-
-Requests are retried up to 2 times by default. Matching the Go SDK: GET/HEAD requests and replayable requests carrying an idempotency key retry on network errors and specific server errors; 429 also retries replayable writes; 409 is never retried. Every attempt re-resolves the credential and sends `X-Qoder-Retry-Count`, and the response `Retry-After` and `x-should-retry` headers feed into the decision. Set `maxRetries: 0` to disable retries.
-
-## Pagination, streaming and files
+Every operation is typed. The two APIs define independent type sets, so request and response types are exported from the subpath entry points rather than the package root:
 
 ```ts
-// Auto-pagination — no need to await the page first.
-for await (const agent of client.agents.list({ limit: 20 })) {
-  console.log(agent.id);
-}
+import type { Session, SessionCreateParams, Template } from 'qca-sdk/forward';
+import type { ManagedAgentsAgent } from 'qca-sdk/managed';
 
-// Or walk one page at a time.
-const page = await client.agents.list({ limit: 20 });
-if (page.hasNextPage()) console.log((await page.getNextPage())?.data);
+const params: SessionCreateParams = { identity_id: 'identity_id', template_id: 'template_id' };
 ```
 
-The pagination style follows the corresponding Go method: ID cursors use `before_id`/`after_id`, opaque cursors use `next_page` → `page`. Auto-pagination carries filter parameters forward and rejects a cursor that fails to advance.
+All fields keep the snake_case naming used on the wire. Unknown fields are preserved when decoding, so a server-side addition reaches you before the types catch up. On the way out `undefined` is omitted, while `null`, `false`, empty strings and empty arrays are sent as-is.
+
+## Streaming
+
+Session events can be consumed as a server-sent event stream.
 
 ```ts
-const stream = await forward.sessions.events.streamEvents('session_id', {
+const stream = await client.sessions.events.streamEvents(session.id, {
+  include_tool_calls: true,
   'event_deltas[]': ['agent.message'],
 });
-try {
-  for await (const event of stream) console.log(event);
-} finally {
-  await stream.close();
+
+for await (const event of stream) {
+  console.log(event.type);
 }
 ```
 
-The SSE reader preserves delta frames that share an ID as well as unknown event types, skips pings, terminates on `[DONE]`, and throws an `APIError` on error events. Read `stream.lastEventID` to get a reconnect cursor and pass it back as the `last_event_id` method parameter. The SDK does not reconnect and replay events on your behalf.
+The stream can be ended early with `stream.controller.abort()` or `await stream.close()`. Ping frames are skipped, delta frames that share an ID are preserved, unknown event types are passed through, and an error event throws an `APIError`.
+
+`stream.lastEventID` holds the ID of the most recent event. Pass it back as `last_event_id` to resume where you stopped — the SDK does not reconnect or replay on your behalf.
+
+```ts
+const resumed = await client.sessions.events.streamEvents(session.id, {
+  last_event_id: stream.lastEventID,
+});
+```
+
+## File uploads
+
+File parameters accept a `File`, a `Blob`, a byte array, a `Response`, a `ReadableStream` or an async iterable — including a Node file stream. `toFile` wraps any of those with an explicit filename.
 
 ```ts
 import { toFile } from 'qca-sdk';
+import fs from 'node:fs';
 
-const file = await forward.files.upload({
-  file: await toFile(new TextEncoder().encode('Hello'), 'hello.txt'),
-  purpose: 'session_input',
+const uploaded = await client.files.upload({
+  file: await toFile(fs.createReadStream('input.csv'), 'input.csv'),
+  purpose: 'session_resource',
 });
-const download = await forward.files.download(file.id);
-const bytes = await download.arrayBuffer();
+
+const inline = await client.files.upload({
+  file: await toFile(new TextEncoder().encode('Hello'), 'hello.txt'),
+});
 ```
 
-`toFile` accepts Blob/File values, byte arrays, a `Response`, a `ReadableStream` and async iterables, including Node file streams. Skill uploads preserve the relative paths of the file tree and the repeated `files` field. Downloads first resolve a temporary link, then issue an isolated storage request that carries no API credential, default headers or middleware.
+A value passed without a filename is sent as `upload`, so give one whenever the name matters — either through `toFile`, or as `{ data, name }`. Operations taking a repeated `files` field accept an array, and each part keeps its own filename; skill uploads use that to carry relative paths such as `code-review/scripts/run.sh`.
 
-## Development and verification
-
-```sh
-npm ci
-npm test
-npm run typecheck
-npm run test:scenarios
+```ts
+await client.skills.create({
+  files: [
+    { data: await fs.promises.readFile('code-review/SKILL.md'), name: 'code-review/SKILL.md' },
+    { data: await fs.promises.readFile('code-review/scripts/run.sh'), name: 'code-review/scripts/run.sh' },
+  ],
+});
 ```
 
-A live-scenario entry point equivalent to Go's `example -scenario all` is included. Install dependencies and run an initial build at the repository root, fill in `.env.live`, then run:
+Downloads first resolve a temporary link, then issue an isolated storage request that carries no API credential, default headers or middleware.
 
-```sh
-npm ci
-npm run build
-npm run example -- -mode both -scenario all -region international -model auto
+```ts
+const download = await client.files.download(uploaded.id);
+const bytes = new Uint8Array(await download.arrayBuffer());
 ```
 
-`npm run example` rebuilds the SDK before every run, executes six Forward and six Managed real scenarios, and cleans up the resources it created. The default `-region cn` overrides the hostname from `.env.live`, so international accounts must pass `-region international` explicitly. The `all` example does not depend on the `LIVE_ALLOW_*` switches used by the migrated live tests. See [examples/README.md](examples/README.md) for single-scenario runs, credentials and JSON reports; results are written to `build/example-results/`.
+## Handling errors
 
-The offline contracts for all 205 APIs, the 46 migrated live scenarios and the 12 example scenarios above are distinct layers of verification — the 12 examples do not mean all 205 remote operations were exercised individually. The API cross-reference lives in [Forward API inventory](src/forward/api-inventory.json) and [Managed API inventory](src/managed/api-inventory.json).
+A non-2xx response throws a subclass of `APIError` carrying `status`, `code`, `type`, `request_id`, the parsed error payload, and the underlying `request` and `response`.
 
-Resource code and types can be regenerated from a given Go checkout. The generator validates the API inventory and fails on any signature or type it cannot recognize:
+```ts
+import { APIError, NotFoundError } from 'qca-sdk';
 
-```sh
-python3 scripts/generate-forward.py ../qoder-cloud-agents-sdk-go
-python3 scripts/generate-managed.py ../qoder-cloud-agents-sdk-go
-npm test
+try {
+  await client.sessions.retrieve('sess_missing');
+} catch (error) {
+  if (error instanceof NotFoundError) {
+    console.log(error.status, error.code, error.request_id);
+  } else if (error instanceof APIError) {
+    console.log(error.status, error.message);
+  } else {
+    throw error;
+  }
+}
 ```
 
-The generator only touches `src/forward` and `src/managed`; the shared transport layer lives in `src/core`. The Go snapshots used by the tests are maintained separately, so a change to the API surface should be reviewed against both the contract diff and the test migration index.
+| Status | Error class              |
+| ------ | ----------------------- |
+| 400    | `BadRequestError`       |
+| 401    | `AuthenticationError`   |
+| 403    | `PermissionDeniedError` |
+| 404    | `NotFoundError`         |
+| 409    | `ConflictError`         |
+| 422    | `UnprocessableEntityError` |
+| 429    | `RateLimitError`        |
+| >=500  | `InternalServerError`   |
+
+Connection failures throw `APIConnectionError`, an exhausted timeout throws `APIConnectionTimeoutError`, and aborting through your own signal throws `APIUserAbortError`. Client-side misconfiguration — an invalid `baseURL`, a negative `maxRetries` — throws `QoderError`, the base class of all of the above.
+
+### Request IDs
+
+Every response carries a request ID, exposed as `request_id` on errors and available on successful responses through `withResponse()`. Include it when reporting a problem.
+
+```ts
+const { data, request_id } = await client.sessions.retrieve(session.id).withResponse();
+```
+
+## Retries
+
+Connection errors, timeouts, 408, 429 and 5xx responses are retried twice by default with exponential backoff and jitter. Only replayable requests are eligible: `GET` and `HEAD`, plus any request sent with an idempotency key. Writes without an idempotency key are retried on 429 only, 409 is never retried, and a request whose body is a `ReadableStream` is never replayed because the body cannot be re-read. A `retry-after-ms`, `retry-after` or `x-should-retry` response header overrides the default decision.
+
+```ts
+const client = new ForwardClient({ maxRetries: 0 }); // disable retries
+await client.sessions.create(params, { maxRetries: 5, idempotencyKey: 'my-key' });
+```
+
+Each attempt re-resolves the credential and sends an `X-Qoder-Retry-Count` header.
+
+## Timeouts
+
+Requests time out after 10 minutes by default and are then retried according to the rules above. Configure the client default or override per request:
+
+```ts
+const client = new ForwardClient({ timeout: 20 * 1000 });
+await client.sessions.list({}, { timeout: 5 * 1000 });
+```
+
+Pass `signal` to cancel a request yourself. The deadline stays armed while the response body is being read, so a stream is aborted once the subscription as a whole outlives the timeout — give a long-running subscription a limit sized for the whole session, not for one event.
+
+```ts
+await client.sessions.list({}, { signal: AbortSignal.timeout(5_000) });
+```
+
+## Auto-pagination
+
+List methods return an async-iterable page. Iterating the result fetches subsequent pages as needed, carrying your filter parameters forward.
+
+```ts
+for await (const template of client.templates.list({ limit: 20 })) {
+  console.log(template.id);
+}
+```
+
+Pages can also be walked one at a time:
+
+```ts
+const page = await client.templates.list({ limit: 20 });
+console.log(page.data.length);
+
+if (page.hasNextPage()) {
+  const next = await page.getNextPage();
+  console.log(next?.data);
+}
+
+for await (const p of page.iterPages()) {
+  console.log(p.data.length);
+}
+```
+
+Cursor style follows the operation: ID cursors use `after_id` and `before_id`, opaque cursors use `next_page` fed back as `page`. Auto-pagination stops with an error if a cursor fails to advance, rather than looping forever.
+
+## Advanced usage
+
+### Accessing raw response data
+
+Every method returns an `APIPromise`. Awaiting it gives the parsed body; `asResponse()` returns the raw `Response` without reading the body, and `withResponse()` gives you both.
+
+```ts
+const response = await client.sessions.retrieve(session.id).asResponse();
+console.log(response.headers.get('x-request-id'));
+
+const { data, response: raw } = await client.sessions.retrieve(session.id).withResponse();
+```
+
+### Undocumented endpoints and fields
+
+Request parameter types accept extra properties, so a field the types do not know about yet can be sent as-is. For an endpoint with no generated method, call the transport directly:
+
+```ts
+await client.request({ method: 'POST', path: 'undocumented/endpoint', body: { key: 'value' } });
+```
+
+Extra query parameters and headers go through `query` and `headers` on the per-request options. Undocumented response fields survive decoding but are not typed, so reach them through a cast.
+
+### Middleware and custom fetch
+
+`middleware` wraps each attempt, which is the hook for logging, tracing or request rewriting. `fetch` replaces the implementation entirely.
+
+```ts
+const client = new ForwardClient({
+  middleware: [
+    async (request, next) => {
+      const started = Date.now();
+      const response = await next(request);
+      console.log(request.method, request.url, response.status, `${Date.now() - started}ms`);
+      return response;
+    },
+  ],
+});
+```
+
+Neither hook is applied to file downloads, which deliberately bypass the client to avoid sending credentials to storage.
+
+## Requirements
+
+Node.js 20.12 or later. The SDK relies only on the platform's `fetch`, `Request`, `Response`, `Headers`, `AbortController`, `Blob` and `File` — any runtime providing those, and a `fetch` you can inject if not, should work. Deno, Bun, Cloudflare Workers and Vercel Edge are not part of the test matrix.
 
 ## License
 
