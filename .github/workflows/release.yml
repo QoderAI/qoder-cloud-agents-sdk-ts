@@ -1,15 +1,15 @@
 name: Release
 
-# Stages a version on the npm registry. Staging never prompts for 2FA, so it
-# runs unattended; a maintainer then runs `npm stage approve <stage-id>` to make
-# the version public.
+# Publishes a version to the npm registry. The trust relationship grants
+# `npm publish` over OIDC, so pushing a tag releases the version with no human
+# step. A version is public the moment this workflow succeeds.
 on:
   push:
     tags: ['v*']
   workflow_dispatch:
     inputs:
       dist_tag:
-        description: 'Override the npm dist-tag (default: derived from the version)'
+        description: 'Override the npm dist-tag (default: latest)'
         required: false
         default: ''
 
@@ -18,7 +18,7 @@ permissions:
   id-token: write
 
 jobs:
-  stage:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -27,7 +27,7 @@ jobs:
           node-version: '22.x'
           cache: npm
           registry-url: https://registry.npmjs.org
-      # `npm stage` and `--provenance` need npm 11.15.0 or newer.
+      # `--provenance` needs npm 9.5.0 or newer; pin a current major instead.
       - run: npm install -g npm@^12.0.0
       - run: npm ci
       - run: npm run build
@@ -41,16 +41,19 @@ jobs:
             echo "git tag $GITHUB_REF_NAME does not match package version $version" >&2
             exit 1
           fi
+          # Pre-1.0 dev builds are the newest thing this package has, so a bare
+          # `npm install qca-sdk` should resolve to them. The OIDC token cannot
+          # run `npm dist-tag`, so the tag has to be decided here.
           tag="${{ github.event.inputs.dist_tag }}"
           if [ -z "$tag" ]; then
-            tag=$(node -p "(require('./package.json').version.match(/-([a-z]+)/) || [,'latest'])[1]")
+            tag=latest
           fi
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
 
       # Authenticates through the npm trust relationship (OIDC); no token needed.
-      - run: npm stage publish --tag '${{ steps.meta.outputs.tag }}' --access public --provenance
+      - run: npm publish --tag '${{ steps.meta.outputs.tag }}' --access public --provenance
 
       - run: |
-          echo "Staged qca-sdk@${{ steps.meta.outputs.version }} under tag ${{ steps.meta.outputs.tag }}." >> "$GITHUB_STEP_SUMMARY"
-          echo 'Approve it locally: `npm stage list qca-sdk` then `npm stage approve <stage-id>`.' >> "$GITHUB_STEP_SUMMARY"
+          echo "Published qca-sdk@${{ steps.meta.outputs.version }} under tag ${{ steps.meta.outputs.tag }}." >> "$GITHUB_STEP_SUMMARY"
+          echo 'Verify: `npm view qca-sdk@${{ steps.meta.outputs.version }}` and `npm audit signatures`.' >> "$GITHUB_STEP_SUMMARY"
