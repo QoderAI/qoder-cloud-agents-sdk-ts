@@ -232,6 +232,25 @@ Pass `signal` to cancel a request yourself. The deadline stays armed while the r
 await client.sessions.list({}, { signal: AbortSignal.timeout(5_000) });
 ```
 
+## Client fingerprint
+
+Every API request identifies the client so the service can tell which SDK versions are in use before changing a response shape:
+
+| Header | Value |
+| --- | --- |
+| `User-Agent` | `qca-js/<version>` |
+| `X-Qoder-Lang` | `js` |
+| `X-Qoder-Package-Version` | the published package version, also exported as `VERSION` |
+| `X-Qoder-OS` / `X-Qoder-Arch` | normalized platform, e.g. `MacOS` / `arm64` |
+| `X-Qoder-Runtime` / `X-Qoder-Runtime-Version` | `node` and its version |
+| `X-Qoder-Retry-Count` / `X-Qoder-Timeout` | attempt number, and the request deadline in seconds |
+
+The signed-URL leg of a file download carries none of these, so nothing is disclosed to object storage. Any of them can be replaced:
+
+```ts
+const client = new ForwardClient({ defaultHeaders: { 'User-Agent': 'my-app/2.1' } });
+```
+
 ## Auto-pagination
 
 List methods return an async-iterable page. Iterating the result fetches subsequent pages as needed, carrying your filter parameters forward.

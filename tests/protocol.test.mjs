@@ -95,6 +95,42 @@ for (const mode of ['forward', 'managed']) {
     const res = mode === 'forward' ? await c.files.download('file') : await c.files.download('file', {});
     assert.equal(await res.text(), 'actual file'); assert.equal(calls, 2);
   });
+  test(`${mode}: client fingerprint identifies the SDK but never reaches storage`, async () => {
+    const seen = [];
+    const c = testClient(mode, req => {
+      seen.push(req.headers);
+      if (new URL(req.url).host === 'qoder.test') return response({ url: 'https://storage.test/object?signature=signed' });
+      return response('actual file');
+    }, { timeout: 30_000 });
+    const res = mode === 'forward' ? await c.files.download('file') : await c.files.download('file', {});
+    assert.equal(await res.text(), 'actual file');
+    const [api, storage] = seen;
+    assert.equal(api.get('user-agent'), `qca-js/${sdk.VERSION}`);
+    assert.equal(api.get('x-qoder-lang'), 'js');
+    assert.equal(api.get('x-qoder-package-version'), sdk.VERSION);
+    assert.equal(api.get('x-qoder-runtime'), 'node');
+    assert.equal(api.get('x-qoder-runtime-version'), process.version.replace(/^v/, ''));
+    // Normalized rather than raw process.platform/arch, so the same machine lands
+    // in the same server-side bucket as the Go and Python SDKs.
+    assert.ok(['MacOS', 'Windows', 'Linux', 'iOS', 'Android', 'FreeBSD', 'OpenBSD'].includes(api.get('x-qoder-os')));
+    assert.ok(['x32', 'x64', 'arm', 'arm64'].includes(api.get('x-qoder-arch')));
+    assert.equal(api.get('x-qoder-timeout'), '30');
+    for (const name of ['user-agent', 'x-qoder-lang', 'x-qoder-package-version', 'x-qoder-os', 'x-qoder-arch', 'x-qoder-runtime', 'x-qoder-timeout']) {
+      assert.equal(storage.get(name), null, name);
+    }
+  });
+  test(`${mode}: client fingerprint yields to caller headers and omits an absent deadline`, async () => {
+    const seen = [];
+    const c = testClient(mode, req => { seen.push(req.headers); return response({ data: [] }); }, {
+      timeout: 0,
+      defaultHeaders: { 'User-Agent': 'caller/1.0', 'X-Qoder-Lang': 'cli' },
+    });
+    const r = mode === 'forward' ? c.templates : c.agents;
+    await r.list({});
+    assert.equal(seen[0].get('user-agent'), 'caller/1.0');
+    assert.equal(seen[0].get('x-qoder-lang'), 'cli');
+    assert.equal(seen[0].get('x-qoder-timeout'), null);
+  });
   test(`${mode}: multipart files retain relative names and metadata`, async () => {
     let calls = 0;
     const c = testClient(mode, async req => {

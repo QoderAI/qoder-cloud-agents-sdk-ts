@@ -3,6 +3,8 @@ import { type Credential, readEnv } from './credentials.js';
 import { APIConnectionError, APIConnectionTimeoutError, APIError, APIUserAbortError, QoderError } from './error.js';
 import { Page, PagePromise, type PageResponse, type PaginationMode } from './pagination.js';
 import { Stream } from './streaming.js';
+import { VERSION } from '../version.js';
+import { platformHeaders } from './detect-platform.js';
 
 export type HeadersLike = HeadersInit | Record<string, string | null | undefined>;
 export type Middleware = (request: Request, next: (request: Request) => Promise<Response>) => Promise<Response>;
@@ -177,7 +179,12 @@ export class APIClient {
     }
     const method = options.method.toUpperCase();
     const value = await withSignal(Promise.resolve(options.body), callerSignal, () => false);
-    const headers = storage ? new Headers() : mergeHeaders({ Accept: options.responseType === 'stream' ? 'text/event-stream' : 'application/json' }, this.options.defaultHeaders, options.headers);
+    const headers = storage ? new Headers() : mergeHeaders({
+      Accept: options.responseType === 'stream' ? 'text/event-stream' : 'application/json',
+      'User-Agent': `qca-js/${VERSION}`,
+      ...platformHeaders(),
+      ...(timeout ? { 'X-Qoder-Timeout': String(Math.trunc(timeout / 1000)) } : {}),
+    }, this.options.defaultHeaders, options.headers);
     if (options.idempotencyKey !== undefined) headers.set('Idempotency-Key', options.idempotencyKey);
     let body: BodyInit | undefined;
     if (value !== undefined) {
