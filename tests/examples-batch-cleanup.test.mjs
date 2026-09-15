@@ -110,10 +110,10 @@ test('CLI still reports failed queued batch even when owned-scope fallback prove
   const envFile = join(directory,'config.env'), reportFile = join(directory,'report.json');
   writeFileSync(envFile, 'QODER_FORWARD_PAT=test-token\n');
   const savedFetch = globalThis.fetch, savedLog = console.log;
-  const keys = ['QODER_FORWARD_PAT','QODER_FORWARD_BASE_URL','QODER_FORWARD_MODEL','QODER_ACCESS_TOKEN'];
+  const keys = ['QODER_FORWARD_PAT','QODER_FORWARD_BASE_URL','QODER_FORWARD_MODEL','QODER_PAT'];
   const savedEnv = Object.fromEntries(keys.map(k => [k,process.env[k]]));
   process.env.QODER_FORWARD_PAT = 'test-token';
-  delete process.env.QODER_FORWARD_BASE_URL; delete process.env.QODER_FORWARD_MODEL; delete process.env.QODER_ACCESS_TOKEN;
+  delete process.env.QODER_FORWARD_BASE_URL; delete process.env.QODER_FORWARD_MODEL; delete process.env.QODER_PAT;
   const requests = []; let canceled = false;
   globalThis.fetch = async (input, init) => {
     const req = new Request(input,init), url = new URL(req.url), path = url.pathname.replace('/api/v1/forward','');

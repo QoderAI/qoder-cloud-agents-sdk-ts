@@ -11,7 +11,7 @@ for (const mode of ['forward', 'managed']) {
       assert.equal(typeof Client, 'function');
       assert.equal(typeof module.PATCredential, 'function');
       assert.equal(typeof module.toFile, 'function');
-      const client = new Client({ accessToken: 'package-test', maxRetries: 0, fetch: async (url, init) => {
+      const client = new Client({ pat: 'package-test', maxRetries: 0, fetch: async (url, init) => {
         assert.match(String(url), /\/models$/);
         assert.equal(new Headers(init.headers).get('Authorization'), 'Bearer package-test');
         return new Response(JSON.stringify({ data: [{ id: 'model-one' }], has_more: false }));

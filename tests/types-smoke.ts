@@ -4,7 +4,7 @@ import Managed from 'qca-sdk/managed';
 import type { TemplateUpdateParams, SessionEvent } from 'qca-sdk/forward';
 import type { AgentUpdateParams } from 'qca-sdk/managed';
 
-const forward: ForwardClient = new Forward({ accessToken: async () => 'token', timeout: 5000 });
+const forward: ForwardClient = new Forward({ pat: async () => 'token', timeout: 5000 });
 const managed: ManagedClient = new Managed();
 const forwardPatch: TemplateUpdateParams = {
   name: '', system: null, tools: [], multiagent: null, metadata: null,

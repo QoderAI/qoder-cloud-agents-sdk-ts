@@ -23,7 +23,7 @@ The library exposes two clients, one per API. Both are constructed the same way 
 import { ForwardClient } from 'qca-sdk';
 
 const client = new ForwardClient({
-  accessToken: process.env.QODER_ACCESS_TOKEN, // this is the default and can be omitted
+  pat: process.env.QODER_PAT, // this is the default and can be omitted
 });
 
 const session = await client.sessions.create({
@@ -75,7 +75,7 @@ import ForwardClient from 'qca-sdk/forward';
 
 ### Configuration
 
-`accessToken` accepts a string or a function returning a string or a promise, which is re-resolved before every request attempt — useful for short-lived tokens. A `Credential` object can be supplied instead; `PATCredential.fromEnv()` reads `QODER_ACCESS_TOKEN`.
+`pat` accepts a string or a function returning a string or a promise, which is re-resolved before every request attempt — useful for short-lived tokens. A `Credential` object can be supplied instead; `PATCredential.fromEnv()` reads `QODER_PAT`.
 
 The base URL comes from `QODER_FORWARD_BASE_URL` for Forward and `QODER_BASE_URL` for Managed, defaulting to `https://api.qoder.com/api/v1/forward` and `https://api.qoder.com/api/v1/cloud`. Explicit constructor options always win.
 

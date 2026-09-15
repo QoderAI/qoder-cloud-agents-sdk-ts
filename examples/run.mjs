@@ -48,12 +48,12 @@ export function loadConfiguration(options, environment = process.env) {
   const values = { ...parseEnv(contents), ...environment };
   return (options.mode === 'both' ? ['forward', 'managed'] : [options.mode]).map(mode => {
     const prefix = `QODER_${mode.toUpperCase()}_`;
-    const accessToken = values[`${prefix}PAT`] || values.QODER_ACCESS_TOKEN;
-    if (!accessToken) throw new Error(`${prefix}PAT or QODER_ACCESS_TOKEN is required`);
+    const pat = values[`${prefix}PAT`] || values.QODER_PAT;
+    if (!pat) throw new Error(`${prefix}PAT or QODER_PAT is required`);
     const base = new URL(values[`${prefix}BASE_URL`] || `https://api.qoder.com.cn/api/v1/${mode === 'forward' ? 'forward' : 'cloud'}`);
     if (base.protocol !== 'https:' || base.username || base.password || base.search || base.hash || !['api.qoder.com', 'api.qoder.com.cn'].includes(base.host)) throw new Error('Examples require an HTTPS Qoder API URL without credentials or query');
     base.host = options.region === 'cn' ? 'api.qoder.com.cn' : 'api.qoder.com';
-    return { ...options, mode, envFile: file, accessToken, baseURL: base.href.replace(/\/$/, ''), model: options.model || values[`${prefix}MODEL`] || undefined };
+    return { ...options, mode, envFile: file, pat, baseURL: base.href.replace(/\/$/, ''), model: options.model || values[`${prefix}MODEL`] || undefined };
   });
 }
 
@@ -93,7 +93,7 @@ export async function main(argv = process.argv.slice(2)) {
     return 0;
   }
   const configs = loadConfiguration(options);
-  const safe = createSanitizer(configs.map(c => c.accessToken));
+  const safe = createSanitizer(configs.map(c => c.pat));
   const definitions = {};
   for (const config of configs) {
     const module = await import(`./${config.mode}-scenarios.mjs`);
@@ -117,7 +117,7 @@ export async function main(argv = process.argv.slice(2)) {
     for (const config of configs) {
       let active;
       const Client = config.mode === 'forward' ? ForwardClient : ManagedClient;
-      const client = new Client({ accessToken: config.accessToken, baseURL: config.baseURL, maxRetries: 0, timeout: 30_000, fetch: async (input, init) => {
+      const client = new Client({ pat: config.pat, baseURL: config.baseURL, maxRetries: 0, timeout: 30_000, fetch: async (input, init) => {
         const start = Date.now();
         const url = new URL(input instanceof Request ? input.url : String(input));
         try {

@@ -19,7 +19,7 @@ for (const scenario of managedScenarios) {
     if (['execution', 'e2e'].includes(scenario.mode) && process.env.QODER_MANAGED_LIVE_ALLOW_EXECUTION !== 'true') return t.skip('QODER_MANAGED_LIVE_ALLOW_EXECUTION is not true');
     if (scenario.mode === 'e2e' && !process.env.QODER_MANAGED_MODEL) return t.skip('QODER_MANAGED_MODEL is required for E2E');
     const client = new ManagedClient({
-      accessToken: pat,
+      pat: pat,
       baseURL: process.env.QODER_MANAGED_BASE_URL || 'https://api.qoder.com/api/v1/cloud/',
       timeout: positiveSeconds('QODER_MANAGED_LIVE_TIMEOUT_SECONDS', 15),
       maxRetries: 0,

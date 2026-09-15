@@ -220,7 +220,7 @@ export function forwardLiveSkipReason(scenario) {
 export function createForwardLiveSuite() {
   const timeout = seconds('QODER_FORWARD_LIVE_TIMEOUT_SECONDS', 15);
   const scenarioTimeout = seconds('QODER_E2E_TIMEOUT_SECONDS', 180, 1800);
-  return new ForwardLiveSuite(new ForwardClient({ accessToken: process.env.QODER_FORWARD_PAT, timeout, maxRetries: 0 }), {
+  return new ForwardLiveSuite(new ForwardClient({ pat: process.env.QODER_FORWARD_PAT, timeout, maxRetries: 0 }), {
     timeout, scenarioTimeout, model: process.env.QODER_FORWARD_MODEL,
   });
 }

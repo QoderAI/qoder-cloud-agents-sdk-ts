@@ -13,7 +13,7 @@ export function response(body, status = 200, headers = {}) {
 }
 export function testClient(mode, handler, options = {}) {
   const Client = mode === 'forward' ? sdk.ForwardClient : sdk.ManagedClient;
-  return new Client({ accessToken: 'secret-pat', baseURL: `https://qoder.test/api/v1/${mode === 'forward' ? 'forward' : 'cloud'}`, maxRetries: 0, fetch: async (input, init) => handler(new Request(input, init)), ...options });
+  return new Client({ pat: 'secret-pat', baseURL: `https://qoder.test/api/v1/${mode === 'forward' ? 'forward' : 'cloud'}`, maxRetries: 0, fetch: async (input, init) => handler(new Request(input, init)), ...options });
 }
 export const lookup = (mode, contract) => methods[mode].find(m => m.id === contract.id);
 export const resource = (client, entry) => entry.split('.').reduce((value, key) => value[key], client);

@@ -11,7 +11,7 @@ export class PATCredential implements Credential {
     if (!token) throw new Error('PAT must not be empty');
   }
 
-  static fromEnv(name = 'QODER_ACCESS_TOKEN'): PATCredential {
+  static fromEnv(name = 'QODER_PAT'): PATCredential {
     return new PATCredential(readEnv(name) ?? '');
   }
 

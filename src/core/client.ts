@@ -9,7 +9,7 @@ import { platformHeaders } from './detect-platform.js';
 export type HeadersLike = HeadersInit | Record<string, string | null | undefined>;
 export type Middleware = (request: Request, next: (request: Request) => Promise<Response>) => Promise<Response>;
 export interface ClientOptions {
-  accessToken?: string | (() => string | Promise<string>);
+  pat?: string | (() => string | Promise<string>);
   credential?: Credential;
   baseURL?: string;
   fetch?: typeof globalThis.fetch;
@@ -211,8 +211,8 @@ export class APIClient {
           attemptHeaders.set('X-Qoder-Retry-Count', String(attempt));
           if (!attemptHeaders.has('authorization')) {
             const credential = this.options.credential;
-            const configured = this.options.accessToken;
-            const token = await withSignal(Promise.resolve(credential ? credential.getToken() : typeof configured === 'function' ? configured() : configured ?? readEnv('QODER_ACCESS_TOKEN')), signal, () => timedOut);
+            const configured = this.options.pat;
+            const token = await withSignal(Promise.resolve(credential ? credential.getToken() : typeof configured === 'function' ? configured() : configured ?? readEnv('QODER_PAT')), signal, () => timedOut);
             if (token) attemptHeaders.set('Authorization', `Bearer ${token}`);
           }
         }

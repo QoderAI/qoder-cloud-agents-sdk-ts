@@ -6,13 +6,13 @@ import { sdk, fixture, methods, argumentsFor, invoke, response, testClient } fro
 for (const mode of ['forward', 'managed']) {
   test(`${mode}: explicit options override environment and request headers override defaults`, async () => {
     const baseVariable = mode === 'forward' ? 'QODER_FORWARD_BASE_URL' : 'QODER_BASE_URL';
-    const previousToken = process.env.QODER_ACCESS_TOKEN, previousBase = process.env[baseVariable];
-    process.env.QODER_ACCESS_TOKEN = 'environment-token';
+    const previousToken = process.env.QODER_PAT, previousBase = process.env[baseVariable];
+    process.env.QODER_PAT = 'environment-token';
     process.env[baseVariable] = `https://env.test/${mode}`;
     try {
       for (const explicit of [false, true]) {
         const Client = mode === 'forward' ? sdk.ForwardClient : sdk.ManagedClient;
-        const c = new Client({ maxRetries: 0, defaultHeaders: { 'x-test': 'client' }, ...(explicit ? { accessToken: 'explicit-token', baseURL: `https://explicit.test/${mode}` } : {}), fetch: async (input, init) => {
+        const c = new Client({ maxRetries: 0, defaultHeaders: { 'x-test': 'client' }, ...(explicit ? { pat: 'explicit-token', baseURL: `https://explicit.test/${mode}` } : {}), fetch: async (input, init) => {
           const req = new Request(input, init);
           assert.equal(new URL(req.url).host, explicit ? 'explicit.test' : 'env.test');
           assert.equal(req.headers.get('authorization'), `Bearer ${explicit ? 'explicit-token' : 'environment-token'}`);
@@ -23,7 +23,7 @@ for (const mode of ['forward', 'managed']) {
         else await c.models.list({}, { headers: { 'x-test': 'request' } });
       }
     } finally {
-      if (previousToken === undefined) delete process.env.QODER_ACCESS_TOKEN; else process.env.QODER_ACCESS_TOKEN = previousToken;
+      if (previousToken === undefined) delete process.env.QODER_PAT; else process.env.QODER_PAT = previousToken;
       if (previousBase === undefined) delete process.env[baseVariable]; else process.env[baseVariable] = previousBase;
     }
   });
