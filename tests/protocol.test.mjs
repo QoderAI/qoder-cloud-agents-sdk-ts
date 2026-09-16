@@ -4,6 +4,19 @@ import { test } from 'node:test';
 import { sdk, fixture, methods, argumentsFor, invoke, response, testClient } from './helpers.mjs';
 
 for (const mode of ['forward', 'managed']) {
+  test(`${mode}: missing credential rejects on the first request, not at construction`, async () => {
+    const Client = mode === 'forward' ? sdk.ForwardClient : sdk.ManagedClient;
+    const previousToken = process.env.QODER_PAT;
+    delete process.env.QODER_PAT;
+    try {
+      const noCredential = new Client({ maxRetries: 0, fetch: async () => response({ data: [] }) });
+      await assert.rejects(() => (mode === 'forward' ? noCredential.templates : noCredential.agents).list({}), /Could not resolve authentication method/);
+      const explicit = new Client({ pat: 'explicit', maxRetries: 0, fetch: async () => response({ data: [] }) });
+      await (mode === 'forward' ? explicit.templates : explicit.agents).list({});
+    } finally {
+      if (previousToken === undefined) delete process.env.QODER_PAT; else process.env.QODER_PAT = previousToken;
+    }
+  });
   test(`${mode}: explicit options override environment and request headers override defaults`, async () => {
     const baseVariable = mode === 'forward' ? 'QODER_FORWARD_BASE_URL' : 'QODER_BASE_URL';
     const previousToken = process.env.QODER_PAT, previousBase = process.env[baseVariable];

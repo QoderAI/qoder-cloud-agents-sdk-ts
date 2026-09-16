@@ -113,6 +113,16 @@ export class APIClient {
     if (!Number.isFinite(timeout) || timeout < 0) throw new QoderError('timeout must be a non-negative number');
   }
 
+  protected validateHeaders(headers: Headers): void {
+    if (headers.get('authorization')) {
+      return;
+    }
+
+    throw new Error(
+      'Could not resolve authentication method. Expected one of pat or credential to be set, or the QODER_PAT environment variable to be configured.',
+    );
+  }
+
   request<T>(options: APIRequestOptions): APIPromise<T> {
     return new APIPromise(this.execute(options), async (response) => {
       if (options.responseType === 'response' || options.responseType === 'binary') return response as T;
@@ -215,6 +225,7 @@ export class APIClient {
             const token = await withSignal(Promise.resolve(credential ? credential.getToken() : typeof configured === 'function' ? configured() : configured ?? readEnv('QODER_PAT')), signal, () => timedOut);
             if (token) attemptHeaders.set('Authorization', `Bearer ${token}`);
           }
+          this.validateHeaders(attemptHeaders);
         }
         let response: Response;
         try {
