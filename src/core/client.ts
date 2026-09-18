@@ -91,12 +91,14 @@ export class APIClient {
   readonly baseURL: string;
   readonly maxRetries: number;
   readonly timeout: number;
+  readonly defaultHeaders: HeadersLike | undefined;
   protected readonly options: ClientOptions;
   private readonly fetchImpl: typeof globalThis.fetch;
   private readonly controllers = new WeakMap<Response, AbortController>();
 
   constructor(options: ClientOptions = {}, readonly mode: 'forward' | 'managed' = 'managed') {
     this.options = { ...options };
+    this.defaultHeaders = options.defaultHeaders;
     this.baseURL = (options.baseURL ?? readEnv(mode === 'forward' ? 'QODER_FORWARD_BASE_URL' : 'QODER_BASE_URL')
       ?? `https://api.qoder.com/api/v1/${mode === 'forward' ? 'forward' : 'cloud'}`).replace(/\/+$/, '');
     const url = new URL(this.baseURL);

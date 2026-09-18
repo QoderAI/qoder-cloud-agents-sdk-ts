@@ -4,6 +4,7 @@ import type { RequestOptions } from '../../core/client.js';
 import type { APIPromise } from '../../core/api-promise.js';
 import type { PagePromise } from '../../core/pagination.js';
 import type { Stream } from '../../core/streaming.js';
+import { initialLastEventID, ResumableSessionEventStream, resumableRequestHeaders } from '../../core/resumable-session-event-stream.js';
 import type * as Types from '../types.js';
 import { splitParams, pathParam, managedMultipart } from '../internal.js';
 
@@ -29,9 +30,28 @@ export class SessionsEvents extends APIResource {
    * Stream Events
    */
   streamEvents(sessionID: string, params: Types.SessionEventStreamParams | null | undefined = {}, options?: RequestOptions): APIPromise<Stream<Types.ManagedAgentsStreamSessionEventsUnion>> {
-    const request = splitParams(params, options, {"workspace_id": "qoder-workspace-id", "betas": "x-qoder-beta"}, []);
+    const request = splitParams(params, options, {"workspace_id": "qoder-workspace-id", "betas": "x-qoder-beta", "last_event_id": "Last-Event-ID"}, []);
     if (!request.headers.has('Accept')) request.headers.set('Accept', 'text/event-stream');
     return this._client.request<Stream<Types.ManagedAgentsStreamSessionEventsUnion>>({ ...request.options, method: "GET", path: `/sessions/${pathParam(sessionID, "session_id")}/events/stream`, query: request.values, responseType: 'stream' });
+  }
+
+  /** Subscribe to Session Events and reconnect from the latest delivered SSE frame. */
+  resumableStream(
+    sessionID: string,
+    params: Types.SessionEventStreamParams | null | undefined = {},
+    options?: RequestOptions,
+  ): ResumableSessionEventStream<Types.ManagedAgentsStreamSessionEventsUnion> {
+    const values = params ?? {};
+    const initialCursor = initialLastEventID(values.last_event_id, this._client.defaultHeaders, options?.headers);
+    return new ResumableSessionEventStream<Types.ManagedAgentsStreamSessionEventsUnion>(
+      (lastEventID, signal) => this.streamEvents(
+        sessionID,
+        { ...values, last_event_id: lastEventID },
+        { ...options, signal, headers: resumableRequestHeaders(options?.headers, lastEventID) },
+      ),
+      initialCursor,
+      options?.signal,
+    );
   }
 }
 

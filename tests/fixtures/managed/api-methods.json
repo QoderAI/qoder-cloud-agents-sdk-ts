@@ -685,6 +685,10 @@
             "location": "query"
           },
           {
+            "wire": "Last-Event-ID",
+            "location": "header"
+          },
+          {
             "wire": "x-qoder-beta",
             "location": "header"
           }

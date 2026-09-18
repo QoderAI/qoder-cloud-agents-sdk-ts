@@ -3822,6 +3822,13 @@
             "required": false
           },
           {
+            "name": "last_event_id",
+            "type": "string | null",
+            "location": "header",
+            "wireName": "Last-Event-ID",
+            "required": false
+          },
+          {
             "name": "betas",
             "type": "Array<QoderBeta>",
             "location": "header",

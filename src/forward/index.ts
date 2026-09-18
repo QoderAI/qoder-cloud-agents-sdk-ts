@@ -31,6 +31,7 @@ export type { RequestOptions, ClientOptions } from '../core/client.js';
 export { APIPromise } from '../core/api-promise.js';
 export { Page, PagePromise } from '../core/pagination.js';
 export { Stream } from '../core/streaming.js';
+export { ResumableSessionEventStream } from '../core/resumable-session-event-stream.js';
 export { toFile } from '../core/uploads.js';
 export type { Uploadable } from '../core/uploads.js';
 export { PATCredential } from '../core/credentials.js';

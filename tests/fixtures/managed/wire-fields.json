@@ -4639,6 +4639,7 @@
     "properties": [
       "workspace_id",
       "event_deltas",
+      "last_event_id",
       "betas"
     ]
   },

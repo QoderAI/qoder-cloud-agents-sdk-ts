@@ -7,5 +7,6 @@ export * from '../core/error.js';
 export { APIPromise } from '../core/api-promise.js';
 export { Page, PagePromise } from '../core/pagination.js';
 export { Stream } from '../core/streaming.js';
+export { ResumableSessionEventStream } from '../core/resumable-session-event-stream.js';
 export { toFile, type Uploadable } from '../core/uploads.js';
 export type { RequestOptions } from '../core/client.js';

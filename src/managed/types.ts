@@ -9875,6 +9875,10 @@ export interface SessionEventStreamParams {
    */
   event_deltas?: Array<ManagedAgentsDeltaType>;
   /**
+   * Resume after this event ID.
+   */
+  last_event_id?: string | null;
+  /**
    * Optional header to specify the beta version(s) you want to use.
    */
   betas?: Array<QoderBeta>;

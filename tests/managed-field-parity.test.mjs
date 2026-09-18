@@ -58,7 +58,7 @@ function preservesVariant(notation, target) {
   return preserves(declared(notation), target);
 }
 
-test('Managed wire parity: all 695 pinned types keep their 2568 wire properties, native variants and flattened bodies', () => {
+test('Managed wire parity: all 695 pinned types keep their 2569 wire properties, native variants and flattened bodies', () => {
   assert.equal(Object.keys(expected).length, 695);
   const diagnostics = ts.getPreEmitDiagnostics(program);
   assert.equal(diagnostics.length, 0, ts.formatDiagnosticsWithColorAndContext(diagnostics, {
@@ -91,10 +91,10 @@ test('Managed wire parity: all 695 pinned types keep their 2568 wire properties,
       if (!index || !(index.flags & ts.TypeFlags.Unknown)) failures.push(`${name}: JSON Schema extension keyword support missing`);
     }
   }
-  assert.equal(properties, 2303, 'Wire property inventory changed');
+  assert.equal(properties, 2304, 'Wire property inventory changed');
   assert.equal(variants, 261, 'Native union adapter inventory changed');
   assert.equal(bodies, 3, 'Flattened body adapter inventory changed');
   assert.equal(extras, 1);
-  assert.equal(properties + variants + bodies + extras, 2568);
+  assert.equal(properties + variants + bodies + extras, 2569);
   assert.deepEqual(failures, []);
 });

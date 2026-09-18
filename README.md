@@ -121,13 +121,28 @@ for await (const event of stream) {
 
 The stream can be ended early with `stream.controller.abort()` or `await stream.close()`. Ping frames are skipped, delta frames that share an ID are preserved, unknown event types are passed through, and an error event throws an `APIError`.
 
-`stream.lastEventID` holds the ID of the most recent event. Pass it back as `last_event_id` to resume where you stopped — the SDK does not reconnect or replay on your behalf.
+`stream.lastEventID` holds the ID of the most recent event. Pass it back as `last_event_id` to resume a one-shot stream where you stopped:
 
 ```ts
 const resumed = await client.sessions.events.streamEvents(session.id, {
   last_event_id: stream.lastEventID,
 });
 ```
+
+For automatic reconnection, use the handwritten upper-layer resumable stream. It preserves the stream parameters and request options on every connection, checkpoints each fully decoded frame, and sends the latest cursor as `Last-Event-ID` after transport failures, timeouts, or unexpected EOF. Reconnects use abortable jittered exponential backoff. The retry status policy matches ordinary QCA requests: 408, 429, and 5xx are retryable, while 409 is not.
+
+```ts
+const stream = client.sessions.events.resumableStream(session.id, {
+  last_event_id: previousEventID,
+  'event_deltas[]': ['agent.message'], // Managed uses event_deltas
+});
+
+for await (const event of stream) {
+  console.log(event.type, stream.lastEventID);
+}
+```
+
+The resumable stream does not query event history, clear an invalid cursor, or deduplicate IDs: delta frames may legitimately share an event ID. It stops after `[DONE]`, `session.status_terminated`, or `session.deleted`. Stop it early with `stream.controller.abort()`, an `AbortSignal` in `RequestOptions`, or `await stream.close()`.
 
 ## File uploads
 

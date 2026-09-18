@@ -1,8 +1,8 @@
-import { ForwardClient, ManagedClient, APIPromise, Stream, toFile } from 'qca-sdk';
+import { ForwardClient, ManagedClient, APIPromise, Stream, ResumableSessionEventStream, toFile } from 'qca-sdk';
 import Forward from 'qca-sdk/forward';
 import Managed from 'qca-sdk/managed';
 import type { TemplateUpdateParams, SessionEvent } from 'qca-sdk/forward';
-import type { AgentUpdateParams } from 'qca-sdk/managed';
+import type { AgentUpdateParams, ManagedAgentsStreamSessionEventsUnion, SessionEventStreamParams as ManagedSessionEventStreamParams } from 'qca-sdk/managed';
 
 const forward: ForwardClient = new Forward({ pat: async () => 'token', timeout: 5000 });
 const managed: ManagedClient = new Managed();
@@ -17,7 +17,12 @@ const managedPatch: AgentUpdateParams = {
 void forward.templates.update('template', forwardPatch);
 void managed.agents.update('agent', managedPatch);
 const stream: APIPromise<Stream<SessionEvent>> = forward.sessions.events.streamEvents('session', { 'event_deltas[]': ['agent.message'] });
+const resumable: ResumableSessionEventStream<SessionEvent> = forward.sessions.events.resumableStream('session', { last_event_id: 'event' });
+const managedStreamParams: ManagedSessionEventStreamParams = { last_event_id: 'event', event_deltas: ['agent.message'] };
+const managedResumable: ResumableSessionEventStream<ManagedAgentsStreamSessionEventsUnion> = managed.sessions.events.resumableStream('session', managedStreamParams);
 void stream;
+void resumable;
+void managedResumable;
 async function uploadsAndPagination() {
   const file = await toFile(new Uint8Array([1]), 'input.txt');
   const uploaded = await forward.files.upload({ file, purpose: 'session_input' });

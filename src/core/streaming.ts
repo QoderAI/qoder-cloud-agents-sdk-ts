@@ -4,6 +4,7 @@ export interface ServerSentEvent {
   event: string;
   data: string;
   id: string;
+  hasID: boolean;
   retry?: number;
 }
 
@@ -13,6 +14,7 @@ export async function* decodeSSE(body: ReadableStream<Uint8Array>): AsyncGenerat
   const decoder = new TextDecoder();
   let buffer = '';
   let lastID = '';
+  let hasID = false;
   let type = 'message';
   let data: string[] = [];
   let retry: number | undefined;
@@ -20,8 +22,8 @@ export async function* decodeSSE(body: ReadableStream<Uint8Array>): AsyncGenerat
   const line = (text: string): ServerSentEvent | undefined => {
     if (new TextEncoder().encode(text).byteLength > 32 * 1024 * 1024) throw new QoderError('SSE line exceeds 32 MiB');
     if (!text) {
-      const event = data.length ? { event: type, data: data.join('\n'), id: lastID, retry } : undefined;
-      type = 'message'; data = []; retry = undefined;
+      const event = data.length || hasID ? { event: type, data: data.join('\n'), id: lastID, hasID, retry } : undefined;
+      type = 'message'; data = []; hasID = false; retry = undefined;
       return event;
     }
     if (text.startsWith(':')) return;
@@ -31,7 +33,7 @@ export async function* decodeSSE(body: ReadableStream<Uint8Array>): AsyncGenerat
     if (value.startsWith(' ')) value = value.slice(1);
     if (key === 'event') type = value;
     if (key === 'data') data.push(value);
-    if (key === 'id' && !value.includes('\0')) lastID = value;
+    if (key === 'id' && !value.includes('\0')) { lastID = value; hasID = true; }
     if (key === 'retry' && /^\d+$/.test(value)) retry = Number(value);
   };
   try {
@@ -52,9 +54,7 @@ export async function* decodeSSE(body: ReadableStream<Uint8Array>): AsyncGenerat
       buffer = buffer.slice(start);
       if (buffer.length > 32 * 1024 * 1024) throw new QoderError('SSE line exceeds 32 MiB');
     }
-    if (buffer) { const event = line(buffer); if (event) yield event; }
-    const event = line('');
-    if (event) yield event;
+    // EOF does not complete a frame; retain the last cursor only after a blank-line dispatch.
   } finally {
     if (!done) await reader.cancel().catch(() => {});
     reader.releaseLock();
@@ -64,6 +64,8 @@ export async function* decodeSSE(body: ReadableStream<Uint8Array>): AsyncGenerat
 export class Stream<T> implements AsyncIterable<T> {
   readonly controller: AbortController;
   lastEventID = '';
+  hasLastEventID = false;
+  completed = false;
   private consumed = false;
   private closed = false;
 
@@ -89,10 +91,13 @@ export class Stream<T> implements AsyncIterable<T> {
     if (!this.response.body) throw new QoderError('Missing SSE response body');
     try {
       for await (const frame of decodeSSE(this.response.body)) {
-        this.lastEventID = frame.id;
+        if (frame.hasID) {
+          this.lastEventID = frame.id;
+          this.hasLastEventID = true;
+        }
         if (this.closed) return;
         if (frame.event === 'ping' || !frame.data) continue;
-        if (frame.data === '[DONE]') return;
+        if (frame.data === '[DONE]') { this.completed = true; return; }
         const data: unknown = JSON.parse(frame.data);
         if (frame.event === 'error') {
           throw APIError.generate(this.response.status, data, undefined, this.response.headers, this.response);

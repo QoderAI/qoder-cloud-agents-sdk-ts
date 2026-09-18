@@ -7,4 +7,5 @@ export * from './core/credentials.js';
 export * from './core/api-promise.js';
 export * from './core/pagination.js';
 export * from './core/streaming.js';
+export { ResumableSessionEventStream } from './core/resumable-session-event-stream.js';
 export * from './core/uploads.js';
