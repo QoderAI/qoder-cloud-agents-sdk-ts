@@ -1,0 +1,9 @@
+[**qca-sdk**](../../README.md)
+
+***
+
+[qca-sdk](../../README.md) / [managed](../README.md) / ManagedAgentsDeploymentRunErrorUnion
+
+# Type Alias: ManagedAgentsDeploymentRunErrorUnion
+
+> **ManagedAgentsDeploymentRunErrorUnion** = [`ManagedAgentsEnvironmentArchivedRunError`](../interfaces/ManagedAgentsEnvironmentArchivedRunError.md) \| [`ManagedAgentsAgentArchivedRunError`](../interfaces/ManagedAgentsAgentArchivedRunError.md) \| [`ManagedAgentsEnvironmentNotFoundRunError`](../interfaces/ManagedAgentsEnvironmentNotFoundRunError.md) \| [`ManagedAgentsVaultNotFoundRunError`](../interfaces/ManagedAgentsVaultNotFoundRunError.md) \| [`ManagedAgentsVaultArchivedRunError`](../interfaces/ManagedAgentsVaultArchivedRunError.md) \| [`ManagedAgentsFileNotFoundRunError`](../interfaces/ManagedAgentsFileNotFoundRunError.md) \| [`ManagedAgentsMemoryStoreArchivedRunError`](../interfaces/ManagedAgentsMemoryStoreArchivedRunError.md) \| [`ManagedAgentsSkillNotFoundRunError`](../interfaces/ManagedAgentsSkillNotFoundRunError.md) \| [`ManagedAgentsSessionResourceNotFoundRunError`](../interfaces/ManagedAgentsSessionResourceNotFoundRunError.md) \| [`ManagedAgentsWorkspaceArchivedRunError`](../interfaces/ManagedAgentsWorkspaceArchivedRunError.md) \| [`ManagedAgentsOrganizationDisabledRunError`](../interfaces/ManagedAgentsOrganizationDisabledRunError.md) \| [`ManagedAgentsSessionRateLimitedRunError`](../interfaces/ManagedAgentsSessionRateLimitedRunError.md) \| [`ManagedAgentsSessionCreationRejectedRunError`](../interfaces/ManagedAgentsSessionCreationRejectedRunError.md) \| [`ManagedAgentsUnknownRunError`](../interfaces/ManagedAgentsUnknownRunError.md) \| [`ManagedAgentsSelfHostedResourcesUnsupportedRunError`](../interfaces/ManagedAgentsSelfHostedResourcesUnsupportedRunError.md) \| [`ManagedAgentsMCPEgressBlockedRunError`](../interfaces/ManagedAgentsMCPEgressBlockedRunError.md)
