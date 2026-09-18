@@ -340,6 +340,10 @@ Neither hook is applied to file downloads, which deliberately bypass the client 
 
 Node.js 20.12 or later. The SDK relies only on the platform's `fetch`, `Request`, `Response`, `Headers`, `AbortController`, `Blob` and `File` — any runtime providing those, and a `fetch` you can inject if not, should work. Deno, Bun, Cloudflare Workers and Vercel Edge are not part of the test matrix.
 
+## Documentation
+
+The API reference under `docs/api/` is generated from the source. Regenerate it with `make docs` (or `npm run docs`). To verify the committed reference is up to date and the README snippets still compile, run `make docs-check` (or `npm run docs:check`); CI runs the same gate on every pull request.
+
 ## License
 
 Released under the [MIT License](LICENSE).

@@ -1,10 +1,16 @@
 LIVE_ENV_FILE ?= .env.live
 .DEFAULT_GOAL := test
 
-.PHONY: build test test-unit test-contract test-scenarios test-live test-live-managed test-live-all test-live-check test-e2e
+.PHONY: build test test-unit test-contract test-scenarios test-live test-live-managed test-live-all test-live-check test-e2e docs docs-check
 
 build:
 	npm run build
+
+docs:
+	npm run docs
+
+docs-check:
+	npm run docs:check
 
 test:
 	npm test

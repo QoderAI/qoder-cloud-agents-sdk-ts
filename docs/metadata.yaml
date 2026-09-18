@@ -1,0 +1,22 @@
+# docs/metadata.yaml — supplements the generated API reference.
+#
+# Consumed by scripts/generate-docs.mjs. This file only controls presentation:
+# module ordering on the index page, symbols to hide, and related links.
+# It deliberately does NOT duplicate parameter or return models — those come
+# from the source JSDoc via TypeDoc.
+
+# Order of the top-level entry-point modules on docs/api/README.md.
+order:
+  - index
+  - forward
+  - managed
+
+# Public export names to hide from the generated index (exact symbol names).
+hidden: []
+
+# Extra links appended to the generated index page under a "Related" heading.
+relatedLinks:
+  - title: README
+    url: ../../README.md
+  - title: Examples
+    url: ../../examples

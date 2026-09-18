@@ -1,0 +1,9 @@
+[**qca-sdk**](../../README.md)
+
+***
+
+[qca-sdk](../../README.md) / [managed](../README.md) / ContentBlockParamUnion
+
+# Type Alias: ContentBlockParamUnion
+
+> **ContentBlockParamUnion** = [`TextBlockParam`](../interfaces/TextBlockParam.md) \| [`ImageBlockParam`](../interfaces/ImageBlockParam.md) \| [`RequestDocumentBlockParam`](../interfaces/RequestDocumentBlockParam.md) \| [`SearchResultBlockParam`](../interfaces/SearchResultBlockParam.md) \| [`ThinkingBlockParam`](../interfaces/ThinkingBlockParam.md) \| [`RedactedThinkingBlockParam`](../interfaces/RedactedThinkingBlockParam.md) \| [`ToolUseBlockParam`](../interfaces/ToolUseBlockParam.md) \| [`ToolResultBlockParam`](../interfaces/ToolResultBlockParam.md) \| [`ServerToolUseBlockParam`](../interfaces/ServerToolUseBlockParam.md) \| [`WebSearchToolResultBlockParam`](../interfaces/WebSearchToolResultBlockParam.md) \| [`WebFetchToolResultBlockParam`](../interfaces/WebFetchToolResultBlockParam.md) \| [`AdvisorToolResultBlockParam`](../interfaces/AdvisorToolResultBlockParam.md) \| [`CodeExecutionToolResultBlockParam`](../interfaces/CodeExecutionToolResultBlockParam.md) \| [`BashCodeExecutionToolResultBlockParam`](../interfaces/BashCodeExecutionToolResultBlockParam.md) \| [`TextEditorCodeExecutionToolResultBlockParam`](../interfaces/TextEditorCodeExecutionToolResultBlockParam.md) \| [`ToolSearchToolResultBlockParam`](../interfaces/ToolSearchToolResultBlockParam.md) \| [`MCPToolUseBlockParam`](../interfaces/MCPToolUseBlockParam.md) \| [`RequestMCPToolResultBlockParam`](../interfaces/RequestMCPToolResultBlockParam.md) \| [`ContainerUploadBlockParam`](../interfaces/ContainerUploadBlockParam.md) \| [`CompactionBlockParam`](../interfaces/CompactionBlockParam.md) \| [`RequestToolAdditionBlockParam`](../interfaces/RequestToolAdditionBlockParam.md) \| [`RequestToolRemovalBlockParam`](../interfaces/RequestToolRemovalBlockParam.md) \| [`FallbackBlockParam`](../interfaces/FallbackBlockParam.md)
