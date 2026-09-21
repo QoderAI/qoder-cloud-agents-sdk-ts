@@ -76,7 +76,7 @@
     "prepack": "npm run build",
     "test:types": "tsc -p tsconfig.types.json",
     "test:e2e": "npm test && node scripts/run-live.mjs e2e",
-    "example": "npm run build && node examples/run.mjs",
+    "example": "npm run build && node examples/forward-scenarios.mjs",
     "docs": "node scripts/generate-docs.mjs",
     "docs:check": "node scripts/docs-check.mjs"
   },
