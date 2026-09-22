@@ -48,7 +48,7 @@ export class Schedules extends APIResource {
     return this._client.request<ScheduleArchiveManyResponse>({
       method: "POST",
       path,
-      body: payload,
+      body: { ...payload, scope: "by_schedule_ids" },
       ...options,
       headers: requestHeaders({ "Idempotency-Key": idempotency_key }, options?.headers),
     });

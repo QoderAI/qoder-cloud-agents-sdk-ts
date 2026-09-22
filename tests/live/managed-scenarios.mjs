@@ -54,7 +54,7 @@ export const managedScenarios = [
     assert((await download.arrayBuffer()).byteLength > 0, 'Empty skill archive');
   }),
   scenario('environment_lifecycle', 'write', async (s) => {
-    const environment = await s.createEnvironment();
+    const environment = await s.createEnvironment({ type: 'self_hosted' });
     const got = await s.client.environments.retrieve(environment.id, {}, s.options());
     assert.equal(got.id, environment.id);
     await s.client.environments.update(environment.id, { description: 'updated through Managed TypeScript SDK' }, s.options());

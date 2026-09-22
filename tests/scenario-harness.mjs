@@ -165,6 +165,9 @@ export class MockPlatform {
       }
       if (action === 'effective') return response(this.records.get(parent + '/config') ?? {});
       if (parts[0] === 'qr_sessions') return response(this.get(path));
+      if (parts[0] === 'environments' && action === 'work' && this.get(parent).config?.type !== 'self_hosted') {
+        return response({ error: { message: 'environment is not self-hosted' } }, 400);
+      }
       if (route.method === 'list' || route.method === 'listTemplates') {
         let values = this.data(path);
         for (const field of ['identity_id','template_id','schedule_id','status']) if (url.searchParams.has(field)) values = values.filter(v => String(v[field]) === url.searchParams.get(field));
@@ -173,9 +176,20 @@ export class MockPlatform {
       if (!this.records.has(path)) return response({ error: { message: 'not found' } }, 404);
       return response(clone(this.get(path)));
     }
-    if (req.method === 'DELETE') { const item = this.get(path); this.delete(path); return response({ id: item.id, deleted: true }); }
+    if (req.method === 'DELETE') {
+      if (parts[0] === 'files' && parts.length === 2) {
+        const mounted = [...this.records].some(([key, resource]) => {
+          const match = key.match(/^\/sessions\/([^/]+)\/resources\//);
+          return match && resource.file_id === parts[1] && !terminal.has(this.records.get(`/sessions/${match[1]}`)?.status);
+        });
+        if (mounted) return response({ error: { message: 'file is mounted by an active session' } }, 409);
+      }
+      const item = this.get(path); this.delete(path); return response({ id: item.id, deleted: true });
+    }
     if (action === 'archive' && parts.length === 2 && parts[0] === 'schedules') {
-      const ids = [...new Set(body.schedule_ids)]; for (const id of ids) this.get(`/schedules/${id}`).status = 'archived';
+      assert.equal(body.scope, 'by_schedule_ids', 'schedule archive scope');
+      const ids = [...new Set(body.schedule_ids)];
+      for (const id of ids) Object.assign(this.get(`/schedules/${id}`), { status: 'archived', archived_at: new Date(0).toISOString() });
       return response({ archived_count: ids.length });
     }
     if (['archive','pause','unpause','disable','enable','cancel'].includes(action)) {

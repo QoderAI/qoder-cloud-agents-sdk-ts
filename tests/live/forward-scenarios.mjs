@@ -100,9 +100,10 @@ scenario('environment_lifecycle', async (s) => {
 scenario('session_resource_thread_lifecycle', async (s) => {
   const identity = await s.identity();
   const template = await s.template((await s.environment()).id);
+  // Create the file first so reverse-order cleanup archives the session before deleting its mounted file.
+  const file = await s.file('sdk-resource.txt', 'session_resource', 'SDK resource');
   const session = await s.session(identity.id, template.id);
   assert.equal((await s.client.sessions.update(session.id, { title: 'SDK updated session' }, s.options)).title, 'SDK updated session');
-  const file = await s.file('sdk-resource.txt', 'session_resource', 'SDK resource');
   const resource = await s.client.sessions.resources.add(session.id, { type: 'file', file_id: file.id, mount_path: '/data/workspace/sdk-resource.txt' }, s.options);
   assert.equal(resource.file_id, file.id);
   assert.equal(resource.mount_path, '/data/workspace/sdk-resource.txt');
@@ -194,7 +195,10 @@ scenario('schedule_lifecycle', async (s) => {
   const template = await s.template(environment.id);
   const schedule = await s.client.schedules.create({ identity_id: identity.id, template_id: template.id, environment_id: environment.id,
     name: liveName('schedule'), initial_events: [{ type: 'user.message', content: 'Reply with SDK-LIVE.' }], trigger_policy: { type: 'manual' } }, s.options);
-  s.cleanup('schedule', (options) => s.client.schedules.archive(schedule.id, {}, options));
+  s.cleanup('schedule', async (options) => {
+    const current = await s.client.schedules.retrieve(schedule.id, options);
+    if (!current.archived_at) await s.client.schedules.archive(schedule.id, {}, options);
+  });
   assert.equal((await s.client.schedules.retrieve(schedule.id, s.options)).id, schedule.id);
   assert.equal((await s.client.schedules.update(schedule.id, { description: 'SDK updated schedule' }, s.options)).description, 'SDK updated schedule');
   assert.equal((await s.client.schedules.pause(schedule.id, {}, s.options)).status, 'paused');
