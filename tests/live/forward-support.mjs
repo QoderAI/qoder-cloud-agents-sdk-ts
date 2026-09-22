@@ -7,8 +7,8 @@ export const liveName = (prefix) => `sdk-${prefix}-${Date.now()}-${randomBytes(4
 export const marker = () => randomBytes(12).toString('hex');
 export const batchTerminal = (status) => ['completed', 'failed', 'cancelled', 'expired'].includes(status);
 
-export { TurnResult as ForwardTurnResult } from '../../examples/execution.mjs';
-import { TurnResult as ForwardTurnResult } from '../../examples/execution.mjs';
+export { TurnResult as ForwardTurnResult } from '../execution.mjs';
+import { TurnResult as ForwardTurnResult } from '../execution.mjs';
 
 export class CleanupFailure extends Error {
   constructor(message, cause) { super(message, { cause }); this.name = 'CleanupFailure'; }

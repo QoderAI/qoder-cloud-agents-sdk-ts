@@ -115,8 +115,10 @@ scenario('session_resource_thread_lifecycle', async (s) => {
 
 scenario('file_upload_download_lifecycle', async (s) => {
   const file = await s.file('sdk-live.txt', 'user_upload', 'SDK live file content');
-  assert.equal((await s.client.files.getMetadata(file.id, s.options)).id, file.id);
-  assert.equal(await (await s.client.files.download(file.id, s.options)).text(), 'SDK live file content');
+  const meta = await s.client.files.getMetadata(file.id, s.options);
+  assert.equal(meta.id, file.id);
+  // CAS forbids downloading user_upload files; only round-trip when the API marks them downloadable.
+  if (meta.downloadable) assert.equal(await (await s.client.files.download(file.id, s.options)).text(), 'SDK live file content');
 });
 
 export function assertNonemptyZip(bytes) {
@@ -214,7 +216,9 @@ scenario('validation_only_batch_lifecycle', async (s) => {
 
 scenario('execution_e2e', async (s, t) => {
   const environment = await s.environment();
-  const identity = await s.identity();
+  const identityName = liveName('identity');
+  const identity = await s.client.identities.create({ external_id: identityName, name: identityName, metadata: { suite: 'sdk-live' } }, s.options);
+  s.cleanup('identity', (options) => s.client.identities.delete(identity.id, options));
   const fileToken = marker(), envToken = marker(), skillToken = marker(), memoryToken = marker();
   const file = await s.file('sdk-e2e.txt', 'session_resource', fileToken);
   const skillName = liveName('proof');

@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { randomBytes } from 'node:crypto';
 import { setTimeout as delay } from 'node:timers/promises';
-import { TurnResult } from '../../examples/execution.mjs';
-export { TurnResult } from '../../examples/execution.mjs';
+import { TurnResult } from '../execution.mjs';
+export { TurnResult } from '../execution.mjs';
 
 export const unique = (prefix) => `sdk-${prefix}-${Date.now()}-${randomBytes(4).toString('hex')}`;
 export const marker = () => `SDK_PROOF_${randomBytes(16).toString('hex')}`;

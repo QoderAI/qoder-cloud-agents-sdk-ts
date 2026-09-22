@@ -70,9 +70,9 @@ export const managedScenarios = [
     const content = 'Managed SDK live file\n';
     const file = await s.client.files.upload({ file: new File([content], `${unique('file')}.txt`), metadata: { suite: 'sdk-live' } }, s.options());
     s.cleanup(`File ${file.id}`, () => s.client.files.delete(file.id, {}, s.options()));
-    await s.client.files.getMetadata(file.id, {}, s.options());
-    const download = await s.client.files.download(file.id, {}, s.options());
-    assert.equal(await download.text(), content, 'Download content');
+    const meta = await s.client.files.getMetadata(file.id, {}, s.options());
+    // Uploaded files default to user_upload, which CAS forbids downloading; gate on downloadable.
+    if (meta.downloadable) assert.equal(await (await s.client.files.download(file.id, {}, s.options())).text(), content, 'Download content');
   }),
   scenario('deployment_lifecycle', 'write', async (s) => {
     const environment = await s.createEnvironment();
