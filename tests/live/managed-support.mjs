@@ -44,8 +44,8 @@ export class ManagedScenarioSuite {
     if (!model) throw new ScenarioSkip('The Managed account has no enabled model');
     return model.id;
   }
-  async createEnvironment() {
-    const environment = await this.client.environments.create({ name: unique('env'), config: { type: 'cloud' }, metadata: { suite: 'sdk-live' } }, this.options());
+  async createEnvironment(config = { type: 'cloud' }) {
+    const environment = await this.client.environments.create({ name: unique('env'), config, metadata: { suite: 'sdk-live' } }, this.options());
     this.cleanup(`Environment ${environment.id}`, async () => {
       try { await this.client.environments.delete(environment.id, {}, this.options()); }
       catch (error) {

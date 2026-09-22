@@ -141,7 +141,8 @@
         "value": {
           "schedule_ids": [
             "sdk-contract"
-          ]
+          ],
+          "scope": "by_schedule_ids"
         }
       }
     },
