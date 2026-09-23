@@ -50,6 +50,34 @@ The fixtures are maintained manually. A passing fixture test proves consistency 
 
 The SDK intentionally keeps Qoder-branded `X-Qoder-*` metadata headers and resumable session-event streams. Preserve those extensions unless the change explicitly revises the public contract. Breaking public API changes require a minor-version release while the SDK remains pre-1.0 and must include migration notes.
 
+## Release
+
+Before the first release, create the GitHub `release` Environment with required reviewers and a deployment-branch rule limited to `main`. Add a tag ruleset for `refs/tags/v*` that blocks updates and deletions and allows creation only by the release automation identity. Using npm 12.0.0 or newer, replace the existing npm trust entry so it requires the same Environment:
+
+```bash
+npm trust list qca-sdk --registry https://registry.npmjs.org
+npm trust revoke qca-sdk --id=<id> --registry https://registry.npmjs.org
+npm trust github qca-sdk --repo QoderAI/qoder-cloud-agents-sdk-ts \
+  --file release.yml --environment release --allow-publish \
+  --registry https://registry.npmjs.org
+```
+
+Do not dispatch the workflow until all settings are active.
+
+1. Merge a release pull request that updates the same canonical version in `package.json`, the root package in `package-lock.json`, and `src/version.ts`, with all normal checks passing.
+2. From the resulting `origin/main`, record the full lowercase 40-character commit SHA and dispatch the workflow from `main`. Use a 1-64 character `batch_id` that starts with a letter or digit and otherwise contains only letters, digits, `.`, `_`, or `-`:
+
+   ```bash
+   gh workflow run release.yml --ref main \
+     -f version=0.1.1 \
+     -f commit_sha=<40-character-main-sha> \
+     -f batch_id=<safe-audit-token>
+   ```
+
+3. After approval, the workflow creates or reuses the annotated `v<version>` tag, publishes the approved tarball under `latest` for stable versions or `next` for prereleases, and verifies its digest, provenance, registry signature, selected dist-tag, CJS/ESM imports, and subpath imports.
+
+npm versions are immutable. Never reuse or overwrite one: fix forward with a new release pull request and version, and deprecate an unusable version when necessary. A safe rerun must use the same SHA, version, and `batch_id`; it verifies the existing registry tarball without uploading it again.
+
 ## Pull requests
 
 Complete the pull request template, include exact verification commands and results, and identify public API, documentation, integration-test, and cross-SDK effects. Do not combine unrelated refactors with behavior changes.
