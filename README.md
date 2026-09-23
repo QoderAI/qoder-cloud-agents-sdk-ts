@@ -1,5 +1,7 @@
 # Qoder Cloud Agents TypeScript SDK
 
+[Changelog](CHANGELOG.md) · [Releases](https://github.com/QoderAI/qoder-cloud-agents-sdk-ts/releases)
+
 [![NPM version](https://img.shields.io/npm/v/qca-sdk.svg)](https://npmjs.org/package/qca-sdk)
 
 > [!IMPORTANT]

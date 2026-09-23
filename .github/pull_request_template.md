@@ -24,6 +24,7 @@ Commands and results:
 ## Impact
 
 - [ ] Public API or behavior changed
+- [ ] User-facing changes added to `CHANGELOG.md` under `Unreleased`, or not applicable (explain below)
 - [ ] CommonJS, ESM, and subpath exports remain valid
 - [ ] Generated API documentation updated
 - [ ] Contract or wire-field fixtures updated
