@@ -1,59 +1,485 @@
 name: Release
 
-# Publishes a version to the npm registry. The trust relationship grants
-# `npm publish` over OIDC, so pushing a tag releases the version with no human
-# step. A version is public the moment this workflow succeeds.
 on:
-  push:
-    tags: ['v*']
   workflow_dispatch:
     inputs:
-      dist_tag:
-        description: 'Override the npm dist-tag (default: latest)'
-        required: false
-        default: ''
+      version:
+        description: 'Canonical npm version without the v prefix'
+        required: true
+        type: string
+      commit_sha:
+        description: 'Full 40-character lowercase SHA of the current main commit'
+        required: true
+        type: string
+      batch_id:
+        description: '1-64 characters; start with a letter or digit; use only letters, digits, ., _, or -'
+        required: true
+        type: string
 
 permissions:
   contents: read
-  id-token: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '22.x'
+  NPM_REGISTRY: 'https://registry.npmjs.org'
+  PACKAGE_NAME: 'qca-sdk'
 
 jobs:
-  publish:
+  preflight:
     runs-on: ubuntu-latest
+    env:
+      RELEASE_VERSION: ${{ inputs.version }}
+      RELEASE_COMMIT_SHA: ${{ inputs.commit_sha }}
+      RELEASE_BATCH_ID: ${{ inputs.batch_id }}
+    outputs:
+      artifact_name: ${{ steps.pack.outputs.artifact_name }}
+      tarball_name: ${{ steps.pack.outputs.tarball_name }}
+      tarball_sha256: ${{ steps.pack.outputs.tarball_sha256 }}
+      dist_tag: ${{ steps.release-meta.outputs.dist_tag }}
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - name: Validate dispatch metadata
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_REF" != 'refs/heads/main' || "$GITHUB_WORKFLOW_REF" != *@refs/heads/main ]]; then
+            echo 'Releases must be dispatched from the main workflow ref.' >&2
+            exit 1
+          fi
+          if [[ ! "$RELEASE_COMMIT_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+            echo 'commit_sha must be a full 40-character lowercase Git SHA.' >&2
+            exit 1
+          fi
+          if [[ ! "$RELEASE_BATCH_ID" =~ ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$ ]]; then
+            echo 'batch_id must be 1-64 safe audit-token characters.' >&2
+            exit 1
+          fi
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
-          node-version: '22.x'
+          ref: ${{ inputs.commit_sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
           cache: npm
-          registry-url: https://registry.npmjs.org
-      # `--provenance` needs npm 9.5.0 or newer; pin a current major instead.
-      - run: npm install -g npm@^12.0.0
+          registry-url: ${{ env.NPM_REGISTRY }}
+
+      - name: Use trusted-publishing npm version
+        run: npm install --global npm@12.0.0
+
+      - name: Validate release version and commit
+        run: |
+          set -euo pipefail
+          git fetch --force --prune --prune-tags origin \
+            '+refs/heads/main:refs/remotes/origin/main' \
+            '+refs/tags/*:refs/tags/*'
+
+          checked_out_sha=$(git rev-parse 'HEAD^{commit}')
+          requested_sha=$(git rev-parse "$RELEASE_COMMIT_SHA^{commit}")
+          main_sha=$(git rev-parse 'refs/remotes/origin/main^{commit}')
+          tag_sha=$(git rev-parse -q --verify "refs/tags/v$RELEASE_VERSION^{commit}" || true)
+          if [[ "$checked_out_sha" != "$requested_sha" ]]; then
+            echo "Checked out $checked_out_sha instead of requested $requested_sha." >&2
+            exit 1
+          fi
+          if [[ "$requested_sha" != "$main_sha" && "$tag_sha" != "$requested_sha" ]]; then
+            echo "commit_sha is neither current origin/main ($main_sha) nor an existing matching release tag." >&2
+            exit 1
+          fi
+
+          version_dir=$(mktemp -d)
+          trap 'rm -rf "$version_dir"' EXIT
+          printf '%s\n' '{"name":"release-version-check","version":"0.0.0","private":true}' > "$version_dir/package.json"
+          npm --prefix "$version_dir" version "$RELEASE_VERSION" \
+            --no-git-tag-version --allow-same-version >/dev/null
+          canonical_version=$(node -p "require(process.argv[1]).version" "$version_dir/package.json")
+          if [[ "$canonical_version" != "$RELEASE_VERSION" ]]; then
+            echo 'version must be a canonical npm semver without a v prefix.' >&2
+            exit 1
+          fi
+          rm -rf "$version_dir"
+          trap - EXIT
+
+          node <<'NODE'
+          const { readFileSync } = require('node:fs');
+          const expected = process.env.RELEASE_VERSION;
+          const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
+          const packageLock = JSON.parse(readFileSync('package-lock.json', 'utf8'));
+          const source = readFileSync('src/version.ts', 'utf8');
+          const matches = [...source.matchAll(/^export const VERSION = '([^']+)';$/gm)];
+          const versions = {
+            'package.json': packageJson.version,
+            'package-lock.json': packageLock.version,
+            'package-lock.json root package': packageLock.packages?.['']?.version,
+            'src/version.ts': matches.length === 1 ? matches[0][1] : undefined,
+          };
+          for (const [file, version] of Object.entries(versions)) {
+            if (version !== expected) {
+              throw new Error(`${file} version ${String(version)} does not match ${expected}`);
+            }
+          }
+          NODE
+
+      - id: state
+        name: Inspect tag and registry state
+        run: |
+          set -euo pipefail
+          release_sha=$(git rev-parse "$RELEASE_COMMIT_SHA^{commit}")
+          tag="v$RELEASE_VERSION"
+          tag_sha=$(git rev-parse -q --verify "refs/tags/$tag^{commit}" || true)
+          if [[ -n "$tag_sha" ]]; then
+            if [[ "$tag_sha" != "$release_sha" ]]; then
+              echo "$tag already points to $tag_sha, not $release_sha." >&2
+              exit 1
+            fi
+            if [[ "$(git cat-file -t "refs/tags/$tag")" != tag ]]; then
+              echo "$tag must be an annotated release tag." >&2
+              exit 1
+            fi
+            tag_message=$(git for-each-ref --format='%(contents)' "refs/tags/$tag")
+            if [[ "$tag_message" != "Release $PACKAGE_NAME@$RELEASE_VERSION (batch $RELEASE_BATCH_ID)" ]]; then
+              echo "$tag does not have the expected release annotation." >&2
+              exit 1
+            fi
+          fi
+          tag_exists=false
+          [[ -n "$tag_sha" ]] && tag_exists=true
+
+          error_file=$(mktemp)
+          if registry_version=$(npm view "$PACKAGE_NAME@$RELEASE_VERSION" version \
+            --registry "$NPM_REGISTRY" 2>"$error_file"); then
+            if [[ "$registry_version" != "$RELEASE_VERSION" ]]; then
+              echo "Registry returned unexpected version: $registry_version" >&2
+              exit 1
+            fi
+            registry_exists=true
+          elif grep -q 'E404' "$error_file"; then
+            registry_exists=false
+          else
+            echo 'Unable to query the public npm registry:' >&2
+            cat "$error_file" >&2
+            exit 1
+          fi
+          rm -f "$error_file"
+
+          if [[ "$registry_exists" == true && "$tag_exists" == false ]]; then
+            echo "$PACKAGE_NAME@$RELEASE_VERSION exists without matching tag $tag." >&2
+            exit 1
+          fi
+          echo "tag_exists=$tag_exists" >> "$GITHUB_OUTPUT"
+          echo "registry_exists=$registry_exists" >> "$GITHUB_OUTPUT"
+
       - run: npm ci
+
+      - id: release-meta
+        name: Select and validate npm dist-tag
+        env:
+          REGISTRY_EXISTS: ${{ steps.state.outputs.registry_exists }}
+        run: |
+          set -euo pipefail
+          dist_tag=$(node -e "const semver=require('semver'); process.stdout.write(semver.prerelease(process.env.RELEASE_VERSION) ? 'next' : 'latest')")
+          if [[ "$REGISTRY_EXISTS" == false ]]; then
+            current=$(npm view "$PACKAGE_NAME" "dist-tags.$dist_tag" --registry "$NPM_REGISTRY")
+            if [[ -n "$current" ]]; then
+              DIST_TAG="$dist_tag" node -e "const semver=require('semver'); if (!semver.gt(process.env.RELEASE_VERSION, process.argv[1])) { throw new Error(process.env.RELEASE_VERSION + ' must be newer than current ' + process.env.DIST_TAG + ' ' + process.argv[1]); }" "$current"
+            fi
+          fi
+          echo "dist_tag=$dist_tag" >> "$GITHUB_OUTPUT"
+
       - run: npm run build
       - run: npm run typecheck
       - run: npm test
+      - run: npm run docs:check
 
-      - id: meta
+      - id: pack
+        name: Pack release artifact
         run: |
-          version=$(node -p "require('./package.json').version")
-          if [ "$GITHUB_REF_TYPE" = tag ] && [ "$GITHUB_REF_NAME" != "v$version" ]; then
-            echo "git tag $GITHUB_REF_NAME does not match package version $version" >&2
+          set -euo pipefail
+          tarball_name=$(npm pack --silent)
+          expected_name="$PACKAGE_NAME-$RELEASE_VERSION.tgz"
+          if [[ "$tarball_name" != "$expected_name" || ! -f "$tarball_name" ]]; then
+            echo "npm pack produced unexpected artifact: $tarball_name" >&2
             exit 1
           fi
-          # Pre-1.0 dev builds are the newest thing this package has, so a bare
-          # `npm install qca-sdk` should resolve to them. The OIDC token cannot
-          # run `npm dist-tag`, so the tag has to be decided here.
-          tag="${{ github.event.inputs.dist_tag }}"
-          if [ -z "$tag" ]; then
-            tag=latest
+          tarball_sha256=$(sha256sum "$tarball_name" | cut -d ' ' -f 1)
+          echo "artifact_name=$PACKAGE_NAME-$RELEASE_VERSION" >> "$GITHUB_OUTPUT"
+          echo "tarball_name=$tarball_name" >> "$GITHUB_OUTPUT"
+          echo "tarball_sha256=$tarball_sha256" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: ${{ steps.pack.outputs.artifact_name }}
+          path: ${{ steps.pack.outputs.tarball_name }}
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    needs: preflight
+    runs-on: ubuntu-latest
+    outputs:
+      registry_existed: ${{ steps.state.outputs.registry_exists }}
+    environment: release
+    permissions:
+      contents: write
+      id-token: write
+    env:
+      RELEASE_VERSION: ${{ inputs.version }}
+      RELEASE_COMMIT_SHA: ${{ inputs.commit_sha }}
+      RELEASE_BATCH_ID: ${{ inputs.batch_id }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ inputs.commit_sha }}
+          fetch-depth: 0
+
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: ${{ needs.preflight.outputs.artifact_name }}
+          path: release-artifact
+
+      - id: artifact
+        name: Verify downloaded artifact
+        env:
+          TARBALL_NAME: ${{ needs.preflight.outputs.tarball_name }}
+          TARBALL_SHA256: ${{ needs.preflight.outputs.tarball_sha256 }}
+        run: |
+          set -euo pipefail
+          tarball_path="$GITHUB_WORKSPACE/release-artifact/$TARBALL_NAME"
+          if [[ ! -f "$tarball_path" ]]; then
+            echo "Downloaded artifact is missing $TARBALL_NAME." >&2
+            exit 1
           fi
-          echo "version=$version" >> "$GITHUB_OUTPUT"
-          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          actual_sha256=$(sha256sum "$tarball_path" | cut -d ' ' -f 1)
+          if [[ "$actual_sha256" != "$TARBALL_SHA256" ]]; then
+            echo 'Downloaded artifact checksum does not match preflight.' >&2
+            exit 1
+          fi
+          echo "tarball_path=$tarball_path" >> "$GITHUB_OUTPUT"
 
-      # Authenticates through the npm trust relationship (OIDC); no token needed.
-      - run: npm publish --tag '${{ steps.meta.outputs.tag }}' --access public --provenance
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: ${{ env.NPM_REGISTRY }}
 
-      - run: |
-          echo "Published qca-sdk@${{ steps.meta.outputs.version }} under tag ${{ steps.meta.outputs.tag }}." >> "$GITHUB_STEP_SUMMARY"
-          echo 'Verify: `npm view qca-sdk@${{ steps.meta.outputs.version }}` and `npm audit signatures`.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Use trusted-publishing npm version
+        run: npm install --global npm@12.0.0
+
+      - id: state
+        name: Revalidate main, tag, and registry
+        run: |
+          set -euo pipefail
+          git fetch --force --prune --prune-tags origin \
+            '+refs/heads/main:refs/remotes/origin/main' \
+            '+refs/tags/*:refs/tags/*'
+
+          checked_out_sha=$(git rev-parse 'HEAD^{commit}')
+          release_sha=$(git rev-parse "$RELEASE_COMMIT_SHA^{commit}")
+          main_sha=$(git rev-parse 'refs/remotes/origin/main^{commit}')
+          tag="v$RELEASE_VERSION"
+          tag_sha=$(git rev-parse -q --verify "refs/tags/$tag^{commit}" || true)
+          if [[ "$checked_out_sha" != "$release_sha" ]]; then
+            echo "Checked out $checked_out_sha instead of requested $release_sha." >&2
+            exit 1
+          fi
+          if [[ "$main_sha" != "$release_sha" && "$tag_sha" != "$release_sha" ]]; then
+            echo "origin/main moved to $main_sha before the release tag was created; dispatch a new release." >&2
+            exit 1
+          fi
+
+          if [[ -n "$tag_sha" ]]; then
+            if [[ "$tag_sha" != "$release_sha" ]]; then
+              echo "$tag now points to $tag_sha, not $release_sha." >&2
+              exit 1
+            fi
+            if [[ "$(git cat-file -t "refs/tags/$tag")" != tag ]]; then
+              echo "$tag must be an annotated release tag." >&2
+              exit 1
+            fi
+            tag_message=$(git for-each-ref --format='%(contents)' "refs/tags/$tag")
+            if [[ "$tag_message" != "Release $PACKAGE_NAME@$RELEASE_VERSION (batch $RELEASE_BATCH_ID)" ]]; then
+              echo "$tag does not have the expected release annotation." >&2
+              exit 1
+            fi
+          fi
+          tag_exists=false
+          [[ -n "$tag_sha" ]] && tag_exists=true
+
+          error_file=$(mktemp)
+          if registry_version=$(npm view "$PACKAGE_NAME@$RELEASE_VERSION" version \
+            --registry "$NPM_REGISTRY" 2>"$error_file"); then
+            if [[ "$registry_version" != "$RELEASE_VERSION" ]]; then
+              echo "Registry returned unexpected version: $registry_version" >&2
+              exit 1
+            fi
+            registry_exists=true
+          elif grep -q 'E404' "$error_file"; then
+            registry_exists=false
+          else
+            echo 'Unable to query the public npm registry:' >&2
+            cat "$error_file" >&2
+            exit 1
+          fi
+          rm -f "$error_file"
+
+          if [[ "$registry_exists" == true && "$tag_exists" == false ]]; then
+            echo "$PACKAGE_NAME@$RELEASE_VERSION exists without matching tag $tag." >&2
+            exit 1
+          fi
+          echo "tag_exists=$tag_exists" >> "$GITHUB_OUTPUT"
+          echo "registry_exists=$registry_exists" >> "$GITHUB_OUTPUT"
+
+      - name: Create or reuse release tag
+        env:
+          TAG_EXISTS: ${{ steps.state.outputs.tag_exists }}
+        run: |
+          set -euo pipefail
+          tag="v$RELEASE_VERSION"
+          if [[ "$TAG_EXISTS" == true ]]; then
+            echo "Reusing $tag at $RELEASE_COMMIT_SHA."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git tag --annotate "$tag" "$RELEASE_COMMIT_SHA" \
+            --message "Release $PACKAGE_NAME@$RELEASE_VERSION (batch $RELEASE_BATCH_ID)"
+          git push --atomic --force-with-lease="refs/heads/main:$RELEASE_COMMIT_SHA" origin \
+            "${RELEASE_COMMIT_SHA}:refs/heads/main" "refs/tags/$tag"
+
+      - name: Publish to npm with trusted publishing
+        if: steps.state.outputs.registry_exists == 'false'
+        env:
+          TARBALL_PATH: ${{ steps.artifact.outputs.tarball_path }}
+          DIST_TAG: ${{ needs.preflight.outputs.dist_tag }}
+        run: npm publish "$TARBALL_PATH" --registry "$NPM_REGISTRY" --tag "$DIST_TAG" --access public --provenance
+
+      - name: Record publish result
+        env:
+          REGISTRY_EXISTS: ${{ steps.state.outputs.registry_exists }}
+          DIST_TAG: ${{ needs.preflight.outputs.dist_tag }}
+        run: |
+          if [[ "$REGISTRY_EXISTS" == true ]]; then
+            echo "Reused existing $PACKAGE_NAME@$RELEASE_VERSION; npm upload skipped." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Published $PACKAGE_NAME@$RELEASE_VERSION under $DIST_TAG." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  verify:
+    needs: [preflight, publish]
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_VERSION: ${{ inputs.version }}
+      DIST_TAG: ${{ needs.preflight.outputs.dist_tag }}
+      REGISTRY_EXISTED: ${{ needs.publish.outputs.registry_existed }}
+    steps:
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: ${{ env.NPM_REGISTRY }}
+
+      - name: Use verification npm version
+        run: npm install --global npm@12.0.0
+
+      - name: Wait for and verify registry artifact
+        env:
+          TARBALL_SHA256: ${{ needs.preflight.outputs.tarball_sha256 }}
+        run: |
+          set -euo pipefail
+          error_file=$(mktemp)
+          for attempt in $(seq 1 20); do
+            if registry_version=$(npm view "$PACKAGE_NAME@$RELEASE_VERSION" version \
+              --registry "$NPM_REGISTRY" 2>"$error_file"); then
+              if [[ "$registry_version" == "$RELEASE_VERSION" ]]; then
+                break
+              fi
+              echo "Registry returned unexpected version: $registry_version" >&2
+              exit 1
+            fi
+            if ! grep -q 'E404' "$error_file"; then
+              echo 'Unable to query the public npm registry:' >&2
+              cat "$error_file" >&2
+              exit 1
+            fi
+            if [[ "$attempt" == 20 ]]; then
+              echo "$PACKAGE_NAME@$RELEASE_VERSION did not become visible after 20 attempts." >&2
+              exit 1
+            fi
+            sleep 15
+          done
+
+          metadata_file=$(mktemp)
+          npm view "$PACKAGE_NAME@$RELEASE_VERSION" dist --json \
+            --registry "$NPM_REGISTRY" > "$metadata_file"
+          registry_tarball=$(node - "$metadata_file" <<'NODE'
+          const { readFileSync } = require('node:fs');
+          const payload = JSON.parse(readFileSync(process.argv[2], 'utf8'));
+          const dist = Array.isArray(payload) ? payload[0] : payload;
+          if (!dist?.tarball?.startsWith('https://registry.npmjs.org/qca-sdk/-/')) {
+            throw new Error(`Unexpected registry tarball URL: ${String(dist?.tarball)}`);
+          }
+          if (!Array.isArray(dist.signatures) || dist.signatures.length === 0) {
+            throw new Error('Published package has no registry signature.');
+          }
+          if (dist.attestations?.provenance?.predicateType !== 'https://slsa.dev/provenance/v1') {
+            throw new Error('Published package has no SLSA provenance attestation.');
+          }
+          process.stdout.write(dist.tarball);
+          NODE
+          )
+          registry_tarball_file=$(mktemp)
+          curl --proto '=https' --tlsv1.2 --location --fail --silent --show-error \
+            --connect-timeout 10 --max-time 120 --output "$registry_tarball_file" "$registry_tarball"
+          registry_sha256=$(sha256sum "$registry_tarball_file" | cut -d ' ' -f 1)
+          if [[ "$registry_sha256" != "$TARBALL_SHA256" ]]; then
+            echo "Registry tarball does not match the approved artifact." >&2
+            exit 1
+          fi
+          if [[ "$REGISTRY_EXISTED" == false ]]; then
+            selected=$(npm view "$PACKAGE_NAME" "dist-tags.$DIST_TAG" --registry "$NPM_REGISTRY")
+            if [[ "$selected" != "$RELEASE_VERSION" ]]; then
+              echo "$DIST_TAG points to $selected instead of $RELEASE_VERSION." >&2
+              exit 1
+            fi
+          fi
+
+      - name: Verify the installed public package
+        run: |
+          set -euo pipefail
+          project_dir=$(mktemp -d)
+          cache_dir=$(mktemp -d)
+          trap 'rm -rf "$project_dir" "$cache_dir"' EXIT
+          cd "$project_dir"
+          npm init --yes >/dev/null
+          npm install --save-exact --ignore-scripts --no-audit --no-fund \
+            --registry "$NPM_REGISTRY" --cache "$cache_dir" \
+            "$PACKAGE_NAME@$RELEASE_VERSION"
+
+          node <<'NODE'
+          const assert = require('node:assert/strict');
+          const expected = process.env.RELEASE_VERSION;
+          assert.equal(require('qca-sdk/package.json').version, expected);
+          const root = require('qca-sdk');
+          const forward = require('qca-sdk/forward');
+          const managed = require('qca-sdk/managed');
+          assert.equal(typeof root.ForwardClient, 'function');
+          assert.equal(typeof root.ManagedClient, 'function');
+          assert.equal(typeof forward.default, 'function');
+          assert.equal(typeof managed.default, 'function');
+          NODE
+
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          const root = await import('qca-sdk');
+          const forward = await import('qca-sdk/forward');
+          const managed = await import('qca-sdk/managed');
+          assert.equal(typeof root.ForwardClient, 'function');
+          assert.equal(typeof root.ManagedClient, 'function');
+          assert.equal(typeof forward.default, 'function');
+          assert.equal(typeof managed.default, 'function');
+          NODE
+
+          npm audit signatures --registry "$NPM_REGISTRY" --cache "$cache_dir"
+          echo "Verified CJS, ESM, subpaths, version, and signatures for $PACKAGE_NAME@$RELEASE_VERSION." >> "$GITHUB_STEP_SUMMARY"
