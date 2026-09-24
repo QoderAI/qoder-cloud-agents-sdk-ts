@@ -11,6 +11,7 @@ existing `0.1.0` release; earlier development prereleases are not listed.
 
 ### Changed
 
+- **Breaking:** Forward and Managed `Page.getNextPage()` now throws `QoderError` at the last page and returns `Promise<Page<T>>` instead of a nullable page, matching Anthropic's TypeScript SDK. Check `hasNextPage()` before advancing manually, or use async iteration, which still stops normally.
 - Forward and Managed request timeouts now cover each underlying `fetch` call until a response arrives, matching Anthropic's TypeScript SDK. Credential resolution, middleware, and response-body/SSE reads no longer consume this timeout. Use an `AbortSignal` to enforce a total deadline or cancel a stream after it starts.
 
 ## [0.1.0]

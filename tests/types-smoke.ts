@@ -64,6 +64,11 @@ async function responseRequestIDs() {
     acceptRequestID(page._request_id);
     // @ts-expect-error individual page items do not get request metadata.
     acceptRequestID(page.data[0]._request_id);
+    if (page.hasNextPage()) {
+      const next: Promise<typeof page> = page.getNextPage();
+      const id: string = (await next).data[0].id;
+      void id;
+    }
   }
 }
 void responseRequestIDs;

@@ -295,13 +295,15 @@ console.log(page.data.length);
 
 if (page.hasNextPage()) {
   const next = await page.getNextPage();
-  console.log(next?.data);
+  console.log(next.data);
 }
 
 for await (const p of page.iterPages()) {
   console.log(p.data.length);
 }
 ```
+
+Call `hasNextPage()` before manually calling `getNextPage()`. Matching Anthropic's TypeScript SDK, `getNextPage()` returns a page or throws `QoderError` when no next page exists; it no longer returns `null`. Migrate loops that use a `null` next page as their stopping condition to `hasNextPage()` or async iteration. Both `for await` and `iterPages()` stop normally at the last page.
 
 Cursor style follows the operation: ID cursors use `after_id` and `before_id`, opaque cursors use `next_page` fed back as `page`. Auto-pagination stops with an error if a cursor fails to advance, rather than looping forever.
 

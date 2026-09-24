@@ -120,11 +120,11 @@
 
 ### getNextPage()
 
-> **getNextPage**(): `Promise`\<`Page`\<`T`\> \| `null`\>
+> **getNextPage**(): `Promise`\<`Page`\<`T`\>\>
 
 #### Returns
 
-`Promise`\<`Page`\<`T`\> \| `null`\>
+`Promise`\<`Page`\<`T`\>\>
 
 ***
 

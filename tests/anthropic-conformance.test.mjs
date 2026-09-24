@@ -161,9 +161,10 @@ for (const mode of MODES) {
     assert.equal(calls, 2);
   });
 
-  // (4) terminal pagination: page.data items + hasNextPage() false on a terminal page.
-  test(`[shared] ${mode}: terminal page reports items and hasNextPage()===false`, async () => {
-    const c = testClient(mode, () => response({ data: [{ id: 'only' }], has_more: false, next_page: null }));
+  // (4) terminal pages reject manual advancement; automatic iteration stops normally.
+  test(`[shared] ${mode}: terminal page rejects getNextPage without another request`, async () => {
+    let calls = 0;
+    const c = testClient(mode, () => { calls++; return response({ data: [{ id: 'only' }], has_more: false, next_page: null }); });
     const { data: page, request_id } = await writeResource(c, mode).list({ limit: 1 }).withResponse();
     assert.deepEqual(page.data.map(x => x.id), ['only']);
     assert.equal(page.hasNextPage(), false);
@@ -171,6 +172,46 @@ for (const mode of MODES) {
     assert.equal(Object.hasOwn(page, '_request_id'), false);
     assert.equal(Object.hasOwn(page.data[0], '_request_id'), false);
     assert.deepEqual(JSON.parse(JSON.stringify(page)), { data: [{ id: 'only' }], has_more: false, next_page: null });
+    await assert.rejects(() => page.getNextPage(), error => error instanceof sdk.QoderError
+      && error.message === 'No next page expected; please check `.hasNextPage()` before calling `.getNextPage()`.');
+    const pages = [];
+    for await (const p of page.iterPages()) pages.push(p);
+    assert.deepEqual(pages, [page]);
+    assert.equal(calls, 1);
+  });
+
+  for (const pagination of ['cursor', 'page', 'page_token']) test(`[shared] ${mode}: manual ${pagination} pagination returns a page and rejects exhaustion`, async () => {
+    let calls = 0;
+    const c = testClient(mode, req => {
+      calls++;
+      assert.equal(req.headers.get('x-filter'), 'kept');
+      const query = new URL(req.url).searchParams;
+      assert.equal(query.get('limit'), '1');
+      if (calls === 1) return response({ data: [{ id: 'a' }], has_more: true, last_id: 'a', next_page: 'p2' });
+      assert.equal(calls, 2);
+      assert.equal(query.get(pagination === 'cursor' ? 'after_id' : pagination), pagination === 'cursor' ? 'a' : 'p2');
+      return response({ data: [{ id: 'b' }], has_more: false, last_id: 'b', next_page: 'ignored' });
+    });
+    const first = await c.getAPIList('/items', { limit: 1 }, { headers: { 'x-filter': 'kept' } }, pagination);
+    assert.equal(first.hasNextPage(), true);
+    const last = await first.getNextPage();
+    assert.ok(last instanceof sdk.Page);
+    assert.deepEqual(last.data, [{ id: 'b' }]);
+    assert.equal(last.hasNextPage(), false);
+    await assert.rejects(() => last.getNextPage(), sdk.QoderError);
+    const items = [];
+    for await (const item of last) items.push(item);
+    assert.deepEqual(items, [{ id: 'b' }]);
+    assert.equal(calls, 2);
+
+    for (const data of [[], [{ id: 'only' }]]) {
+      let terminalCalls = 0;
+      const terminalClient = testClient(mode, () => { terminalCalls++; return response({ data }); });
+      const terminal = await terminalClient.getAPIList('/items', {}, {}, pagination);
+      assert.equal(terminal.hasNextPage(), false);
+      await assert.rejects(() => terminal.getNextPage(), sdk.QoderError);
+      assert.equal(terminalCalls, 1);
+    }
   });
 
   // (4b) async iteration walks every page, then stops on the terminal flag.
