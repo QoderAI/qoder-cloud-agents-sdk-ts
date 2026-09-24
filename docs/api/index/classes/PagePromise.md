@@ -261,7 +261,7 @@ resolve, or rejected when any Promise is rejected.
 
 ###### T
 
-`T` *extends* readonly `unknown`[] \| \[\]
+`T` *extends* \[\] \| readonly `unknown`[]
 
 ##### Parameters
 
@@ -296,7 +296,7 @@ of the provided Promises resolve or reject.
 
 ###### T
 
-`T` *extends* readonly `unknown`[] \| \[\]
+`T` *extends* \[\] \| readonly `unknown`[]
 
 ##### Parameters
 
@@ -361,7 +361,7 @@ The any function returns a promise that is fulfilled by the first given promise 
 
 ###### T
 
-`T` *extends* readonly `unknown`[] \| \[\]
+`T` *extends* \[\] \| readonly `unknown`[]
 
 ##### Parameters
 
@@ -457,7 +457,7 @@ or rejected.
 
 ###### T
 
-`T` *extends* readonly `unknown`[] \| \[\]
+`T` *extends* \[\] \| readonly `unknown`[]
 
 ##### Parameters
 

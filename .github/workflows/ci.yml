@@ -39,3 +39,13 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run docs:check
+
+  release-notes:
+    name: release-notes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Validate changelog
+        run: python3 .github/scripts/release_notes.py check
+      - name: Test release notes automation
+        run: python3 -m unittest discover -s .github/scripts -p 'test_*.py'

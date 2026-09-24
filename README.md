@@ -1,5 +1,7 @@
 # Qoder Cloud Agents TypeScript SDK
 
+[Changelog](CHANGELOG.md) · [Releases](https://github.com/QoderAI/qoder-cloud-agents-sdk-ts/releases)
+
 [![NPM version](https://img.shields.io/npm/v/qca-sdk.svg)](https://npmjs.org/package/qca-sdk)
 
 > [!IMPORTANT]
@@ -215,7 +217,14 @@ Connection failures throw `APIConnectionError`, an exhausted timeout throws `API
 
 ### Request IDs
 
-Every response carries a request ID, exposed as `request_id` on errors and available on successful responses through `withResponse()`. Include it when reporting a problem.
+Ordinary JSON object responses expose `_request_id` directly, matching Anthropic's TypeScript SDK. Its value comes from `x-request-id`, falling back to `request-id`, and is `null` when neither header is present. The property is non-enumerable, so `JSON.stringify()`, `Object.keys()`, and object spread omit it. Include this ID when reporting a problem.
+
+```ts
+const result = await client.sessions.retrieve(session.id);
+console.log(result._request_id);
+```
+
+Errors expose `request_id`. Use `withResponse()` to get the request ID alongside the data and raw response, including for pagination, SSE, and downloads. Array elements, nested objects, and individual stream events do not receive request metadata.
 
 ```ts
 const { data, request_id } = await client.sessions.retrieve(session.id).withResponse();
@@ -241,7 +250,9 @@ const client = new ForwardClient({ timeout: 20 * 1000 });
 await client.sessions.list({}, { timeout: 5 * 1000 });
 ```
 
-Pass `signal` to cancel a request yourself. The deadline stays armed while the response body is being read, so a stream is aborted once the subscription as a whole outlives the timeout — give a long-running subscription a limit sized for the whole session, not for one event.
+The timeout applies to each underlying `fetch` call, matching Anthropic's TypeScript SDK. Its timer starts immediately before `fetch` and is cleared when a response arrives, before the body is read. Credential resolution and middleware are outside this timer; each `next()` call that reaches `fetch` starts a new timer. SSE streams and downloads can therefore continue beyond the configured timeout after response headers arrive.
+
+Pass `signal` to cancel the whole operation, including middleware, retries, and response-body reads. Use `AbortSignal.timeout(...)` when you also need a total deadline for an SSE subscription or download:
 
 ```ts
 await client.sessions.list({}, { signal: AbortSignal.timeout(5_000) });
@@ -284,13 +295,15 @@ console.log(page.data.length);
 
 if (page.hasNextPage()) {
   const next = await page.getNextPage();
-  console.log(next?.data);
+  console.log(next.data);
 }
 
 for await (const p of page.iterPages()) {
   console.log(p.data.length);
 }
 ```
+
+Call `hasNextPage()` before manually calling `getNextPage()`. Matching Anthropic's TypeScript SDK, `getNextPage()` returns a page or throws `QoderError` when no next page exists; it no longer returns `null`. Migrate loops that use a `null` next page as their stopping condition to `hasNextPage()` or async iteration. Both `for await` and `iterPages()` stop normally at the last page.
 
 Cursor style follows the operation: ID cursors use `after_id` and `before_id`, opaque cursors use `next_page` fed back as `page`. Auto-pagination stops with an error if a cursor fails to advance, rather than looping forever.
 

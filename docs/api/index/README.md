@@ -46,6 +46,7 @@
 - [Middleware](type-aliases/Middleware.md)
 - [PaginationMode](type-aliases/PaginationMode.md)
 - [Uploadable](type-aliases/Uploadable.md)
+- [WithRequestID](type-aliases/WithRequestID.md)
 
 ## Variables
 

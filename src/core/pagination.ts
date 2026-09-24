@@ -71,15 +71,18 @@ export class Page<T> implements AsyncIterable<T> {
   hasNextPage(): boolean { return this.nextQuery() !== null; }
   getPaginatedItems(): T[] { return this.data; }
 
-  async getNextPage(): Promise<Page<T> | null> {
+  async getNextPage(): Promise<Page<T>> {
     const query = this.nextQuery();
-    return query ? await this.client.getAPIList<T>(this.path, query, this.options, this.mode) : null;
+    if (!query) {
+      throw new QoderError('No next page expected; please check `.hasNextPage()` before calling `.getNextPage()`.');
+    }
+    return await this.client.getAPIList<T>(this.path, query, this.options, this.mode);
   }
 
   async *iterPages(): AsyncGenerator<Page<T>> {
-    let page: Page<T> | null = this;
+    let page: Page<T> = this;
     const cursors = new Set<string>();
-    while (page) {
+    while (true) {
       yield page;
       const next = page.nextQuery();
       if (!next) return;
