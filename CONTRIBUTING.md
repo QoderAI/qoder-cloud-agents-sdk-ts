@@ -97,7 +97,7 @@ or republish historical packages.
 
 ## Release
 
-Before the first release, create the GitHub `release` Environment with required reviewers and a deployment-branch rule limited to `main`. Add a tag ruleset for `refs/tags/v*` that blocks updates and deletions and allows creation only by the release automation identity. Using npm 12.0.0 or newer, replace the existing npm trust entry so it requires the same Environment:
+Before the first release, create the GitHub `release` Environment with required reviewers and a deployment-branch rule limited to `main`. Add a tag ruleset for `refs/tags/v*` that blocks updates and deletions and allows creation only by the release automation identity. Using npm 12.0.1 or newer, replace the existing npm trust entry so it requires the same Environment:
 
 ```bash
 npm trust list qca-sdk --registry https://registry.npmjs.org
@@ -122,6 +122,10 @@ Do not dispatch the workflow until all settings are active.
 3. After approval, the workflow creates or reuses the annotated `v<version>` tag, publishes the approved tarball under `latest` for stable versions or `next` for prereleases, and verifies its digest, provenance, registry signature, selected dist-tag, CJS/ESM imports, and subpath imports. After verification, it publishes the changelog entry as a GitHub Release.
 
 npm versions are immutable. Never reuse or overwrite one: fix forward with a new release pull request and version, and deprecate an unusable version when necessary. A safe rerun must use the same SHA, version, and `batch_id`; it verifies the existing registry tarball without uploading it again.
+
+The release workflow pins npm `12.0.2`; npm `12.0.0` omitted a required `sigstore` dependency and cannot publish packages ([upstream fix](https://github.com/npm/cli/pull/9740)). Preflight runs `npm publish --dry-run` on the packed artifact to check the publishing command before tag creation. This checks CLI loading and package handling; trusted-publishing authorization is still checked during the actual upload.
+
+If a workflow-only fix is needed after the release tag was created, merge that fix into `main`, then start a new workflow run from `main` with the original version, tagged commit SHA, and `batch_id`. Re-running the old workflow run uses its original workflow revision and will not pick up the fix. The existing tag must remain unchanged; validation permits the original commit when that version's tag already points to it.
 
 ## Pull requests
 
