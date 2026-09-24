@@ -3,4 +3,4 @@
 // describe a version that was never published; `npm run build` compares the two.
 // Declared here rather than imported from package.json so bundlers do not have to
 // resolve JSON from outside src/.
-export const VERSION = '0.1.0';
+export const VERSION = '0.2.0';

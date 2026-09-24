@@ -1,6 +1,6 @@
 {
   "name": "qca-sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "TypeScript SDK for Qoder Cloud Agents Forward and Managed APIs",
   "author": "Qoder",
   "license": "MIT",
