@@ -8,7 +8,7 @@ on:
         required: true
         type: string
       commit_sha:
-        description: 'Full 40-character lowercase SHA of the current main commit'
+        description: 'Full 40-character lowercase SHA of current main, or the existing release tag commit when resuming'
         required: true
         type: string
       batch_id:
@@ -25,6 +25,7 @@ concurrency:
 
 env:
   NODE_VERSION: '22.x'
+  NPM_VERSION: '12.0.2'
   NPM_REGISTRY: 'https://registry.npmjs.org'
   PACKAGE_NAME: 'qca-sdk'
 
@@ -69,7 +70,7 @@ jobs:
           registry-url: ${{ env.NPM_REGISTRY }}
 
       - name: Use trusted-publishing npm version
-        run: npm install --global npm@12.0.0
+        run: npm install --global "npm@$NPM_VERSION"
 
       - name: Validate release version and commit
         run: |
@@ -220,6 +221,12 @@ jobs:
           echo "tarball_name=$tarball_name" >> "$GITHUB_OUTPUT"
           echo "tarball_sha256=$tarball_sha256" >> "$GITHUB_OUTPUT"
 
+      - name: Smoke-test npm publishing without uploading
+        env:
+          TARBALL_NAME: ${{ steps.pack.outputs.tarball_name }}
+          DIST_TAG: ${{ steps.release-meta.outputs.dist_tag }}
+        run: npm publish "./$TARBALL_NAME" --dry-run --ignore-scripts --registry "$NPM_REGISTRY" --tag "$DIST_TAG" --access public --provenance
+
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: ${{ steps.pack.outputs.artifact_name }}
@@ -276,7 +283,7 @@ jobs:
           registry-url: ${{ env.NPM_REGISTRY }}
 
       - name: Use trusted-publishing npm version
-        run: npm install --global npm@12.0.0
+        run: npm install --global "npm@$NPM_VERSION"
 
       - id: state
         name: Revalidate main, tag, and registry
@@ -391,7 +398,7 @@ jobs:
           registry-url: ${{ env.NPM_REGISTRY }}
 
       - name: Use verification npm version
-        run: npm install --global npm@12.0.0
+        run: npm install --global "npm@$NPM_VERSION"
 
       - name: Wait for and verify registry artifact
         env:
