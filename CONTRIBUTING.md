@@ -114,7 +114,7 @@ Do not dispatch the workflow until all settings are active.
 
    ```bash
    gh workflow run release.yml --ref main \
-     -f version=0.1.1 \
+     -f version=0.2.0 \
      -f commit_sha=<40-character-main-sha> \
      -f batch_id=<safe-audit-token>
    ```

@@ -5,6 +5,8 @@ existing `0.1.0` release; earlier development prereleases are not listed.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-24
+
 ### Added
 
 - Add `client.withOptions()` to derive a Forward or Managed client with selected configuration overrides while preserving its concrete type and unspecified options. Supplied headers, query defaults, and middleware replace their corresponding client-level option, matching Anthropic's TypeScript SDK.
