@@ -88,24 +88,27 @@ for (const mode of ['forward', 'managed']) {
     assert.deepEqual(tokens, ['Bearer credential-1', 'Bearer credential-2', 'Bearer replacement', 'Bearer explicit-pat']);
   });
 
-  test(`${mode}: withOptions preserves resolved URL and fetch when environment defaults change`, async t => {
+  test(`${mode}: withOptions preserves resolved URL and fetch when environment defaults change`, async () => {
     const baseVariable = mode === 'forward' ? 'QODER_FORWARD_BASE_URL' : 'QODER_BASE_URL';
     const previous = process.env[baseVariable];
+    // Node 20.12 exposes fetch through a lazy accessor that mock.method cannot replace.
+    const previousFetch = globalThis.fetch;
     const requests = [];
     try {
       process.env[baseVariable] = 'https://initial.test/api';
-      t.mock.method(globalThis, 'fetch', async (input, init) => {
+      globalThis.fetch = async (input, init) => {
         requests.push(new Request(input, init));
         return response({ data: [] });
-      });
+      };
       const original = new Client({ pat: 'test-token' });
       process.env[baseVariable] = 'https://changed.test/api';
-      t.mock.method(globalThis, 'fetch', async () => { throw new Error('unexpected replacement fetch'); });
+      globalThis.fetch = async () => { throw new Error('unexpected replacement fetch'); };
       const derived = original.withOptions({});
       await resource(derived).list({});
       assert.equal(derived.baseURL, original.baseURL);
       assert.equal(new URL(requests[0].url).origin, 'https://initial.test');
     } finally {
+      globalThis.fetch = previousFetch;
       if (previous === undefined) delete process.env[baseVariable]; else process.env[baseVariable] = previous;
     }
   });
