@@ -1,6 +1,7 @@
 // Server-sent event stream decoding and the streaming wire protocol.
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { getEventListeners } from 'node:events';
 import { sdk, testClient, response } from './helpers.mjs';
 import { decodeSSE } from '../dist/core/streaming.js';
 
@@ -79,13 +80,35 @@ test('SSE cancellation terminates a pending read promptly', async () => {
   assert.ok(Date.now() - started < 1000); await stream.close();
 });
 
-test('SSE request timeout remains APIConnectionTimeoutError', async () => {
-  const c = testClient('forward', req => new Response(new ReadableStream({ start(controller) {
-    req.signal.addEventListener('abort', () => controller.error(req.signal.reason), { once: true });
-  } }), { headers: { 'content-type': 'text/event-stream' } }), { timeout: 15 });
-  const stream = await c.sessions.events.streamEvents('one', {});
-  await assert.rejects(async () => { for await (const event of stream) void event; }, sdk.APIConnectionTimeoutError);
-});
+for (const mode of ['forward', 'managed']) {
+  for (const timeout of [undefined, 15]) test(`${mode}: SSE outlives ${timeout ?? 'default'} fetch timeout and remains cancelable`, async t => {
+    t.mock.timers.enable({ apis: ['setTimeout'] });
+    const controller = new AbortController();
+    let source, requestSignal, cancels = 0;
+    const c = testClient(mode, req => {
+      requestSignal = req.signal;
+      return new Response(new ReadableStream({
+        start(s) { source = s; },
+        cancel() { cancels++; },
+      }), { headers: { 'content-type': 'text/event-stream' } });
+    });
+    const stream = await c.sessions.events.streamEvents('one', {}, { timeout, signal: controller.signal });
+    try {
+      const iterator = stream[Symbol.asyncIterator]();
+      const pending = iterator.next();
+      t.mock.timers.tick((timeout ?? 600_000) + 1);
+      assert.equal(requestSignal.aborted, false);
+      source.enqueue(new TextEncoder().encode('data: {"id":"late-event"}\n\n'));
+      assert.equal((await pending).value.id, 'late-event');
+      const next = iterator.next();
+      controller.abort();
+      await assert.rejects(() => next, sdk.APIUserAbortError);
+      assert.equal(requestSignal.aborted, true);
+      assert.equal(getEventListeners(controller.signal, 'abort').length, 0);
+      assert.equal(cancels, 1);
+    } finally { await stream.close(); }
+  });
+}
 test('SSE oversized line is rejected even when newline occurs in the same chunk', async () => {
   const stream = sdk.Stream.fromSSEResponse(new Response(`data: ${'x'.repeat(32 * 1024 * 1024 + 1)}\n\n`));
   await assert.rejects(async () => { for await (const event of stream) void event; }, /32 MiB|exceeds/i);

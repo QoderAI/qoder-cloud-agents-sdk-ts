@@ -5,9 +5,9 @@
 //   upstream tag   : sdk-v0.127.0
 //   upstream commit: 3c5d9c0c15bb847a628f3f2876ac09719abe3012
 //   adopted areas  : request building & header merge, JSON/query encoding,
-//                    APIPromise response access, terminal pagination,
+//                    APIPromise response access and request IDs, terminal pagination,
 //                    fetch middleware, SSE framing, upload conversion,
-//                    caller-signal listener cleanup.
+//                    caller-signal listener cleanup, fetch-only timeout lifetime.
 //
 // Scope: assert ONLY generic SDK semantics QCA and the pinned Anthropic baseline
 // ALREADY share. This is a regression floor, NOT an API-parity layer.
@@ -16,7 +16,7 @@
 //   - ForwardClient/ManagedClient topology, QCA resources & URLs
 //   - PAT + Qoder fingerprint headers, resumable stream, x-qoder-* wire headers
 //   - qca-sdk package/module/version naming
-//   - QCA safe-retry policy, response-body timeout lifetime, QoderError hierarchy
+//   - QCA safe-retry policy, QoderError hierarchy
 //   - Anthropic public APIs absent from QCA (each raised as its own task)
 //
 // No @anthropic-ai/sdk import; no network; no PAT; injected fetch + in-memory only.
@@ -74,18 +74,103 @@ for (const mode of MODES) {
     assert.deepEqual(data, payload);
     assert.ok(raw instanceof Response);
     assert.equal(request_id, 'req_contract');
+    assert.equal(data._request_id, request_id);
+    assert.deepEqual(Object.getOwnPropertyDescriptor(data, '_request_id'), {
+      value: request_id, enumerable: false, writable: false, configurable: false,
+    });
+    assert.deepEqual(Object.keys(data), Object.keys(payload));
+    assert.deepEqual({ ...data }, payload);
+    assert.equal(JSON.stringify(data), JSON.stringify(payload));
+    assert.equal(await promise, data);
+    assert.equal(await promise.then(value => value._request_id), request_id);
+    assert.equal(await promise.catch(() => null), data);
+    assert.equal(await promise.finally(() => {}), data);
+    assert.equal(Object.hasOwn(data.future_flag, '_request_id'), false);
     const raw2 = await (mode === 'forward' ? c.templates.retrieve('one') : c.agents.retrieve('one', {})).asResponse();
     assert.ok(raw2 instanceof Response);
-    assert.deepEqual(await raw2.json(), payload);
-    assert.deepEqual(await (mode === 'forward' ? c.templates.retrieve('one') : c.agents.retrieve('one', {})), payload);
+    assert.equal(raw2.bodyUsed, false);
+    const rawData = await raw2.json();
+    assert.deepEqual(rawData, payload);
+    assert.equal(Object.hasOwn(rawData, '_request_id'), false);
+    const direct = await (mode === 'forward' ? c.templates.retrieve('one') : c.agents.retrieve('one', {}));
+    assert.deepEqual(direct, payload);
+    assert.equal(direct._request_id, request_id);
+  });
+
+  test(`[shared] ${mode}: object request ID follows response headers, including missing IDs`, async () => {
+    for (const [headers, expected] of [
+      [{ 'x-request-id': 'qca-id' }, 'qca-id'],
+      [{ 'request-id': 'fallback-id' }, 'fallback-id'],
+      [{ 'x-request-id': 'qca-id', 'request-id': 'fallback-id' }, 'qca-id'],
+      [{ 'x-request-id': '', 'request-id': 'fallback-id' }, ''],
+      [{}, null],
+    ]) {
+      const c = testClient(mode, () => new Response('{"id":"one"}', { headers }));
+      const { data, request_id } = await c.request({ method: 'GET', path: '/resource' }).withResponse();
+      assert.equal(data._request_id, expected);
+      assert.equal(request_id, expected);
+      assert.equal(Object.hasOwn(data, '_request_id'), true);
+    }
+  });
+
+  test(`[shared] ${mode}: response-header request ID replaces a conflicting JSON field`, async () => {
+    const c = testClient(mode, () => response({ id: 'one', _request_id: 'body-id', nested: { _request_id: 'nested-id' } }));
+    const data = await c.request({ method: 'GET', path: '/resource' });
+    assert.equal(data._request_id, 'req_contract');
+    assert.equal(data.nested._request_id, 'nested-id');
+    assert.deepEqual(JSON.parse(JSON.stringify(data)), { id: 'one', nested: { _request_id: 'nested-id' } });
+  });
+
+  test(`[shared] ${mode}: arrays, primitives, and empty responses keep their original shape`, async () => {
+    for (const payload of [[{ id: 'one' }], [], null, false, 0, '', 'text']) {
+      const c = testClient(mode, () => new Response(JSON.stringify(payload), { headers: { 'x-request-id': 'req' } }));
+      const { data, request_id } = await c.request({ method: 'GET', path: '/resource' }).withResponse();
+      assert.deepEqual(data, payload);
+      assert.equal(request_id, 'req');
+      if (data !== null) assert.equal(Object.hasOwn(data, '_request_id'), false);
+      if (Array.isArray(data) && data.length) assert.equal(Object.hasOwn(data[0], '_request_id'), false);
+    }
+    const c = testClient(mode, () => response(null, 204));
+    assert.equal(await c.request({ method: 'DELETE', path: '/resource' }), undefined);
+  });
+
+  test(`[shared] ${mode}: binary responses and SSE events use withResponse for request IDs`, async () => {
+    const c = testClient(mode, () => response('data: {"id":"event"}\n\ndata: [DONE]\n\n'));
+    const binary = await c.request({ method: 'GET', path: '/file', responseType: 'binary' }).withResponse();
+    assert.ok(binary.data instanceof Response);
+    assert.equal(binary.request_id, 'req_contract');
+    assert.equal(Object.hasOwn(binary.data, '_request_id'), false);
+    await binary.data.body.cancel();
+    const { data: stream, request_id } = await c.sessions.events.streamEvents('one', {}).withResponse();
+    assert.equal(request_id, 'req_contract');
+    assert.equal(Object.hasOwn(stream, '_request_id'), false);
+    for await (const event of stream) {
+      assert.deepEqual(event, { id: 'event' });
+      assert.equal(Object.hasOwn(event, '_request_id'), false);
+    }
+  });
+
+  test(`[shared] ${mode}: request ID belongs to the final successful retry`, async () => {
+    let calls = 0;
+    const c = testClient(mode, () => ++calls === 1
+      ? response({ error: { message: 'retry' } }, 429, { 'x-request-id': 'failed-id', 'retry-after-ms': '0' })
+      : response({ id: 'one' }, 200, { 'x-request-id': 'success-id' }), { maxRetries: 1 });
+    const { data, request_id } = await c.request({ method: 'GET', path: '/resource' }).withResponse();
+    assert.equal(data._request_id, 'success-id');
+    assert.equal(request_id, 'success-id');
+    assert.equal(calls, 2);
   });
 
   // (4) terminal pagination: page.data items + hasNextPage() false on a terminal page.
   test(`[shared] ${mode}: terminal page reports items and hasNextPage()===false`, async () => {
     const c = testClient(mode, () => response({ data: [{ id: 'only' }], has_more: false, next_page: null }));
-    const page = await writeResource(c, mode).list({ limit: 1 });
+    const { data: page, request_id } = await writeResource(c, mode).list({ limit: 1 }).withResponse();
     assert.deepEqual(page.data.map(x => x.id), ['only']);
     assert.equal(page.hasNextPage(), false);
+    assert.equal(request_id, 'req_contract');
+    assert.equal(Object.hasOwn(page, '_request_id'), false);
+    assert.equal(Object.hasOwn(page.data[0], '_request_id'), false);
+    assert.deepEqual(JSON.parse(JSON.stringify(page)), { data: [{ id: 'only' }], has_more: false, next_page: null });
   });
 
   // (4b) async iteration walks every page, then stops on the terminal flag.
@@ -125,6 +210,49 @@ for (const mode of MODES) {
     const c = testClient(mode, () => response({ data: [] }));
     if (mode === 'forward') await c.templates.list({}, { signal: controller.signal });
     else await c.agents.list({}, { signal: controller.signal });
+    assert.equal(getEventListeners(controller.signal, 'abort').length, 0);
+  });
+
+  test(`[shared] ${mode}: timeout excludes credentials and middleware, and restarts for each fetch`, async t => {
+    t.mock.timers.enable({ apis: ['setTimeout'] });
+    let calls = 0;
+    const c = testClient(mode, req => {
+      calls++;
+      t.mock.timers.tick(8);
+      assert.equal(req.signal.aborted, false);
+      return response({ data: [{ id: 'one' }] });
+    }, {
+      timeout: 10,
+      pat: async () => { t.mock.timers.tick(20); return 'test-token'; },
+      middleware: [async (req, next) => {
+        t.mock.timers.tick(20);
+        const first = await next(req);
+        await first.body.cancel();
+        t.mock.timers.tick(20);
+        const second = await next(req);
+        t.mock.timers.tick(20);
+        return second;
+      }],
+    });
+    const page = await writeResource(c, mode).list({});
+    assert.equal(page.data[0].id, 'one');
+    assert.equal(calls, 2);
+  });
+
+  for (const status of [200, 400]) test(`[shared] ${mode}: ${status} response body outlives fetch timeout`, async t => {
+    t.mock.timers.enable({ apis: ['setTimeout'] });
+    const controller = new AbortController();
+    const c = testClient(mode, req => new Response(new ReadableStream({
+      pull(source) {
+        t.mock.timers.tick(600_001);
+        assert.equal(req.signal.aborted, false);
+        source.enqueue(new TextEncoder().encode(JSON.stringify(status === 200 ? { id: 'one' } : { error: { message: 'bad input' } })));
+        source.close();
+      },
+    }, { highWaterMark: 0 }), { status }));
+    const result = c.request({ method: 'GET', path: '/resource', signal: controller.signal });
+    if (status === 200) assert.deepEqual(await result, { id: 'one' });
+    else await assert.rejects(() => result, e => e instanceof sdk.BadRequestError && e.status === 400);
     assert.equal(getEventListeners(controller.signal, 'abort').length, 0);
   });
 }

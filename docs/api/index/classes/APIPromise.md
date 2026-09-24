@@ -10,7 +10,7 @@ Response helpers follow anthropic-sdk-typescript's lazy parsing contract.
 
 ## Extends
 
-- `Promise`\<`T`\>
+- `Promise`\<[`WithRequestID`](../type-aliases/WithRequestID.md)\<`T`\>\>
 
 ## Extended by
 
@@ -44,7 +44,7 @@ Response helpers follow anthropic-sdk-typescript's lazy parsing contract.
 
 #### Overrides
 
-`Promise<T>.constructor`
+`Promise<WithRequestID<T>>.constructor`
 
 ## Properties
 
@@ -54,7 +54,7 @@ Response helpers follow anthropic-sdk-typescript's lazy parsing contract.
 
 #### Inherited from
 
-`APIPromise`.[`[toStringTag]`](#tostringtag)
+`Promise.[toStringTag]`
 
 ## Accessors
 
@@ -86,7 +86,7 @@ Response helpers follow anthropic-sdk-typescript's lazy parsing contract.
 
 ### catch()
 
-> **catch**\<`TResult`\>(`onrejected?`): `Promise`\<`T` \| `TResult`\>
+> **catch**\<`TResult`\>(`onrejected?`): `Promise`\<[`WithRequestID`](../type-aliases/WithRequestID.md)\<`T`\> \| `TResult`\>
 
 Attaches a callback for only the rejection of the Promise.
 
@@ -106,7 +106,7 @@ The callback to execute when the Promise is rejected.
 
 #### Returns
 
-`Promise`\<`T` \| `TResult`\>
+`Promise`\<[`WithRequestID`](../type-aliases/WithRequestID.md)\<`T`\> \| `TResult`\>
 
 A Promise for the completion of the callback.
 
@@ -118,7 +118,7 @@ A Promise for the completion of the callback.
 
 ### finally()
 
-> **finally**(`onfinally?`): `Promise`\<`T`\>
+> **finally**(`onfinally?`): `Promise`\<[`WithRequestID`](../type-aliases/WithRequestID.md)\<`T`\>\>
 
 Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
 resolved value cannot be modified from the callback.
@@ -133,7 +133,7 @@ The callback to execute when the Promise is settled (fulfilled or rejected).
 
 #### Returns
 
-`Promise`\<`T`\>
+`Promise`\<[`WithRequestID`](../type-aliases/WithRequestID.md)\<`T`\>\>
 
 A Promise for the completion of the callback.
 
@@ -153,7 +153,7 @@ Attaches callbacks for the resolution and/or rejection of the Promise.
 
 ##### TResult1
 
-`TResult1` = `T`
+`TResult1` = [`WithRequestID`](../type-aliases/WithRequestID.md)\<`T`\>
 
 ##### TResult2
 
@@ -239,7 +239,7 @@ resolve, or rejected when any Promise is rejected.
 
 ###### T
 
-`T` *extends* readonly `unknown`[] \| \[\]
+`T` *extends* \[\] \| readonly `unknown`[]
 
 ##### Parameters
 
@@ -274,7 +274,7 @@ of the provided Promises resolve or reject.
 
 ###### T
 
-`T` *extends* readonly `unknown`[] \| \[\]
+`T` *extends* \[\] \| readonly `unknown`[]
 
 ##### Parameters
 
@@ -339,7 +339,7 @@ The any function returns a promise that is fulfilled by the first given promise 
 
 ###### T
 
-`T` *extends* readonly `unknown`[] \| \[\]
+`T` *extends* \[\] \| readonly `unknown`[]
 
 ##### Parameters
 
@@ -435,7 +435,7 @@ or rejected.
 
 ###### T
 
-`T` *extends* readonly `unknown`[] \| \[\]
+`T` *extends* \[\] \| readonly `unknown`[]
 
 ##### Parameters
 

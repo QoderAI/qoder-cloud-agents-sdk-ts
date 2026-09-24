@@ -133,14 +133,25 @@ export class APIClient {
         await response.body?.cancel();
         return undefined as T;
       }
-      return await response.json() as T;
+      return this.parseJSONResponse<T>(response);
     });
+  }
+
+  private async parseJSONResponse<T>(response: Response): Promise<T> {
+    const data: unknown = await response.json();
+    if (data !== null && typeof data === 'object' && !Array.isArray(data)) {
+      Object.defineProperty(data, '_request_id', {
+        value: response.headers.get('x-request-id') ?? response.headers.get('request-id'),
+        enumerable: false,
+      });
+    }
+    return data as T;
   }
 
   getAPIList<T>(path: string, query: object = {}, options: RequestOptions = {}, pagination: PaginationMode = this.mode === 'forward' ? 'cursor' : 'page'): PagePromise<T> {
     const merged = { ...this.options.defaultQuery, ...query, ...options.query };
     return new PagePromise(this.execute({ ...options, method: 'GET', path, query: merged }), async (response) =>
-      new Page<T>(this, response, await response.json() as PageResponse<T>, path, merged, { ...options, query: undefined }, pagination));
+      new Page<T>(this, response, await this.parseJSONResponse<PageResponse<T>>(response), path, merged, { ...options, query: undefined }, pagination));
   }
 
   /** Resolve the API grant, then send a separate request without API credentials or headers. */
@@ -211,8 +222,7 @@ export class APIClient {
       const onAbort = () => controller.abort(callerSignal.reason);
       if (callerSignal.aborted) onAbort();
       else callerSignal.addEventListener('abort', onAbort, { once: true });
-      const timer = timeout ? setTimeout(() => { timedOut = true; controller.abort(); }, timeout) : undefined;
-      const cleanup = () => { clearTimeout(timer); callerSignal.removeEventListener('abort', onAbort); };
+      const cleanup = () => callerSignal.removeEventListener('abort', onAbort);
       const signal = controller.signal;
       let handedOff = false;
       let retryDelay: number | undefined;
@@ -234,13 +244,20 @@ export class APIClient {
           const init: RequestInit & { duplex?: string } = { method, headers: attemptHeaders, body, signal, redirect: storage ? 'follow' : 'error' };
           if (body instanceof ReadableStream) init.duplex = 'half';
           const middleware = storage ? [] : this.options.middleware ?? [];
+          // Each underlying fetch has its own deadline; middleware and body reads are outside it.
+          const timedFetch: typeof globalThis.fetch = async (input, fetchInit) => {
+            const timer = timeout ? setTimeout(() => { timedOut = true; controller.abort(); }, timeout) : undefined;
+            try {
+              return await withSignal(this.fetchImpl.call(undefined, input, fetchInit), signal, () => timedOut);
+            } finally { clearTimeout(timer); }
+          };
           let fetchPromise: Promise<Response>;
           if (middleware.length) {
             const next = middleware.reduceRight<(request: Request) => Promise<Response>>(
               (next, handler) => request => handler(request, next),
-              request => this.fetchImpl.call(undefined, request));
+              request => timedFetch(request));
             fetchPromise = next(new Request(url, init));
-          } else fetchPromise = this.fetchImpl.call(undefined, url.toString(), init);
+          } else fetchPromise = timedFetch(url.toString(), init);
           response = await withSignal(fetchPromise, signal, () => timedOut);
           if (!(response instanceof Response)) throw new Error('fetch returned no Response');
         } catch (error) {

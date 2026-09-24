@@ -34,6 +34,39 @@ async function uploadsAndPagination() {
   await managed.skills.versions.retrieve('version', { skill_id: 'skill' });
 }
 void uploadsAndPagination;
+
+function acceptRequestID(value: string | null | undefined): void { void value; }
+async function responseRequestIDs() {
+  const template = await forward.templates.retrieve('template');
+  const agent = await managed.agents.retrieve('agent');
+  acceptRequestID(template._request_id);
+  acceptRequestID(agent._request_id);
+  for (const client of [forward, managed]) {
+    const promise = client.request<{ id: string; nested: { id: string } }>({ method: 'GET', path: '/resource' });
+    const compatible: Promise<{ id: string }> = promise;
+    void compatible;
+    const data = await promise;
+    acceptRequestID(data._request_id);
+    promise.then(value => acceptRequestID(value._request_id));
+    acceptRequestID((await promise.catch(() => { throw new Error('failed'); }))._request_id);
+    acceptRequestID((await promise.finally(() => {}))._request_id);
+    acceptRequestID((await promise.withResponse()).request_id);
+    // @ts-expect-error request metadata is not added recursively to nested objects.
+    acceptRequestID(data.nested._request_id);
+    const array = await client.request<{ id: string }[]>({ method: 'GET', path: '/array' });
+    // @ts-expect-error arrays retain their original type.
+    acceptRequestID(array._request_id);
+    const raw = await client.request<Response>({ method: 'GET', path: '/raw', responseType: 'response' });
+    // @ts-expect-error raw responses retain their original type.
+    acceptRequestID(raw._request_id);
+    const page = await client.getAPIList<{ id: string }>('/items');
+    // @ts-expect-error page objects expose their request ID through withResponse().
+    acceptRequestID(page._request_id);
+    // @ts-expect-error individual page items do not get request metadata.
+    acceptRequestID(page.data[0]._request_id);
+  }
+}
+void responseRequestIDs;
 // @ts-expect-error creating a Template requires environment_id.
 void forward.templates.create({ name: 'missing environment', model: 'ultimate' });
 // @ts-expect-error there is no Service Account Token resource.
