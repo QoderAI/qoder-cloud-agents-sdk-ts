@@ -283,3 +283,25 @@ Resolve the API grant, then send a separate request without API credentials or h
 #### Inherited from
 
 [`APIClient`](APIClient.md).[`validateHeaders`](APIClient.md#validateheaders)
+
+***
+
+### withOptions()
+
+> **withOptions**(`options`): `this`
+
+Create a client of the same type, replacing supplied options and retaining the rest.
+
+#### Parameters
+
+##### options
+
+`Partial`\<[`ClientOptions`](../interfaces/ClientOptions.md)\>
+
+#### Returns
+
+`this`
+
+#### Inherited from
+
+[`APIClient`](APIClient.md).[`withOptions`](APIClient.md#withoptions)

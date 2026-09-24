@@ -110,6 +110,19 @@ export class APIClient {
     if (!this.fetchImpl) throw new QoderError('A fetch implementation is required');
   }
 
+  /** Create a client of the same type, replacing supplied options and retaining the rest. */
+  withOptions(options: Partial<ClientOptions>): this {
+    const Client = this.constructor as new (options: ClientOptions, mode: 'forward' | 'managed') => this;
+    return new Client({
+      ...this.options,
+      baseURL: this.baseURL,
+      maxRetries: this.maxRetries,
+      timeout: this.timeout,
+      fetch: this.fetchImpl,
+      ...options,
+    }, this.mode);
+  }
+
   private validateOptions(retries: number, timeout: number): void {
     if (!Number.isInteger(retries) || retries < 0) throw new QoderError('maxRetries must be a non-negative integer');
     if (!Number.isFinite(timeout) || timeout < 0) throw new QoderError('timeout must be a non-negative number');
@@ -176,16 +189,21 @@ export class APIClient {
   }
 
   private retryDelay(response: Response | undefined, attempt: number): number {
+    let delay: number | undefined;
     if (response) {
       const ms = response.headers.get('retry-after-ms');
-      if (ms !== null && Number.isFinite(Number(ms)) && Number(ms) >= 0) return Number(ms);
+      if (ms) {
+        const parsed = parseFloat(ms);
+        if (!Number.isNaN(parsed)) delay = parsed;
+      }
       const after = response.headers.get('retry-after');
-      if (after) {
-        const seconds = Number(after);
-        const delay = Number.isFinite(seconds) ? seconds * 1000 : Date.parse(after) - Date.now();
-        if (Number.isFinite(delay) && delay >= 0) return delay;
+      if (after && !delay) {
+        const seconds = parseFloat(after);
+        delay = Number.isNaN(seconds) ? Date.parse(after) - Date.now() : seconds * 1000;
       }
     }
+    // Values above the timer limit become a 1 ms delay in Node.js.
+    if (delay !== undefined && delay > 0 && delay <= 2 ** 31 - 1) return delay;
     return Math.min(500 * 2 ** attempt, 8000) * (1 - Math.random() * 0.25);
   }
 

@@ -7,7 +7,9 @@
 //   adopted areas  : request building & header merge, JSON/query encoding,
 //                    APIPromise response access and request IDs, terminal pagination,
 //                    fetch middleware, SSE framing, upload conversion,
-//                    caller-signal listener cleanup, fetch-only timeout lifetime.
+//                    caller-signal listener cleanup, fetch-only timeout lifetime,
+//                    APIError inheritance for connection, timeout and abort errors,
+//                    Retry-After delay bounds and header precedence.
 //
 // Scope: assert ONLY generic SDK semantics QCA and the pinned Anthropic baseline
 // ALREADY share. This is a regression floor, NOT an API-parity layer.
@@ -16,7 +18,7 @@
 //   - ForwardClient/ManagedClient topology, QCA resources & URLs
 //   - PAT + Qoder fingerprint headers, resumable stream, x-qoder-* wire headers
 //   - qca-sdk package/module/version naming
-//   - QCA safe-retry policy, QoderError hierarchy
+//   - QCA safe-retry policy, QoderError naming and error constructor arguments
 //   - Anthropic public APIs absent from QCA (each raised as its own task)
 //
 // No @anthropic-ai/sdk import; no network; no PAT; injected fetch + in-memory only.
@@ -39,6 +41,90 @@ function byteChunks(text, size = 1) {
 }
 
 for (const mode of MODES) {
+  for (const [name, headers, expected] of [
+    ['seconds above 60', { 'retry-after': '120' }, 120_000],
+    ['fractional seconds', { 'retry-after': '0.25' }, 250],
+    ['millisecond precedence', { 'retry-after-ms': '125', 'retry-after': '120' }, 125],
+    ['invalid milliseconds', { 'retry-after-ms': 'bad', 'retry-after': '120' }, 120_000],
+    ['zero milliseconds falls through', { 'retry-after-ms': '0', 'retry-after': '120' }, 120_000],
+    ['negative milliseconds uses backoff', { 'retry-after-ms': '-1', 'retry-after': '120' }, undefined],
+    ['HTTP date', { 'retry-after': new Date(1_700_000_120_000).toUTCString() }, 120_000],
+    ['timer limit in milliseconds', { 'retry-after-ms': String(2 ** 31 - 1) }, 2 ** 31 - 1],
+    ['timer limit in seconds', { 'retry-after': String((2 ** 31 - 1) / 1000) }, 2 ** 31 - 1],
+    ['milliseconds over timer limit', { 'retry-after-ms': String(2 ** 31), 'retry-after': '1' }, undefined],
+    ['seconds over timer limit', { 'retry-after': String(2 ** 31 / 1000) }, undefined],
+    ['zero', { 'retry-after': '0' }, undefined],
+    ['negative', { 'retry-after': '-1' }, undefined],
+    ['zero milliseconds', { 'retry-after-ms': '0' }, undefined],
+    ['empty milliseconds', { 'retry-after-ms': '' }, undefined],
+    ['infinity', { 'retry-after': 'Infinity' }, undefined],
+    ['NaN', { 'retry-after': 'NaN' }, undefined],
+    ['past date', { 'retry-after': new Date(1_699_999_999_000).toUTCString() }, undefined],
+    ['invalid', { 'retry-after': 'invalid' }, undefined],
+    ['missing', {}, undefined],
+  ]) test(`[shared] ${mode}: Retry-After ${name}`, async t => {
+    const delays = [];
+    const setTimer = globalThis.setTimeout;
+    t.mock.method(globalThis, 'setTimeout', (callback, delay, ...args) => {
+      delays.push(delay);
+      return setTimer(callback, 0, ...args);
+    });
+    t.mock.method(Math, 'random', () => 0);
+    t.mock.method(Date, 'now', () => 1_700_000_000_000);
+    let calls = 0;
+    const c = testClient(mode, () => ++calls <= 2
+      ? response({}, 429, headers) : response({ data: [] }), { timeout: 0, maxRetries: 2 });
+    await writeResource(c, mode).list({});
+    assert.equal(calls, 3);
+    assert.deepEqual(delays, expected === undefined ? [500, 1000] : [expected, expected]);
+  });
+
+  for (const kind of ['connection', 'timeout', 'abort']) {
+    test(`[shared] ${mode}: ${kind} failures are APIErrors without HTTP metadata`, async t => {
+      t.mock.timers.enable({ apis: ['setTimeout'] });
+      const caller = new AbortController();
+      let cause = new Error('transport failed');
+      let calls = 0;
+      const c = testClient(mode, req => {
+        calls++;
+        if (kind === 'connection') throw cause;
+        return new Promise((resolve, reject) => {
+          req.signal.addEventListener('abort', () => {
+            cause = req.signal.reason;
+            reject(cause);
+          }, { once: true });
+          if (kind === 'timeout') t.mock.timers.tick(11);
+          else caller.abort(cause);
+        });
+      }, { timeout: 10, maxRetries: kind === 'abort' ? 2 : 0 });
+      const ErrorClass = { connection: sdk.APIConnectionError, timeout: sdk.APIConnectionTimeoutError, abort: sdk.APIUserAbortError }[kind];
+      await assert.rejects(() => writeResource(c, mode).list({}, { signal: caller.signal }), error => {
+        assert.ok(error instanceof sdk.APIError);
+        assert.ok(error instanceof ErrorClass);
+        assert.equal(error.cause, cause);
+        assert.equal(error.status, undefined);
+        assert.equal(error.headers, undefined);
+        assert.equal(error.error, undefined);
+        assert.equal(error.response, undefined);
+        assert.equal(error.request_id, null);
+        assert.equal(error.requestID, null);
+        return true;
+      });
+      assert.equal(calls, 1);
+      assert.equal(getEventListeners(caller.signal, 'abort').length, 0);
+    });
+  }
+
+  test(`[shared] ${mode}: configuration errors remain outside APIError`, () => {
+    for (const options of [{ baseURL: 'ftp://qoder.test' }, { maxRetries: -1 }]) {
+      assert.throws(() => testClient(mode, () => response({}), options), error => {
+        assert.ok(error instanceof sdk.QoderError);
+        assert.equal(error instanceof sdk.APIError, false);
+        return true;
+      });
+    }
+  });
+
   // (1) method normalization + baseURL/path join; default header kept;
   //     null header deletes; undefined header preserves default; request header adds.
   test(`[shared] ${mode}: request building normalizes method/path and merges headers`, async () => {
@@ -153,7 +239,7 @@ for (const mode of MODES) {
   test(`[shared] ${mode}: request ID belongs to the final successful retry`, async () => {
     let calls = 0;
     const c = testClient(mode, () => ++calls === 1
-      ? response({ error: { message: 'retry' } }, 429, { 'x-request-id': 'failed-id', 'retry-after-ms': '0' })
+      ? response({ error: { message: 'retry' } }, 429, { 'x-request-id': 'failed-id', 'retry-after-ms': '1' })
       : response({ id: 'one' }, 200, { 'x-request-id': 'success-id' }), { maxRetries: 1 });
     const { data, request_id } = await c.request({ method: 'GET', path: '/resource' }).withResponse();
     assert.equal(data._request_id, 'success-id');
@@ -297,6 +383,50 @@ for (const mode of MODES) {
     assert.equal(getEventListeners(controller.signal, 'abort').length, 0);
   });
 }
+
+test('request error constructors preserve messages, names and causes', () => {
+  for (const ErrorClass of [sdk.APIConnectionError, sdk.APIConnectionTimeoutError, sdk.APIUserAbortError]) {
+    for (const message of ['custom message', '']) {
+      const cause = new Error('original failure');
+      const error = new ErrorClass(message, { cause });
+      assert.ok(error instanceof sdk.APIError);
+      assert.ok(error instanceof sdk.QoderError);
+      assert.equal(error.message, message);
+      assert.equal(error.name, ErrorClass.name);
+      assert.equal(error.cause, cause);
+      assert.equal(Object.getOwnPropertyDescriptor(error, 'cause').enumerable, false);
+    }
+    assert.equal(Object.hasOwn(new ErrorClass('no cause'), 'cause'), false);
+  }
+  assert.ok(new sdk.APIConnectionTimeoutError('timeout') instanceof sdk.APIConnectionError);
+});
+
+test('[shared] HTTP APIErrors preserve status, headers and response metadata', () => {
+  const subclasses = {
+    400: sdk.BadRequestError, 401: sdk.AuthenticationError, 403: sdk.PermissionDeniedError,
+    404: sdk.NotFoundError, 409: sdk.ConflictError, 422: sdk.UnprocessableEntityError,
+    429: sdk.RateLimitError, 500: sdk.InternalServerError, 418: sdk.APIError,
+  };
+  for (const [code, ErrorClass] of Object.entries(subclasses)) {
+    const status = Number(code);
+    const body = { error: { message: 'HTTP failure', code: 'failure_code', type: 'api_error' } };
+    const raw = response(body, status);
+    const error = sdk.APIError.generate(status, body, undefined, raw.headers, raw);
+    assert.ok(error instanceof ErrorClass);
+    assert.ok(error instanceof sdk.APIError);
+    assert.equal(error.status, status);
+    assert.equal(error.error, body);
+    assert.equal(error.headers, raw.headers);
+    assert.equal(error.response, raw);
+    assert.equal(error.message, 'HTTP failure');
+    assert.equal(error.code, 'failure_code');
+    assert.equal(error.type, 'api_error');
+    assert.equal(error.request_id, 'req_contract');
+    assert.equal(error.requestID, error.request_id);
+  }
+  assert.ok(new sdk.NotFoundError(404, {}).headers instanceof Headers);
+  assert.ok(sdk.APIError.generate(418, {}).headers instanceof Headers);
+});
 
 // (2b) query encoding is transport-shared; assert scalar + undefined omission once per
 //      mode using each mode's documented list params.

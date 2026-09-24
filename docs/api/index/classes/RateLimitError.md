@@ -8,19 +8,19 @@
 
 ## Extends
 
-- [`APIError`](APIError.md)
+- [`APIError`](APIError.md)\<`429`, `Headers`\>
 
 ## Constructors
 
 ### Constructor
 
-> **new RateLimitError**(`status`, `error`, `message?`, `headers?`, `response?`): `RateLimitError`
+> **new RateLimitError**(`status`, `error`, `message?`, `headers?`, `response?`, `options?`): `RateLimitError`
 
 #### Parameters
 
 ##### status
 
-`number`
+`429`
 
 ##### error
 
@@ -37,6 +37,10 @@
 ##### response?
 
 `Response`
+
+##### options?
+
+`ErrorOptions`
 
 #### Returns
 
@@ -160,7 +164,7 @@
 
 ### status
 
-> `readonly` **status**: `number`
+> `readonly` **status**: `429`
 
 #### Inherited from
 
@@ -180,7 +184,7 @@
 
 ### generate()
 
-> `static` **generate**(`status`, `error`, `message?`, `headers?`, `response?`): [`APIError`](APIError.md)
+> `static` **generate**(`status`, `error`, `message?`, `headers?`, `response?`): [`APIError`](APIError.md)\<`number`, `Headers`\>
 
 #### Parameters
 
@@ -198,7 +202,7 @@
 
 ##### headers?
 
-`Headers`
+`Headers` = `...`
 
 ##### response?
 
@@ -206,7 +210,7 @@
 
 #### Returns
 
-[`APIError`](APIError.md)
+[`APIError`](APIError.md)\<`number`, `Headers`\>
 
 #### Inherited from
 

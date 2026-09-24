@@ -8,7 +8,7 @@
 
 ## Extends
 
-- [`QoderError`](QoderError.md)
+- [`APIError`](APIError.md)\<`undefined`, `undefined`, `undefined`\>
 
 ## Extended by
 
@@ -34,9 +34,9 @@
 
 `APIConnectionError`
 
-#### Inherited from
+#### Overrides
 
-[`QoderError`](QoderError.md).[`constructor`](QoderError.md#constructor)
+[`APIError`](APIError.md).[`constructor`](APIError.md#constructor)
 
 ## Properties
 
@@ -46,7 +46,37 @@
 
 #### Inherited from
 
-[`QoderError`](QoderError.md).[`cause`](QoderError.md#cause)
+[`APIError`](APIError.md).[`cause`](APIError.md#cause)
+
+***
+
+### code?
+
+> `readonly` `optional` **code?**: `string`
+
+#### Inherited from
+
+[`APIError`](APIError.md).[`code`](APIError.md#code)
+
+***
+
+### error
+
+> `readonly` **error**: `undefined`
+
+#### Inherited from
+
+[`APIError`](APIError.md).[`error`](APIError.md#error)
+
+***
+
+### headers
+
+> `readonly` **headers**: `undefined`
+
+#### Inherited from
+
+[`APIError`](APIError.md).[`headers`](APIError.md#headers)
 
 ***
 
@@ -56,7 +86,7 @@
 
 #### Inherited from
 
-[`QoderError`](QoderError.md).[`message`](QoderError.md#message)
+[`APIError`](APIError.md).[`message`](APIError.md#message)
 
 ***
 
@@ -66,7 +96,47 @@
 
 #### Inherited from
 
-[`QoderError`](QoderError.md).[`name`](QoderError.md#name)
+[`APIError`](APIError.md).[`name`](APIError.md#name)
+
+***
+
+### request?
+
+> `optional` **request?**: `Request`
+
+#### Inherited from
+
+[`APIError`](APIError.md).[`request`](APIError.md#request)
+
+***
+
+### request\_id
+
+> `readonly` **request\_id**: `string` \| `null`
+
+#### Inherited from
+
+[`APIError`](APIError.md).[`request_id`](APIError.md#request_id)
+
+***
+
+### requestID
+
+> `readonly` **requestID**: `string` \| `null`
+
+#### Inherited from
+
+[`APIError`](APIError.md).[`requestID`](APIError.md#requestid)
+
+***
+
+### response?
+
+> `readonly` `optional` **response?**: `Response`
+
+#### Inherited from
+
+[`APIError`](APIError.md).[`response`](APIError.md#response)
 
 ***
 
@@ -76,4 +146,60 @@
 
 #### Inherited from
 
-[`QoderError`](QoderError.md).[`stack`](QoderError.md#stack)
+[`APIError`](APIError.md).[`stack`](APIError.md#stack)
+
+***
+
+### status
+
+> `readonly` **status**: `undefined`
+
+#### Inherited from
+
+[`APIError`](APIError.md).[`status`](APIError.md#status)
+
+***
+
+### type?
+
+> `readonly` `optional` **type?**: `string`
+
+#### Inherited from
+
+[`APIError`](APIError.md).[`type`](APIError.md#type)
+
+## Methods
+
+### generate()
+
+> `static` **generate**(`status`, `error`, `message?`, `headers?`, `response?`): [`APIError`](APIError.md)\<`number`, `Headers`\>
+
+#### Parameters
+
+##### status
+
+`number`
+
+##### error
+
+`unknown`
+
+##### message?
+
+`string`
+
+##### headers?
+
+`Headers` = `...`
+
+##### response?
+
+`Response`
+
+#### Returns
+
+[`APIError`](APIError.md)\<`number`, `Headers`\>
+
+#### Inherited from
+
+[`APIError`](APIError.md).[`generate`](APIError.md#generate)

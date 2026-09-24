@@ -8,19 +8,19 @@
 
 ## Extends
 
-- [`APIError`](APIError.md)
+- [`APIError`](APIError.md)\<`409`, `Headers`\>
 
 ## Constructors
 
 ### Constructor
 
-> **new ConflictError**(`status`, `error`, `message?`, `headers?`, `response?`): `ConflictError`
+> **new ConflictError**(`status`, `error`, `message?`, `headers?`, `response?`, `options?`): `ConflictError`
 
 #### Parameters
 
 ##### status
 
-`number`
+`409`
 
 ##### error
 
@@ -37,6 +37,10 @@
 ##### response?
 
 `Response`
+
+##### options?
+
+`ErrorOptions`
 
 #### Returns
 
@@ -160,7 +164,7 @@
 
 ### status
 
-> `readonly` **status**: `number`
+> `readonly` **status**: `409`
 
 #### Inherited from
 
@@ -180,7 +184,7 @@
 
 ### generate()
 
-> `static` **generate**(`status`, `error`, `message?`, `headers?`, `response?`): [`APIError`](APIError.md)
+> `static` **generate**(`status`, `error`, `message?`, `headers?`, `response?`): [`APIError`](APIError.md)\<`number`, `Headers`\>
 
 #### Parameters
 
@@ -198,7 +202,7 @@
 
 ##### headers?
 
-`Headers`
+`Headers` = `...`
 
 ##### response?
 
@@ -206,7 +210,7 @@
 
 #### Returns
 
-[`APIError`](APIError.md)
+[`APIError`](APIError.md)\<`number`, `Headers`\>
 
 #### Inherited from
 

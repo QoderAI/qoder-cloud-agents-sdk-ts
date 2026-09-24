@@ -4,7 +4,7 @@
 
 [qca-sdk](../../README.md) / [index](../README.md) / APIError
 
-# Class: APIError
+# Class: APIError\<TStatus, THeaders, TError\>
 
 ## Extends
 
@@ -20,22 +20,38 @@
 - [`UnprocessableEntityError`](UnprocessableEntityError.md)
 - [`RateLimitError`](RateLimitError.md)
 - [`InternalServerError`](InternalServerError.md)
+- [`APIConnectionError`](APIConnectionError.md)
+- [`APIUserAbortError`](APIUserAbortError.md)
+
+## Type Parameters
+
+### TStatus
+
+`TStatus` *extends* `number` \| `undefined` = `number` \| `undefined`
+
+### THeaders
+
+`THeaders` *extends* `Headers` \| `undefined` = `Headers` \| `undefined`
+
+### TError
+
+`TError` = `unknown`
 
 ## Constructors
 
 ### Constructor
 
-> **new APIError**(`status`, `error`, `message?`, `headers?`, `response?`): `APIError`
+> **new APIError**\<`TStatus`, `THeaders`, `TError`\>(`status`, `error`, `message?`, `headers?`, `response?`, `options?`): `APIError`\<`TStatus`, `THeaders`, `TError`\>
 
 #### Parameters
 
 ##### status
 
-`number`
+`TStatus`
 
 ##### error
 
-`unknown`
+`TError`
 
 ##### message?
 
@@ -43,15 +59,19 @@
 
 ##### headers?
 
-`Headers` = `...`
+`THeaders` = `...`
 
 ##### response?
 
 `Response`
 
+##### options?
+
+`ErrorOptions`
+
 #### Returns
 
-`APIError`
+`APIError`\<`TStatus`, `THeaders`, `TError`\>
 
 #### Overrides
 
@@ -77,13 +97,13 @@
 
 ### error
 
-> `readonly` **error**: `unknown`
+> `readonly` **error**: `TError`
 
 ***
 
 ### headers
 
-> `readonly` **headers**: `Headers`
+> `readonly` **headers**: `THeaders`
 
 ***
 
@@ -143,7 +163,7 @@
 
 ### status
 
-> `readonly` **status**: `number`
+> `readonly` **status**: `TStatus`
 
 ***
 
@@ -155,7 +175,7 @@
 
 ### generate()
 
-> `static` **generate**(`status`, `error`, `message?`, `headers?`, `response?`): `APIError`
+> `static` **generate**(`status`, `error`, `message?`, `headers?`, `response?`): `APIError`\<`number`, `Headers`\>
 
 #### Parameters
 
@@ -173,7 +193,7 @@
 
 ##### headers?
 
-`Headers`
+`Headers` = `...`
 
 ##### response?
 
@@ -181,4 +201,4 @@
 
 #### Returns
 
-`APIError`
+`APIError`\<`number`, `Headers`\>

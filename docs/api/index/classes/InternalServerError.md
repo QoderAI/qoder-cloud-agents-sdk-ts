@@ -8,13 +8,13 @@
 
 ## Extends
 
-- [`APIError`](APIError.md)
+- [`APIError`](APIError.md)\<`number`, `Headers`\>
 
 ## Constructors
 
 ### Constructor
 
-> **new InternalServerError**(`status`, `error`, `message?`, `headers?`, `response?`): `InternalServerError`
+> **new InternalServerError**(`status`, `error`, `message?`, `headers?`, `response?`, `options?`): `InternalServerError`
 
 #### Parameters
 
@@ -37,6 +37,10 @@
 ##### response?
 
 `Response`
+
+##### options?
+
+`ErrorOptions`
 
 #### Returns
 
@@ -180,7 +184,7 @@
 
 ### generate()
 
-> `static` **generate**(`status`, `error`, `message?`, `headers?`, `response?`): [`APIError`](APIError.md)
+> `static` **generate**(`status`, `error`, `message?`, `headers?`, `response?`): [`APIError`](APIError.md)\<`number`, `Headers`\>
 
 #### Parameters
 
@@ -198,7 +202,7 @@
 
 ##### headers?
 
-`Headers`
+`Headers` = `...`
 
 ##### response?
 
@@ -206,7 +210,7 @@
 
 #### Returns
 
-[`APIError`](APIError.md)
+[`APIError`](APIError.md)\<`number`, `Headers`\>
 
 #### Inherited from
 

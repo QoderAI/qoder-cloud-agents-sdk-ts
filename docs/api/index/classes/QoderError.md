@@ -13,8 +13,6 @@
 ## Extended by
 
 - [`APIError`](APIError.md)
-- [`APIConnectionError`](APIConnectionError.md)
-- [`APIUserAbortError`](APIUserAbortError.md)
 
 ## Constructors
 

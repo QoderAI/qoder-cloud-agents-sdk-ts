@@ -422,12 +422,12 @@ test('low-level Stream remains one-shot and discards an incomplete EOF frame', a
   assert.equal(stream.lastEventID, 'cursor-complete');
 });
 
-test('timeout reconnects with the existing cursor', async t => {
+for (const ErrorClass of [sdk.APIConnectionError, sdk.APIConnectionTimeoutError]) test(`${ErrorClass.name} reconnects with the existing cursor`, async t => {
   t.mock.timers.enable({ apis: ['setTimeout'] });
   const cursors = [];
   const stream = new sdk.ResumableSessionEventStream(async cursor => {
     cursors.push(cursor);
-    if (cursors.length === 1) throw new sdk.APIConnectionTimeoutError('timed out');
+    if (cursors.length === 1) throw new ErrorClass('connection failed');
     return sdk.Stream.fromSSEResponse(new Response(openBody(frame('after-timeout', { id: 'after-timeout' }))));
   }, 'cursor-before-timeout');
   const next = stream[Symbol.asyncIterator]().next();
@@ -447,6 +447,7 @@ test('resumable retry classification matches the QCA transport policy', () => {
   assert.equal(isResumableStreamRetryable(new sdk.APIConnectionError('transport')), true);
   assert.equal(isResumableStreamRetryable(new sdk.APIConnectionTimeoutError('timeout')), true);
   assert.equal(isResumableStreamRetryable(new sdk.APIUserAbortError('abort')), false);
+  assert.equal(isResumableStreamRetryable(new sdk.APIError(undefined, undefined, 'no response')), false);
   assert.equal(resumableStreamRetryDelay(0, () => 0), 250);
   assert.equal(resumableStreamRetryDelay(20, () => 1), 10_000);
 });

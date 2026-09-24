@@ -1,4 +1,5 @@
-import { ForwardClient, ManagedClient, APIPromise, Stream, ResumableSessionEventStream, toFile } from 'qca-sdk';
+import { ForwardClient, ManagedClient, APIPromise, Stream, ResumableSessionEventStream, toFile,
+  APIError, APIConnectionError, APIConnectionTimeoutError, APIUserAbortError, NotFoundError } from 'qca-sdk';
 import Forward from 'qca-sdk/forward';
 import Managed from 'qca-sdk/managed';
 import type { TemplateUpdateParams, SessionEvent } from 'qca-sdk/forward';
@@ -6,6 +7,19 @@ import type { AgentUpdateParams, ManagedAgentsStreamSessionEventsUnion, SessionE
 
 const forward: ForwardClient = new Forward({ pat: async () => 'token', timeout: 5000 });
 const managed: ManagedClient = new Managed();
+const derivedForward: ForwardClient = forward.withOptions({ timeout: 30_000 });
+const derivedManaged: ManagedClient = managed.withOptions({ maxRetries: 0 });
+void derivedForward.templates.list({});
+void derivedManaged.agents.list({});
+// @ts-expect-error withOptions preserves Forward resources and does not add Managed resources.
+derivedForward.agents;
+// @ts-expect-error withOptions preserves Managed resources and does not add Forward resources.
+derivedManaged.templates;
+// @ts-expect-error overrides must use ClientOptions.
+forward.withOptions({ unknownOption: true });
+class CustomForward extends ForwardClient { customMethod(): string { return 'custom'; } }
+const customResult: string = new CustomForward().withOptions({ timeout: 1000 }).customMethod();
+void customResult;
 const forwardPatch: TemplateUpdateParams = {
   name: '', system: null, tools: [], multiagent: null, metadata: null,
   model: { id: 'ultimate', effort: 'high', context_window: 400000 },
@@ -72,6 +86,36 @@ async function responseRequestIDs() {
   }
 }
 void responseRequestIDs;
+
+function requestErrorTypes(error: unknown) {
+  if (error instanceof APIConnectionError || error instanceof APIUserAbortError) {
+    const requestError: APIError = error;
+    const status: undefined = error.status;
+    const headers: undefined = error.headers;
+    const body: undefined = error.error;
+    void [requestError, status, headers, body];
+  }
+  if (error instanceof NotFoundError) {
+    const status: 404 = error.status;
+    const headers: Headers = error.headers;
+    void [status, headers.get('request-id')];
+  }
+  if (error instanceof APIError) {
+    const apiError: APIError = error;
+    const status: number | undefined = apiError.status;
+    const headers: Headers | undefined = apiError.headers;
+    // @ts-expect-error connection, timeout and abort errors have no HTTP status.
+    const httpStatus: number = apiError.status;
+    // @ts-expect-error not every APIError has response headers.
+    apiError.headers.get('request-id');
+    void [status, headers?.get('request-id'), httpStatus];
+  }
+}
+void requestErrorTypes;
+const timeoutError: APIConnectionError = new APIConnectionTimeoutError('timeout', { cause: new Error('cause') });
+const generatedStatus: number = APIError.generate(418, {}).status;
+const generatedHeaders: Headers = APIError.generate(418, {}).headers;
+void [timeoutError, generatedStatus, generatedHeaders];
 // @ts-expect-error creating a Template requires environment_id.
 void forward.templates.create({ name: 'missing environment', model: 'ultimate' });
 // @ts-expect-error there is no Service Account Token resource.

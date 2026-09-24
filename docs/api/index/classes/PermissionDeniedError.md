@@ -8,19 +8,19 @@
 
 ## Extends
 
-- [`APIError`](APIError.md)
+- [`APIError`](APIError.md)\<`403`, `Headers`\>
 
 ## Constructors
 
 ### Constructor
 
-> **new PermissionDeniedError**(`status`, `error`, `message?`, `headers?`, `response?`): `PermissionDeniedError`
+> **new PermissionDeniedError**(`status`, `error`, `message?`, `headers?`, `response?`, `options?`): `PermissionDeniedError`
 
 #### Parameters
 
 ##### status
 
-`number`
+`403`
 
 ##### error
 
@@ -37,6 +37,10 @@
 ##### response?
 
 `Response`
+
+##### options?
+
+`ErrorOptions`
 
 #### Returns
 
@@ -160,7 +164,7 @@
 
 ### status
 
-> `readonly` **status**: `number`
+> `readonly` **status**: `403`
 
 #### Inherited from
 
@@ -180,7 +184,7 @@
 
 ### generate()
 
-> `static` **generate**(`status`, `error`, `message?`, `headers?`, `response?`): [`APIError`](APIError.md)
+> `static` **generate**(`status`, `error`, `message?`, `headers?`, `response?`): [`APIError`](APIError.md)\<`number`, `Headers`\>
 
 #### Parameters
 
@@ -198,7 +202,7 @@
 
 ##### headers?
 
-`Headers`
+`Headers` = `...`
 
 ##### response?
 
@@ -206,7 +210,7 @@
 
 #### Returns
 
-[`APIError`](APIError.md)
+[`APIError`](APIError.md)\<`number`, `Headers`\>
 
 #### Inherited from
 
