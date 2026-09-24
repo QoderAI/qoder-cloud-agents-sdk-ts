@@ -184,18 +184,20 @@ const bytes = new Uint8Array(await download.arrayBuffer());
 
 ## Handling errors
 
-A non-2xx response throws a subclass of `APIError` carrying `status`, `code`, `type`, `request_id`, the parsed error payload, and the underlying `request` and `response`.
+`APIError` covers HTTP failures, connection failures, exhausted timeouts, and caller cancellation. HTTP errors carry `status`, `headers`, `code`, `type`, `request_id`, the parsed error payload, and the underlying `request` and `response`.
 
 ```ts
-import { APIError, NotFoundError } from 'qca-sdk';
+import { APIError, APIUserAbortError, NotFoundError } from 'qca-sdk';
 
 try {
   await client.sessions.retrieve('sess_missing');
 } catch (error) {
-  if (error instanceof NotFoundError) {
+  if (error instanceof APIUserAbortError) {
+    console.log('Request cancelled');
+  } else if (error instanceof NotFoundError) {
     console.log(error.status, error.code, error.request_id);
   } else if (error instanceof APIError) {
-    console.log(error.status, error.message);
+    console.log(error.status ?? 'No HTTP response', error.message, error.headers?.get('x-request-id'));
   } else {
     throw error;
   }
@@ -213,7 +215,9 @@ try {
 | 429    | `RateLimitError`        |
 | >=500  | `InternalServerError`   |
 
-Connection failures throw `APIConnectionError`, an exhausted timeout throws `APIConnectionTimeoutError`, and aborting through your own signal throws `APIUserAbortError`. Client-side misconfiguration — an invalid `baseURL`, a negative `maxRetries` — throws `QoderError`, the base class of all of the above.
+Connection failures throw `APIConnectionError`, an exhausted timeout throws `APIConnectionTimeoutError` (a subclass of `APIConnectionError`), and aborting through your own signal throws `APIUserAbortError`. All three inherit from `APIError`, matching Anthropic's TypeScript SDK. They have no HTTP response: `status`, `headers`, `error`, and `response` are `undefined`, and `request_id`/`requestID` are `null`. Guard these fields when handling a general `APIError`; HTTP-specific subclasses such as `NotFoundError` retain typed status codes and `Headers`.
+
+Error constructors continue to accept `(message, { cause })`. Client-side configuration errors such as an unsupported `baseURL` scheme or a negative `maxRetries` remain `QoderError` instances outside `APIError`. `QoderError` is the SDK error base class.
 
 ### Request IDs
 
@@ -232,7 +236,9 @@ const { data, request_id } = await client.sessions.retrieve(session.id).withResp
 
 ## Retries
 
-Connection errors, timeouts, 408, 429 and 5xx responses are retried twice by default with exponential backoff and jitter. Only replayable requests are eligible: `GET` and `HEAD`, plus any request sent with an idempotency key. Writes without an idempotency key are retried on 429 only, 409 is never retried, and a request whose body is a `ReadableStream` is never replayed because the body cannot be re-read. A `retry-after-ms`, `retry-after` or `x-should-retry` response header overrides the default decision.
+Connection errors, timeouts, 408, 429 and 5xx responses are retried twice by default with exponential backoff and jitter. Only replayable requests are eligible: `GET` and `HEAD`, plus any request sent with an idempotency key. Writes without an idempotency key are retried on 429 only, 409 is never retried, and a request whose body is a `ReadableStream` is never replayed because the body cannot be re-read. Within these safety rules, `x-should-retry` controls whether to retry, and `retry-after-ms` or `retry-after` controls the delay.
+
+Server-requested delays must be positive and no greater than `2 ** 31 - 1` milliseconds (the single-timer limit). Zero, negative, invalid, and over-limit values fall back to exponential backoff. `retry-after-ms` takes precedence; if it is missing, unparseable, or zero, the SDK checks `retry-after`, which accepts seconds or an HTTP date. These rules match Anthropic's TypeScript SDK.
 
 ```ts
 const client = new ForwardClient({ maxRetries: 0 }); // disable retries
@@ -240,6 +246,17 @@ await client.sessions.create(params, { maxRetries: 5, idempotencyKey: 'my-key' }
 ```
 
 Each attempt re-resolves the credential and sends an `X-Qoder-Retry-Count` header.
+
+## Reusing client configuration
+
+`withOptions()` creates a new client of the same type and retains options you do not override, including authentication, custom `fetch`, middleware, and the resolved base URL. The original client keeps its configuration.
+
+```ts
+const slowClient = client.withOptions({ timeout: 60_000, maxRetries: 1 });
+await slowClient.sessions.list({});
+```
+
+Supplied `defaultHeaders`, `defaultQuery`, and `middleware` replace their entire corresponding option rather than merging with it, matching Anthropic. Per-request options still override the derived client's defaults. Authentication follows the constructor's precedence: to switch from an inherited credential provider to a PAT, pass `{ credential: undefined, pat: 'new-token' }`.
 
 ## Timeouts
 

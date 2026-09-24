@@ -55,7 +55,7 @@ for (const mode of ['forward', 'managed']) {
       assert.equal(req.headers.get('x-qoder-retry-count'), String(calls));
       calls++;
       if (tc.write) sent.push(await req.text());
-      return response({ error: { type: 'api_error', message: 'temporary' } }, tc.status, { 'retry-after-ms': '0', ...(tc.shouldRetry ? { 'x-should-retry': tc.shouldRetry } : {}) });
+      return response({ error: { type: 'api_error', message: 'temporary' } }, tc.status, { 'retry-after-ms': '1', ...(tc.shouldRetry ? { 'x-should-retry': tc.shouldRetry } : {}) });
     }, { maxRetries: 2 });
     const resource = mode === 'forward' ? c.templates : c.agents;
     const params = mode === 'forward' ? { name: 'test', environment_id: 'env', model: 'model' } : { name: 'test', model: 'model' };

@@ -35,13 +35,13 @@ export function resumableRequestHeaders(headers: HeadersLike | undefined, lastEv
 /** @internal Exported for deterministic retry-policy tests. */
 export function isResumableStreamRetryable(error: unknown): boolean {
   if (error instanceof APIUserAbortError) return false;
+  if (error instanceof APIConnectionError) return true;
   if (error instanceof APIError) {
     if (error.status === 409) return false;
-    if (error.headers.get('x-should-retry') === 'false') return false;
-    if (error.headers.get('x-should-retry') === 'true') return true;
-    return error.status === 408 || error.status === 429 || error.status >= 500;
+    if (error.headers?.get('x-should-retry') === 'false') return false;
+    if (error.headers?.get('x-should-retry') === 'true') return true;
+    return error.status === 408 || error.status === 429 || (error.status !== undefined && error.status >= 500);
   }
-  if (error instanceof APIConnectionError) return true;
   // Response-body transport failures are surfaced by ReadableStream as their original error.
   return !(error instanceof QoderError) && !(error instanceof SyntaxError);
 }
