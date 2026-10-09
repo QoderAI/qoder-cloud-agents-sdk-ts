@@ -117,6 +117,7 @@ export class MockPlatform {
       this.events.get(sessionID).push(user); result.push(user);
       if (input.type === 'user.interrupt') { session.status = 'idle'; continue; }
       const prompt = typeof input.content === 'string' ? input.content : (input.content ?? []).filter(x => x.type === 'text').map(x => x.text).join('\n');
+      if (prompt.includes('sleep 30 seconds')) { session.status = 'running'; continue; }
       const events = this.events.get(sessionID);
       if (!prompt.startsWith('Reply with exactly ')) events.push({ id: this.id('evt'), type: 'agent.tool_use', name: 'Read' });
       events.push({ id: this.id('evt'), type: 'agent.message', content: [{ type: 'text', text: this.proof(session, prompt) }] }, { id: this.id('evt'), type: 'session.status_idle', stop_reason: 'end_turn' });
@@ -150,6 +151,18 @@ export class MockPlatform {
     this.logs.push({ method: req.method, path, body: clone(body), query: Object.fromEntries(url.searchParams) });
     const parts = path.split('/').filter(Boolean), action = parts.at(-1), parent = '/' + parts.slice(0,-1).join('/');
     if (req.method === 'GET') {
+      if (parts[0] === 'usage') {
+        assert.ok(url.searchParams.get('start_at') && url.searchParams.get('end_at'));
+        assert.ok(!url.searchParams.has('start_time') && !url.searchParams.has('end_time'));
+        const kind = action === 'identities' ? 'identity' : 'template';
+        return response({ type: `${kind}_usage.list`, start_at: url.searchParams.get('start_at'), end_at: url.searchParams.get('end_at'), data: [{ type: `${kind}_usage`, [`${kind}_id`]: `${kind}_usage_test`, session_count: 1, active_seconds: 1.25, credits: 0.5, ...(kind === 'template' ? { active_identities: 1 } : {}) }], has_more: false });
+      }
+      if (parts[0] === 'deployments' && parts[2] === 'runs') {
+        const runs = this.data('/deployment_runs').filter(run => run.deployment_id === parts[1]);
+        if (parts.length === 3) return this.pagination(runs);
+        const run = runs.find(run => run.id === parts[3]);
+        return run ? response(clone(run)) : response({ error: { message: 'run not found in deployment' } }, 404);
+      }
       if (action === 'models') return this.pagination([{ id: 'model-test', is_enabled: true, enabled: true, name: 'Mock model' }]);
       if (action === 'stats') return response({ total: this.data('/identities').length });
       if (action === 'stream' || action === 'events') {
@@ -194,8 +207,10 @@ export class MockPlatform {
     }
     if (['archive','pause','unpause','disable','enable','cancel'].includes(action)) {
       const item = this.get(parent);
+      const wasActive = !['idle', 'terminated'].includes(item.status);
       item.status = ({ archive:'archived', pause:'paused', unpause:'active', cancel: parts[0] === 'sessions' ? 'idle' : 'canceled' })[action] ?? item.status;
       if (action === 'disable' || action === 'enable') item.enabled = action === 'enable';
+      if (this.mode === 'managed' && parts[0] === 'sessions' && action === 'cancel') return response({ id: item.id, type: 'session', status: 'canceling' }, wasActive ? 202 : 200);
       return response(clone(item));
     }
     if (action === 'clone') return response(this.create('/templates', { ...this.get(parent), id: this.id('tmpl') }));
@@ -251,6 +266,20 @@ export class MockPlatform {
         if (body.instructions.includes('consolidated.md')) this.create(`/memory_stores/${input}/memories`, { path: 'sdk-e2e/consolidated.md', content: this.data(`/memory_stores/${input}/memories`).map(m => m.content).join('\n') });
       }
       return response(clone(item), 201);
+    }
+    if (this.mode === 'forward' && /\/vaults\/[^/]+\/credentials\/[^/]+$/.test(path)) {
+      const credential = this.get(path);
+      if ('metadata' in body) {
+        if (body.metadata === null) credential.metadata = {};
+        else {
+          credential.metadata ??= {};
+          for (const [key, value] of Object.entries(body.metadata)) {
+            if (value === null) delete credential.metadata[key]; else credential.metadata[key] = value;
+          }
+        }
+      }
+      assert.ok(!body.auth?.mcp_server_url, 'MCP URL is immutable during updates');
+      return response(clone(credential));
     }
     return response(clone(this.update(path, body)));
   }

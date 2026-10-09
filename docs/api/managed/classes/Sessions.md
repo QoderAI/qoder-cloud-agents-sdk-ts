@@ -86,6 +86,32 @@ Archive Session
 
 ***
 
+### cancel()
+
+> **cancel**(`sessionID`, `params?`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`SessionCancelResponse`](../interfaces/SessionCancelResponse.md)\>
+
+Cancel the current turn; an idle session is a safe no-op.
+
+#### Parameters
+
+##### sessionID
+
+`string`
+
+##### params?
+
+[`SessionCancelParams`](../interfaces/SessionCancelParams.md) = `{}`
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`APIPromise`](../../index/classes/APIPromise.md)\<[`SessionCancelResponse`](../interfaces/SessionCancelResponse.md)\>
+
+***
+
 ### create()
 
 > **create**(`params`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`ManagedAgentsSession`](../interfaces/ManagedAgentsSession.md)\>

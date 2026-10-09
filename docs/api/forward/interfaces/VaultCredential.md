@@ -14,6 +14,14 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
+### archived\_at?
+
+> `optional` **archived\_at?**: `string` \| `null`
+
+Archive time, null while active.
+
+***
+
 ### auth
 
 > **auth**: [`VaultCredentialAuth`](VaultCredentialAuth.md)

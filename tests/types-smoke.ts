@@ -124,3 +124,24 @@ forward.serviceAccountTokens;
 managed.webhooks;
 // @ts-expect-error Model shape is a string or object, never a number.
 void managed.agents.create({ name: 'bad model', model: 123 });
+
+// New public API signatures.
+void forward.usage.listIdentities({ start_at: '2026-09-14T09:00:00', end_at: '2026-09-14T12:00:00', identity_ids: ['idn'] });
+void forward.usage.listTemplates({ start_at: '2026-09-14T09:00:00', end_at: '2026-09-14T12:00:00', template_ids: ['tmpl'] });
+void forward.vaults.credentials.update('vault', 'credential', { auth: { type: 'environment_variable', secret_value: 'secret' }, metadata: null });
+void managed.sessions.cancel('session').then(ack => { const status: 'canceling' = ack.status; void status; });
+void managed.deployments.runs.list({ deployment_id: 'deployment', triggered_after: '2026-06-01T00:00:00Z' });
+void managed.deployments.runs.retrieve('run', { deployment_id: 'deployment' });
+// @ts-expect-error Hourly bounds are required.
+forward.usage.listIdentities({});
+// @ts-expect-error Legacy Unix-millisecond parameters are not exposed.
+forward.usage.listIdentities({ start_at: '2026-09-14T09:00:00', end_at: '2026-09-14T12:00:00', start_time: 123 });
+// @ts-expect-error Credential auth patches cannot change immutable fields.
+forward.vaults.credentials.update('vault', 'cred', { auth: { type: 'static_bearer', mcp_server_url: 'https://example.test' } });
+// @ts-expect-error Search is outside this expansion.
+forward.vaults.search({});
+// @ts-expect-error Search is outside this expansion.
+managed.vaults.search({});
+
+// @ts-expect-error Scoped run queries require a deployment ID.
+managed.deployments.runs.list({});

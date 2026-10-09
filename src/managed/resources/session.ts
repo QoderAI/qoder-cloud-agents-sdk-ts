@@ -11,6 +11,12 @@ import { SessionsResources } from "./session-resource.js";
 import { SessionsThreads } from "./session-thread.js";
 
 export class Sessions extends APIResource {
+  /** Cancel the current turn; an idle session is a safe no-op. */
+  cancel(sessionID: string, params: Types.SessionCancelParams = {}, options?: RequestOptions): APIPromise<Types.SessionCancelResponse> {
+    const request = splitParams(params, options, { workspace_id: 'qoder-workspace-id', betas: 'x-qoder-beta' }, []);
+    return this._client.request<Types.SessionCancelResponse>({ ...request.options, method: 'POST', path: `/sessions/${pathParam(sessionID, 'session_id')}/cancel` });
+  }
+
   readonly events = new SessionsEvents(this._client);
   readonly resources = new SessionsResources(this._client);
   readonly threads = new SessionsThreads(this._client);

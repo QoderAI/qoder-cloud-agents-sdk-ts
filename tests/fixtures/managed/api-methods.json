@@ -3379,5 +3379,70 @@
         ]
       }
     ]
+  },
+  {
+    "id": "sessions.cancel",
+    "entry": "sessions",
+    "method": "cancel",
+    "args": [
+      {
+        "name": "session_id",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": []
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "deployments.runs.list",
+    "entry": "deployments.runs",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "deployment_id",
+            "location": "path"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "triggered_after",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "deployments.runs.retrieve",
+    "entry": "deployments.runs",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "runID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "deployment_id",
+            "location": "path"
+          }
+        ]
+      }
+    ],
+    "paginated": false
   }
 ]

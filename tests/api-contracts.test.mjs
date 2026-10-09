@@ -9,7 +9,7 @@ const handwrittenMethods = {
 };
 
 for (const mode of ['forward', 'managed']) {
-  test(`${mode}: public resource inventory exactly matches the frozen API surface plus handwritten helpers (${mode === 'forward' ? 110 : 95} APIs)`, () => {
+  test(`${mode}: public resource inventory exactly matches the frozen API surface plus handwritten helpers (${mode === 'forward' ? 113 : 98} APIs)`, () => {
     const client = testClient(mode, () => { throw Error('inventory must not call network'); });
     const expectedRoots = [...new Set(methods[mode].map(m => m.entry.split('.')[0]))];
     const actualRoots = Object.entries(client).filter(([, value]) => value && typeof value === 'object' && Object.hasOwn(value, '_client')).map(([key]) => key);
@@ -26,7 +26,7 @@ for (const mode of ['forward', 'managed']) {
     };
     for (const entry of [...new Set(methods[mode].map(m => m.entry.split('.')[0]))]) walk(client[entry], entry);
     const expected = methods[mode].map(m => `${m.entry}.${m.method}`);
-    assert.equal(expected.length, mode === 'forward' ? 110 : 95);
+    assert.equal(expected.length, mode === 'forward' ? 113 : 98);
     assert.equal(new Set(expected).size, expected.length);
     assert.deepEqual(actual.sort(), [...expected, ...handwrittenMethods[mode]].sort());
   });

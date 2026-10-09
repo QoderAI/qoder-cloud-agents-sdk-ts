@@ -4,7 +4,7 @@ import { toFile } from '../../dist/forward/index.js';
 import { batchTerminal, liveName, marker } from './forward-support.mjs';
 
 // Each run function is also executed by offline scenario tests with an injected SDK client.
-// Operation fixtures separately cover all 110 API methods, including destructive variants
+// Operation fixtures separately cover all 113 API methods, including destructive variants
 // that the live lifecycle suite deliberately does not invoke.
 export const forwardScenarios = [];
 const scenario = (name, run, extras = {}) => forwardScenarios.push({ name, gates: ['WRITE'], run, ...extras });
@@ -153,13 +153,59 @@ scenario('vault_credential_lifecycle', async (s) => {
   s.cleanup('vault', (options) => s.client.vaults.delete(vault.id, options));
   assert.equal((await s.client.vaults.retrieve(vault.id, s.options)).id, vault.id);
   const secret = 'sdk-live-placeholder-secret';
-  const credential = await s.client.vaults.credentials.create(vault.id, { auth: { type: 'static_bearer', mcp_server_url: `https://example.com/${liveName('mcp')}`, token: secret } }, s.options);
+  const mcpURL = `https://example.com/${liveName('mcp')}`;
+  const credential = await s.client.vaults.credentials.create(vault.id, { auth: { type: 'static_bearer', mcp_server_url: mcpURL, token: secret } }, s.options);
   s.cleanup('credential', (options) => s.client.vaults.credentials.delete(vault.id, credential.id, options));
   const got = await s.client.vaults.credentials.retrieve(vault.id, credential.id, s.options);
   assert.equal(got.id, credential.id);
   assert.ok(!JSON.stringify([credential, got]).includes(secret), 'credential responses must redact secrets');
   await s.client.vaults.credentials.list(vault.id, {}, s.options);
+  const seeded = await s.client.vaults.credentials.update(vault.id, credential.id, { metadata: { keep: 'original', remove: 'old' } }, s.options);
+  const rotated = marker();
+  const updated = await s.client.vaults.credentials.update(vault.id, credential.id, { auth: { type: 'static_bearer', token: rotated }, metadata: { remove: null, added: 'new' } }, s.options);
+  const saved = await s.client.vaults.credentials.retrieve(vault.id, credential.id, s.options);
+  for (const value of [updated, saved]) {
+    assert.equal(value.id, credential.id);
+    assert.equal(value.auth.type, 'static_bearer');
+    assert.equal(value.auth.mcp_server_url, mcpURL);
+    assert.equal(value.metadata.keep, 'original');
+    assert.equal(value.metadata.added, 'new');
+    assert.ok(!('remove' in value.metadata));
+  }
+  const cleared = await s.client.vaults.credentials.update(vault.id, credential.id, { metadata: null }, s.options);
+  const clearedSaved = await s.client.vaults.credentials.retrieve(vault.id, credential.id, s.options);
+  assert.deepEqual(cleared.metadata ?? {}, {});
+  assert.deepEqual(clearedSaved.metadata ?? {}, {});
+  for (const value of [secret, rotated]) assert.ok(!JSON.stringify([seeded, updated, saved, cleared, clearedSaved]).includes(value), 'secrets must be redacted');
 });
+
+scenario('usage_hourly', async (s) => {
+  const end = Math.floor(Date.now() / 3_600_000) * 3_600_000;
+  const hour = value => new Date(value + 8 * 3_600_000).toISOString().slice(0, 13) + ':00:00';
+  const bounds = { start_at: hour(end - 24 * 3_600_000), end_at: hour(end) };
+  for (const [method, kind, idField] of [['listIdentities', 'identity', 'identity_id'], ['listTemplates', 'template', 'template_id']]) {
+    const page = await s.client.usage[method]({ ...bounds, limit: 2 }, s.options);
+    assert.equal(page.type, `${kind}_usage.list`);
+    assert.equal(page.start_at, bounds.start_at);
+    assert.equal(page.end_at, bounds.end_at);
+    assert.ok(page.data.length <= 2);
+    for (const row of page.data) {
+      assert.equal(row.type, `${kind}_usage`);
+      assert.ok(row[idField]);
+      for (const field of ['active_seconds', 'credits', 'session_count', ...(kind === 'template' ? ['active_identities'] : [])]) assert.ok(Number.isFinite(row[field]) && row[field] >= 0, `${field} must be a nonnegative number`);
+    }
+    if (page.hasNextPage()) {
+      const next = await page.getNextPage();
+      assert.equal(next.start_at, bounds.start_at);
+      assert.equal(next.end_at, bounds.end_at);
+    }
+    const ids = page.data.map(row => row[idField]);
+    if (ids.length) for (const value of [ids, ids.join(',')]) {
+      const filtered = await s.client.usage[method]({ ...bounds, limit: 2, [idField + 's']: value }, s.options);
+      assert.ok(filtered.data.every(row => ids.includes(row[idField])), 'Usage ignored multi-ID filter');
+    }
+  }
+}, { gates: [] });
 
 scenario('channel_qr_session_lifecycle', async (s) => {
   const identity = await s.identity();

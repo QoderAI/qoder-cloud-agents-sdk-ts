@@ -5,7 +5,7 @@ import { createForwardLiveSuite, forwardLiveSkipReason } from './forward-support
 // Live runs are opt-in through explicit gates and PAT env vars. Never read token files.
 for (const scenario of forwardScenarios) {
   test(`Forward live ${scenario.name}`, { skip: forwardLiveSkipReason(scenario) }, async (t) => {
-    const suite = createForwardLiveSuite();
+    const suite = createForwardLiveSuite(t);
     try { await scenario.run(suite, t); }
     finally { await suite.close(); }
   });

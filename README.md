@@ -42,7 +42,7 @@ for await (const event of client.sessions.events.list(session.id, { order: 'asc'
 }
 ```
 
-`ForwardClient` covers the Forward API — `templates`, `identities`, `sessions`, `schedules`, `scheduleRuns`, `batches`, `channels`, `channelPairings`, `environments`, `files`, `skills`, `vaults`, `memoryStores` and `models`.
+`ForwardClient` covers the Forward API — `templates`, `identities`, `sessions`, `schedules`, `scheduleRuns`, `batches`, `channels`, `channelPairings`, `environments`, `files`, `skills`, `vaults`, `memoryStores`, `models` and `usage`.
 
 ```ts
 import { ManagedClient } from 'qca-sdk';
@@ -74,6 +74,39 @@ Each client also has its own entry point — `qca-sdk/forward` and `qca-sdk/mana
 ```ts
 import ForwardClient from 'qca-sdk/forward';
 ```
+
+### Usage and cancellation
+
+Forward Usage requires PAT or Admin SAT.
+
+```ts
+for await (const row of forward.usage.listIdentities({
+  start_at: '2026-09-14T09:00:00', end_at: '2026-09-14T12:00:00',
+  identity_ids: ['idn_one', 'idn_two'],
+})) {
+  console.log(row.identity_id, row.active_seconds, row.credits);
+}
+const acknowledgement = await managed.sessions.cancel('sess_one');
+for await (const run of managed.deployments.runs.list({ deployment_id: 'dep_one', limit: 20 })) {
+  console.log(run.id);
+}
+const run = await managed.deployments.runs.retrieve('drun_one', { deployment_id: 'dep_one' });
+```
+
+`usage.listTemplates` accepts the same filters. Bounds are whole hours in
+Asia/Shanghai for CN and Global, with an inclusive start, exclusive end, and a
+maximum 744-hour span. Multi-ID filters accept arrays or comma-separated strings.
+`active_seconds` preserves fractions. Legacy timestamp parameters and
+`duration_seconds` are not exposed.
+
+`forward.vaults.credentials.update('vault_one', 'cred_one', { auth: {...} })`
+rotates write-only secrets; only auth and metadata are patched, omitted fields
+are preserved, and this operation never retries automatically.
+`metadata: null` clears metadata; `metadata: { key: null }` deletes a key.
+
+Session cancellation returns the lightweight `canceling` acknowledgement for
+active (HTTP 202) and idle (HTTP 200) sessions. The global `deploymentRuns` resource
+remains available.
 
 ### Configuration
 
