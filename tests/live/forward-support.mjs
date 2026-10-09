@@ -217,10 +217,16 @@ export function forwardLiveSkipReason(scenario) {
   return false;
 }
 
-export function createForwardLiveSuite() {
+export function createForwardLiveSuite(t) {
   const timeout = seconds('QODER_FORWARD_LIVE_TIMEOUT_SECONDS', 15);
   const scenarioTimeout = seconds('QODER_E2E_TIMEOUT_SECONDS', 180, 1800);
-  return new ForwardLiveSuite(new ForwardClient({ pat: process.env.QODER_FORWARD_PAT, timeout, maxRetries: 0 }), {
+  return new ForwardLiveSuite(new ForwardClient({ pat: process.env.QODER_FORWARD_PAT, timeout, maxRetries: 0, fetch: async (input, init) => {
+    const started = Date.now();
+    const url = new URL(input instanceof Request ? input.url : String(input));
+    const response = await fetch(input, init);
+    t?.diagnostic(`http method=${init?.method ?? 'GET'} path=${url.pathname} status=${response.status} request_id=${response.headers.get('x-request-id') ?? ''} elapsed=${Date.now() - started}ms`);
+    return response;
+  } }), {
     timeout, scenarioTimeout, model: process.env.QODER_FORWARD_MODEL,
   });
 }

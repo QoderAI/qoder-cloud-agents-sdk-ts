@@ -14,9 +14,15 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
-### mcp\_server\_url
+### mcp\_server\_url?
 
-> **mcp\_server\_url**: `string`
+> `optional` **mcp\_server\_url?**: `string`
+
+***
+
+### secret\_name?
+
+> `optional` **secret\_name?**: `string`
 
 ***
 

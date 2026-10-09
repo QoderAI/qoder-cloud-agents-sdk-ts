@@ -11588,3 +11588,28 @@ export type VaultRetrieveParams = VaultGetParams;
 export type VaultCredentialCreateParams = VaultCredentialNewParams;
 
 export type VaultCredentialRetrieveParams = VaultCredentialGetParams;
+
+/** Lightweight acknowledgement, returned for both applied (202) and idle (200) cancellation. */
+export interface SessionCancelResponse {
+  id: string;
+  type: 'session';
+  status: 'canceling';
+}
+export interface SessionCancelParams {
+  workspace_id?: string;
+  betas?: QoderBeta[];
+}
+export interface DeploymentScopedRunListParams {
+  deployment_id: string;
+  limit?: number;
+  page?: string;
+  after_id?: string;
+  before_id?: string;
+  triggered_after?: string;
+  triggered_before?: string;
+  workspace_id?: string;
+  betas?: QoderBeta[];
+}
+export interface DeploymentScopedRunRetrieveParams extends DeploymentRunRetrieveParams {
+  deployment_id: string;
+}

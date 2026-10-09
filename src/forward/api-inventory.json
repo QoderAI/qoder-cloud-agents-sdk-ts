@@ -4514,5 +4514,212 @@
     "itemType": "void",
     "path": "/vaults/{id}/credentials/{cred_id}",
     "parameterFields": []
+  },
+  {
+    "operationId": "updateVaultCredential",
+    "entry": "vaults.credentials",
+    "method": "update",
+    "httpMethod": "POST",
+    "path": "/vaults/{id}/credentials/{cred_id}",
+    "parameters": [
+      {
+        "name": "id",
+        "type": "string",
+        "location": "path",
+        "wireName": "id"
+      },
+      {
+        "name": "cred_id",
+        "type": "string",
+        "location": "path",
+        "wireName": "cred_id"
+      }
+    ],
+    "paramsType": "VaultCredentialUpdateParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "parameterFields": [
+      {
+        "name": "auth",
+        "type": "VaultCredentialUpdateAuth",
+        "location": "body",
+        "wireName": "auth",
+        "required": false
+      },
+      {
+        "name": "metadata",
+        "type": "Record<string, unknown> | null",
+        "location": "body",
+        "wireName": "metadata",
+        "required": false
+      },
+      {
+        "name": "identity_id",
+        "type": "string",
+        "location": "query",
+        "wireName": "identity_id",
+        "required": false
+      }
+    ],
+    "itemType": "VaultCredential"
+  },
+  {
+    "operationId": "listIdentityUsage",
+    "entry": "usage",
+    "method": "listIdentities",
+    "httpMethod": "GET",
+    "path": "/usage/identities",
+    "parameters": [],
+    "paramsType": "UsageListParams",
+    "paramsOptional": false,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "IdentityUsage",
+    "parameterFields": [
+      {
+        "name": "start_at",
+        "type": "string",
+        "location": "query",
+        "wireName": "start_at",
+        "required": true
+      },
+      {
+        "name": "end_at",
+        "type": "string",
+        "location": "query",
+        "wireName": "end_at",
+        "required": true
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "location": "query",
+        "wireName": "limit",
+        "required": false
+      },
+      {
+        "name": "after_id",
+        "type": "string",
+        "location": "query",
+        "wireName": "after_id",
+        "required": false
+      },
+      {
+        "name": "before_id",
+        "type": "string",
+        "location": "query",
+        "wireName": "before_id",
+        "required": false
+      },
+      {
+        "name": "identity_id",
+        "type": "string",
+        "location": "query",
+        "wireName": "identity_id",
+        "required": false
+      },
+      {
+        "name": "identity_ids",
+        "type": "string | string[]",
+        "location": "query",
+        "wireName": "identity_ids",
+        "required": false
+      },
+      {
+        "name": "template_id",
+        "type": "string",
+        "location": "query",
+        "wireName": "template_id",
+        "required": false
+      },
+      {
+        "name": "template_ids",
+        "type": "string | string[]",
+        "location": "query",
+        "wireName": "template_ids",
+        "required": false
+      }
+    ]
+  },
+  {
+    "operationId": "listTemplateUsage",
+    "entry": "usage",
+    "method": "listTemplates",
+    "httpMethod": "GET",
+    "path": "/usage/templates",
+    "parameters": [],
+    "paramsType": "UsageListParams",
+    "paramsOptional": false,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "TemplateUsage",
+    "parameterFields": [
+      {
+        "name": "start_at",
+        "type": "string",
+        "location": "query",
+        "wireName": "start_at",
+        "required": true
+      },
+      {
+        "name": "end_at",
+        "type": "string",
+        "location": "query",
+        "wireName": "end_at",
+        "required": true
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "location": "query",
+        "wireName": "limit",
+        "required": false
+      },
+      {
+        "name": "after_id",
+        "type": "string",
+        "location": "query",
+        "wireName": "after_id",
+        "required": false
+      },
+      {
+        "name": "before_id",
+        "type": "string",
+        "location": "query",
+        "wireName": "before_id",
+        "required": false
+      },
+      {
+        "name": "identity_id",
+        "type": "string",
+        "location": "query",
+        "wireName": "identity_id",
+        "required": false
+      },
+      {
+        "name": "identity_ids",
+        "type": "string | string[]",
+        "location": "query",
+        "wireName": "identity_ids",
+        "required": false
+      },
+      {
+        "name": "template_id",
+        "type": "string",
+        "location": "query",
+        "wireName": "template_id",
+        "required": false
+      },
+      {
+        "name": "template_ids",
+        "type": "string | string[]",
+        "location": "query",
+        "wireName": "template_ids",
+        "required": false
+      }
+    ]
   }
 ]

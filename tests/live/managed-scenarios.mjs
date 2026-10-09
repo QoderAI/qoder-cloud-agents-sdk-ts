@@ -27,6 +27,9 @@ export const managedScenarios = [
     await s.client.sessions.events.list(session.id, {}, s.options());
     await s.client.sessions.resources.list(session.id, {}, s.options());
     await s.client.sessions.threads.list(session.id, {}, s.options());
+    const { data: cancellation, response } = await s.client.sessions.cancel(session.id, {}, s.options()).withResponse();
+    assert.equal(response.status, 200);
+    assert.deepEqual({ id: cancellation.id, type: cancellation.type, status: cancellation.status }, { id: session.id, type: 'session', status: 'canceling' });
   }),
   scenario('memory_store_lifecycle', 'write', async (s) => {
     const store = await s.createMemoryStore();
@@ -84,6 +87,8 @@ export const managedScenarios = [
     await s.client.deployments.pause(deployment.id, {}, s.options());
     await s.client.deployments.unpause(deployment.id, {}, s.options());
     await s.client.deploymentRuns.list({}, s.options());
+    const scoped = await s.client.deployments.runs.list({ deployment_id: deployment.id, limit: 2 }, s.options());
+    assert.ok(scoped.data.every(run => run.deployment_id === deployment.id));
   }),
   scenario('dream_lifecycle', 'execution', async (s) => {
     const store = await s.createMemoryStore();
@@ -123,7 +128,41 @@ export const managedScenarios = [
     s.cleanupSession(run.session_id);
     const got = await s.client.deploymentRuns.retrieve(run.id, {}, s.options());
     assert.equal(got.session_id, run.session_id, 'Run session changed');
+    const scoped = await s.client.deployments.runs.retrieve(run.id, { deployment_id: deployment.id }, s.options());
+    assert.equal(scoped.id, run.id);
+    assert.equal(scoped.deployment_id, deployment.id);
+    assert.equal(scoped.session_id, run.session_id);
+    const runs = await s.client.deployments.runs.list({ deployment_id: deployment.id, limit: 10 }, s.options());
+    assert.ok(runs.data.some(item => item.id === run.id), 'Scoped list did not contain the created Run');
+    assert.ok(runs.data.every(item => item.deployment_id === deployment.id), 'Scoped list returned a different deployment');
     await s.waitTurn(run.session_id, '', [token]);
+  }),
+  scenario('deployment_scoped_runs', 'execution', async (s) => {
+    const environment = await s.createEnvironment(), agent = await s.createAgent();
+    const deployment = await s.client.deployments.create({ name: unique('scoped-runs'), agent: agent.id, environment_id: environment.id, initial_events: [userMessage('Reply with SDK-LIVE.')] }, s.options());
+    s.cleanup(`Deployment ${deployment.id}`, () => s.client.deployments.archive(deployment.id, {}, s.options()));
+    const run = await s.client.deployments.run(deployment.id, {}, s.options());
+    assert.ok(run.session_id, 'Run returned no session for cleanup');
+    s.cleanupSession(run.session_id);
+    const saved = await s.client.deployments.runs.retrieve(run.id, { deployment_id: deployment.id }, s.options());
+    assert.equal(saved.id, run.id);
+    assert.equal(saved.deployment_id, deployment.id);
+    assert.equal(saved.session_id, run.session_id);
+    const runs = await s.client.deployments.runs.list({ deployment_id: deployment.id, limit: 10 }, s.options());
+    assert.ok(runs.data.some(item => item.id === run.id), 'Scoped list omitted the created Run');
+    assert.ok(runs.data.every(item => item.deployment_id === deployment.id), 'Scoped list returned another deployment');
+  }),
+  scenario('session_cancel_active', 'execution', async (s) => {
+    const environment = await s.createEnvironment();
+    const agent = await s.createAgent({ tools: [{ type: 'agent_toolset_20260401' }] });
+    const session = await s.client.sessions.create({ agent: agent.id, environment_id: environment.id }, s.options());
+    s.cleanupSession(session.id);
+    await s.sendTurn(session.id, 'Use a shell command to sleep 30 seconds, then reply with SDK-LIVE.');
+    const { data, response } = await s.client.sessions.cancel(session.id, {}, s.options()).withResponse();
+    // The turn can finish between send and cancel; HTTP 200 is then the documented idle no-op.
+    assert.ok([200, 202].includes(response.status));
+    assert.deepEqual({ id: data.id, type: data.type, status: data.status }, { id: session.id, type: 'session', status: 'canceling' });
+    while (!['idle', 'terminated'].includes((await s.client.sessions.retrieve(session.id, {}, s.options())).status)) await s.pollPause();
   }),
   scenario('dream_e2e', 'e2e', async (s) => {
     const store = await s.createMemoryStore();

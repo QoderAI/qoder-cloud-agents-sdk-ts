@@ -32,6 +32,7 @@
 - [Skills](classes/Skills.md)
 - [SkillVersions](classes/SkillVersions.md)
 - [Templates](classes/Templates.md)
+- [Usage](classes/Usage.md)
 - [VaultCredentials](classes/VaultCredentials.md)
 - [Vaults](classes/Vaults.md)
 
@@ -105,6 +106,7 @@
 - [IdentityStats](interfaces/IdentityStats.md)
 - [IdentityTemplate](interfaces/IdentityTemplate.md)
 - [IdentityUpdateParams](interfaces/IdentityUpdateParams.md)
+- [IdentityUsage](interfaces/IdentityUsage.md)
 - [ImageSource](interfaces/ImageSource.md)
 - [ImageSourceParam](interfaces/ImageSourceParam.md)
 - [MCPServer](interfaces/MCPServer.md)
@@ -202,17 +204,20 @@
 - [TemplateListParams](interfaces/TemplateListParams.md)
 - [TemplateNewParams](interfaces/TemplateNewParams.md)
 - [TemplateUpdateParams](interfaces/TemplateUpdateParams.md)
+- [TemplateUsage](interfaces/TemplateUsage.md)
 - [Tool](interfaces/Tool.md)
 - [ToolConfig](interfaces/ToolConfig.md)
 - [ToolConfigParam](interfaces/ToolConfigParam.md)
 - [ToolOverride](interfaces/ToolOverride.md)
 - [ToolOverrideParam](interfaces/ToolOverrideParam.md)
 - [ToolParam](interfaces/ToolParam.md)
+- [UsageListParams](interfaces/UsageListParams.md)
 - [Vault](interfaces/Vault.md)
 - [VaultCredential](interfaces/VaultCredential.md)
 - [VaultCredentialAuth](interfaces/VaultCredentialAuth.md)
 - [VaultCredentialListParams](interfaces/VaultCredentialListParams.md)
 - [VaultCredentialNewParams](interfaces/VaultCredentialNewParams.md)
+- [VaultCredentialUpdateParams](interfaces/VaultCredentialUpdateParams.md)
 - [VaultListParams](interfaces/VaultListParams.md)
 - [VaultNewParams](interfaces/VaultNewParams.md)
 
@@ -240,6 +245,7 @@
 - [TemplateCreateParams](type-aliases/TemplateCreateParams.md)
 - [VaultCreateParams](type-aliases/VaultCreateParams.md)
 - [VaultCredentialCreateParams](type-aliases/VaultCredentialCreateParams.md)
+- [VaultCredentialUpdateAuth](type-aliases/VaultCredentialUpdateAuth.md)
 
 ## References
 

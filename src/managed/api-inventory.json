@@ -5473,5 +5473,173 @@
     ],
     "responseType": "ManagedAgentsCredentialValidation",
     "responseMode": "json"
+  },
+  {
+    "entry": "sessions.cancel",
+    "resource": "sessions",
+    "method": "cancel",
+    "httpMethod": "POST",
+    "path": "/sessions/{session_id}/cancel",
+    "params": [
+      {
+        "name": "session_id",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "SessionCancelParams",
+        "location": "params",
+        "required": false,
+        "fields": [
+          {
+            "name": "workspace_id",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "type": "QoderBeta[]",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "SessionCancelResponse",
+    "responseMode": "json"
+  },
+  {
+    "entry": "deployments.runs.list",
+    "resource": "deployments.runs",
+    "method": "list",
+    "httpMethod": "GET",
+    "path": "/deployments/{deployment_id}/runs",
+    "params": [
+      {
+        "name": "params",
+        "type": "DeploymentScopedRunListParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "deployment_id",
+            "wireName": "deployment_id",
+            "location": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "location": "query",
+            "wireName": "limit",
+            "required": false
+          },
+          {
+            "name": "page",
+            "type": "string",
+            "location": "query",
+            "wireName": "page",
+            "required": false
+          },
+          {
+            "name": "after_id",
+            "type": "string",
+            "location": "query",
+            "wireName": "after_id",
+            "required": false
+          },
+          {
+            "name": "before_id",
+            "type": "string",
+            "location": "query",
+            "wireName": "before_id",
+            "required": false
+          },
+          {
+            "name": "triggered_after",
+            "type": "string",
+            "location": "query",
+            "wireName": "triggered_after",
+            "required": false
+          },
+          {
+            "name": "triggered_before",
+            "type": "string",
+            "location": "query",
+            "wireName": "triggered_before",
+            "required": false
+          },
+          {
+            "name": "workspace_id",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "type": "QoderBeta[]",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeploymentRun",
+    "responseMode": "page",
+    "pagination": "page"
+  },
+  {
+    "entry": "deployments.runs.retrieve",
+    "resource": "deployments.runs",
+    "method": "retrieve",
+    "httpMethod": "GET",
+    "path": "/deployments/{deployment_id}/runs/{run_id}",
+    "params": [
+      {
+        "name": "runID",
+        "type": "string",
+        "location": "path",
+        "required": true
+      },
+      {
+        "name": "params",
+        "type": "DeploymentScopedRunRetrieveParams",
+        "location": "params",
+        "required": true,
+        "fields": [
+          {
+            "name": "deployment_id",
+            "wireName": "deployment_id",
+            "location": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "workspace_id",
+            "type": "string",
+            "location": "header",
+            "wireName": "qoder-workspace-id",
+            "required": false
+          },
+          {
+            "name": "betas",
+            "type": "QoderBeta[]",
+            "location": "header",
+            "wireName": "x-qoder-beta",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "responseType": "ManagedAgentsDeploymentRun",
+    "responseMode": "json"
   }
 ]

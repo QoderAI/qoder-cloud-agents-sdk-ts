@@ -40,6 +40,12 @@
 
 `APIResource._client`
 
+***
+
+### runs
+
+> `readonly` **runs**: [`DeploymentScopedRuns`](DeploymentScopedRuns.md)
+
 ## Methods
 
 ### archive()

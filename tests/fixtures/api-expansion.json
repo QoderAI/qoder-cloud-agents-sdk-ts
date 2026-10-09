@@ -1,0 +1,262 @@
+{
+  "source": "cloud-agent/cloud-agents-api-doc origin/master 1b3f3d023b8631395c3f65577a507050d3893d12 (2026-10-09)",
+  "operations": [
+    {
+      "mode": "forward",
+      "entry": "vaults.credentials",
+      "method": "update",
+      "goentry": "Vaults.Credentials",
+      "goname": "Update",
+      "http": "POST",
+      "path": "/vaults/{id}/credentials/{cred_id}",
+      "doc": "Credentials__update.md",
+      "body": {
+        "auth": {
+          "type": "static_bearer",
+          "token": "rotated-test-token"
+        },
+        "metadata": {
+          "remove": null,
+          "rotated_by": "sdk"
+        }
+      },
+      "query": {
+        "identity_id": "idn_contract"
+      },
+      "response": {
+        "id": "vcred_xxx",
+        "type": "vault_credential",
+        "vault_id": "vault_xxx",
+        "auth": {
+          "type": "static_bearer",
+          "mcp_server_url": "https://mcp.example.com"
+        },
+        "display_name": "",
+        "metadata": {
+          "rotated_by": "console"
+        },
+        "archived_at": null,
+        "created_at": "2026-07-23T10:00:00Z",
+        "updated_at": "2026-08-27T12:00:00Z"
+      },
+      "page": false,
+      "op": "updateVaultCredential",
+      "service": "VaultCredentialService",
+      "kind": "json",
+      "type": "VaultCredential",
+      "paramsType": "VaultCredentialUpdateParams"
+    },
+    {
+      "mode": "forward",
+      "entry": "usage",
+      "method": "listIdentities",
+      "goentry": "Usage",
+      "goname": "ListIdentities",
+      "http": "GET",
+      "path": "/usage/identities",
+      "doc": "Usage__ListIdentityUsage.md",
+      "body": null,
+      "query": {
+        "start_at": "2026-09-14T09:00:00",
+        "end_at": "2026-09-14T12:00:00",
+        "identity_ids": [
+          "idn_one",
+          "idn_two"
+        ],
+        "template_ids": [
+          "tmpl_one",
+          "tmpl_two"
+        ],
+        "limit": 20
+      },
+      "response": {
+        "type": "identity_usage.list",
+        "start_at": "2026-09-14T09:00:00",
+        "end_at": "2026-09-14T12:00:00",
+        "has_more": false,
+        "first_id": "idn_abc",
+        "last_id": "idn_efg",
+        "data": [
+          {
+            "type": "identity_usage",
+            "identity_id": "idn_abc",
+            "session_count": 3,
+            "active_seconds": 720.222,
+            "credits": 3.1
+          },
+          {
+            "type": "identity_usage",
+            "identity_id": "idn_efg",
+            "session_count": 2,
+            "active_seconds": 480.222,
+            "credits": 1.58
+          }
+        ]
+      },
+      "page": true,
+      "op": "listIdentityUsage",
+      "service": "UsageService",
+      "kind": "page",
+      "type": "IdentityUsage",
+      "paramsType": "UsageListParams"
+    },
+    {
+      "mode": "forward",
+      "entry": "usage",
+      "method": "listTemplates",
+      "goentry": "Usage",
+      "goname": "ListTemplates",
+      "http": "GET",
+      "path": "/usage/templates",
+      "doc": "Usage__ListTemplateUsage.md",
+      "body": null,
+      "query": {
+        "start_at": "2026-09-14T09:00:00",
+        "end_at": "2026-09-14T12:00:00",
+        "identity_ids": [
+          "idn_one",
+          "idn_two"
+        ],
+        "template_ids": [
+          "tmpl_one",
+          "tmpl_two"
+        ],
+        "limit": 20
+      },
+      "response": {
+        "type": "template_usage.list",
+        "start_at": "2026-09-14T09:00:00",
+        "end_at": "2026-09-14T12:00:00",
+        "has_more": false,
+        "first_id": "tmpl_123",
+        "last_id": "tmpl_456",
+        "data": [
+          {
+            "type": "template_usage",
+            "template_id": "tmpl_123",
+            "active_identities": 2,
+            "session_count": 3,
+            "active_seconds": 900.321,
+            "credits": 3.45
+          },
+          {
+            "type": "template_usage",
+            "template_id": "tmpl_456",
+            "active_identities": 2,
+            "session_count": 2,
+            "active_seconds": 300.123,
+            "credits": 1.23
+          }
+        ]
+      },
+      "page": true,
+      "op": "listTemplateUsage",
+      "service": "UsageService",
+      "kind": "page",
+      "type": "TemplateUsage",
+      "paramsType": "UsageListParams"
+    },
+    {
+      "mode": "managed",
+      "entry": "sessions",
+      "method": "cancel",
+      "goentry": "Sessions",
+      "goname": "Cancel",
+      "http": "POST",
+      "path": "/sessions/{session_id}/cancel",
+      "doc": "sessions__cancel.md",
+      "body": null,
+      "query": {},
+      "response": {
+        "id": "sess_019ef30a4f0275678965d496ab542ef0",
+        "type": "session",
+        "status": "canceling"
+      },
+      "page": false,
+      "op": "cancelSession",
+      "service": "SessionService",
+      "kind": "json",
+      "type": "SessionCancelResponse",
+      "paramsType": "SessionCancelParams"
+    },
+    {
+      "mode": "managed",
+      "entry": "deployments.runs",
+      "method": "list",
+      "goentry": "Deployments.Runs",
+      "goname": "List",
+      "http": "GET",
+      "path": "/deployments/{deployment_id}/runs",
+      "doc": "deployments__list-runs.md",
+      "body": null,
+      "query": {
+        "limit": 20,
+        "triggered_after": "2026-06-01T00:00:00Z"
+      },
+      "response": {
+        "data": [
+          {
+            "agent": {
+              "id": "agent_019ebb21ef8e7df6a559052c94875160",
+              "type": "agent",
+              "version": 1
+            },
+            "created_at": "2026-06-14T08:58:17Z",
+            "deployment_id": "dep_019ec55a2b687b3f94eee77dd77e4b2a",
+            "error": null,
+            "id": "drun_019ec55a68af73028afa5b87931cb2f3",
+            "session_id": "sess_019ec55a68b37e1e8d660691af161ab4",
+            "trigger_context": {
+              "type": "manual"
+            },
+            "type": "deployment_run"
+          }
+        ],
+        "first_id": "drun_019ec55a68af73028afa5b87931cb2f3",
+        "has_more": false,
+        "last_id": "drun_019ec55a68af73028afa5b87931cb2f3",
+        "next_page": null
+      },
+      "page": true,
+      "op": "listDeploymentScopedRun",
+      "service": "DeploymentScopedRunService",
+      "kind": "page",
+      "type": "ManagedAgentsDeploymentRun",
+      "paramsType": "DeploymentScopedRunListParams"
+    },
+    {
+      "mode": "managed",
+      "entry": "deployments.runs",
+      "method": "retrieve",
+      "goentry": "Deployments.Runs",
+      "goname": "Get",
+      "http": "GET",
+      "path": "/deployments/{deployment_id}/runs/{run_id}",
+      "doc": "deployments__get-run.md",
+      "body": null,
+      "query": {},
+      "response": {
+        "agent": {
+          "id": "agent_019ebb21ef8e7df6a559052c94875160",
+          "type": "agent",
+          "version": 1
+        },
+        "created_at": "2026-06-14T08:58:17Z",
+        "deployment_id": "dep_019ec55a2b687b3f94eee77dd77e4b2a",
+        "error": null,
+        "id": "drun_019ec55a68af73028afa5b87931cb2f3",
+        "session_id": "sess_019ec55a68b37e1e8d660691af161ab4",
+        "trigger_context": {
+          "type": "manual"
+        },
+        "type": "deployment_run"
+      },
+      "page": false,
+      "op": "getDeploymentScopedRun",
+      "service": "DeploymentScopedRunService",
+      "kind": "json",
+      "type": "ManagedAgentsDeploymentRun",
+      "paramsType": "DeploymentScopedRunRetrieveParams"
+    }
+  ]
+}

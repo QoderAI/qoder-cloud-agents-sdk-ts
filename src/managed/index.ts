@@ -10,3 +10,4 @@ export { Stream } from '../core/streaming.js';
 export { ResumableSessionEventStream } from '../core/resumable-session-event-stream.js';
 export { toFile, type Uploadable } from '../core/uploads.js';
 export type { RequestOptions } from '../core/client.js';
+export { DeploymentScopedRuns } from './resources/deployment-scoped-run.js';

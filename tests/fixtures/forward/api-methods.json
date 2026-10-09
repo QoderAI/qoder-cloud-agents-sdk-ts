@@ -2800,5 +2800,107 @@
         "kind": "path"
       }
     ]
+  },
+  {
+    "id": "vaults.credentials.update",
+    "entry": "vaults.credentials",
+    "method": "update",
+    "args": [
+      {
+        "name": "id",
+        "kind": "path"
+      },
+      {
+        "name": "cred_id",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "auth",
+            "location": "body"
+          },
+          {
+            "wire": "metadata",
+            "location": "body"
+          },
+          {
+            "wire": "identity_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "usage.listIdentities",
+    "entry": "usage",
+    "method": "listIdentities",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "start_at",
+            "location": "query"
+          },
+          {
+            "wire": "end_at",
+            "location": "query"
+          },
+          {
+            "wire": "identity_ids",
+            "location": "query"
+          },
+          {
+            "wire": "template_ids",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "usage.listTemplates",
+    "entry": "usage",
+    "method": "listTemplates",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "start_at",
+            "location": "query"
+          },
+          {
+            "wire": "end_at",
+            "location": "query"
+          },
+          {
+            "wire": "identity_ids",
+            "location": "query"
+          },
+          {
+            "wire": "template_ids",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
   }
 ]

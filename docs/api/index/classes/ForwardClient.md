@@ -170,6 +170,12 @@
 
 ***
 
+### usage
+
+> `readonly` **usage**: [`Usage`](../../forward/classes/Usage.md)
+
+***
+
 ### vaults
 
 > `readonly` **vaults**: [`Vaults`](../../forward/classes/Vaults.md)

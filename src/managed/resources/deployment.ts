@@ -7,7 +7,10 @@ import type { Stream } from '../../core/streaming.js';
 import type * as Types from '../types.js';
 import { splitParams, pathParam, managedMultipart } from '../internal.js';
 
+import { DeploymentScopedRuns } from './deployment-scoped-run.js';
+
 export class Deployments extends APIResource {
+  readonly runs = new DeploymentScopedRuns(this._client);
 
   /**
    * Create Deployment

@@ -3118,6 +3118,8 @@ export interface VaultCredential {
    * Credential 元数据。
    */
   metadata: Record<string, unknown>;
+  /** Archive time, null while active. */
+  archived_at?: string | null;
   /**
    * 创建时间，RFC 3339 格式。
    */
@@ -3132,7 +3134,8 @@ export interface VaultCredential {
 
 export interface VaultCredentialAuth {
   type: string;
-  mcp_server_url: string;
+  mcp_server_url?: string;
+  secret_name?: string;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
@@ -3170,3 +3173,45 @@ export type TemplateCreateParams = TemplateNewParams;
 export type VaultCreateParams = VaultNewParams;
 
 export type VaultCredentialCreateParams = VaultCredentialNewParams;
+
+export type VaultCredentialUpdateAuth =
+  | { type: 'static_bearer'; token?: string }
+  | { type: 'environment_variable'; secret_value?: string }
+  | { type: 'mcp_oauth'; access_token?: string; expires_at?: string | null;
+      refresh?: { refresh_token?: string; scope?: string | null; token_endpoint_auth?: Record<string, unknown> } };
+/** Merge patch. Supply auth or metadata; null clears metadata or deletes a key. */
+export interface VaultCredentialUpdateParams {
+  auth?: VaultCredentialUpdateAuth;
+  metadata?: Record<string, unknown> | null;
+  /** PAT only. SAT credentials determine their own owner scope. */
+  identity_id?: string;
+}
+/** Hourly window in Asia/Shanghai, including CN and Global. No legacy timestamp parameters. */
+export interface UsageListParams {
+  /** Inclusive YYYY-MM-DDTHH:00:00. */
+  start_at: string;
+  /** Exclusive YYYY-MM-DDTHH:00:00; maximum span 744 hours. */
+  end_at: string;
+  limit?: number;
+  after_id?: string;
+  before_id?: string;
+  identity_id?: string;
+  identity_ids?: string | string[];
+  template_id?: string;
+  template_ids?: string | string[];
+}
+export interface IdentityUsage {
+  type: 'identity_usage';
+  identity_id: string;
+  session_count: number;
+  active_seconds: number;
+  credits: number;
+}
+export interface TemplateUsage {
+  type: 'template_usage';
+  template_id: string;
+  active_identities: number;
+  session_count: number;
+  active_seconds: number;
+  credits: number;
+}

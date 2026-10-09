@@ -37,3 +37,4 @@ export type { Uploadable } from '../core/uploads.js';
 export { PATCredential } from '../core/credentials.js';
 export type { Credential } from '../core/credentials.js';
 export * from '../core/error.js';
+export { Usage } from './usage.js';

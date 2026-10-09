@@ -159,3 +159,33 @@ listVaultCredential
 #### Operation
 
 getVaultCredential
+
+***
+
+### update()
+
+> **update**(`id`, `credID`, `params`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`VaultCredential`](../interfaces/VaultCredential.md)\>
+
+Rotate write-only secrets or merge metadata. This operation is never automatically retried.
+
+#### Parameters
+
+##### id
+
+`string`
+
+##### credID
+
+`string`
+
+##### params
+
+[`VaultCredentialUpdateParams`](../interfaces/VaultCredentialUpdateParams.md)
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`APIPromise`](../../index/classes/APIPromise.md)\<[`VaultCredential`](../interfaces/VaultCredential.md)\>

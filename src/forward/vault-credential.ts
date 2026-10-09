@@ -4,9 +4,18 @@ import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
 import type { PagePromise } from '../core/pagination.js';
 import { pathParam, requestHeaders } from './_utils.js';
-import type { VaultCredential, VaultCredentialCreateParams, VaultCredentialListParams } from './types.js';
+import type { VaultCredential, VaultCredentialCreateParams, VaultCredentialListParams, VaultCredentialUpdateParams } from './types.js';
 
 export class VaultCredentials extends APIResource {
+  /** Rotate write-only secrets or merge metadata. This operation is never automatically retried. */
+  update(id: string, credID: string, params: VaultCredentialUpdateParams, options?: RequestOptions): APIPromise<VaultCredential> {
+    const { identity_id, ...body } = params;
+    return this._client.request<VaultCredential>({
+      ...options, method: 'POST', path: `vaults/${pathParam(id, 'id')}/credentials/${pathParam(credID, 'cred_id')}`,
+      body: options?.body ?? body, query: { identity_id, ...options?.query }, maxRetries: 0,
+    });
+  }
+
   /**
    * 列出 Credential.
    *
@@ -73,4 +82,4 @@ export class VaultCredentials extends APIResource {
 
 }
 
-export type { VaultCredential, VaultCredentialCreateParams, VaultCredentialListParams } from './types.js';
+export type { VaultCredential, VaultCredentialCreateParams, VaultCredentialListParams, VaultCredentialUpdateParams } from './types.js';
