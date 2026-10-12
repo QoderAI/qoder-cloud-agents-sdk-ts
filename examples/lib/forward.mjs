@@ -8,8 +8,9 @@ import { pathToFileURL } from 'node:url';
 import { randomBytes } from 'node:crypto';
 import { setTimeout as delay } from 'node:timers/promises';
 import { ForwardClient, toFile } from '../../dist/forward/index.js';
+import { clientOptions, formatExampleError } from './auth.mjs';
 
-export { toFile };
+export { toFile, formatExampleError };
 
 // 生成唯一名称与随机校验值，避免多次运行互相干扰。
 export const name = (kind) => `sdk-example-${kind}-${randomBytes(4).toString('hex')}`;
@@ -20,9 +21,7 @@ export const isMain = (moduleURL) => Boolean(process.argv[1]) && moduleURL === p
 
 // 从公开 API 构造 Forward 客户端；凭据与地址来自环境变量。
 export function makeForwardClient() {
-  const pat = process.env.QODER_FORWARD_PAT ?? process.env.QODER_PAT;
-  if (!pat) throw new Error('设置 QODER_FORWARD_PAT 或 QODER_PAT 后运行本示例');
-  return new ForwardClient({ pat, baseURL: process.env.QODER_FORWARD_BASE_URL, maxRetries: 0 });
+  return new ForwardClient(clientOptions('forward'));
 }
 
 // 打印助手回复（多行缩进）。
@@ -66,7 +65,7 @@ export class ForwardExample {
   async cleanup() {
     for (const { label, run } of this.cleanups.reverse()) {
       try { await run(); console.log(`  已清理：${label}`); }
-      catch (error) { console.log(`  清理失败（忽略）：${label} — ${error?.message ?? error}`); }
+      catch (error) { console.log(`  清理失败（忽略）：${label} — ${formatExampleError(error)}`); }
     }
     this.cleanups = [];
   }
@@ -205,7 +204,7 @@ export async function runForwardExample(demo) {
   try {
     await demo(example);
   } catch (error) {
-    console.error(error);
+    console.error(formatExampleError(error));
     process.exitCode = 1;
   } finally {
     await example.cleanup();

@@ -10,6 +10,7 @@ for (const mode of ['forward', 'managed']) {
       const Client = module.default;
       assert.equal(typeof Client, 'function');
       assert.equal(typeof module.PATCredential, 'function');
+      assert.equal(typeof module.ServiceAccountCredential, 'function');
       assert.equal(typeof module.toFile, 'function');
       const client = new Client({ pat: 'package-test', maxRetries: 0, fetch: async (url, init) => {
         assert.match(String(url), /\/models$/);
@@ -23,7 +24,7 @@ for (const mode of ['forward', 'managed']) {
 }
 test('package root: named exports are available to CommonJS and ESM', async () => {
   for (const module of [require('qca-sdk'), await import('qca-sdk')]) {
-    for (const name of ['ForwardClient', 'ManagedClient', 'APIPromise', 'Stream', 'Page', 'PATCredential', 'toFile', 'APIError']) {
+    for (const name of ['ForwardClient', 'ManagedClient', 'APIPromise', 'Stream', 'Page', 'PATCredential', 'ServiceAccountCredential', 'toFile', 'APIError']) {
       assert.equal(typeof module[name], 'function', name);
     }
   }

@@ -5,6 +5,25 @@ existing `0.1.0` release; earlier development prereleases are not listed.
 
 ## [Unreleased]
 
+### Added
+
+- Read-only SA Key and SAT authentication examples, plus explicit PAT/SA selection for existing business examples without duplicating scenarios.
+- Shared PAT and Service Account authentication for Forward and Managed, including explicit SA mode, direct SAT access, and lazy SA Key exchange with an instance-owned cache, early renewal, concurrent request sharing, and failure cooldown.
+- Separate CN/Global SA authentication smoke checks for both API surfaces, covering automatic exchange and direct SAT use, plus opt-in write/read, Session SSE and cleanup verification.
+
+### Changed
+
+- Support `QODER_ACCESS_TOKEN` for the selected mode. SA never falls back to `QODER_PAT`; ordinary clients never implicitly read `QODER_SA_KEY`.
+- Add `accessToken` and `authMode`; client copies retain authentication mode and source. Legacy `pat` plus a custom credential retains provider precedence.
+
+### Migration
+
+- For an existing SAT, select SA mode and supply the neutral token option. For automatic exchange, construct a Service Account credential with explicit region and scopes; do not combine it with a static token. Existing PAT calls require no new mode argument.
+
+### Fixed
+
+- Example failure logs retain error names, HTTP status, error codes and request IDs without dumping authenticated request objects.
+
 ## [0.3.0]
 
 ### Added

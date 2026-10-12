@@ -2,6 +2,10 @@ export interface Credential {
   getToken(): string | Promise<string>;
 }
 
+export { ServiceAccountCredential } from './service-account-credential.js';
+export type { ServiceAccountCredentialOptions } from './service-account-credential.js';
+export type { AuthMode } from './auth.js';
+
 export function readEnv(name: string): string | undefined {
   return (globalThis as unknown as { process?: { env?: Record<string, string | undefined> } }).process?.env?.[name];
 }

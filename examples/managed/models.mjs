@@ -1,6 +1,6 @@
 // Managed · models：查询当前账号可用的模型。
 // 运行：node examples/managed/models.mjs（需 QODER_PAT 或 QODER_MANAGED_PAT）。
-import { isMain, makeManagedClient } from '../lib/managed.mjs';
+import { formatExampleError, isMain, makeManagedClient } from '../lib/managed.mjs';
 
 async function main() {
   const client = makeManagedClient();
@@ -12,7 +12,7 @@ async function main() {
 
 if (isMain(import.meta.url)) {
   main().catch((error) => {
-    console.error(error);
+    console.error(formatExampleError(error));
     process.exitCode = 1;
   });
 }

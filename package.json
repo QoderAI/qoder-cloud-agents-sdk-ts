@@ -68,7 +68,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.types.json",
-    "test": "npm run build && npm run test:types && node --test tests/*.test.mjs tests/scenarios/*.test.mjs",
+    "test": "npm run build && npm run test:types && npm run test:live:sa:check && node --test tests/*.test.mjs tests/scenarios/*.test.mjs",
     "test:unit": "npm test",
     "test:contract": "npm run build && node --test tests/api-contracts.test.mjs",
     "test:scenarios": "npm run build && node --test tests/scenarios/*.test.mjs",
@@ -78,7 +78,10 @@
     "test:e2e": "npm test && node scripts/run-live.mjs e2e",
     "example": "npm run build && node examples/forward/session.mjs",
     "docs": "node scripts/generate-docs.mjs",
-    "docs:check": "node scripts/docs-check.mjs"
+    "docs:check": "node scripts/docs-check.mjs",
+    "test:live:sa": "npm run build && node scripts/run-sa-live.mjs readonly",
+    "test:live:sa:execution": "npm run build && node scripts/run-sa-live.mjs execution",
+    "test:live:sa:check": "node --check tests/sa/auth-live.mjs && node --check tests/sa/execution-live.mjs"
   },
   "devDependencies": {
     "semver": "7.7.3",

@@ -8,6 +8,18 @@
 
 ## Properties
 
+### accessToken?
+
+> `optional` **accessToken?**: `string` \| (() => `string` \| `Promise`\<`string`\>)
+
+***
+
+### authMode?
+
+> `optional` **authMode?**: [`AuthMode`](../type-aliases/AuthMode.md)
+
+***
+
 ### baseURL?
 
 > `optional` **baseURL?**: `string`
@@ -42,7 +54,7 @@
 
 ##### input
 
-`URL` \| `RequestInfo`
+`RequestInfo` \| `URL`
 
 ##### init?
 

@@ -28,6 +28,7 @@
 - [QoderError](classes/QoderError.md)
 - [RateLimitError](classes/RateLimitError.md)
 - [ResumableSessionEventStream](classes/ResumableSessionEventStream.md)
+- [ServiceAccountCredential](classes/ServiceAccountCredential.md)
 - [Stream](classes/Stream.md)
 - [UnprocessableEntityError](classes/UnprocessableEntityError.md)
 
@@ -39,9 +40,11 @@
 - [PageResponse](interfaces/PageResponse.md)
 - [RequestOptions](interfaces/RequestOptions.md)
 - [ServerSentEvent](interfaces/ServerSentEvent.md)
+- [ServiceAccountCredentialOptions](interfaces/ServiceAccountCredentialOptions.md)
 
 ## Type Aliases
 
+- [AuthMode](type-aliases/AuthMode.md)
 - [HeadersLike](type-aliases/HeadersLike.md)
 - [Middleware](type-aliases/Middleware.md)
 - [PaginationMode](type-aliases/PaginationMode.md)

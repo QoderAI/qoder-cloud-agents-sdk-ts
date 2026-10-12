@@ -32,6 +32,16 @@
 
 ## Properties
 
+### authMode
+
+> `readonly` **authMode**: [`AuthMode`](../type-aliases/AuthMode.md)
+
+#### Inherited from
+
+[`APIClient`](APIClient.md).[`authMode`](APIClient.md#authmode)
+
+***
+
 ### baseURL
 
 > `readonly` **baseURL**: `string`
