@@ -33,6 +33,12 @@
 
 ## Properties
 
+### authMode
+
+> `readonly` **authMode**: [`AuthMode`](../type-aliases/AuthMode.md)
+
+***
+
 ### baseURL
 
 > `readonly` **baseURL**: `string`

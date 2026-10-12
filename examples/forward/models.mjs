@@ -1,6 +1,6 @@
 // Forward · models：查询当前账号可用的模型。
 // 运行：node examples/forward/models.mjs（需 QODER_FORWARD_PAT 或 QODER_PAT）。
-import { isMain, makeForwardClient } from '../lib/forward.mjs';
+import { formatExampleError, isMain, makeForwardClient } from '../lib/forward.mjs';
 
 async function main() {
   const client = makeForwardClient();
@@ -12,7 +12,7 @@ async function main() {
 
 if (isMain(import.meta.url)) {
   main().catch((error) => {
-    console.error(error);
+    console.error(formatExampleError(error));
     process.exitCode = 1;
   });
 }

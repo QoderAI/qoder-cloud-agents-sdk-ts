@@ -1,5 +1,7 @@
 import { APIPromise } from './api-promise.js';
 import { type Credential, readEnv } from './credentials.js';
+import { type AuthMode, resolveAuthMode, resolveToken } from './auth.js';
+import { ServiceAccountCredential } from './service-account-credential.js';
 import { APIConnectionError, APIConnectionTimeoutError, APIError, APIUserAbortError, QoderError } from './error.js';
 import { Page, PagePromise, type PageResponse, type PaginationMode } from './pagination.js';
 import { Stream } from './streaming.js';
@@ -9,6 +11,8 @@ import { platformHeaders } from './detect-platform.js';
 export type HeadersLike = HeadersInit | Record<string, string | null | undefined>;
 export type Middleware = (request: Request, next: (request: Request) => Promise<Response>) => Promise<Response>;
 export interface ClientOptions {
+  authMode?: AuthMode;
+  accessToken?: string | (() => string | Promise<string>);
   pat?: string | (() => string | Promise<string>);
   credential?: Credential;
   baseURL?: string;
@@ -88,6 +92,7 @@ async function wait(ms: number, signal: AbortSignal, timedOut: () => boolean): P
 }
 
 export class APIClient {
+  readonly authMode: AuthMode;
   readonly baseURL: string;
   readonly maxRetries: number;
   readonly timeout: number;
@@ -97,12 +102,14 @@ export class APIClient {
   private readonly controllers = new WeakMap<Response, AbortController>();
 
   constructor(options: ClientOptions = {}, readonly mode: 'forward' | 'managed' = 'managed') {
-    this.options = { ...options };
+    this.authMode = resolveAuthMode(options);
+    this.options = { ...options, authMode: this.authMode };
     this.defaultHeaders = options.defaultHeaders;
     this.baseURL = (options.baseURL ?? readEnv(mode === 'forward' ? 'QODER_FORWARD_BASE_URL' : 'QODER_BASE_URL')
       ?? `https://api.qoder.com/api/v1/${mode === 'forward' ? 'forward' : 'cloud'}`).replace(/\/+$/, '');
     const url = new URL(this.baseURL);
     if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) throw new QoderError('Invalid baseURL');
+    if (options.credential instanceof ServiceAccountCredential) options.credential.validateRegion(url.hostname);
     this.maxRetries = options.maxRetries ?? 2;
     this.timeout = options.timeout ?? 600_000;
     this.validateOptions(this.maxRetries, this.timeout);
@@ -113,8 +120,14 @@ export class APIClient {
   /** Create a client of the same type, replacing supplied options and retaining the rest. */
   withOptions(options: Partial<ClientOptions>): this {
     const Client = this.constructor as new (options: ClientOptions, mode: 'forward' | 'managed') => this;
+    const inherited = { ...this.options };
+    if (options.authMode !== undefined && options.authMode !== this.authMode) {
+      delete inherited.pat;
+      delete inherited.accessToken;
+      delete inherited.credential;
+    }
     return new Client({
-      ...this.options,
+      ...inherited,
       baseURL: this.baseURL,
       maxRetries: this.maxRetries,
       timeout: this.timeout,
@@ -134,7 +147,7 @@ export class APIClient {
     }
 
     throw new Error(
-      'Could not resolve authentication method. Expected one of pat or credential to be set, or the QODER_PAT environment variable to be configured.',
+      'Could not resolve authentication method. Configure accessToken or credential, or QODER_ACCESS_TOKEN (QODER_PAT is supported in PAT mode).',
     );
   }
 
@@ -250,9 +263,7 @@ export class APIClient {
         if (!storage) {
           attemptHeaders.set('X-Qoder-Retry-Count', String(attempt));
           if (!attemptHeaders.has('authorization')) {
-            const credential = this.options.credential;
-            const configured = this.options.pat;
-            const token = await withSignal(Promise.resolve(credential ? credential.getToken() : typeof configured === 'function' ? configured() : configured ?? readEnv('QODER_PAT')), signal, () => timedOut);
+            const token = await withSignal(resolveToken(this.options, this.authMode), signal, () => timedOut);
             if (token) attemptHeaders.set('Authorization', `Bearer ${token}`);
           }
           this.validateHeaders(attemptHeaders);

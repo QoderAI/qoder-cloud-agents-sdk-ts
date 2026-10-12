@@ -110,7 +110,7 @@ remains available.
 
 ### Configuration
 
-`pat` accepts a string or a function returning a string or a promise, which is re-resolved before every request attempt — useful for short-lived tokens. A `Credential` object can be supplied instead; `PATCredential.fromEnv()` reads `QODER_PAT`.
+`accessToken` accepts a string or a function returning a string or a promise, re-resolved before every request attempt. `pat` remains available for existing PAT integrations. `QODER_ACCESS_TOKEN` supplies the selected mode's token; PAT mode falls back to `QODER_PAT`. A `Credential` object can be supplied instead; see the authentication section for automatic SA exchange.
 
 The base URL comes from `QODER_FORWARD_BASE_URL` for Forward and `QODER_BASE_URL` for Managed, defaulting to `https://api.qoder.com/api/v1/forward` and `https://api.qoder.com/api/v1/cloud`. Explicit constructor options always win.
 
@@ -125,6 +125,91 @@ const client = new ManagedClient({
   defaultHeaders: { 'X-Application': 'my-app' },
 });
 ```
+
+## PAT and Service Account authentication
+
+PAT and SA are parallel modes. Existing `pat` calls keep working. For an existing
+SAT use `{ authMode: 'sa', accessToken }`. `accessToken` also accepts a callback.
+`QODER_ACCESS_TOKEN` supplies the selected mode's token; only PAT mode falls back
+to `QODER_PAT`. Ordinary clients never automatically read `QODER_SA_KEY`.
+
+For automatic SAT exchange, explicitly construct a shared credential:
+
+```ts
+import { ForwardClient, ManagedClient, ServiceAccountCredential } from 'qca-sdk';
+
+const credential = ServiceAccountCredential.fromEnv({
+  region: 'global',
+  scopes: ['qca.access', 'forward.access'],
+});
+const forward = new ForwardClient({ credential });
+const managed = new ManagedClient({ credential });
+```
+
+For CN, use `region: 'cn'` and matching `https://api.qoder.com.cn/api/v1/forward/`
+and `https://api.qoder.com.cn/api/v1/cloud/` BaseURLs. Managed-only integrations
+can request `['qca.access']`. Scopes and Service Account permissions/workspace
+bindings must be configured server-side; the SDK does not provision them.
+
+The credential lazily exchanges the SA Key, caches the server's actual lifetime,
+and renews on the next request in the refresh window. Concurrent callers share
+one exchange. A transient failure can reuse a still-safe SAT; authentication or
+invalid-response failures cannot. Failures enter a bounded cooldown. There is
+no PAT fallback, background refresh, or automatic replay of a 401 write request.
+The independent exchange timeout includes reading its body (default 30 seconds).
+Cancelling a business request ends that caller's wait; the shared exchange can
+continue and cache its result. Already-open streams are not closed by cache expiry.
+
+Do not combine `accessToken` with `pat` or `credential`, or an SA credential with
+a static token. Legacy `pat` + custom credential retains provider precedence.
+Request Authorization headers still override automatic injection. `withOptions`
+retains mode and source; explicitly changing `authMode` clears the other mode's
+credentials before applying new options.
+
+Run the read-only CN/Global SA smoke separately with `npm run test:live:sa`, setting
+`QODER_SA_CN_KEY` and `QODER_SA_GLOBAL_KEY` in `.env.live` or the process environment.
+Process variables take precedence; `LIVE_ENV_FILE` selects another file.
+Both keys are checked before the first API call. For write/read, Session SSE and
+cleanup verification, run `npm run test:live:sa:execution` with
+`QODER_SA_LIVE_ALLOW_WRITE=true` and `QODER_SA_LIVE_ALLOW_EXECUTION=true`.
+`QODER_SA_MODEL` defaults to `auto`. Ordinary offline and PAT suites do not require
+SA credentials; `QODER_AUTH_MODE` switches examples, not the PAT test suites. See the
+[official authentication contract](https://docs.qoder.com/cloud-agents/api/conventions/authentication).
+
+### Authentication examples
+
+The two read-only examples under `examples/auth/` show client construction directly:
+SA Key exchange with automatic caching/renewal, and direct SAT access with renewal
+managed by the caller. Each lists Forward templates and Managed agents; no model
+execution or resources are created. The SA needs both API scopes/permissions and
+its Managed workspace binding in the selected region.
+
+```sh
+npm run build
+# Configure QODER_SA_REGION=cn|global and only the credential needed by the demo.
+node --env-file=.env.live examples/auth/sa-key.mjs   # QODER_SA_KEY; leave QODER_ACCESS_TOKEN empty
+node --env-file=.env.live examples/auth/sa-token.mjs # QODER_ACCESS_TOKEN; leave QODER_SA_KEY empty
+```
+
+The existing business examples keep PAT as the default. Node's `--env-file` can
+load `.env.live`; the example helpers themselves read process environment variables.
+Set `QODER_AUTH_MODE=sa` to select SA explicitly, then configure exactly one of
+`QODER_SA_KEY` and `QODER_ACCESS_TOKEN`. `QODER_SA_REGION=cn|global` selects both the
+business and exchange hosts. Leave the unused credential empty. Ambient PATs are
+ignored in SA mode; missing SA credentials and conflicting Key/SAT inputs fail
+before a request is sent. This selection is example configuration, not implicit
+SDK behavior.
+
+```sh
+# Reuse the same models or Session program with SA authentication.
+QODER_AUTH_MODE=sa QODER_SA_REGION=cn node --env-file=.env.live examples/forward/models.mjs
+QODER_AUTH_MODE=sa QODER_SA_REGION=global node --env-file=.env.live examples/managed/session.mjs
+```
+
+For a centralized SAT service, use
+`new ForwardClient({ authMode: 'sa', accessToken: () => tokenManager.getValidSAT() })`.
+The callback may return a promise and is called before each HTTP attempt; the token
+manager is responsible for renewing the SAT.
 
 ## Request and response types
 

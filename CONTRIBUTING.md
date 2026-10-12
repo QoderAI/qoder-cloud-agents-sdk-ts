@@ -30,7 +30,7 @@ npm run docs:check
 - **Unit and contract tests** live under `tests/` and run with `npm test`; focused entries include `npm run test:contract` and `npm run test:scenarios`.
 - **Integration tests** live under `tests/live/`. Copy `.env.live.example` to `.env.live`, use a dedicated test account, enable only the required write/execution gates, then run `npm run test:live`.
 - **E2E tests** execute real models and tools and run with `npm run test:e2e` after all documented execution gates are enabled.
-- **Examples** are runnable documentation. Tests must not import from `examples/`; build first and run examples directly as documented in the README.
+- **Examples** are runnable documentation. Business integration tests must not import from `examples/`; build first and run examples directly as documented in the README.
 
 Never commit `.env.live`, tokens, credentials, generated logs, or test output. Live scenarios must register cleanup immediately after creating a resource.
 
@@ -144,3 +144,37 @@ If a workflow-only fix is needed after the release tag was created, merge that f
 ## Pull requests
 
 Complete the pull request template, include exact verification commands and results, and identify public API, documentation, integration-test, and cross-SDK effects. Do not combine unrelated refactors with behavior changes.
+
+## Service Account authentication checks
+
+The separate read-only SA suite requires `QODER_SA_CN_KEY` and
+`QODER_SA_GLOBAL_KEY` in `.env.live` or the process environment and provisioned SA permissions
+(and Managed workspace bindings). Run `npm run test:live:sa`. It tests both API
+surfaces in CN and Global using automatic exchange and static SAT. Required keys
+are checked before the first API call; normal PAT suites remain independent.
+The read-only command does not prove write, model execution, SSE, or
+user/identity isolation coverage. Do not print
+SA Keys or SATs in test reports.
+
+For write/read, Session SSE and cleanup verification, use dedicated SA accounts
+and run `npm run test:live:sa:execution` with
+`QODER_SA_LIVE_ALLOW_WRITE=true` and `QODER_SA_LIVE_ALLOW_EXECUTION=true`.
+`QODER_SA_MODEL` selects the model (default `auto`). This separate entry creates
+unique test Environments, Templates/Agents, Forward Identities and Sessions in
+both regions, sends one message per Session, checks the assistant reply and idle
+event through SSE, and cleans up resources even after execution fails. Cleanup
+failures fail the test.
+Missing keys or execution flags fail this explicit command before resource creation.
+The read-only SA command does not run these execution cases.
+
+Process environment variables override `.env.live`; explicit empty values do not
+fall back to the file. Use `LIVE_ENV_FILE` to select another file.
+`QODER_AUTH_MODE` selects example authentication only. PAT and SA test entries
+are separate; setting it to `sa` does not switch the ordinary PAT suites.
+
+`npm test` includes SA live-file syntax checks, configuration regression tests,
+and CJS/ESM public export checks without credentials or network calls.
+
+Business integration scenarios keep independent test helpers. Dedicated offline
+regression tests for example configuration and lifecycle may import examples;
+those tests do not replace SDK integration coverage.

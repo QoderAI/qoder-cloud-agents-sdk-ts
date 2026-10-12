@@ -145,3 +145,12 @@ managed.vaults.search({});
 
 // @ts-expect-error Scoped run queries require a deployment ID.
 managed.deployments.runs.list({});
+
+import { ServiceAccountCredential } from 'qca-sdk';
+import { ServiceAccountCredential as ForwardSACredential } from 'qca-sdk/forward';
+import { ServiceAccountCredential as ManagedSACredential } from 'qca-sdk/managed';
+const saCredential = new ServiceAccountCredential({ saKey: 'test', region: 'global', scopes: ['qca.access'] });
+new ManagedClient({ credential: saCredential, authMode: 'sa' });
+new ForwardClient({ authMode: 'sa', accessToken: async () => 'sat' }).withOptions({ authMode: 'pat', pat: 'pat' });
+new Forward({ credential: new ForwardSACredential({ saKey: 'test', region: 'global', scopes: ['forward.access'] }) });
+new Managed({ credential: new ManagedSACredential({ saKey: 'test', region: 'global', scopes: ['qca.access'] }) });

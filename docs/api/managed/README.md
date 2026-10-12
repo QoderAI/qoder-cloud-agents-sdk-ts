@@ -1052,6 +1052,12 @@ Re-exports [AuthenticationError](../index/classes/AuthenticationError.md)
 
 ***
 
+### AuthMode
+
+Re-exports [AuthMode](../index/type-aliases/AuthMode.md)
+
+***
+
 ### BadRequestError
 
 Re-exports [BadRequestError](../index/classes/BadRequestError.md)
@@ -1157,6 +1163,18 @@ Re-exports [RequestOptions](../index/interfaces/RequestOptions.md)
 ### ResumableSessionEventStream
 
 Re-exports [ResumableSessionEventStream](../index/classes/ResumableSessionEventStream.md)
+
+***
+
+### ServiceAccountCredential
+
+Re-exports [ServiceAccountCredential](../index/classes/ServiceAccountCredential.md)
+
+***
+
+### ServiceAccountCredentialOptions
+
+Re-exports [ServiceAccountCredentialOptions](../index/interfaces/ServiceAccountCredentialOptions.md)
 
 ***
 
