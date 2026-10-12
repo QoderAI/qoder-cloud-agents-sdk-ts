@@ -337,7 +337,7 @@ scenario('batch_e2e', async (s) => {
   const token = marker(), customID = liveName('task');
   const input = await s.file('sdk-e2e-input.jsonl', 'session_resource', `${JSON.stringify({ custom_id: customID, template_id: template.id,
     identity_id: identity.id, body: { input: `Reply with exactly ${token}` } })}\n`);
-  let batch = await s.client.batches.create({ input_file_id: input.id, completion_window: '24h', idempotency_key: liveName('batch') }, s.options);
+  let batch = await s.client.batches.create({ input_file_id: input.id, completion_window: '24h', ignore_idle_window: true, idempotency_key: liveName('batch') }, s.options);
   const batchID = batch.id;
   s.cleanup(`batch ${batchID}`, (options) => s.finishBatch(batchID, customID, identity.id, template.id, options));
   while (!batchTerminal(batch.status)) {
