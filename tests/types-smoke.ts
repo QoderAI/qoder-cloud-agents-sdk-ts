@@ -170,3 +170,31 @@ new ManagedClient({ credential: saCredential, authMode: 'sa' });
 new ForwardClient({ authMode: 'sa', accessToken: async () => 'sat' }).withOptions({ authMode: 'pat', pat: 'pat' });
 new Forward({ credential: new ForwardSACredential({ saKey: 'test', region: 'global', scopes: ['forward.access'] }) });
 new Managed({ credential: new ManagedSACredential({ saKey: 'test', region: 'global', scopes: ['qca.access'] }) });
+
+// Forward Realtime Beta; HTTP and Node WebSocket APIs.
+void forward.realtime.conversations.create({ identity_id: 'idn', template_id: 'tmpl', idempotency_key: 'operation', config: { audio: { output: { voice: 'longanqian' } } } });
+void forward.realtime.conversations.history('conv', { limit: 10, types: 'message,work' }).then(async page => {
+  const hasMore: boolean = page.hasNextPage(); void hasMore;
+  if (page.hasNextPage()) await page.getNextPage();
+  for await (const event of page) { const historyID: string = event.id; void historyID; }
+});
+void forward.realtime.connect({ conversationId: 'conv', readyTimeout: 1000, signal: new AbortController().signal }).then(async connection => {
+  await connection.sendText('text'); await connection.appendAudio(new Uint8Array([1, 0]));
+  await connection.playbackStarted({ work_id: 'work', announcement_id: 'announcement' });
+  await connection.closeGracefully({ requestId: 'close-operation' }); connection.close();
+});
+// @ts-expect-error Realtime creation requires a stable idempotency key.
+forward.realtime.conversations.create({ identity_id: 'idn', template_id: 'tmpl' });
+// @ts-expect-error History does not use ordinary data/next_page pagination.
+forward.realtime.conversations.history('conv', { next_page: 'cursor' });
+// @ts-expect-error Managed does not expose Forward Realtime.
+managed.realtime;
+// @ts-expect-error Template Realtime management is outside this feature.
+forward.realtime.templates;
+
+import { isRealtimeEvent, type RealtimeServerEvent } from 'qca-sdk/forward';
+function typedRealtimeEvent(event: RealtimeServerEvent): void {
+  if (isRealtimeEvent(event, 'transcript.delta')) { const text: string = event.payload.text; void text; }
+  if (isRealtimeEvent(event, 'voice.ready')) { const rate: number = event.payload.input_audio.sample_rate; void rate; }
+}
+void typedRealtimeEvent;

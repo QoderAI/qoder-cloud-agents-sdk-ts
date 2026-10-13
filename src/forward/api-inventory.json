@@ -4721,5 +4721,39 @@
         "required": false
       }
     ]
+  },
+  {
+    "operationId": "createRealtimeConversation",
+    "entry": "realtime.conversations",
+    "method": "create",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "RealtimeConversationCreateParams",
+    "paramsOptional": false,
+    "paramsLocation": "json",
+    "responseType": "json",
+    "itemType": "RealtimeConversation",
+    "path": "/realtime/conversations"
+  },
+  {
+    "operationId": "getRealtimeConversationHistory",
+    "entry": "realtime.conversations",
+    "method": "history",
+    "httpMethod": "GET",
+    "parameters": [
+      {
+        "name": "conversationId",
+        "wireName": "conversation_id",
+        "location": "path",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "paramsType": "RealtimeHistoryParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "history",
+    "itemType": "RealtimeHistoryPage",
+    "path": "/realtime/conversations/{conversation_id}/history"
   }
 ]

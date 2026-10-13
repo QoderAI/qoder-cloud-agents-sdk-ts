@@ -9,3 +9,9 @@ export * from './core/pagination.js';
 export * from './core/streaming.js';
 export { ResumableSessionEventStream } from './core/resumable-session-event-stream.js';
 export * from './core/uploads.js';
+
+export { Realtime } from './forward/realtime/realtime.js';
+export { RealtimeConversations, RealtimeHistoryPage } from './forward/realtime/conversation.js';
+export { RealtimeConnection, RealtimeProtocolError, RealtimeConnectionClosedError, RealtimeServerError, decodeRealtimeAudio } from './forward/realtime/connection.js';
+export type { RealtimeConnectOptions, RealtimeWaitOptions, RealtimeCloseOptions } from './forward/realtime/connection.js';
+export * from './forward/realtime/types.js';

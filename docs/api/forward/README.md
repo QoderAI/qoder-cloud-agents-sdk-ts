@@ -321,6 +321,12 @@ Re-exports [Credential](../index/interfaces/Credential.md)
 
 ***
 
+### decodeRealtimeAudio
+
+Re-exports [decodeRealtimeAudio](../index/functions/decodeRealtimeAudio.md)
+
+***
+
 ### default
 
 Renames and re-exports [ForwardClient](../index/classes/ForwardClient.md)
@@ -336,6 +342,12 @@ Re-exports [ForwardClient](../index/classes/ForwardClient.md)
 ### InternalServerError
 
 Re-exports [InternalServerError](../index/classes/InternalServerError.md)
+
+***
+
+### isRealtimeEvent
+
+Re-exports [isRealtimeEvent](../index/functions/isRealtimeEvent.md)
 
 ***
 
@@ -378,6 +390,186 @@ Re-exports [QoderError](../index/classes/QoderError.md)
 ### RateLimitError
 
 Re-exports [RateLimitError](../index/classes/RateLimitError.md)
+
+***
+
+### Realtime
+
+Re-exports [Realtime](../index/classes/Realtime.md)
+
+***
+
+### REALTIME\_VERSION
+
+Re-exports [REALTIME_VERSION](../index/variables/REALTIME_VERSION.md)
+
+***
+
+### RealtimeAudioFormat
+
+Re-exports [RealtimeAudioFormat](../index/interfaces/RealtimeAudioFormat.md)
+
+***
+
+### RealtimeClientEvent
+
+Re-exports [RealtimeClientEvent](../index/interfaces/RealtimeClientEvent.md)
+
+***
+
+### RealtimeClosed
+
+Re-exports [RealtimeClosed](../index/interfaces/RealtimeClosed.md)
+
+***
+
+### RealtimeCloseOptions
+
+Re-exports [RealtimeCloseOptions](../index/interfaces/RealtimeCloseOptions.md)
+
+***
+
+### RealtimeCloseOutcome
+
+Re-exports [RealtimeCloseOutcome](../index/type-aliases/RealtimeCloseOutcome.md)
+
+***
+
+### RealtimeConfig
+
+Re-exports [RealtimeConfig](../index/interfaces/RealtimeConfig.md)
+
+***
+
+### RealtimeConnection
+
+Re-exports [RealtimeConnection](../index/classes/RealtimeConnection.md)
+
+***
+
+### RealtimeConnectionClosedError
+
+Re-exports [RealtimeConnectionClosedError](../index/classes/RealtimeConnectionClosedError.md)
+
+***
+
+### RealtimeConnectOptions
+
+Re-exports [RealtimeConnectOptions](../index/interfaces/RealtimeConnectOptions.md)
+
+***
+
+### RealtimeConversation
+
+Re-exports [RealtimeConversation](../index/interfaces/RealtimeConversation.md)
+
+***
+
+### RealtimeConversationCreateParams
+
+Re-exports [RealtimeConversationCreateParams](../index/interfaces/RealtimeConversationCreateParams.md)
+
+***
+
+### RealtimeConversations
+
+Re-exports [RealtimeConversations](../index/classes/RealtimeConversations.md)
+
+***
+
+### RealtimeErrorPayload
+
+Re-exports [RealtimeErrorPayload](../index/interfaces/RealtimeErrorPayload.md)
+
+***
+
+### RealtimeEventEnvelope
+
+Re-exports [RealtimeEventEnvelope](../index/interfaces/RealtimeEventEnvelope.md)
+
+***
+
+### RealtimeHistoryEvent
+
+Re-exports [RealtimeHistoryEvent](../index/interfaces/RealtimeHistoryEvent.md)
+
+***
+
+### RealtimeHistoryEventType
+
+Re-exports [RealtimeHistoryEventType](../index/type-aliases/RealtimeHistoryEventType.md)
+
+***
+
+### RealtimeHistoryPage
+
+Re-exports [RealtimeHistoryPage](../index/classes/RealtimeHistoryPage.md)
+
+***
+
+### RealtimeHistoryParams
+
+Re-exports [RealtimeHistoryParams](../index/interfaces/RealtimeHistoryParams.md)
+
+***
+
+### RealtimeHistoryResponse
+
+Re-exports [RealtimeHistoryResponse](../index/interfaces/RealtimeHistoryResponse.md)
+
+***
+
+### RealtimeKnownEvent
+
+Re-exports [RealtimeKnownEvent](../index/type-aliases/RealtimeKnownEvent.md)
+
+***
+
+### RealtimePlaybackReceipt
+
+Re-exports [RealtimePlaybackReceipt](../index/interfaces/RealtimePlaybackReceipt.md)
+
+***
+
+### RealtimeProtocolError
+
+Re-exports [RealtimeProtocolError](../index/classes/RealtimeProtocolError.md)
+
+***
+
+### RealtimeReady
+
+Re-exports [RealtimeReady](../index/interfaces/RealtimeReady.md)
+
+***
+
+### RealtimeServerError
+
+Re-exports [RealtimeServerError](../index/classes/RealtimeServerError.md)
+
+***
+
+### RealtimeServerEvent
+
+Re-exports [RealtimeServerEvent](../index/type-aliases/RealtimeServerEvent.md)
+
+***
+
+### RealtimeServerPayloads
+
+Re-exports [RealtimeServerPayloads](../index/interfaces/RealtimeServerPayloads.md)
+
+***
+
+### RealtimeVoice
+
+Re-exports [RealtimeVoice](../index/type-aliases/RealtimeVoice.md)
+
+***
+
+### RealtimeWaitOptions
+
+Re-exports [RealtimeWaitOptions](../index/interfaces/RealtimeWaitOptions.md)
 
 ***
 

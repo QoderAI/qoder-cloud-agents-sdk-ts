@@ -46,21 +46,45 @@
 
 ### fetch?
 
-> `optional` **fetch?**: (`input`, `init?`) => `Promise`\<`Response`\>
+> `optional` **fetch?**: \{(`input`, `init?`): `Promise`\<`Response`\>; (`input`, `init?`): `Promise`\<`Response`\>; \}
+
+#### Call Signature
+
+> (`input`, `init?`): `Promise`\<`Response`\>
 
 [MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/fetch)
 
-#### Parameters
+##### Parameters
 
-##### input
+###### input
 
-`RequestInfo` \| `URL`
+`URL` \| `RequestInfo`
 
-##### init?
+###### init?
 
 `RequestInit`
 
-#### Returns
+##### Returns
+
+`Promise`\<`Response`\>
+
+#### Call Signature
+
+> (`input`, `init?`): `Promise`\<`Response`\>
+
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/fetch)
+
+##### Parameters
+
+###### input
+
+`string` \| `Request` \| `URL`
+
+###### init?
+
+`RequestInit`
+
+##### Returns
 
 `Promise`\<`Response`\>
 

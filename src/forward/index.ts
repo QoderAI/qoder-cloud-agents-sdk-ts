@@ -39,5 +39,12 @@ export type { AuthMode, ServiceAccountCredentialOptions } from '../core/credenti
 export type { Credential } from '../core/credentials.js';
 export * from '../core/error.js';
 export { Usage } from './usage.js';
+
+export { Realtime } from './realtime/realtime.js';
+export { RealtimeConversations, RealtimeHistoryPage } from './realtime/conversation.js';
+export { RealtimeConnection, RealtimeProtocolError, RealtimeConnectionClosedError, RealtimeServerError, decodeRealtimeAudio } from './realtime/connection.js';
+export type { RealtimeConnectOptions, RealtimeWaitOptions, RealtimeCloseOptions } from './realtime/connection.js';
+export * from './realtime/types.js';
+
 export { ServiceAccountTokens } from './service-account-token.js';
 export { IdentityServiceAccountTokens } from './identity-service-account-token.js';

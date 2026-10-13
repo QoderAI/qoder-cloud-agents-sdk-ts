@@ -81,10 +81,12 @@
     "docs:check": "node scripts/docs-check.mjs",
     "test:live:sa": "npm run build && node scripts/run-sa-live.mjs readonly",
     "test:live:sa:execution": "npm run build && node scripts/run-sa-live.mjs execution",
-    "test:live:sa:tokens": "npm run build && node scripts/run-sa-live.mjs tokens",
-    "test:live:sa:check": "node --check tests/sa/auth-live.mjs && node --check tests/sa/execution-live.mjs"
+    "test:live:sa:check": "node --check tests/sa/auth-live.mjs && node --check tests/sa/execution-live.mjs && node --check tests/realtime/live.mjs && node --check scripts/run-realtime-live.mjs",
+    "test:live:realtime": "npm run build && node scripts/run-realtime-live.mjs",
+    "test:live:sa:tokens": "npm run build && node scripts/run-sa-live.mjs tokens"
   },
   "devDependencies": {
+    "@types/ws": "^8.18.2",
     "semver": "7.7.3",
     "typedoc": "^0.28.20",
     "typedoc-plugin-markdown": "^4.13.0",
@@ -93,5 +95,8 @@
   "type": "commonjs",
   "engines": {
     "node": ">=20.12.0"
+  },
+  "dependencies": {
+    "ws": "^8.22.0"
   }
 }

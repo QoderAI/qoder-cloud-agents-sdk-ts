@@ -2804,6 +2804,64 @@
     "empty": false
   },
   {
+    "id": "realtime.conversations.create",
+    "operation_id": "createRealtimeConversation",
+    "entry": "RealtimeConversations",
+    "response": {
+      "id": "conv_xxx",
+      "type": "voice.conversation",
+      "status": "ready",
+      "title": "项目分析",
+      "metadata": {
+        "source": "desktop"
+      },
+      "config": {
+        "audio": {
+          "output": {
+            "voice": "longanlingxin"
+          }
+        }
+      },
+      "created_at": "2026-08-26T02:00:00Z",
+      "updated_at": "2026-08-26T02:00:01Z"
+    },
+    "empty": false
+  },
+  {
+    "id": "realtime.conversations.history",
+    "operation_id": "getRealtimeConversationHistory",
+    "entry": "RealtimeConversations",
+    "response": {
+      "conversation": {
+        "id": "conv_xxx",
+        "title": "项目分析",
+        "initialization_status": "ready",
+        "metadata": {
+          "source": "desktop"
+        },
+        "created_at": "2026-08-26T02:00:00Z",
+        "updated_at": "2026-08-26T02:01:00Z"
+      },
+      "events": [
+        {
+          "id": "vevt_xxx",
+          "type": "voice.user_message.completed",
+          "role": "user",
+          "status": "completed",
+          "text": "帮我分析当前项目",
+          "turn_id": "vevt_xxx",
+          "user_message_event_id": "vevt_xxx",
+          "occurred_at": "2026-08-26T02:01:00Z"
+        }
+      ],
+      "page": {
+        "next_before": null,
+        "has_more": false
+      }
+    },
+    "empty": false
+  },
+  {
     "operation_id": "createServiceAccountToken",
     "entry": "ServiceAccountTokens",
     "response": {

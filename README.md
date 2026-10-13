@@ -552,3 +552,135 @@ The API reference under `docs/api/` is generated from the source. Regenerate it 
 ## License
 
 Released under the [MIT License](LICENSE).
+
+### Forward Realtime (Beta, Node.js)
+
+`forward.realtime` supports Conversation creation, persisted History and the
+`voice.realtime.v1` WebSocket protocol. A pre-existing enabled Identity and a
+Realtime-enabled Template are required. Template Realtime configuration APIs are
+not included. The `ws` runtime dependency is installed with the SDK and loaded
+only when connecting; existing HTTP imports remain usable in browser runtimes.
+Browsers cannot set the required Authorization header, so Realtime connections
+require Node.js 20.12 or newer.
+
+```ts
+import { ForwardClient } from 'qca-sdk';
+
+const client = new ForwardClient({ pat: process.env.QODER_FORWARD_PAT });
+const conversation = await client.realtime.conversations.create({
+  identity_id: process.env.QODER_REALTIME_IDENTITY_ID!,
+  template_id: process.env.QODER_REALTIME_TEMPLATE_ID!,
+  idempotency_key: crypto.randomUUID(), // Stable for this create operation and its retries.
+});
+const connection = await client.realtime.connect({
+  conversationId: conversation.id,
+  signal: AbortSignal.timeout(180_000),
+});
+try {
+  // connect returns after validated voice.ready; pre-ready events are retained.
+  await connection.sendText('Hello');
+  const event = await connection.receive({ timeout: 30_000 });
+  console.log(event.value?.type);
+  const acknowledgement = await connection.closeGracefully();
+  console.log(acknowledgement.outcome);
+} finally {
+  connection.close();
+}
+
+const history = await client.realtime.conversations.history(conversation.id, {
+  limit: 50, types: 'message,work',
+});
+for await (const event of history) console.log(event.id, event.type);
+// Or use history.hasNextPage() / history.getNextPage() / history.iterPages().
+```
+
+Realtime currently accepts PAT or a **Forward-issued bound SAT**. A platform SAT
+obtained by `ServiceAccountCredential` has no Forward Token binding and is
+rejected by the current Realtime service. `ServiceAccountCredential` only
+exchanges and renews platform SATs; it does not create a Forward-bound Token.
+For SA access, obtain the appropriate Admin/Identity SAT from Forward's Token
+management API and pass it through the existing direct-Token interface:
+
+```ts
+import { ForwardClient } from 'qca-sdk';
+
+const client = new ForwardClient({
+  authMode: 'sa',
+  accessToken: process.env.QODER_ACCESS_TOKEN!, // Forward-issued bound SAT.
+});
+```
+
+An Identity SAT is restricted to its authorized Identity; use an Admin SAT for
+the live suite that creates temporary Identities. A Token callback or custom
+Credential can supply a refreshed Forward-bound SAT. Each new connection
+resolves current credentials; an existing WebSocket does not update its
+Authorization header when a SAT is renewed.
+Credentials are sent only in headers. Redirects, automatic reconnection and input
+replay are disabled. Custom HTTP fetch/middleware and defaultQuery do not apply
+to the separate WS transport; `transport` accepts a Node agent (including a proxy
+agent) and CA/certificate/TLS settings. Per-connection headers override client
+headers using the ordinary authentication rules.
+
+Handshake, ready, send and graceful-close deadlines default to 30, 60, 30 and 10
+seconds, respectively, and can be overridden through connect options. The HTTP
+request timeout does not impose a WS lifetime. The service limits one connection
+to 60 minutes. AbortSignal cancels and releases the connection. Breaking event iteration only
+ends that read phase; keep using the connection or explicitly close it in
+`finally`. Incoming events
+are bounded to 256 queued events, 4 MiB total, and 1 MiB per frame; slow consumers
+receive a queue-overflow error. Sends are serialized and bounded to the same
+queue budget. Unknown Beta event types and extension fields remain available;
+invalid envelopes, protocol versions or JSON fail explicitly. Server error
+codes/retry guidance and abnormal WS close codes/reasons remain accessible.
+
+`appendAudio(Uint8Array)` accepts nonempty raw **16 kHz mono PCM16 little-endian**
+samples; decode WAV and resample in the application. Output `audio.delta` is
+Base64 **24 kHz mono PCM16**, decoded by `decodeRealtimeAudio(event)`. The final
+client JSON frame, including Base64 expansion, is limited to 256 KiB. VAD detects
+speech endings; there is no `audio.commit` event. Text is limited to 16 KiB UTF-8.
+The SDK does not capture or play audio. `audio.done` and `work.completed` do not
+mean a speaker finished playing. Report actual playback with `playbackStarted`,
+`playbackEnded` or `playbackCancelled`, passing the original audio event's
+`work_id` and `announcement_id` when present. On `playback.interrupt`, stop and
+clear application playback; `interrupt()` sends a user interruption.
+
+`closeGracefully()` waits for `connection.closed` with its matching request ID
+and returns the persistence outcome. Missing acknowledgements, persistence
+errors and timeouts fail explicitly. Plain `close()` releases transport without
+promising persistence, cancelling Work or deleting the Conversation. History
+uses separate `events` / `page.next_before` fields and older-record cursors;
+WS sequence/event IDs are not history cursors. Timestamp strings preserve
+nanosecond precision. Conversation retention/deletion must be managed outside
+this SDK because no public delete API is available.
+
+Runnable examples reuse the existing PAT/SA environment selection. For SA,
+set `QODER_AUTH_MODE=sa` and provide a Forward-issued bound SAT through
+`QODER_ACCESS_TOKEN`; leave `QODER_SA_KEY` unset:
+
+```bash
+npm run build
+node examples/forward/realtime/text.mjs --help
+node examples/forward/realtime/pcm.mjs --help
+# Set QODER_REALTIME_IDENTITY_ID and QODER_REALTIME_TEMPLATE_ID before real execution.
+node examples/forward/realtime/text.mjs 'Hello'
+node examples/forward/realtime/pcm.mjs input.pcm output.pcm
+```
+
+The separate opt-in two-region entry is `npm run test:live:realtime -- all text`
+(or select `-- pat basic` / `-- sa basic`). Configure the selected
+`QODER_REALTIME_{CN,GLOBAL}_{PAT,SA}_TEMPLATE_ID` values,
+Forward PATs or Forward-issued Admin SATs in
+`QODER_REALTIME_CN_SAT` / `QODER_REALTIME_GLOBAL_SAT`, and explicitly enable
+`QODER_REALTIME_LIVE_ALLOW_WRITE=true` and
+`QODER_REALTIME_LIVE_ALLOW_EXECUTION=true`. Both regions are validated before
+creation. Explicit Realtime SATs take priority over region SA Keys. The Key
+fallback remains available to detect changes in platform-SAT acceptance, but
+currently fails without a Forward Token binding. Basic verifies
+create/ready/ping/acknowledged close/History; SA also
+checks a direct-SAT reconnect. `text`, `pcm` and `work` scenarios separately run
+model/audio/task execution. PCM requires `QODER_REALTIME_PCM_FILE`; work requires
+a confirmed trigger in `QODER_REALTIME_WORK_PROMPT`. Logs retain Conversation
+and request IDs without tokens. Tests create temporary Identities, delete them on success/failure, preserve the
+original Templates and record persisted Conversations because transport close cannot delete them. These entries are not
+included in daily PAT tests until explicitly configured; offline CI validates
+protocol behavior without network or credentials.
