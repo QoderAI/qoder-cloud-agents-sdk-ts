@@ -5,11 +5,13 @@ existing `0.1.0` release; earlier development prereleases are not listed.
 
 ## [Unreleased]
 
+## [0.5.0]
+
 ### Added
 
 - Forward admin and Identity SAT issuance and Forward SAT revocation, using explicit per-call SA Key authentication, typed issuance/revocation metadata, and no automatic retries. Existing platform credentials and PAT/SAT business authentication remain unchanged.
-
 - Forward Realtime Beta Conversation creation with required idempotency keys, independently paginated History, and Node-only authenticated WebSocket connections supporting text, PCM16, work events, playback receipts, interruption and acknowledged graceful close. Connections preserve pre-ready and unknown events, bound queues, support cancellation and separate deadlines, and never automatically reconnect or replay input.
+- Realtime SA access requires a Forward-issued bound SAT and a Realtime-enabled Template; a platform SAT from `ServiceAccountCredential` alone does not establish the required Forward binding.
 
 ## [0.4.0] - 2026-10-12
 
