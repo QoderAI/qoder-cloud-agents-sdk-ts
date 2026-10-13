@@ -8,7 +8,7 @@ import { validateSAEnvironment } from '../scripts/run-sa-live.mjs';
 import { safeFailure } from './sa/diagnostics.mjs';
 
 test('SA preflight validates both regions before starting read or execution tests', () => {
-  for (const mode of ['readonly', 'execution']) {
+  for (const mode of ['readonly', 'execution', 'tokens']) {
     assert.throws(() => validateSAEnvironment({ QODER_SA_CN_KEY: 'cn' }, mode), /QODER_SA_GLOBAL_KEY is required/);
   }
   validateSAEnvironment({ QODER_SA_CN_KEY: 'cn', QODER_SA_GLOBAL_KEY: 'global' }, 'readonly');
@@ -28,6 +28,12 @@ test('SA execution requires both write and execution flags', () => {
     assert.throws(() => validateSAEnvironment({ ...env, [name]: 'false' }, 'execution'), new RegExp(`${name}=true is required`));
   }
   validateSAEnvironment(env, 'execution');
+});
+
+test('Forward SAT management requires writes but does not require model execution', () => {
+  const env = { QODER_SA_CN_KEY: 'cn', QODER_SA_GLOBAL_KEY: 'global', QODER_SA_LIVE_ALLOW_EXECUTION: 'false' };
+  assert.throws(() => validateSAEnvironment(env, 'tokens'), /QODER_SA_LIVE_ALLOW_WRITE=true is required/);
+  validateSAEnvironment({ ...env, QODER_SA_LIVE_ALLOW_WRITE: 'true' }, 'tokens');
 });
 
 test('SA entry loads the env file, respects explicit empty environment and fails before child tests', () => {

@@ -45,3 +45,6 @@ export { RealtimeConversations, RealtimeHistoryPage } from './realtime/conversat
 export { RealtimeConnection, RealtimeProtocolError, RealtimeConnectionClosedError, RealtimeServerError, decodeRealtimeAudio } from './realtime/connection.js';
 export type { RealtimeConnectOptions, RealtimeWaitOptions, RealtimeCloseOptions } from './realtime/connection.js';
 export * from './realtime/types.js';
+
+export { ServiceAccountTokens } from './service-account-token.js';
+export { IdentityServiceAccountTokens } from './identity-service-account-token.js';

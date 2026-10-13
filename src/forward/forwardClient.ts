@@ -17,6 +17,8 @@ import { Models } from './model.js';
 import { Usage } from './usage.js';
 import { Realtime } from './realtime/realtime.js';
 
+import { ServiceAccountTokens } from './service-account-token.js';
+
 export type ForwardClientOptions = ClientOptions;
 
 export class ForwardClient extends APIClient {
@@ -36,6 +38,8 @@ export class ForwardClient extends APIClient {
   readonly models: Models = new Models(this);
   readonly usage: Usage = new Usage(this);
   readonly realtime: Realtime = new Realtime(this);
+
+  readonly serviceAccountTokens: ServiceAccountTokens = new ServiceAccountTokens(this);
 
   constructor(options: ForwardClientOptions = {}) {
     super(options, 'forward');

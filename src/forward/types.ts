@@ -2,6 +2,45 @@
 // Wire names and required/nullable fields follow the API's JSON, query and header contracts.
 import type { Uploadable } from '../core/uploads.js';
 
+export interface ServiceAccountTokenCreateParams {
+  /** SA Key sent only in this request's Authorization header; not part of the JSON body. */
+  saKey: string;
+  /** Lifetime in seconds, 1-43200. Omit to use the issuer's default. */
+  ttl_seconds?: number;
+  /** Business audit metadata; do not include credentials or other secrets. */
+  metadata?: Record<string, unknown>;
+}
+
+export interface ServiceAccountTokenRevokeParams {
+  /** SA Key used only for this request. */
+  saKey: string;
+  target_credential_id?: string;
+  /** RFC 3339 expiry from the issuance response. */
+  target_expires_at?: string;
+  reason?: string;
+}
+
+/** A newly issued Forward SAT. Treat access_token and serialized responses as secrets. */
+export interface ServiceAccountToken {
+  type: 'service_account_token';
+  access_token: string;
+  token_type: 'Bearer';
+  expires_in: number;
+  expires_at: string;
+  auth_token_id: string;
+  service_account_id: string;
+  credential_id: string;
+  subject_type: 'admin' | 'identity';
+  /** Absent for admin tokens. */
+  identity_id?: string;
+  [key: string]: unknown;
+}
+
+export interface ServiceAccountTokenRevokeResponse {
+  revoked: boolean;
+  [key: string]: unknown;
+}
+
 export interface BatchListParams {
   /**
    * 按状态过滤。

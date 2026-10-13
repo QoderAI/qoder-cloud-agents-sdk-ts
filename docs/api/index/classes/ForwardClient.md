@@ -158,6 +158,12 @@
 
 ***
 
+### serviceAccountTokens
+
+> `readonly` **serviceAccountTokens**: [`ServiceAccountTokens`](../../forward/classes/ServiceAccountTokens.md)
+
+***
+
 ### sessions
 
 > `readonly` **sessions**: [`Sessions`](../../forward/classes/Sessions.md)
