@@ -176,6 +176,63 @@ cleanup verification, run `npm run test:live:sa:execution` with
 SA credentials; `QODER_AUTH_MODE` switches examples, not the PAT test suites. See the
 [official authentication contract](https://docs.qoder.com/cloud-agents/api/conventions/authentication).
 
+### Forward SAT management
+
+Forward exposes explicit admin/Identity SAT issuance and revocation in addition
+to automatic platform exchange. These three endpoints authenticate with an
+**SA Key**, supplied per method call; ordinary business requests still use PAT
+or SAT. The Key overrides client/request Authorization only for that call, is
+never included in the JSON body, and is not saved on the client.
+
+`ttl_seconds` is optional (1-43200); omission uses the issuer's default. Issuance
+and revocation are not automatically retried, even when the client or request
+allows retries. Do not blindly repeat an issuance after an uncertain network
+failure: it may already have issued a token. Metadata is for audit information,
+not secrets. Keep the issuance response's Token ID, Credential ID and expiry for
+precise revocation. A returned static SAT does not renew automatically, and
+revocation affects its Forward binding; it does not cancel an already-running
+Session or revoke unrelated Managed/platform access. Never log the SA Key, SAT,
+serialized token response or Authorization headers.
+
+Run `npm run test:live:sa:tokens` with `QODER_SA_CN_KEY`,
+`QODER_SA_GLOBAL_KEY` and `QODER_SA_LIVE_ALLOW_WRITE=true` to verify both regions.
+This separate suite issues admin and Identity SATs, checks business access and
+cross-Identity refusal, then revokes the tokens, verifies access is refused and
+deletes its temporary Identities. It does not execute a model or require
+`QODER_SA_LIVE_ALLOW_EXECUTION=true`.
+
+```ts
+import { ForwardClient } from 'qca-sdk';
+
+const forwardBaseURL = process.env.QODER_FORWARD_BASE_URL || 'https://api.qoder.com/api/v1/forward';
+const saKey = process.env.QODER_SA_KEY!;
+const identityID = process.env.QODER_IDENTITY_ID!;
+const issuer = new ForwardClient({ baseURL: forwardBaseURL });
+// Admin: issuer.serviceAccountTokens.create({ saKey, ttl_seconds: 600 }).
+const token = await issuer.identities.serviceAccountTokens.create(identityID, {
+  saKey, ttl_seconds: 600,
+});
+try {
+  const runtime = new ForwardClient({
+    baseURL: forwardBaseURL, authMode: 'sa', accessToken: token.access_token,
+  });
+  const page = await runtime.sessions.list({ identity_ids: [identityID], limit: 1 });
+} finally {
+  await issuer.serviceAccountTokens.revoke(token.auth_token_id, {
+    saKey, target_credential_id: token.credential_id,
+    target_expires_at: token.expires_at, reason: 'runtime complete',
+  });
+}
+```
+
+After building, run `node examples/auth/forward-tokens.mjs`. It revokes its token
+even if the business call fails. Set `QODER_SA_KEY` and `QODER_SA_REGION=cn|global`;
+set `QODER_IDENTITY_ID` for Identity mode, or leave it unset for admin mode.
+
+See the official [admin issuance](https://docs.qoder.com/cloud-agents/api/forward/service-account-tokens/create),
+[Identity issuance](https://docs.qoder.com/cloud-agents/api/forward/service-account-tokens/create-identity)
+and [revocation](https://docs.qoder.com/cloud-agents/api/forward/service-account-tokens/revoke) contracts.
+
 ### Authentication examples
 
 The two read-only examples under `examples/auth/` show client construction directly:

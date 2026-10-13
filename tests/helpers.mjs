@@ -36,6 +36,7 @@ export async function argumentsFor(mode, m, op, overrides = {}) {
     if (a.kind === 'path') return pathSegment;
     for (const f of a.fields ?? []) {
       if (f.location === 'path') params[f.wire] = pathSegment;
+      if (f.location === 'auth') params[f.wire] = 'contract-sa-key';
       if (f.binary && !params[f.wire]) {
         const file = await sdk.toFile(Buffer.from('sdk-contract'), 'skill/SKILL.md', { type: 'text/markdown' });
         params[f.wire] = f.binaryArray ? [file] : file;
@@ -54,7 +55,7 @@ export async function assertRequest(req, mode, c, op) {
   const route = op?.path ?? c.route;
   assert.equal(req.method, method);
   assert.equal(url.pathname, `/api/v1/${mode === 'forward' ? 'forward' : 'cloud'}${route.replace(/\{[^}]+\}/g, encodeURIComponent(pathSegment))}`);
-  assert.equal(req.headers.get('authorization'), 'Bearer secret-pat');
+  assert.equal(req.headers.get('authorization'), op?.auth === 'sa_key' ? 'Bearer contract-sa-key' : 'Bearer secret-pat');
   assert.equal(url.searchParams.has('beta'), false);
   for (const p of op?.parameters ?? []) {
     if (p.location === 'query') {

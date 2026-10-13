@@ -2,11 +2,28 @@ import { ForwardClient, ManagedClient, APIPromise, Stream, ResumableSessionEvent
   APIError, APIConnectionError, APIConnectionTimeoutError, APIUserAbortError, NotFoundError } from 'qca-sdk';
 import Forward from 'qca-sdk/forward';
 import Managed from 'qca-sdk/managed';
-import type { TemplateUpdateParams, SessionEvent } from 'qca-sdk/forward';
+import type { TemplateUpdateParams, SessionEvent, ServiceAccountToken, ServiceAccountTokenRevokeResponse } from 'qca-sdk/forward';
 import type { AgentUpdateParams, ManagedAgentsStreamSessionEventsUnion, SessionEventStreamParams as ManagedSessionEventStreamParams } from 'qca-sdk/managed';
 
 const forward: ForwardClient = new Forward({ pat: async () => 'token', timeout: 5000 });
 const managed: ManagedClient = new Managed();
+async function forwardTokenManagement() {
+  const admin: ServiceAccountToken = await forward.serviceAccountTokens.create({ saKey: 'key', ttl_seconds: 600 });
+  const identity: ServiceAccountToken = await forward.identities.serviceAccountTokens.create('idn_one', { saKey: 'key', metadata: { purpose: 'runtime' } });
+  const revoked: ServiceAccountTokenRevokeResponse = await forward.serviceAccountTokens.revoke(identity.auth_token_id, {
+    saKey: 'key', target_credential_id: identity.credential_id, target_expires_at: identity.expires_at,
+  });
+  const runtime = new Forward({ authMode: 'sa', accessToken: admin.access_token });
+  void runtime;
+  void revoked;
+  // @ts-expect-error SA Key is required even when the client has business credentials.
+  forward.serviceAccountTokens.create({ ttl_seconds: 600 });
+  // @ts-expect-error Forward token management is not part of Managed.
+  managed.serviceAccountTokens;
+  // @ts-expect-error ttl_seconds uses seconds as a number.
+  forward.serviceAccountTokens.create({ saKey: 'key', ttl_seconds: '600' });
+}
+void forwardTokenManagement;
 const derivedForward: ForwardClient = forward.withOptions({ timeout: 30_000 });
 const derivedManaged: ManagedClient = managed.withOptions({ maxRetries: 0 });
 void derivedForward.templates.list({});
@@ -118,8 +135,7 @@ const generatedHeaders: Headers = APIError.generate(418, {}).headers;
 void [timeoutError, generatedStatus, generatedHeaders];
 // @ts-expect-error creating a Template requires environment_id.
 void forward.templates.create({ name: 'missing environment', model: 'ultimate' });
-// @ts-expect-error there is no Service Account Token resource.
-forward.serviceAccountTokens;
+void forward.serviceAccountTokens;
 // @ts-expect-error the Managed scope excludes webhooks.
 managed.webhooks;
 // @ts-expect-error Model shape is a string or object, never a number.
