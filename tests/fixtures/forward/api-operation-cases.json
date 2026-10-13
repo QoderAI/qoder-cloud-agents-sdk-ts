@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "openapi_sha256": "cfc0d3556f61838f65174b4c8ae92eded0d7c9fc00dcbd58d07dd6365e711f96",
-  "operation_count": 113,
+  "operation_count": 115,
   "cases": [
     {
       "operation_id": "addSessionResource",
@@ -4925,6 +4925,92 @@
       ],
       "request_body": null,
       "source": "cloud-agent/cloud-agents-api-doc origin/master 1b3f3d023b8631395c3f65577a507050d3893d12 (2026-10-09)"
+    },
+    {
+      "operation_id": "createRealtimeConversation",
+      "resource": "RealtimeConversations",
+      "clients": {
+        "python": "realtime.conversations",
+        "typescript": "realtime.conversations",
+        "go": "Realtime.Conversations"
+      },
+      "methods": {
+        "python": "create",
+        "typescript": "create",
+        "go": "New"
+      },
+      "http_method": "POST",
+      "path": "/realtime/conversations",
+      "parameters": [
+        {
+          "wire_name": "Idempotency-Key",
+          "location": "header",
+          "required": true,
+          "value": "create-realtime-contract"
+        }
+      ],
+      "request_body": {
+        "kind": "json",
+        "value": {
+          "identity_id": "idn_xxx",
+          "template_id": "tmpl_xxx",
+          "title": "项目分析",
+          "metadata": {
+            "source": "desktop"
+          },
+          "config": {
+            "audio": {
+              "output": {
+                "voice": "longanlingxin"
+              }
+            }
+          }
+        }
+      },
+      "source": "docs/release-api/03-Forward层/Realtime/CreateConversation.md"
+    },
+    {
+      "operation_id": "getRealtimeConversationHistory",
+      "resource": "RealtimeConversations",
+      "clients": {
+        "python": "realtime.conversations",
+        "typescript": "realtime.conversations",
+        "go": "Realtime.Conversations"
+      },
+      "methods": {
+        "python": "history",
+        "typescript": "history",
+        "go": "History"
+      },
+      "http_method": "GET",
+      "path": "/realtime/conversations/{conversation_id}/history",
+      "parameters": [
+        {
+          "wire_name": "conversation_id",
+          "location": "path",
+          "required": true,
+          "value": "conv_xxx"
+        },
+        {
+          "wire_name": "limit",
+          "location": "query",
+          "required": false,
+          "value": 50
+        },
+        {
+          "wire_name": "types",
+          "location": "query",
+          "required": false,
+          "value": "message,work"
+        },
+        {
+          "wire_name": "before",
+          "location": "query",
+          "required": false,
+          "value": "cursor_older"
+        }
+      ],
+      "source": "knowledge/api_specs/realtime/Cloud Agents Realtime API.md"
     }
   ]
 }

@@ -2902,5 +2902,61 @@
       }
     ],
     "paginated": true
+  },
+  {
+    "id": "realtime.conversations.create",
+    "entry": "realtime.conversations",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "identity_id",
+            "location": "json"
+          },
+          {
+            "wire": "template_id",
+            "location": "json"
+          },
+          {
+            "wire": "idempotency_key",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "realtime.conversations.history",
+    "entry": "realtime.conversations",
+    "method": "history",
+    "args": [
+      {
+        "name": "conversationId",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "types",
+            "location": "query"
+          },
+          {
+            "wire": "before",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": false
   }
 ]

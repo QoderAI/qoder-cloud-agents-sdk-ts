@@ -151,6 +151,27 @@ export class APIClient {
     );
   }
 
+  private async authenticateHeaders(headers: Headers, signal: AbortSignal): Promise<void> {
+    if (!headers.has('authorization')) {
+      const token = await withSignal(resolveToken(this.options, this.authMode), signal, () => false);
+      if (token) headers.set('Authorization', `Bearer ${token}`);
+    }
+    this.validateHeaders(headers);
+  }
+
+  /** @internal Resolve the same public credentials for the separate Node WS transport. */
+  async _prepareRealtimeRequest(options: { conversationId: string; headers?: HeadersLike; signal?: AbortSignal | null }): Promise<{ url: URL; headers: Headers }> {
+    const url = new URL(this.baseURL);
+    url.pathname = `${url.pathname.replace(/\/+$/, '')}/realtime`;
+    url.search = '';
+    url.hash = '';
+    url.protocol = url.protocol === 'https:' ? 'wss:' : 'ws:';
+    url.searchParams.set('conversation_id', options.conversationId);
+    const headers = mergeHeaders({ Accept: 'application/json', 'User-Agent': `qca-js/${VERSION}`, ...platformHeaders() }, this.defaultHeaders, options.headers);
+    await this.authenticateHeaders(headers, options.signal ?? new AbortController().signal);
+    return { url, headers };
+  }
+
   request<T>(options: APIRequestOptions): APIPromise<T> {
     return new APIPromise(this.execute(options), async (response) => {
       if (options.responseType === 'response' || options.responseType === 'binary') return response as T;
@@ -262,11 +283,7 @@ export class APIClient {
         const attemptHeaders = new Headers(headers);
         if (!storage) {
           attemptHeaders.set('X-Qoder-Retry-Count', String(attempt));
-          if (!attemptHeaders.has('authorization')) {
-            const token = await withSignal(resolveToken(this.options, this.authMode), signal, () => timedOut);
-            if (token) attemptHeaders.set('Authorization', `Bearer ${token}`);
-          }
-          this.validateHeaders(attemptHeaders);
+          await this.authenticateHeaders(attemptHeaders, signal);
         }
         let response: Response;
         try {

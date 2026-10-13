@@ -75,6 +75,36 @@
 
 ## Methods
 
+### \_prepareRealtimeRequest()
+
+> **\_prepareRealtimeRequest**(`options`): `Promise`\<\{ `headers`: `Headers`; `url`: `URL`; \}\>
+
+**`Internal`**
+
+Resolve the same public credentials for the separate Node WS transport.
+
+#### Parameters
+
+##### options
+
+###### conversationId
+
+`string`
+
+###### headers?
+
+[`HeadersLike`](../type-aliases/HeadersLike.md)
+
+###### signal?
+
+`AbortSignal` \| `null`
+
+#### Returns
+
+`Promise`\<\{ `headers`: `Headers`; `url`: `URL`; \}\>
+
+***
+
 ### downloadFile()
 
 > **downloadFile**(`path`, `options?`): [`APIPromise`](APIPromise.md)\<`Response`\>

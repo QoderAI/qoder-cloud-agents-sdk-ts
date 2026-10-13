@@ -170,6 +170,40 @@ Qoder Managed Mode API client.
 
 ## Methods
 
+### \_prepareRealtimeRequest()
+
+> **\_prepareRealtimeRequest**(`options`): `Promise`\<\{ `headers`: `Headers`; `url`: `URL`; \}\>
+
+**`Internal`**
+
+Resolve the same public credentials for the separate Node WS transport.
+
+#### Parameters
+
+##### options
+
+###### conversationId
+
+`string`
+
+###### headers?
+
+[`HeadersLike`](../type-aliases/HeadersLike.md)
+
+###### signal?
+
+`AbortSignal` \| `null`
+
+#### Returns
+
+`Promise`\<\{ `headers`: `Headers`; `url`: `URL`; \}\>
+
+#### Inherited from
+
+[`APIClient`](APIClient.md).[`_prepareRealtimeRequest`](APIClient.md#_preparerealtimerequest)
+
+***
+
 ### downloadFile()
 
 > **downloadFile**(`path`, `options?`): [`APIPromise`](APIPromise.md)\<`Response`\>
