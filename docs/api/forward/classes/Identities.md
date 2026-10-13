@@ -52,6 +52,12 @@
 
 > `readonly` **memoryStores**: [`IdentityMemoryStores`](IdentityMemoryStores.md)
 
+***
+
+### serviceAccountTokens
+
+> `readonly` **serviceAccountTokens**: [`IdentityServiceAccountTokens`](IdentityServiceAccountTokens.md)
+
 ## Methods
 
 ### clear()

@@ -7,10 +7,12 @@ import { pathParam, requestHeaders } from './_utils.js';
 import type { DeletedIdentity, Identity, IdentityClearParams, IdentityClearResponse, IdentityCreateParams, IdentityListParams, IdentityListTemplatesResponse, IdentityStats, IdentityUpdateParams } from './types.js';
 import { IdentityConfigs } from './identity-config.js';
 import { IdentityMemoryStores } from './identity-memory-store.js';
+import { IdentityServiceAccountTokens } from './identity-service-account-token.js';
 
 export class Identities extends APIResource {
   readonly configs: IdentityConfigs = new IdentityConfigs(this._client);
   readonly memoryStores: IdentityMemoryStores = new IdentityMemoryStores(this._client);
+  readonly serviceAccountTokens: IdentityServiceAccountTokens = new IdentityServiceAccountTokens(this._client);
 
   /**
    * 列出 Identities.

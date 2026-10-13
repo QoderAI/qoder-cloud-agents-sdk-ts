@@ -2902,5 +2902,95 @@
       }
     ],
     "paginated": true
+  },
+  {
+    "id": "serviceAccountTokens.create",
+    "entry": "serviceAccountTokens",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "saKey",
+            "location": "auth"
+          },
+          {
+            "wire": "ttl_seconds",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          }
+        ]
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "identities.serviceAccountTokens.create",
+    "entry": "identities.serviceAccountTokens",
+    "method": "create",
+    "args": [
+      {
+        "name": "identity_id",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "saKey",
+            "location": "auth"
+          },
+          {
+            "wire": "ttl_seconds",
+            "location": "json"
+          },
+          {
+            "wire": "metadata",
+            "location": "json"
+          }
+        ]
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "serviceAccountTokens.revoke",
+    "entry": "serviceAccountTokens",
+    "method": "revoke",
+    "args": [
+      {
+        "name": "auth_token_id",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "saKey",
+            "location": "auth"
+          },
+          {
+            "wire": "target_credential_id",
+            "location": "json"
+          },
+          {
+            "wire": "target_expires_at",
+            "location": "json"
+          },
+          {
+            "wire": "reason",
+            "location": "json"
+          }
+        ]
+      }
+    ],
+    "paginated": false
   }
 ]

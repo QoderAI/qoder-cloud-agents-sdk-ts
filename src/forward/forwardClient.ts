@@ -15,6 +15,7 @@ import { Vaults } from './vault.js';
 import { MemoryStores } from './memory-store.js';
 import { Models } from './model.js';
 import { Usage } from './usage.js';
+import { ServiceAccountTokens } from './service-account-token.js';
 
 export type ForwardClientOptions = ClientOptions;
 
@@ -34,6 +35,7 @@ export class ForwardClient extends APIClient {
   readonly memoryStores: MemoryStores = new MemoryStores(this);
   readonly models: Models = new Models(this);
   readonly usage: Usage = new Usage(this);
+  readonly serviceAccountTokens: ServiceAccountTokens = new ServiceAccountTokens(this);
 
   constructor(options: ForwardClientOptions = {}) {
     super(options, 'forward');

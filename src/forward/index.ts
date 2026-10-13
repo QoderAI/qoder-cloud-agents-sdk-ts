@@ -39,3 +39,5 @@ export type { AuthMode, ServiceAccountCredentialOptions } from '../core/credenti
 export type { Credential } from '../core/credentials.js';
 export * from '../core/error.js';
 export { Usage } from './usage.js';
+export { ServiceAccountTokens } from './service-account-token.js';
+export { IdentityServiceAccountTokens } from './identity-service-account-token.js';

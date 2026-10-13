@@ -2802,5 +2802,52 @@
     "operation_id": "listTemplateUsage",
     "entry": "Usage",
     "empty": false
+  },
+  {
+    "operation_id": "createServiceAccountToken",
+    "entry": "ServiceAccountTokens",
+    "response": {
+      "type": "service_account_token",
+      "access_token": "sat-contract-secret",
+      "token_type": "Bearer",
+      "expires_in": 3600,
+      "expires_at": "2026-10-13T12:00:00Z",
+      "auth_token_id": "auth_contract",
+      "service_account_id": "sa_contract",
+      "credential_id": "sak_contract",
+      "subject_type": "admin"
+    },
+    "source": "https://docs.qoder.com/cloud-agents/api/forward/service-account-tokens/create",
+    "id": "serviceAccountTokens.create",
+    "empty": false
+  },
+  {
+    "operation_id": "createIdentityServiceAccountToken",
+    "entry": "Identities.ServiceAccountTokens",
+    "response": {
+      "type": "service_account_token",
+      "access_token": "sat-contract-secret",
+      "token_type": "Bearer",
+      "expires_in": 3600,
+      "expires_at": "2026-10-13T12:00:00Z",
+      "auth_token_id": "auth_contract",
+      "service_account_id": "sa_contract",
+      "credential_id": "sak_contract",
+      "subject_type": "identity",
+      "identity_id": "idn_contract"
+    },
+    "source": "https://docs.qoder.com/cloud-agents/api/forward/service-account-tokens/create-identity",
+    "id": "identities.serviceAccountTokens.create",
+    "empty": false
+  },
+  {
+    "operation_id": "revokeServiceAccountToken",
+    "entry": "ServiceAccountTokens",
+    "response": {
+      "revoked": true
+    },
+    "source": "https://docs.qoder.com/cloud-agents/api/forward/service-account-tokens/revoke",
+    "id": "serviceAccountTokens.revoke",
+    "empty": false
   }
 ]
