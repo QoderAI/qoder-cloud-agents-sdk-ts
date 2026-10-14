@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import http from 'node:http';
+import net from 'node:net';
 import { once } from 'node:events';
 import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
@@ -37,6 +38,24 @@ async function server(t, behavior, { rejectHTTP } = {}) {
 const ready = (ws, emit) => emit('voice.ready', fixture.ready);
 const connect = client => client.realtime.connect({ conversationId: 'conv_test', handshakeTimeout: 1000, readyTimeout: 1000 });
 async function consumeReady(connection) { assert.equal((await connection.receive()).value.type, 'voice.ready'); }
+async function stalledHandshakeServer(t) {
+  const httpServer = http.createServer();
+  const sockets = new Set();
+  // Handshake timeouts can fire before the upgrade event reaches the server.
+  httpServer.on('connection', socket => {
+    sockets.add(socket);
+    socket.once('close', () => sockets.delete(socket));
+  });
+  httpServer.on('upgrade', () => {});
+  httpServer.listen(0, '127.0.0.1'); await once(httpServer, 'listening');
+  let closing;
+  const close = () => closing ??= new Promise((resolve, reject) => {
+    httpServer.close(error => error ? reject(error) : resolve());
+    for (const socket of sockets) socket.destroy();
+  });
+  t.after(close);
+  return { httpServer, close, baseURL: `http://127.0.0.1:${httpServer.address().port}/api/v1/forward` };
+}
 
 test('HTTP create carries required stable idempotency header and preserves HTTP responses', async () => {
   let calls = 0;
@@ -272,10 +291,31 @@ test('handshake deadline includes slow credential resolution and does not make a
   await delay(45); assert.equal(host.requests.length, 0);
 });
 test('socket handshake timeout is a timeout error and releases pending socket', async t => {
-  const raw = http.createServer(); const pendingSockets = new Set(); raw.on('upgrade', (_req, socket) => { pendingSockets.add(socket); });
-  raw.listen(0, '127.0.0.1'); await once(raw, 'listening'); t.after(async () => { for (const socket of pendingSockets) socket.destroy(); await new Promise(resolve => raw.close(resolve)); });
-  const client = new ForwardClient({ pat: 'pat', baseURL: `http://127.0.0.1:${raw.address().port}/api/v1/forward` });
+  const host = await stalledHandshakeServer(t);
+  const client = new ForwardClient({ pat: 'pat', baseURL: host.baseURL });
   await assert.rejects(client.realtime.connect({ conversationId: 'conv', handshakeTimeout: 15 }), sdk.APIConnectionTimeoutError);
+});
+test('handshake test server cleanup closes TCP connections before upgrade', async t => {
+  const host = await stalledHandshakeServer(t);
+  let upgraded = false;
+  host.httpServer.on('upgrade', () => { upgraded = true; });
+  const accepted = once(host.httpServer, 'connection');
+  const socket = net.connect({ host: '127.0.0.1', port: host.httpServer.address().port });
+  let timer;
+  try {
+    await once(socket, 'connect'); await accepted;
+    const closed = once(socket, 'close');
+    await Promise.race([
+      host.close(),
+      new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('handshake test server cleanup stalled')), 1000); }),
+    ]);
+    await closed;
+    assert.equal(upgraded, false);
+    assert.equal(socket.destroyed, true);
+  } finally {
+    clearTimeout(timer);
+    socket.destroy();
+  }
 });
 test('receive frame size and byte queue budgets are bounded independently', async t => {
   const host = await server(t, (ws, emit) => { ready(ws, emit); ws.on('message', () => emit('future.large', { huge: 'x'.repeat(2000) })); });
