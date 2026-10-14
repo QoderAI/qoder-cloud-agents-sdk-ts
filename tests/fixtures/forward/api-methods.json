@@ -3048,5 +3048,127 @@
       }
     ],
     "paginated": false
+  },
+  {
+    "id": "drives.listEntries",
+    "entry": "drives",
+    "method": "listEntries",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "identity_id",
+            "location": "query"
+          },
+          {
+            "wire": "path",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "page_token",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "drives.createUploadUrl",
+    "entry": "drives",
+    "method": "createUploadUrl",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "identity_id",
+            "location": "query"
+          },
+          {
+            "wire": "path",
+            "location": "body"
+          },
+          {
+            "wire": "content_type",
+            "location": "body"
+          }
+        ]
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "drives.createDownloadUrl",
+    "entry": "drives",
+    "method": "createDownloadUrl",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "identity_id",
+            "location": "query"
+          },
+          {
+            "wire": "path",
+            "location": "body"
+          }
+        ]
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "drives.deleteEntry",
+    "entry": "drives",
+    "method": "deleteEntry",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "identity_id",
+            "location": "query"
+          },
+          {
+            "wire": "path",
+            "location": "body"
+          },
+          {
+            "wire": "recursive",
+            "location": "body"
+          }
+        ]
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "drives.clear",
+    "entry": "drives",
+    "method": "clear",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "identity_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": false
   }
 ]

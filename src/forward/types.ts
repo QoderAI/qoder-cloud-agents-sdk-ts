@@ -2803,6 +2803,8 @@ export interface TemplateListParams {
 }
 
 export interface TemplateNewParams {
+  /** Replaces the complete managed tool list. Null or an empty list disables it. */
+  managed_tool_config?: ManagedToolConfig | null;
   /**
    * Template 名称，1-256 个字符，租户内唯一。
    */
@@ -2872,6 +2874,8 @@ export interface TemplateNewParams {
 }
 
 export interface TemplateUpdateParams {
+  /** Replaces the complete managed tool list. Null or an empty list disables it. */
+  managed_tool_config?: ManagedToolConfig | null;
   /**
    * 新的 Template 名称。
    */
@@ -2967,6 +2971,8 @@ export interface TemplateCloneParams {
 }
 
 export interface Template {
+  /** Replaces the complete managed tool list. Null or an empty list disables it. */
+  managed_tool_config?: ManagedToolConfig | null;
   /**
    * 固定为 `template`。
    */
@@ -3253,4 +3259,84 @@ export interface TemplateUsage {
   session_count: number;
   active_seconds: number;
   credits: number;
+}
+
+/** Forward-managed tools. This is distinct from tools[].enabled_tools. */
+export interface ManagedToolConfig {
+  /** The complete enabled list; [] disables all managed tools. */
+  enabled_tools: Array<string>;
+  [key: string]: unknown;
+}
+
+/** One file or virtual directory in an Identity Drive. */
+export interface DriveEntry {
+  path: string;
+  name: string;
+  type: 'file' | 'directory';
+  /** Zero for an empty file; omitted for directories. */
+  size?: number;
+  etag?: string;
+  last_modified?: string;
+  [key: string]: unknown;
+}
+export interface DriveListEntriesResponse {
+  /** Immediate children, in the order returned by the service. */
+  entries: Array<DriveEntry>;
+  /** Omitted on the last page. Do not alter or reuse in another scope/path. */
+  next_page_token?: string;
+  [key: string]: unknown;
+}
+export interface DriveListEntriesParams {
+  /** Query parameter; required even with an Identity SAT. */
+  identity_id: string;
+  /** Relative directory; omit or use an empty string for root. */
+  path?: string;
+  /** Page size, 1–100 (default 20). */
+  limit?: number;
+  page_token?: string;
+}
+export interface DriveCreateUploadURLParams {
+  /** Query parameter, not part of the JSON body. */
+  identity_id: string;
+  path: string;
+  content_type?: string;
+}
+export interface DriveCreateDownloadURLParams {
+  identity_id: string;
+  path: string;
+}
+export interface DriveDeleteEntryParams {
+  identity_id: string;
+  path: string;
+  recursive?: boolean;
+}
+export interface DriveClearParams {
+  identity_id: string;
+}
+/** A signed storage URL, valid for 15 minutes. Treat the URL as a credential. */
+export interface DriveUploadURL {
+  url: string;
+  method: 'PUT';
+  headers: Record<string, string>;
+  expires_at: string;
+  [key: string]: unknown;
+}
+export interface DriveDownloadURL {
+  url: string;
+  method: 'GET';
+  headers: Record<string, string>;
+  expires_at: string;
+  /** May be omitted for a zero-byte file. */
+  size?: number;
+  etag?: string;
+  content_type?: string;
+  [key: string]: unknown;
+}
+export interface DriveDeleteEntryResponse {
+  deleted_count: number;
+  [key: string]: unknown;
+}
+export interface DriveClearResponse {
+  deleted_count: number;
+  [key: string]: unknown;
 }

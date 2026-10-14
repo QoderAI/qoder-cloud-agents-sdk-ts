@@ -83,7 +83,8 @@
     "test:live:sa:execution": "npm run build && node scripts/run-sa-live.mjs execution",
     "test:live:sa:check": "node --check tests/sa/auth-live.mjs && node --check tests/sa/execution-live.mjs && node --check tests/realtime/live.mjs && node --check scripts/run-realtime-live.mjs",
     "test:live:realtime": "npm run build && node scripts/run-realtime-live.mjs",
-    "test:live:sa:tokens": "npm run build && node scripts/run-sa-live.mjs tokens"
+    "test:live:sa:tokens": "npm run build && node scripts/run-sa-live.mjs tokens",
+    "test:live:drive": "npm run build && node scripts/run-drive-live.mjs"
   },
   "devDependencies": {
     "@types/ws": "^8.18.2",

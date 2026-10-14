@@ -74,6 +74,26 @@
 
 ***
 
+### querySerializer?
+
+> `optional` **querySerializer?**: (`query`) => `string`
+
+**`Internal`**
+
+Endpoint-specific query encoding, after defaults and overrides are merged.
+
+#### Parameters
+
+##### query
+
+`object`
+
+#### Returns
+
+`string`
+
+***
+
 ### responseType?
 
 > `optional` **responseType?**: `"response"` \| `"stream"` \| `"json"` \| `"binary"` \| `"void"`

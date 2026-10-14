@@ -48,3 +48,5 @@ export * from './realtime/types.js';
 
 export { ServiceAccountTokens } from './service-account-token.js';
 export { IdentityServiceAccountTokens } from './identity-service-account-token.js';
+
+export { Drives } from './drive.js';

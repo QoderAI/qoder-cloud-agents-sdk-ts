@@ -60,6 +60,14 @@ Template ID。
 
 ***
 
+### managed\_tool\_config?
+
+> `optional` **managed\_tool\_config?**: [`ManagedToolConfig`](ManagedToolConfig.md) \| `null`
+
+Replaces the complete managed tool list. Null or an empty list disables it.
+
+***
+
 ### mcp\_servers
 
 > **mcp\_servers**: [`MCPServer`](MCPServer.md)[]

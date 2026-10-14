@@ -198,3 +198,21 @@ function typedRealtimeEvent(event: RealtimeServerEvent): void {
   if (isRealtimeEvent(event, 'voice.ready')) { const rate: number = event.payload.input_audio.sample_rate; void rate; }
 }
 void typedRealtimeEvent;
+
+// Drive has an independent entries/next_page_token response.
+void forward.drives.listEntries({ identity_id: 'idn', path: 'reports', limit: 1 }).then(page => {
+  const size: number | undefined = page.entries[0]?.size; void size;
+  if (page.next_page_token) return forward.drives.listEntries({ identity_id: 'idn', path: 'reports', page_token: page.next_page_token });
+});
+void forward.drives.createUploadUrl({ identity_id: 'idn', path: 'notes.txt', content_type: 'text/plain' });
+void forward.drives.createDownloadUrl({ identity_id: 'idn', path: 'notes.txt' });
+void forward.drives.deleteEntry({ identity_id: 'idn', path: 'reports', recursive: true });
+void forward.drives.clear({ identity_id: 'idn' });
+void forward.templates.update('tmpl', { managed_tool_config: { enabled_tools: ['drive'] } });
+void forward.templates.update('tmpl', { managed_tool_config: null });
+// @ts-expect-error Identity SATs must still pass identity_id.
+forward.drives.listEntries({});
+// @ts-expect-error Drive has no ordinary page cursor.
+forward.drives.listEntries({ identity_id: 'idn', page: 'cursor' });
+// @ts-expect-error Managed does not expose Forward Drive.
+managed.drives;

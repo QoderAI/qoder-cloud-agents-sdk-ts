@@ -3984,6 +3984,13 @@
         "location": "header",
         "required": false,
         "type": "string | null"
+      },
+      {
+        "name": "managed_tool_config",
+        "wireName": "managed_tool_config",
+        "location": "body",
+        "required": false,
+        "type": "ManagedToolConfig | null"
       }
     ]
   },
@@ -4141,6 +4148,13 @@
         "location": "header",
         "required": false,
         "type": "string | null"
+      },
+      {
+        "name": "managed_tool_config",
+        "wireName": "managed_tool_config",
+        "location": "body",
+        "required": false,
+        "type": "ManagedToolConfig | null"
       }
     ]
   },
@@ -4755,5 +4769,171 @@
     "responseType": "history",
     "itemType": "RealtimeHistoryPage",
     "path": "/realtime/conversations/{conversation_id}/history"
+  },
+  {
+    "operationId": "listDriveEntries",
+    "entry": "drives",
+    "method": "listEntries",
+    "httpMethod": "GET",
+    "path": "/drives/entries",
+    "parameters": [],
+    "paramsType": "DriveListEntriesParams",
+    "paramsOptional": false,
+    "paramsLocation": "query",
+    "responseType": "json",
+    "itemType": "DriveListEntriesResponse",
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "path",
+        "wireName": "path",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "query",
+        "required": false,
+        "type": "number"
+      },
+      {
+        "name": "page_token",
+        "wireName": "page_token",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "operationId": "createDriveUploadURL",
+    "entry": "drives",
+    "method": "createUploadUrl",
+    "httpMethod": "POST",
+    "path": "/drives/upload-url",
+    "parameters": [],
+    "paramsType": "DriveCreateUploadURLParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "itemType": "DriveUploadURL",
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "path",
+        "wireName": "path",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "content_type",
+        "wireName": "content_type",
+        "location": "body",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "operationId": "createDriveDownloadURL",
+    "entry": "drives",
+    "method": "createDownloadUrl",
+    "httpMethod": "POST",
+    "path": "/drives/download-url",
+    "parameters": [],
+    "paramsType": "DriveCreateDownloadURLParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "itemType": "DriveDownloadURL",
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "path",
+        "wireName": "path",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "operationId": "deleteDriveEntry",
+    "entry": "drives",
+    "method": "deleteEntry",
+    "httpMethod": "DELETE",
+    "path": "/drives/entries",
+    "parameters": [],
+    "paramsType": "DriveDeleteEntryParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "json",
+    "itemType": "DriveDeleteEntryResponse",
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "path",
+        "wireName": "path",
+        "location": "body",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "recursive",
+        "wireName": "recursive",
+        "location": "body",
+        "required": false,
+        "type": "boolean"
+      }
+    ]
+  },
+  {
+    "operationId": "clearDrive",
+    "entry": "drives",
+    "method": "clear",
+    "httpMethod": "DELETE",
+    "path": "/drives",
+    "parameters": [],
+    "paramsType": "DriveClearParams",
+    "paramsOptional": false,
+    "paramsLocation": "query",
+    "responseType": "json",
+    "itemType": "DriveClearResponse",
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": true,
+        "type": "string"
+      }
+    ]
   }
 ]
