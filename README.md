@@ -321,6 +321,56 @@ for await (const event of stream) {
 
 The resumable stream does not query event history, clear an invalid cursor, or deduplicate IDs: delta frames may legitimately share an event ID. It stops after `[DONE]`, `session.status_terminated`, or `session.deleted`. Stop it early with `stream.controller.abort()`, an `AbortSignal` in `RequestOptions`, or `await stream.close()`.
 
+## Forward Drive (Beta)
+
+Drive is a Beta API. It uses `entries` / `next_page_token`, not the ordinary
+resource paginator. Pass `identity_id` even with an Identity SAT, preserve the
+server order, and reuse a cursor only within the same Identity, directory and
+authentication scope. Paths are relative; the SDK preserves slashes when encoding
+the list query and leaves path validation to the service.
+
+Upload/download methods return a signed URL, method, headers and expiry. Send the
+storage request with a separate HTTP client using only those returned headers;
+do not attach QCA credentials or log signed URLs. Replaying an `Idempotency-Key`
+does not renew the URL: use a new key or omit it when requesting a fresh URL.
+
+Deleting a nonempty directory requires `recursive=true`; `clear` deletes the
+entire selected Identity Drive. Partial failures retain `drive_delete_partial`
+and `deleted_count` in the standard API error body. Direct Drive APIs do not
+require Template tool configuration.
+
+```ts
+const identityID = 'idn_...';
+const templateID = 'tmpl_...';
+let page = await client.drives.listEntries({ identity_id: identityID, path: 'reports', limit: 20 });
+for (const entry of page.entries) console.log(entry.path);
+if (page.next_page_token) {
+  page = await client.drives.listEntries({
+    identity_id: identityID, path: 'reports', page_token: page.next_page_token,
+  });
+}
+// Replace the complete managed-tool list, retaining any other tools you need.
+await client.templates.update(templateID, { managed_tool_config: { enabled_tools: ['drive'] } });
+```
+
+Run the [file lifecycle example](examples/forward/drive.mjs) with
+`node examples/forward/drive.mjs`. It uses the shared PAT/SA configuration and
+creates a fresh Identity. A directory has no `size`; a zero-byte file has `size=0`.
+For maintainers, `npm run test:live:drive` tests CN/Global × PAT/admin SAT/Identity SAT.
+
+To enable Agent-managed Drive tools, use Template `managed_tool_config.enabled_tools`.
+It is separate from `tools[].enabled_tools` and replaces the entire list; an empty
+list disables managed tools, omission preserves the setting, and `null` clears it.
+Full Agent Drive usage also requires the DeliverArtifacts tool. Internal
+`/forward-mcp` routes are invoked by the runtime and are not public SDK methods.
+
+The Drive live suite requires `QODER_DRIVE_LIVE_ALLOW_WRITE=true`,
+`QODER_FORWARD_CN_PAT`, `QODER_FORWARD_GLOBAL_PAT`, `QODER_SA_CN_KEY`, and
+`QODER_SA_GLOBAL_KEY` in `.env.live` (or `LIVE_ENV_FILE`). It creates isolated
+Identities, verifies storage transfers, pagination, deletion, Identity isolation,
+and Template configuration, then clears only those new Identities. It does not
+run Agent/model tool execution.
+
 ## File uploads
 
 File parameters accept a `File`, a `Blob`, a byte array, a `Response`, a `ReadableStream` or an async iterable — including a Node file stream. `toFile` wraps any of those with an explicit filename.

@@ -10,6 +10,7 @@ import { Channels } from './channel.js';
 import { ChannelPairings } from './channel-pairing.js';
 import { Environments } from './environment.js';
 import { Files } from './file.js';
+import { Drives } from './drive.js';
 import { Skills } from './skill.js';
 import { Vaults } from './vault.js';
 import { MemoryStores } from './memory-store.js';
@@ -32,6 +33,7 @@ export class ForwardClient extends APIClient {
   readonly channelPairings: ChannelPairings = new ChannelPairings(this);
   readonly environments: Environments = new Environments(this);
   readonly files: Files = new Files(this);
+  readonly drives: Drives = new Drives(this);
   readonly skills: Skills = new Skills(this);
   readonly vaults: Vaults = new Vaults(this);
   readonly memoryStores: MemoryStores = new MemoryStores(this);

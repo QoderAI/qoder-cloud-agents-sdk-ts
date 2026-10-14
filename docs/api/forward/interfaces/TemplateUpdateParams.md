@@ -62,6 +62,14 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
+### managed\_tool\_config?
+
+> `optional` **managed\_tool\_config?**: [`ManagedToolConfig`](ManagedToolConfig.md) \| `null`
+
+Replaces the complete managed tool list. Null or an empty list disables it.
+
+***
+
 ### mcp\_servers?
 
 > `optional` **mcp\_servers?**: [`MCPServerParam`](MCPServerParam.md)[] \| `null`

@@ -36,6 +36,8 @@ export interface APIRequestOptions extends RequestOptions {
   method: string;
   path: string;
   responseType?: 'json' | 'stream' | 'binary' | 'response' | 'void';
+  /** @internal Endpoint-specific query encoding, after defaults and overrides are merged. */
+  querySerializer?: (query: object) => string;
 }
 
 export function mergeHeaders(...sources: (HeadersLike | undefined)[]): Headers {
@@ -249,7 +251,9 @@ export class APIClient {
     if (callerSignal.aborted) throw abortError(callerSignal, false);
     const url = storage ? new URL(options.path) : new URL(`${this.baseURL}/${options.path.replace(/^\/+/, '')}`);
     if (!storage) {
-      const query = stringifyQuery({ ...this.options.defaultQuery, ...options.query }, this.mode === 'managed' ? 'brackets' : 'repeat');
+      const values = { ...this.options.defaultQuery, ...options.query };
+      const query = options.querySerializer ? options.querySerializer(values)
+        : stringifyQuery(values, this.mode === 'managed' ? 'brackets' : 'repeat');
       if (query) url.search += `${url.search ? '&' : ''}${query}`;
     }
     const method = options.method.toUpperCase();
