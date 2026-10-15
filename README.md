@@ -4,9 +4,6 @@
 
 [![NPM version](https://img.shields.io/npm/v/qca-sdk.svg)](https://npmjs.org/package/qca-sdk)
 
-> [!IMPORTANT]
-> This SDK is in preview. It is pre-1.0, so the API surface may still change between releases.
-
 TypeScript and JavaScript library for the Qoder Cloud Agents API. It provides typed access to the Forward and Managed APIs, ships CommonJS, ES modules and strict TypeScript types, and has no third-party runtime dependencies.
 
 ## Installation
