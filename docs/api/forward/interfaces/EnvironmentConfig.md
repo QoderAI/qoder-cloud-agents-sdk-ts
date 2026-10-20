@@ -20,6 +20,12 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
+### setup\_script?
+
+> `optional` **setup\_script?**: `string`
+
+***
+
 ### type
 
 > **type**: `string`

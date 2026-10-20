@@ -38,7 +38,7 @@ The format and length of IDs may change over time.
 
 ### latest\_version
 
-> **latest\_version**: `string`
+> **latest\_version**: `string` \| `null`
 
 ID of the newest Skill Version — what `latest` references resolve to. Always
 set: a Skill holds at least one version.

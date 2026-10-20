@@ -94,8 +94,10 @@ A timestamp in RFC 3339 format
 
 ***
 
-### usage
+### ~~usage?~~
 
-> **usage**: [`ManagedAgentsSessionThreadUsage`](ManagedAgentsSessionThreadUsage.md)
+> `optional` **usage?**: [`ManagedAgentsSessionThreadUsage`](ManagedAgentsSessionThreadUsage.md)
 
-Cumulative token usage for a session thread across all turns.
+#### Deprecated
+
+Legacy usage; current Managed Thread responses omit this field.

@@ -12,8 +12,8 @@
 
 > `optional` **authorization\_token?**: `string` \| `null`
 
-New authorization token for the resource. Currently only `github_repository`
-resources support token rotation.
+GitHub access token; also accepted for legacy generic Git clients.
+For generic Git, prefer password and do not send conflicting credentials.
 
 ***
 

@@ -235,3 +235,32 @@ async function ownershipAndPairingTypes() {
   void credits;
 }
 void ownershipAndPairingTypes;
+
+import type * as F080 from 'qca-sdk/forward';
+async function alignment080Types() {
+  await forward.templates.update('tmpl', { max_tool_rounds: null });
+  await forward.templates.update('tmpl', { max_tool_rounds: 3 });
+  await forward.batches.create({ input_file_id: 'file', completion_window: '24h', ignore_idle_window: false });
+  // @ts-expect-error Batch opt-out is boolean, never null.
+  forward.batches.create({ input_file_id: 'file', completion_window: '24h', ignore_idle_window: null });
+  await forward.sessions.list({ search: 'report & 中文' });
+  await forward.memoryStores.create({ name: 'sdk-contract', idempotency_key: 'mount-one', mount: { identity_id: 'idn', template_id: 'tmpl', access: 'read_write' } });
+  // @ts-expect-error A mount requires its template and identity.
+  forward.memoryStores.create({ name: 'sdk-contract', idempotency_key: 'mount-one', mount: { identity_id: 'idn' } });
+  const session = await forward.sessions.retrieve('sess');
+  const evaluations: F080.SessionOutcomeEvaluation[] | undefined = session.outcome_evaluations;
+  const thread = await forward.sessions.threads.retrieve('sess', 'sthr');
+  const credits: number | undefined = thread.usage?.total_credits;
+  const startup: number | undefined = thread.stats?.startup_seconds;
+  const schedule = await forward.schedules.retrieve('sch');
+  const source: string | undefined = schedule.source;
+  const sourceSession: string | null | undefined = schedule.source_session_id;
+  const version: number | undefined = schedule.initial_events_version;
+  const lastRun: string | null | undefined = schedule.trigger_policy.last_run_at;
+  const env = await forward.environments.retrieve('env');
+  const setup: string | undefined = env.config.setup_script;
+  const count: number | undefined = env.binding_info?.agent_template_count;
+  const latest: F080.Skill['latest_version'] = null;
+  void [evaluations, credits, startup, source, sourceSession, version, lastRun, setup, count, latest];
+}
+void alignment080Types;

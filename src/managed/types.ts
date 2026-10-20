@@ -2057,7 +2057,7 @@ export interface ManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReas
 
 export type ManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorType = "self_hosted_resources_unsupported_error";
 
-export type ManagedAgentsSessionResourceConfigUnion = ManagedAgentsGitHubRepositoryResourceConfig | ManagedAgentsFileResourceConfig | ManagedAgentsMemoryStoreResourceConfig;
+export type ManagedAgentsSessionResourceConfigUnion = ManagedAgentsGitRepositoryResourceConfig | ManagedAgentsGitHubRepositoryResourceConfig | ManagedAgentsFileResourceConfig | ManagedAgentsMemoryStoreResourceConfig;
 
 /**
  * A referenced resource no longer exists and its kind was not reported.
@@ -2192,7 +2192,7 @@ export interface DeploymentNewParams {
 
 export type DeploymentNewParamsAgentUnion = string | ManagedAgentsAgentParams;
 
-export type DeploymentNewParamsResourceUnion = ManagedAgentsGitHubRepositoryResourceParams | ManagedAgentsFileResourceParams | ManagedAgentsMemoryStoreResourceParam;
+export type DeploymentNewParamsResourceUnion = ManagedAgentsGitRepositoryResourceParams | ManagedAgentsGitHubRepositoryResourceParams | ManagedAgentsFileResourceParams | ManagedAgentsMemoryStoreResourceParam;
 
 export interface DeploymentGetParams {
   workspace_id?: string;
@@ -2262,7 +2262,7 @@ export interface DeploymentUpdateParams {
 
 export type DeploymentUpdateParamsAgentUnion = string | ManagedAgentsAgentParams;
 
-export type DeploymentUpdateParamsResourceUnion = ManagedAgentsGitHubRepositoryResourceParams | ManagedAgentsFileResourceParams | ManagedAgentsMemoryStoreResourceParam;
+export type DeploymentUpdateParamsResourceUnion = ManagedAgentsGitRepositoryResourceParams | ManagedAgentsGitHubRepositoryResourceParams | ManagedAgentsFileResourceParams | ManagedAgentsMemoryStoreResourceParam;
 
 export interface DeploymentListParams {
   before_id?: string;
@@ -2892,6 +2892,8 @@ export type DreamModelConfigParamSpeed = "standard" | "fast";
  * An output memory store the dream writes consolidated memories into.
  */
 export interface DreamOutput {
+  /** Paths of memory files created, modified or deleted. */
+  files_touched?: Array<string>;
   memory_store_id: string;
   /**
    * Any of "memory_store".
@@ -3368,6 +3370,7 @@ export type PackagesParamsType = "packages";
  * Configuration for self-hosted environments.
  */
 export interface SelfHostedConfig {
+  setup_script?: string;
   /**
    * Environment type
    */
@@ -3381,6 +3384,7 @@ export interface SelfHostedConfig {
  * `NewSelfHostedConfigParams`.
  */
 export interface SelfHostedConfigParams {
+  setup_script?: string;
   /**
    * Environment type
    */
@@ -4048,6 +4052,9 @@ export type ManagedAgentsDeletedMemoryStoreType = "memory_store_deleted";
  * agent can read and write.
  */
 export interface ManagedAgentsMemoryStore {
+  status?: string;
+  entry_count?: number;
+  total_size?: number;
   /**
    * Unique identifier for the memory store (a `memstore_...` tagged ID). Use this
    * when attaching the store to a session, or in the `{memory_store_id}` path
@@ -6667,7 +6674,7 @@ export interface ManagedAgentsGitHubRepositoryResourceParams {
   /**
    * GitHub authorization token used to clone the repository.
    */
-  authorization_token: string;
+  authorization_token?: string;
   /**
    * Any of "github_repository".
    */
@@ -7333,7 +7340,7 @@ export type SessionNewParamsAgentUnion = string | ManagedAgentsAgentParams | Man
 
 export type SessionNewParamsInitialEventUnion = ManagedAgentsUserMessageEventParams | ManagedAgentsUserDefineOutcomeEventParams;
 
-export type SessionNewParamsResourceUnion = ManagedAgentsGitHubRepositoryResourceParams | ManagedAgentsFileResourceParams | ManagedAgentsMemoryStoreResourceParam;
+export type SessionNewParamsResourceUnion = ManagedAgentsGitRepositoryResourceParams | ManagedAgentsGitHubRepositoryResourceParams | ManagedAgentsFileResourceParams | ManagedAgentsMemoryStoreResourceParam;
 
 export interface SessionGetParams {
   workspace_id?: string;
@@ -7958,6 +7965,8 @@ export interface ManagedAgentsBase64ImageSourceParam {
  * succeed; the caller must resolve the billing state.
  */
 export interface ManagedAgentsBillingError {
+  /** Diagnostic only; use retry_status to determine retry behavior. */
+  qoder_error_code?: string;
   /**
    * Human-readable error description.
    */
@@ -7981,6 +7990,8 @@ export type ManagedAgentsBillingErrorType = "billing_error";
  * a host the environment's network policy does not permit.
  */
 export interface ManagedAgentsCredentialHostUnreachableError {
+  /** Diagnostic only; use retry_status to determine retry behavior. */
+  qoder_error_code?: string;
   /**
    * ID of the affected credential.
    */
@@ -8196,6 +8207,8 @@ export type ManagedAgentsImageBlockSourceUnionParam = ManagedAgentsBase64ImageSo
  * Authentication to an MCP server failed.
  */
 export interface ManagedAgentsMCPAuthenticationFailedError {
+  /** Diagnostic only; use retry_status to determine retry behavior. */
+  qoder_error_code?: string;
   /**
    * Name of the MCP server that failed authentication.
    */
@@ -8227,6 +8240,8 @@ export type ManagedAgentsMCPAuthenticationFailedErrorType = "mcp_authentication_
  * Failed to connect to an MCP server.
  */
 export interface ManagedAgentsMCPConnectionFailedError {
+  /** Diagnostic only; use retry_status to determine retry behavior. */
+  qoder_error_code?: string;
   /**
    * Name of the MCP server that failed to connect.
    */
@@ -8259,6 +8274,8 @@ export type ManagedAgentsMCPConnectionFailedErrorType = "mcp_connection_failed_e
  * exhausted.
  */
 export interface ManagedAgentsModelOverloadedError {
+  /** Diagnostic only; use retry_status to determine retry behavior. */
+  qoder_error_code?: string;
   /**
    * Human-readable error description.
    */
@@ -8286,6 +8303,8 @@ export type ManagedAgentsModelOverloadedErrorType = "model_overloaded_error";
  * The model request was rate-limited.
  */
 export interface ManagedAgentsModelRateLimitedError {
+  /** Diagnostic only; use retry_status to determine retry behavior. */
+  qoder_error_code?: string;
   /**
    * Human-readable error description.
    */
@@ -8313,6 +8332,8 @@ export type ManagedAgentsModelRateLimitedErrorType = "model_rate_limited_error";
  * A model request failed for a reason other than overload or rate-limiting.
  */
 export interface ManagedAgentsModelRequestFailedError {
+  /** Diagnostic only; use retry_status to determine retry behavior. */
+  qoder_error_code?: string;
   /**
    * Human-readable error description.
    */
@@ -8643,7 +8664,7 @@ export interface ManagedAgentsSessionErrorEventErrorUnionRetryStatus {
 
 export type ManagedAgentsSessionErrorEventType = "session.error";
 
-export type ManagedAgentsSessionEventUnion = ManagedAgentsUserMessageEvent | ManagedAgentsUserInterruptEvent | ManagedAgentsUserToolConfirmationEvent | ManagedAgentsUserCustomToolResultEvent | ManagedAgentsAgentCustomToolUseEvent | ManagedAgentsAgentMessageEvent | ManagedAgentsAgentThinkingEvent | ManagedAgentsAgentMCPToolUseEvent | ManagedAgentsAgentMCPToolResultEvent | ManagedAgentsAgentToolUseEvent | ManagedAgentsAgentToolResultEvent | ManagedAgentsAgentThreadMessageReceivedEvent | ManagedAgentsAgentThreadMessageSentEvent | ManagedAgentsAgentThreadContextCompactedEvent | ManagedAgentsSessionErrorEvent | ManagedAgentsSessionStatusRescheduledEvent | ManagedAgentsSessionStatusRunningEvent | ManagedAgentsSessionStatusIdleEvent | ManagedAgentsSessionStatusTerminatedEvent | ManagedAgentsSessionThreadCreatedEvent | ManagedAgentsSpanOutcomeEvaluationStartEvent | ManagedAgentsSpanOutcomeEvaluationEndEvent | ManagedAgentsSpanModelRequestStartEvent | ManagedAgentsSpanModelRequestEndEvent | ManagedAgentsSpanOutcomeEvaluationOngoingEvent | ManagedAgentsUserDefineOutcomeEvent | ManagedAgentsSessionDeletedEvent | ManagedAgentsSessionThreadStatusRunningEvent | ManagedAgentsSessionThreadStatusIdleEvent | ManagedAgentsSessionThreadStatusTerminatedEvent | ManagedAgentsUserToolResultEvent | ManagedAgentsSessionThreadStatusRescheduledEvent | ManagedAgentsSessionUpdatedEvent | ManagedAgentsSystemMessageEvent | ManagedAgentsSessionUsageEvent;
+export type ManagedAgentsSessionEventUnion = ManagedAgentsUserMessageEvent | ManagedAgentsUserInterruptEvent | ManagedAgentsUserToolConfirmationEvent | ManagedAgentsUserCustomToolResultEvent | ManagedAgentsAgentCustomToolUseEvent | ManagedAgentsAgentMessageEvent | ManagedAgentsAgentThinkingEvent | ManagedAgentsAgentMCPToolUseEvent | ManagedAgentsAgentMCPToolResultEvent | ManagedAgentsAgentToolUseEvent | ManagedAgentsAgentToolResultEvent | ManagedAgentsAgentThreadMessageReceivedEvent | ManagedAgentsAgentThreadMessageSentEvent | ManagedAgentsAgentThreadContextCompactedEvent | ManagedAgentsSessionErrorEvent | ManagedAgentsSessionStatusRescheduledEvent | ManagedAgentsSessionStatusRunningEvent | ManagedAgentsSessionStatusIdleEvent | ManagedAgentsSessionStatusTerminatedEvent | ManagedAgentsSessionThreadCreatedEvent | ManagedAgentsSpanOutcomeEvaluationStartEvent | ManagedAgentsSpanOutcomeEvaluationEndEvent | ManagedAgentsSpanModelRequestStartEvent | ManagedAgentsSpanModelRequestEndEvent | ManagedAgentsSpanOutcomeEvaluationOngoingEvent | ManagedAgentsUserDefineOutcomeEvent | ManagedAgentsSessionDeletedEvent | ManagedAgentsSessionThreadStatusRunningEvent | ManagedAgentsSessionThreadStatusIdleEvent | ManagedAgentsSessionThreadStatusTerminatedEvent | ManagedAgentsUserToolResultEvent | ManagedAgentsSessionThreadStatusRescheduledEvent | ManagedAgentsSessionUpdatedEvent | ManagedAgentsSystemMessageEvent | ManagedAgentsSessionUsageEvent | ManagedAgentsAgentArtifactDeliveredEvent;
 
 export type ManagedAgentsSessionEventUnionContent = Array<ManagedAgentsUserMessageEventContentUnion> | Array<ManagedAgentsUserCustomToolResultEventContentUnion> | Array<ManagedAgentsAgentMessageEventContentUnion> | Array<ManagedAgentsAgentMCPToolResultEventContentUnion> | Array<ManagedAgentsAgentToolResultEventContentUnion> | Array<ManagedAgentsAgentThreadMessageReceivedEventContentUnion> | Array<ManagedAgentsAgentThreadMessageSentEventContentUnion> | Array<ManagedAgentsUserToolResultEventContentUnion> | Array<ManagedAgentsSystemContentBlock>;
 
@@ -9215,7 +9236,7 @@ export interface ManagedAgentsSpanOutcomeEvaluationStartEvent {
 
 export type ManagedAgentsSpanOutcomeEvaluationStartEventType = "span.outcome_evaluation_start";
 
-export type ManagedAgentsStreamSessionEventsUnion = ManagedAgentsUserMessageEvent | ManagedAgentsUserInterruptEvent | ManagedAgentsUserToolConfirmationEvent | ManagedAgentsUserCustomToolResultEvent | ManagedAgentsAgentCustomToolUseEvent | ManagedAgentsAgentMessageEvent | ManagedAgentsAgentThinkingEvent | ManagedAgentsAgentMCPToolUseEvent | ManagedAgentsAgentMCPToolResultEvent | ManagedAgentsAgentToolUseEvent | ManagedAgentsAgentToolResultEvent | ManagedAgentsAgentThreadMessageReceivedEvent | ManagedAgentsAgentThreadMessageSentEvent | ManagedAgentsAgentThreadContextCompactedEvent | ManagedAgentsSessionErrorEvent | ManagedAgentsSessionStatusRescheduledEvent | ManagedAgentsSessionStatusRunningEvent | ManagedAgentsSessionStatusIdleEvent | ManagedAgentsSessionStatusTerminatedEvent | ManagedAgentsSessionThreadCreatedEvent | ManagedAgentsSpanOutcomeEvaluationStartEvent | ManagedAgentsSpanOutcomeEvaluationEndEvent | ManagedAgentsSpanModelRequestStartEvent | ManagedAgentsSpanModelRequestEndEvent | ManagedAgentsSpanOutcomeEvaluationOngoingEvent | ManagedAgentsUserDefineOutcomeEvent | ManagedAgentsSessionDeletedEvent | ManagedAgentsSessionThreadStatusRunningEvent | ManagedAgentsSessionThreadStatusIdleEvent | ManagedAgentsSessionThreadStatusTerminatedEvent | ManagedAgentsUserToolResultEvent | ManagedAgentsSessionThreadStatusRescheduledEvent | ManagedAgentsSessionUpdatedEvent | ManagedAgentsStartEvent | ManagedAgentsDeltaEvent | ManagedAgentsSystemMessageEvent | ManagedAgentsSessionUsageEvent;
+export type ManagedAgentsStreamSessionEventsUnion = ManagedAgentsUserMessageEvent | ManagedAgentsUserInterruptEvent | ManagedAgentsUserToolConfirmationEvent | ManagedAgentsUserCustomToolResultEvent | ManagedAgentsAgentCustomToolUseEvent | ManagedAgentsAgentMessageEvent | ManagedAgentsAgentThinkingEvent | ManagedAgentsAgentMCPToolUseEvent | ManagedAgentsAgentMCPToolResultEvent | ManagedAgentsAgentToolUseEvent | ManagedAgentsAgentToolResultEvent | ManagedAgentsAgentThreadMessageReceivedEvent | ManagedAgentsAgentThreadMessageSentEvent | ManagedAgentsAgentThreadContextCompactedEvent | ManagedAgentsSessionErrorEvent | ManagedAgentsSessionStatusRescheduledEvent | ManagedAgentsSessionStatusRunningEvent | ManagedAgentsSessionStatusIdleEvent | ManagedAgentsSessionStatusTerminatedEvent | ManagedAgentsSessionThreadCreatedEvent | ManagedAgentsSpanOutcomeEvaluationStartEvent | ManagedAgentsSpanOutcomeEvaluationEndEvent | ManagedAgentsSpanModelRequestStartEvent | ManagedAgentsSpanModelRequestEndEvent | ManagedAgentsSpanOutcomeEvaluationOngoingEvent | ManagedAgentsUserDefineOutcomeEvent | ManagedAgentsSessionDeletedEvent | ManagedAgentsSessionThreadStatusRunningEvent | ManagedAgentsSessionThreadStatusIdleEvent | ManagedAgentsSessionThreadStatusTerminatedEvent | ManagedAgentsUserToolResultEvent | ManagedAgentsSessionThreadStatusRescheduledEvent | ManagedAgentsSessionUpdatedEvent | ManagedAgentsStartEvent | ManagedAgentsDeltaEvent | ManagedAgentsSystemMessageEvent | ManagedAgentsSessionUsageEvent | ManagedAgentsAgentArtifactDeliveredEvent;
 
 export type ManagedAgentsStreamSessionEventsUnionContent = Array<ManagedAgentsUserMessageEventContentUnion> | Array<ManagedAgentsUserCustomToolResultEventContentUnion> | Array<ManagedAgentsAgentMessageEventContentUnion> | Array<ManagedAgentsAgentMCPToolResultEventContentUnion> | Array<ManagedAgentsAgentToolResultEventContentUnion> | Array<ManagedAgentsAgentThreadMessageReceivedEventContentUnion> | Array<ManagedAgentsAgentThreadMessageSentEventContentUnion> | Array<ManagedAgentsUserToolResultEventContentUnion> | Array<ManagedAgentsSystemContentBlock>;
 
@@ -9350,6 +9371,8 @@ export type ManagedAgentsTextRubricParamsType = "text";
  * `retry_status` and `message` alone.
  */
 export interface ManagedAgentsUnknownError {
+  /** Diagnostic only; use retry_status to determine retry behavior. */
+  qoder_error_code?: string;
   /**
    * Human-readable error description.
    */
@@ -10004,11 +10027,11 @@ export type ManagedAgentsMemoryStoreResourceType = "memory_store";
  */
 export type ManagedAgentsMemoryStoreResourceAccess = "read_write" | "read_only";
 
-export type ManagedAgentsSessionResourceUnion = ManagedAgentsGitHubRepositoryResource | ManagedAgentsFileResource | ManagedAgentsMemoryStoreResource;
+export type ManagedAgentsSessionResourceUnion = ManagedAgentsGitRepositoryResource | ManagedAgentsGitHubRepositoryResource | ManagedAgentsFileResource | ManagedAgentsMemoryStoreResource;
 
-export type SessionResourceGetResponseUnion = ManagedAgentsGitHubRepositoryResource | ManagedAgentsFileResource | ManagedAgentsMemoryStoreResource;
+export type SessionResourceGetResponseUnion = ManagedAgentsGitRepositoryResource | ManagedAgentsGitHubRepositoryResource | ManagedAgentsFileResource | ManagedAgentsMemoryStoreResource;
 
-export type SessionResourceUpdateResponseUnion = ManagedAgentsGitHubRepositoryResource | ManagedAgentsFileResource | ManagedAgentsMemoryStoreResource;
+export type SessionResourceUpdateResponseUnion = ManagedAgentsGitRepositoryResource | ManagedAgentsGitHubRepositoryResource | ManagedAgentsFileResource | ManagedAgentsMemoryStoreResource;
 
 export interface SessionResourceGetParams {
   session_id: string;
@@ -10023,8 +10046,8 @@ export interface SessionResourceUpdateParams {
   password?: string | null;
   session_id: string;
   /**
-   * New authorization token for the resource. Currently only `github_repository`
-   * resources support token rotation.
+   * GitHub access token; also accepted for legacy generic Git clients.
+   * For generic Git, prefer password and do not send conflicting credentials.
    */
   authorization_token?: string | null;
   workspace_id?: string;
@@ -10131,9 +10154,9 @@ export interface ManagedAgentsSessionThread {
    */
   updated_at: string;
   /**
-   * Cumulative token usage for a session thread across all turns.
+   * @deprecated Legacy usage; current Managed Thread responses omit this field.
    */
-  usage: ManagedAgentsSessionThreadUsage;
+  usage?: ManagedAgentsSessionThreadUsage;
 }
 
 export type ManagedAgentsSessionThreadAgentUnion = ManagedAgentsSessionThreadAgent | ManagedAgentsAdvisor;
@@ -10221,7 +10244,7 @@ export interface ManagedAgentsSessionThreadUsage {
   server_tool_use?: ManagedAgentsServerToolUsage | null;
 }
 
-export type ManagedAgentsStreamSessionThreadEventsUnion = ManagedAgentsUserMessageEvent | ManagedAgentsUserInterruptEvent | ManagedAgentsUserToolConfirmationEvent | ManagedAgentsUserCustomToolResultEvent | ManagedAgentsAgentCustomToolUseEvent | ManagedAgentsAgentMessageEvent | ManagedAgentsAgentThinkingEvent | ManagedAgentsAgentMCPToolUseEvent | ManagedAgentsAgentMCPToolResultEvent | ManagedAgentsAgentToolUseEvent | ManagedAgentsAgentToolResultEvent | ManagedAgentsAgentThreadMessageReceivedEvent | ManagedAgentsAgentThreadMessageSentEvent | ManagedAgentsAgentThreadContextCompactedEvent | ManagedAgentsSessionErrorEvent | ManagedAgentsSessionStatusRescheduledEvent | ManagedAgentsSessionStatusRunningEvent | ManagedAgentsSessionStatusIdleEvent | ManagedAgentsSessionStatusTerminatedEvent | ManagedAgentsSessionThreadCreatedEvent | ManagedAgentsSpanOutcomeEvaluationStartEvent | ManagedAgentsSpanOutcomeEvaluationEndEvent | ManagedAgentsSpanModelRequestStartEvent | ManagedAgentsSpanModelRequestEndEvent | ManagedAgentsSpanOutcomeEvaluationOngoingEvent | ManagedAgentsUserDefineOutcomeEvent | ManagedAgentsSessionDeletedEvent | ManagedAgentsSessionThreadStatusRunningEvent | ManagedAgentsSessionThreadStatusIdleEvent | ManagedAgentsSessionThreadStatusTerminatedEvent | ManagedAgentsUserToolResultEvent | ManagedAgentsSessionThreadStatusRescheduledEvent | ManagedAgentsSessionUpdatedEvent | ManagedAgentsStartEvent | ManagedAgentsDeltaEvent | ManagedAgentsSystemMessageEvent | ManagedAgentsSessionUsageEvent;
+export type ManagedAgentsStreamSessionThreadEventsUnion = ManagedAgentsUserMessageEvent | ManagedAgentsUserInterruptEvent | ManagedAgentsUserToolConfirmationEvent | ManagedAgentsUserCustomToolResultEvent | ManagedAgentsAgentCustomToolUseEvent | ManagedAgentsAgentMessageEvent | ManagedAgentsAgentThinkingEvent | ManagedAgentsAgentMCPToolUseEvent | ManagedAgentsAgentMCPToolResultEvent | ManagedAgentsAgentToolUseEvent | ManagedAgentsAgentToolResultEvent | ManagedAgentsAgentThreadMessageReceivedEvent | ManagedAgentsAgentThreadMessageSentEvent | ManagedAgentsAgentThreadContextCompactedEvent | ManagedAgentsSessionErrorEvent | ManagedAgentsSessionStatusRescheduledEvent | ManagedAgentsSessionStatusRunningEvent | ManagedAgentsSessionStatusIdleEvent | ManagedAgentsSessionStatusTerminatedEvent | ManagedAgentsSessionThreadCreatedEvent | ManagedAgentsSpanOutcomeEvaluationStartEvent | ManagedAgentsSpanOutcomeEvaluationEndEvent | ManagedAgentsSpanModelRequestStartEvent | ManagedAgentsSpanModelRequestEndEvent | ManagedAgentsSpanOutcomeEvaluationOngoingEvent | ManagedAgentsUserDefineOutcomeEvent | ManagedAgentsSessionDeletedEvent | ManagedAgentsSessionThreadStatusRunningEvent | ManagedAgentsSessionThreadStatusIdleEvent | ManagedAgentsSessionThreadStatusTerminatedEvent | ManagedAgentsUserToolResultEvent | ManagedAgentsSessionThreadStatusRescheduledEvent | ManagedAgentsSessionUpdatedEvent | ManagedAgentsStartEvent | ManagedAgentsDeltaEvent | ManagedAgentsSystemMessageEvent | ManagedAgentsSessionUsageEvent | ManagedAgentsAgentArtifactDeliveredEvent;
 
 export type ManagedAgentsStreamSessionThreadEventsUnionContent = Array<ManagedAgentsUserMessageEventContentUnion> | Array<ManagedAgentsUserCustomToolResultEventContentUnion> | Array<ManagedAgentsAgentMessageEventContentUnion> | Array<ManagedAgentsAgentMCPToolResultEventContentUnion> | Array<ManagedAgentsAgentToolResultEventContentUnion> | Array<ManagedAgentsAgentThreadMessageReceivedEventContentUnion> | Array<ManagedAgentsAgentThreadMessageSentEventContentUnion> | Array<ManagedAgentsUserToolResultEventContentUnion> | Array<ManagedAgentsSystemContentBlock>;
 
@@ -10384,7 +10407,7 @@ export interface Skill {
    * ID of the newest Skill Version — what `latest` references resolve to. Always
    * set: a Skill holds at least one version.
    */
-  latest_version: string;
+  latest_version: string | null;
   /**
    * Where the Skill comes from.
    *
@@ -11624,4 +11647,85 @@ export interface DeploymentScopedRunListParams {
 }
 export interface DeploymentScopedRunRetrieveParams extends DeploymentRunRetrieveParams {
   deployment_id: string;
+}
+
+export interface ManagedAgentsGitRepositoryResourceParams {
+  /**
+   * Password or access token; include the username in the repository URL.
+   */
+  password?: string;
+  /**
+   * Any of "git_repository".
+   */
+  type: ManagedAgentsGitRepositoryResourceParamsType;
+  /**
+   * HTTP(S) Git URL of the repository
+   */
+  url: string;
+  /**
+   * Mount path in the container. Derived from the repository name when omitted.
+   */
+  mount_path?: string | null;
+  /**
+   * Branch or commit to check out. Defaults to the repository's default branch.
+   */
+  checkout?: ManagedAgentsGitRepositoryResourceParamsCheckoutUnion | null;
+}
+
+export type ManagedAgentsGitRepositoryResourceParamsType = "git_repository";
+export type ManagedAgentsGitRepositoryResourceParamsCheckoutUnion = ManagedAgentsGitHubRepositoryResourceParamsCheckoutUnion;
+
+export interface ManagedAgentsGitRepositoryResource {
+  id: string;
+  /**
+   * A timestamp in RFC 3339 format
+   */
+  created_at: string;
+  mount_path: string;
+  /**
+   * Any of "git_repository".
+   */
+  type: ManagedAgentsGitRepositoryResourceType;
+  /**
+   * A timestamp in RFC 3339 format
+   */
+  updated_at: string;
+  url: string;
+  checkout?: ManagedAgentsGitRepositoryResourceCheckoutUnion | null;
+}
+
+export type ManagedAgentsGitRepositoryResourceType = "git_repository";
+export type ManagedAgentsGitRepositoryResourceCheckoutUnion = ManagedAgentsGitHubRepositoryResourceCheckoutUnion;
+
+export interface ManagedAgentsGitRepositoryResourceConfig {
+  /**
+   * Any of "git_repository".
+   */
+  type: ManagedAgentsGitRepositoryResourceConfigType;
+  /**
+   * HTTP(S) Git URL of the repository
+   */
+  url: string;
+  /**
+   * Branch or commit to check out. Defaults to the repository's default branch.
+   */
+  checkout?: ManagedAgentsGitRepositoryResourceConfigCheckoutUnion | null;
+  /**
+   * Mount path in the container. Derived from the repository name when omitted.
+   */
+  mount_path?: string | null;
+}
+
+export type ManagedAgentsGitRepositoryResourceConfigType = "git_repository";
+export type ManagedAgentsGitRepositoryResourceConfigCheckoutUnion = ManagedAgentsGitHubRepositoryResourceConfigCheckoutUnion;
+
+/** A server-generated event for one successfully delivered artifact file. */
+export interface ManagedAgentsAgentArtifactDeliveredEvent {
+  id: string;
+  type: "agent.artifact_delivered";
+  file_id: string;
+  original_filename: string;
+  size: number;
+  content_type: string;
+  processed_at?: string;
 }

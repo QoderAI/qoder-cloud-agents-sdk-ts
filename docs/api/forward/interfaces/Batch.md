@@ -94,6 +94,12 @@ Batch ID，前缀 `batch_`。
 
 ***
 
+### ignore\_idle\_window?
+
+> `optional` **ignore\_idle\_window?**: `boolean`
+
+***
+
 ### input\_file\_id
 
 > **input\_file\_id**: `string`
@@ -131,6 +137,14 @@ Batch ID，前缀 `batch_`。
 > **pending**: `number`
 
 等待执行的行数。
+
+***
+
+### queue\_reason?
+
+> `optional` **queue\_reason?**: `string`
+
+Dynamic queue reason, present only when applicable to validating or queued Batches.
 
 ***
 

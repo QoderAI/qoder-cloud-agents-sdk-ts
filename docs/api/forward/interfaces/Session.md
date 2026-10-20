@@ -54,6 +54,12 @@ Forward Identity ID。
 
 ***
 
+### outcome\_evaluations?
+
+> `optional` **outcome\_evaluations?**: [`SessionOutcomeEvaluation`](SessionOutcomeEvaluation.md)[]
+
+***
+
 ### resources
 
 > **resources**: [`SessionResource`](SessionResource.md)[]

@@ -68,6 +68,14 @@ Replaces the complete managed tool list. Null or an empty list disables it.
 
 ***
 
+### max\_tool\_rounds?
+
+> `optional` **max\_tool\_rounds?**: `number`
+
+Omitted when the explicit limit is unset.
+
+***
+
 ### mcp\_servers
 
 > **mcp\_servers**: [`MCPServer`](MCPServer.md)[]

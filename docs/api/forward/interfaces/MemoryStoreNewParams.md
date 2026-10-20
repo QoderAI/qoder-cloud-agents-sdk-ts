@@ -38,6 +38,14 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
+### mount?
+
+> `optional` **mount?**: [`MemoryStoreCreateMountParam`](MemoryStoreCreateMountParam.md)
+
+Establish this mount before returning; use the same key and body to resume creation.
+
+***
+
 ### name
 
 > **name**: `string`

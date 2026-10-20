@@ -30,6 +30,14 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
+### ignore\_idle\_window?
+
+> `optional` **ignore\_idle\_window?**: `boolean`
+
+Ignore the scheduling time window; capacity and FIFO priority still apply.
+
+***
+
 ### input\_file\_id
 
 > **input\_file\_id**: `string`

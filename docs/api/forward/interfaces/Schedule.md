@@ -62,6 +62,14 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
+### initial\_events\_version?
+
+> `optional` **initial\_events\_version?**: `number`
+
+Server-maintained input version, incremented when initial_events changes.
+
+***
+
 ### metadata
 
 > **metadata**: `Record`\<`string`, `unknown`\>
@@ -83,6 +91,18 @@ Additional fields are preserved verbatim by the SDK.
 ### sinks
 
 > **sinks**: [`ScheduleSinksItem`](ScheduleSinksItem.md)[]
+
+***
+
+### source?
+
+> `optional` **source?**: `string`
+
+***
+
+### source\_session\_id?
+
+> `optional` **source\_session\_id?**: `string` \| `null`
 
 ***
 
