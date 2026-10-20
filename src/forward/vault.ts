@@ -1,9 +1,10 @@
 // Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
+import type { IdentityScopeOptions } from './types.js';
 import type { APIPromise } from '../core/api-promise.js';
 import type { PagePromise } from '../core/pagination.js';
-import { pathParam, requestHeaders } from './_utils.js';
+import { pathParam, requestHeaders, identityScopeOptions } from './_utils.js';
 import type { Vault, VaultCreateParams, VaultListParams } from './types.js';
 import { VaultCredentials } from './vault-credential.js';
 
@@ -27,12 +28,13 @@ export class Vaults extends APIResource {
    */
   create(params: VaultCreateParams, options?: RequestOptions): APIPromise<Vault> {
     const path = "vaults";
-    const { idempotency_key, ...payload } = params;
+    const { identity_id, idempotency_key, ...payload } = params;
     return this._client.request<Vault>({
       method: "POST",
       path,
       body: payload,
       ...options,
+      query: { identity_id, ...options?.query },
       headers: requestHeaders({ "Idempotency-Key": idempotency_key }, options?.headers),
     });
   }
@@ -42,12 +44,12 @@ export class Vaults extends APIResource {
    *
    * @operation getVault
    */
-  retrieve(id: string, options?: RequestOptions): APIPromise<Vault> {
+  retrieve(id: string, options?: IdentityScopeOptions): APIPromise<Vault> {
     const path = `vaults/${pathParam(id, "id")}`;
     return this._client.request<Vault>({
       method: "GET",
       path,
-      ...options,
+      ...identityScopeOptions(options),
     });
   }
 
@@ -56,13 +58,13 @@ export class Vaults extends APIResource {
    *
    * @operation deleteVault
    */
-  delete(id: string, options?: RequestOptions): APIPromise<void> {
+  delete(id: string, options?: IdentityScopeOptions): APIPromise<void> {
     const path = `vaults/${pathParam(id, "id")}`;
     return this._client.request<void>({
       method: "DELETE",
       path,
       responseType: "void",
-      ...options,
+      ...identityScopeOptions(options),
     });
   }
 

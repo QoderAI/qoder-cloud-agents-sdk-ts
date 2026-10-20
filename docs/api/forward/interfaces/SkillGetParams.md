@@ -14,6 +14,14 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
+### identity\_id?
+
+> `optional` **identity\_id?**: `string`
+
+Select identity ownership with a PAT. Omit when using a SAT.
+
+***
+
 ### include\_content?
 
 > `optional` **include\_content?**: `boolean` \| `null`

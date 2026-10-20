@@ -110,6 +110,6 @@ Template 摘要。
 
 ***
 
-### usage
+### usage?
 
-> **usage**: [`SessionUsage`](SessionUsage.md)
+> `optional` **usage?**: [`SessionUsage`](SessionUsage.md)

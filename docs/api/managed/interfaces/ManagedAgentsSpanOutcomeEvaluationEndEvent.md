@@ -89,4 +89,4 @@ Any of "span.outcome_evaluation_end".
 
 > **usage**: [`ManagedAgentsSpanModelUsage`](ManagedAgentsSpanModelUsage.md)
 
-Token usage for a single model request.
+Credits for a single model request; legacy token fields may appear in older responses.

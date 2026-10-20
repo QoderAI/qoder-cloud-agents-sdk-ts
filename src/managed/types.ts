@@ -1668,8 +1668,8 @@ export interface ManagedAgentsDeployment {
    */
   vault_ids: Array<string>;
   /**
-   * A hard spend ceiling. The session stops issuing new model requests once the
-   * tracked list cost reaches `max_list_cost`.
+   * A total model and sandbox credit limit. Reaching it rejects the next user
+   * message without interrupting the running turn.
    */
   budget?: ManagedAgentsBudgetLimit | null;
 }
@@ -2160,8 +2160,8 @@ export interface DeploymentNewParams {
   description?: string | null;
   workspace_id?: string;
   /**
-   * A hard spend ceiling. The session stops issuing new model requests once the
-   * tracked list cost reaches `max_list_cost`.
+   * A total model and sandbox credit limit. Reaching it rejects the next user
+   * message without interrupting the running turn.
    */
   budget?: ManagedAgentsBudgetLimitParam | null;
   /**
@@ -2240,8 +2240,8 @@ export interface DeploymentUpdateParams {
    */
   agent?: DeploymentUpdateParamsAgentUnion;
   /**
-   * A hard spend ceiling. The session stops issuing new model requests once the
-   * tracked list cost reaches `max_list_cost`.
+   * A total model and sandbox credit limit. Reaching it rejects the next user
+   * message without interrupting the running turn.
    */
   budget?: ManagedAgentsBudgetLimitParam | null;
   /**
@@ -6503,14 +6503,14 @@ export interface ManagedAgentsBranchCheckoutParam {
 }
 
 /**
- * A hard spend ceiling. The session stops issuing new model requests once the
- * tracked list cost reaches `max_list_cost`.
+ * A total model and sandbox credit limit. Reaching it rejects the next user
+ * message without interrupting the running turn.
  */
 export interface ManagedAgentsBudgetLimit {
   /**
-   * A monetary amount in a specific currency.
+   * Positive decimal Credits with at most 12 integer and 2 fractional digits.
    */
-  max_list_cost: MonetaryAmount;
+  max_credit_cost: string;
   /**
    * Any of "limit".
    */
@@ -6520,14 +6520,14 @@ export interface ManagedAgentsBudgetLimit {
 export type ManagedAgentsBudgetLimitType = "limit";
 
 /**
- * A hard spend ceiling. The session stops issuing new model requests once the
- * tracked list cost reaches `max_list_cost`.
+ * A total model and sandbox credit limit. Reaching it rejects the next user
+ * message without interrupting the running turn.
  */
 export interface ManagedAgentsBudgetLimitParam {
   /**
-   * A monetary amount in a specific currency.
+   * Positive decimal Credits with at most 12 integer and 2 fractional digits.
    */
-  max_list_cost: MonetaryAmountParam;
+  max_credit_cost: string;
   /**
    * Any of "limit".
    */
@@ -6836,10 +6836,10 @@ export interface ManagedAgentsSession {
    */
   archived_at: string | null;
   /**
-   * A hard spend ceiling. The session stops issuing new model requests once the
-   * tracked list cost reaches `max_list_cost`.
+   * A total model and sandbox credit limit. Reaching it rejects the next user
+   * message without interrupting the running turn.
    */
-  budget: ManagedAgentsBudgetLimit;
+  budget?: ManagedAgentsBudgetLimit | null;
   /**
    * A timestamp in RFC 3339 format
    */
@@ -6872,9 +6872,9 @@ export interface ManagedAgentsSession {
    */
   updated_at: string;
   /**
-   * Cumulative token usage for a session across all turns.
+   * Cumulative Credits snapshot. Legacy token and list-cost fields may appear in older responses.
    */
-  usage: ManagedAgentsSessionUsage;
+  usage?: ManagedAgentsSessionUsage;
   /**
    * Vault IDs attached to the session at creation. Empty when no vaults were
    * supplied.
@@ -7056,8 +7056,8 @@ export interface ManagedAgentsSessionUpdatedEvent {
    */
   agent?: ManagedAgentsSessionAgent | null;
   /**
-   * A hard spend ceiling. The session stops issuing new model requests once the
-   * tracked list cost reaches `max_list_cost`.
+   * A total model and sandbox credit limit. Reaching it rejects the next user
+   * message without interrupting the running turn.
    */
   budget?: ManagedAgentsBudgetLimit | null;
   /**
@@ -7074,9 +7074,13 @@ export interface ManagedAgentsSessionUpdatedEvent {
 export type ManagedAgentsSessionUpdatedEventType = "session.updated";
 
 /**
- * Cumulative token usage for a session across all turns.
+ * Cumulative Credits snapshot. Legacy token and list-cost fields may appear in older responses.
  */
 export interface ManagedAgentsSessionUsage {
+  /** Cumulative Credits. Replace the previous snapshot instead of adding it. */
+  model_credits: number;
+  sandbox_runtime_credits: number;
+  total_credits: number;
   /**
    * Cumulative time in seconds during which the session had at least one thread in
    * running status. Overlapping activity from concurrent threads is counted once,
@@ -7111,9 +7115,13 @@ export interface ManagedAgentsSessionUsage {
 }
 
 /**
- * Periodic snapshot of the session's cumulative usage and tracked list cost.
+ * Cumulative Credits emitted before session.status_idle when usage is available.
  */
 export interface ManagedAgentsSessionUsageEvent {
+  /** Cumulative Credits. Replace the previous snapshot instead of adding it. */
+  model_credits: number;
+  sandbox_runtime_credits: number;
+  total_credits: number;
   /**
    * Unique identifier for this event.
    */
@@ -7126,13 +7134,11 @@ export interface ManagedAgentsSessionUsageEvent {
    * Any of "session.usage".
    */
   type: ManagedAgentsSessionUsageEventType;
+  /** @deprecated Legacy nested usage; current events carry Credits at the top level. */
+  usage?: ManagedAgentsSessionUsageSnapshot;
   /**
-   * Point-in-time snapshot of a session's cumulative usage.
-   */
-  usage: ManagedAgentsSessionUsageSnapshot;
-  /**
-   * A hard spend ceiling. The session stops issuing new model requests once the
-   * tracked list cost reaches `max_list_cost`.
+   * A total model and sandbox credit limit. Reaching it rejects the next user
+   * message without interrupting the running turn.
    */
   budget?: ManagedAgentsBudgetLimit | null;
 }
@@ -7295,8 +7301,8 @@ export interface SessionNewParams {
   title?: string | null;
   workspace_id?: string;
   /**
-   * A hard spend ceiling. The session stops issuing new model requests once the
-   * tracked list cost reaches `max_list_cost`.
+   * A total model and sandbox credit limit. Reaching it rejects the next user
+   * message without interrupting the running turn.
    */
   budget?: ManagedAgentsBudgetLimitParam | null;
   /**
@@ -7356,8 +7362,8 @@ export interface SessionUpdateParams {
    */
   agent?: ManagedAgentsSessionAgentUpdateParam | null;
   /**
-   * A hard spend ceiling. The session stops issuing new model requests once the
-   * tracked list cost reaches `max_list_cost`.
+   * A total model and sandbox credit limit. Reaching it rejects the next user
+   * message without interrupting the running turn.
    */
   budget?: ManagedAgentsBudgetLimitParam | null;
   /**
@@ -7650,6 +7656,8 @@ export type ManagedAgentsAgentThinkingEventType = "agent.thinking";
  * Indicates that context compaction (summarization) occurred during the session.
  */
 export interface ManagedAgentsAgentThreadContextCompactedEvent {
+  /** Credits for this compaction call, already included in Session usage. */
+  usage?: ManagedAgentsSpanModelUsage;
   /**
    * Unique identifier for this event.
    */
@@ -8650,6 +8658,7 @@ export interface ManagedAgentsSessionEventUnionStopReason {
 }
 
 export interface ManagedAgentsSessionEventUnionUsage {
+  credits?: number;
   /**
    * This field is from variant `ManagedAgentsSpanModelUsage`.
    */
@@ -9017,9 +9026,9 @@ export interface ManagedAgentsSpanModelRequestEndEvent {
    */
   model_request_start_id: string;
   /**
-   * Token usage for a single model request.
+   * Credits for a single model request; legacy token fields may appear in older responses.
    */
-  model_usage: ManagedAgentsSpanModelUsage;
+  model_usage?: ManagedAgentsSpanModelUsage;
   /**
    * A timestamp in RFC 3339 format
    */
@@ -9053,25 +9062,26 @@ export interface ManagedAgentsSpanModelRequestStartEvent {
 export type ManagedAgentsSpanModelRequestStartEventType = "span.model_request_start";
 
 /**
- * Token usage for a single model request.
+ * Credits for a single model request; legacy token fields may appear in older responses.
  */
 export interface ManagedAgentsSpanModelUsage {
+  credits: number;
   /**
    * Tokens used to create prompt cache in this request.
    */
-  cache_creation_input_tokens: number;
+  cache_creation_input_tokens?: number;
   /**
    * Tokens read from prompt cache in this request.
    */
-  cache_read_input_tokens: number;
+  cache_read_input_tokens?: number;
   /**
    * Input tokens consumed by this request.
    */
-  input_tokens: number;
+  input_tokens?: number;
   /**
    * Output tokens generated by this request.
    */
-  output_tokens: number;
+  output_tokens?: number;
   /**
    * Inference speed mode. `fast` provides significantly faster output token
    * generation at premium pricing. Not all models support `fast`; invalid
@@ -9137,7 +9147,7 @@ export interface ManagedAgentsSpanOutcomeEvaluationEndEvent {
    */
   type: ManagedAgentsSpanOutcomeEvaluationEndEventType;
   /**
-   * Token usage for a single model request.
+   * Credits for a single model request; legacy token fields may appear in older responses.
    */
   usage: ManagedAgentsSpanModelUsage;
 }
@@ -9220,6 +9230,7 @@ export interface ManagedAgentsStreamSessionEventsUnionStopReason {
 }
 
 export interface ManagedAgentsStreamSessionEventsUnionUsage {
+  credits?: number;
   /**
    * This field is from variant `ManagedAgentsSpanModelUsage`.
    */
@@ -10231,6 +10242,7 @@ export interface ManagedAgentsStreamSessionThreadEventsUnionStopReason {
 }
 
 export interface ManagedAgentsStreamSessionThreadEventsUnionUsage {
+  credits?: number;
   /**
    * This field is from variant `ManagedAgentsSpanModelUsage`.
    */

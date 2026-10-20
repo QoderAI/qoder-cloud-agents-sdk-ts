@@ -33,3 +33,17 @@ const customToolJSONSchema: M.ManagedAgentsCustomToolInputSchemaParam = {
   $defs: { label: { type: 'string', minLength: 1 } },
   patternProperties: { '^x-': { $ref: '#/$defs/label' } },
 };
+
+// Official Credits contracts: no currency object or nested session.usage required.
+const creditBudget: M.ManagedAgentsBudgetLimitParam = { type: 'limit', max_credit_cost: '100.00' };
+// @ts-expect-error Credits limits are decimal strings, not the former currency object.
+const oldCreditBudget: M.ManagedAgentsBudgetLimitParam = { type: 'limit', max_list_cost: { amount: '100', currency: 'USD' } };
+const creditSnapshot: M.ManagedAgentsSessionUsage = { model_credits: 7.66, sandbox_runtime_credits: 0.34, total_credits: 8 };
+const creditEvent: M.ManagedAgentsSessionUsageEvent = { id: 'evt_one', processed_at: '2026-10-20T01:00:00Z', type: 'session.usage', ...creditSnapshot };
+const creditModelUsage: M.ManagedAgentsSpanModelUsage = { credits: 1.25 };
+const creditCompaction: M.ManagedAgentsAgentThreadContextCompactedEvent = { id: 'evt_two', processed_at: '2026-10-20T01:00:00Z', type: 'agent.thread_context_compacted', usage: { credits: 0 } };
+void [creditBudget, oldCreditBudget, creditSnapshot, creditEvent, creditModelUsage, creditCompaction];
+
+const absentSessionBudget: Pick<M.ManagedAgentsSession, "budget"> = {};
+const clearedSessionBudget: Pick<M.ManagedAgentsSession, "budget"> = { budget: null };
+void [absentSessionBudget, clearedSessionBudget];

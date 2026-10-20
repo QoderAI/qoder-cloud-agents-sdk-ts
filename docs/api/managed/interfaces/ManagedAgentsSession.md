@@ -27,12 +27,12 @@ A timestamp in RFC 3339 format
 
 ***
 
-### budget
+### budget?
 
-> **budget**: [`ManagedAgentsBudgetLimit`](ManagedAgentsBudgetLimit.md)
+> `optional` **budget?**: [`ManagedAgentsBudgetLimit`](ManagedAgentsBudgetLimit.md) \| `null`
 
-A hard spend ceiling. The session stops issuing new model requests once the
-tracked list cost reaches `max_list_cost`.
+A total model and sandbox credit limit. Reaching it rejects the next user
+message without interrupting the running turn.
 
 ***
 
@@ -132,11 +132,11 @@ A timestamp in RFC 3339 format
 
 ***
 
-### usage
+### usage?
 
-> **usage**: [`ManagedAgentsSessionUsage`](ManagedAgentsSessionUsage.md)
+> `optional` **usage?**: [`ManagedAgentsSessionUsage`](ManagedAgentsSessionUsage.md)
 
-Cumulative token usage for a session across all turns.
+Cumulative Credits snapshot. Legacy token and list-cost fields may appear in older responses.
 
 ***
 

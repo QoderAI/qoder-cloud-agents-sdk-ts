@@ -14,6 +14,18 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
+### model\_credits?
+
+> `optional` **model\_credits?**: `number`
+
+***
+
+### sandbox\_runtime\_credits?
+
+> `optional` **sandbox\_runtime\_credits?**: `number`
+
+***
+
 ### total\_credits
 
 > **total\_credits**: `number`

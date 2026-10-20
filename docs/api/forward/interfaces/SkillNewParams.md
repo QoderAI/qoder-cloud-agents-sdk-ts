@@ -54,6 +54,14 @@ Forward Resource icon 公开 ID。
 
 ***
 
+### identity\_id?
+
+> `optional` **identity\_id?**: `string`
+
+Select identity ownership with a PAT. Omit when using a SAT.
+
+***
+
 ### metadata?
 
 > `optional` **metadata?**: `Record`\<`string`, `unknown`\> \| `null`

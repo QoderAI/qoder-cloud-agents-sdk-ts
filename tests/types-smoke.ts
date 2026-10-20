@@ -216,3 +216,22 @@ forward.drives.listEntries({});
 forward.drives.listEntries({ identity_id: 'idn', page: 'cursor' });
 // @ts-expect-error Managed does not expose Forward Drive.
 managed.drives;
+
+async function ownershipAndPairingTypes() {
+  await forward.environments.create({ name: 'env', identity_id: 'idn_one' });
+  await forward.environments.retrieve('env', { identity_id: 'idn_one', timeout: 1000 });
+  await forward.environments.archive('env', { identity_id: 'idn_one' });
+  await forward.skills.versions.retrieve('skill', '1', { identity_id: 'idn_one' });
+  await forward.vaults.credentials.delete('vault', 'cred', { identity_id: 'idn_one' });
+  await forward.files.download('file', { identity_id: 'idn_one' });
+  // @ts-expect-error Identity scope is a string, not a number.
+  forward.files.download('file', { identity_id: 123 });
+  const pairing = await forward.channelPairings.create({ channel_pairing_id: 'pair_one', identity_id: 'idn_one', template_id: 'tmpl_one' });
+  const scope: string = pairing.scope_external_id;
+  const display: string = pairing.scope_display_name;
+  void [scope, display];
+  const session = await forward.sessions.retrieve('sess_one');
+  const credits: number | undefined = session.usage?.model_credits;
+  void credits;
+}
+void ownershipAndPairingTypes;

@@ -6,7 +6,7 @@
 
 # Interface: ManagedAgentsSessionUsageEvent
 
-Periodic snapshot of the session's cumulative usage and tracked list cost.
+Cumulative Credits emitted before session.status_idle when usage is available.
 
 ## Properties
 
@@ -14,8 +14,8 @@ Periodic snapshot of the session's cumulative usage and tracked list cost.
 
 > `optional` **budget?**: [`ManagedAgentsBudgetLimit`](ManagedAgentsBudgetLimit.md) \| `null`
 
-A hard spend ceiling. The session stops issuing new model requests once the
-tracked list cost reaches `max_list_cost`.
+A total model and sandbox credit limit. Reaching it rejects the next user
+message without interrupting the running turn.
 
 ***
 
@@ -27,11 +27,31 @@ Unique identifier for this event.
 
 ***
 
+### model\_credits
+
+> **model\_credits**: `number`
+
+Cumulative Credits. Replace the previous snapshot instead of adding it.
+
+***
+
 ### processed\_at
 
 > **processed\_at**: `string`
 
 A timestamp in RFC 3339 format
+
+***
+
+### sandbox\_runtime\_credits
+
+> **sandbox\_runtime\_credits**: `number`
+
+***
+
+### total\_credits
+
+> **total\_credits**: `number`
 
 ***
 
@@ -43,8 +63,10 @@ Any of "session.usage".
 
 ***
 
-### usage
+### ~~usage?~~
 
-> **usage**: [`ManagedAgentsSessionUsageSnapshot`](ManagedAgentsSessionUsageSnapshot.md)
+> `optional` **usage?**: [`ManagedAgentsSessionUsageSnapshot`](ManagedAgentsSessionUsageSnapshot.md)
 
-Point-in-time snapshot of a session's cumulative usage.
+#### Deprecated
+
+Legacy nested usage; current events carry Credits at the top level.

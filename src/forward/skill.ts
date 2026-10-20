@@ -1,10 +1,11 @@
 // Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
+import type { IdentityScopeOptions } from './types.js';
 import type { APIPromise } from '../core/api-promise.js';
 import type { PagePromise } from '../core/pagination.js';
 import { toMultipartForm } from '../core/uploads.js';
-import { pathParam, requestHeaders } from './_utils.js';
+import { pathParam, requestHeaders, identityScopeOptions } from './_utils.js';
 import type { Skill, SkillCreateParams, SkillListParams, SkillRetrieveParams, SkillUpdateParams } from './types.js';
 import { SkillVersions } from './skill-version.js';
 
@@ -28,12 +29,13 @@ export class Skills extends APIResource {
    */
   create(params: SkillCreateParams = {}, options?: RequestOptions): APIPromise<Skill> {
     const path = "skills";
-    const { idempotency_key, ...payload } = params;
+    const { identity_id, idempotency_key, ...payload } = params;
     return this._client.request<Skill>({
       method: "POST",
       path,
       body: toMultipartForm(payload),
       ...options,
+      query: { identity_id, ...options?.query },
       headers: requestHeaders({ "Idempotency-Key": idempotency_key }, options?.headers),
     });
   }
@@ -48,8 +50,8 @@ export class Skills extends APIResource {
     return this._client.request<Skill>({
       method: "GET",
       path,
-      query: params,
       ...options,
+      query: { ...params, ...options?.query },
     });
   }
 
@@ -60,11 +62,13 @@ export class Skills extends APIResource {
    */
   update(id: string, params: SkillUpdateParams = {}, options?: RequestOptions): APIPromise<Skill> {
     const path = `skills/${pathParam(id, "id")}`;
+    const { identity_id, ...payload } = params;
     return this._client.request<Skill>({
       method: "PUT",
       path,
-      body: params,
+      body: payload,
       ...options,
+      query: { identity_id, ...options?.query },
     });
   }
 
@@ -73,13 +77,13 @@ export class Skills extends APIResource {
    *
    * @operation deleteSkill
    */
-  delete(id: string, options?: RequestOptions): APIPromise<void> {
+  delete(id: string, options?: IdentityScopeOptions): APIPromise<void> {
     const path = `skills/${pathParam(id, "id")}`;
     return this._client.request<void>({
       method: "DELETE",
       path,
       responseType: "void",
-      ...options,
+      ...identityScopeOptions(options),
     });
   }
 

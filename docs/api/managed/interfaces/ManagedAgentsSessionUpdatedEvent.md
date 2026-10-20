@@ -25,8 +25,8 @@ Resolved `agent` definition for a `session`. Snapshot of the `agent` at
 
 > `optional` **budget?**: [`ManagedAgentsBudgetLimit`](ManagedAgentsBudgetLimit.md) \| `null`
 
-A hard spend ceiling. The session stops issuing new model requests once the
-tracked list cost reaches `max_list_cost`.
+A total model and sandbox credit limit. Reaching it rejects the next user
+message without interrupting the running turn.
 
 ***
 
