@@ -56,7 +56,7 @@ Archive an environment retained by historical sessions or tool calls.
 
 ##### options?
 
-[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+[`IdentityScopeOptions`](../type-aliases/IdentityScopeOptions.md)
 
 #### Returns
 
@@ -108,7 +108,7 @@ createEnvironment
 
 ##### options?
 
-[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+[`IdentityScopeOptions`](../type-aliases/IdentityScopeOptions.md)
 
 #### Returns
 
@@ -160,7 +160,7 @@ listEnvironment
 
 ##### options?
 
-[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+[`IdentityScopeOptions`](../type-aliases/IdentityScopeOptions.md)
 
 #### Returns
 

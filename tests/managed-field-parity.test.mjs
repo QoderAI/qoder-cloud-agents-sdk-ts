@@ -72,7 +72,9 @@ test('Managed wire parity: all 695 pinned types keep their 2569 wire properties,
     const type = declared(name);
     for (const wire of spec.properties ?? []) {
       properties++;
-      if (!explicitProperty(type, wire).length) failures.push(`${name}: explicit property ${wire} missing`);
+      // QCA budget uses decimal Credits: /cloud-agents/api/sessions/schemas#session-budget.
+      const currentWire = ["ManagedAgentsBudgetLimit", "ManagedAgentsBudgetLimitParam"].includes(name) && wire === "max_list_cost" ? "max_credit_cost" : wire;
+      if (!explicitProperty(type, currentWire).length) failures.push(`${name}: explicit property ${wire} missing`);
     }
     for (const notation of spec.variants ?? []) {
       variants++;

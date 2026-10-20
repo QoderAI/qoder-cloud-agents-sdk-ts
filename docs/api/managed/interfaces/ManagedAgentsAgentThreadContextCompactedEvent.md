@@ -31,3 +31,11 @@ A timestamp in RFC 3339 format
 > **type**: `"agent.thread_context_compacted"`
 
 Any of "agent.thread_context_compacted".
+
+***
+
+### usage?
+
+> `optional` **usage?**: [`ManagedAgentsSpanModelUsage`](ManagedAgentsSpanModelUsage.md)
+
+Credits for this compaction call, already included in Session usage.

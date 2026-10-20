@@ -1,10 +1,11 @@
 // Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
+import type { IdentityScopeOptions } from './types.js';
 import type { APIPromise } from '../core/api-promise.js';
 import type { PagePromise } from '../core/pagination.js';
 import { toMultipartForm } from '../core/uploads.js';
-import { pathParam, requestHeaders } from './_utils.js';
+import { pathParam, requestHeaders, identityScopeOptions } from './_utils.js';
 import type { DeletedSkillVersion, SkillVersion, SkillVersionCreateParams, SkillVersionListParams } from './types.js';
 
 export class SkillVersions extends APIResource {
@@ -25,11 +26,13 @@ export class SkillVersions extends APIResource {
    */
   create(id: string, params: SkillVersionCreateParams, options?: RequestOptions): APIPromise<SkillVersion> {
     const path = `skills/${pathParam(id, "id")}/versions`;
+    const { identity_id, ...payload } = params;
     return this._client.request<SkillVersion>({
       method: "POST",
       path,
-      body: toMultipartForm(params),
+      body: toMultipartForm(payload),
       ...options,
+      query: { identity_id, ...options?.query },
     });
   }
 
@@ -38,12 +41,12 @@ export class SkillVersions extends APIResource {
    *
    * @operation getSkillVersion
    */
-  retrieve(id: string, version: string, options?: RequestOptions): APIPromise<SkillVersion> {
+  retrieve(id: string, version: string, options?: IdentityScopeOptions): APIPromise<SkillVersion> {
     const path = `skills/${pathParam(id, "id")}/versions/${pathParam(version, "version")}`;
     return this._client.request<SkillVersion>({
       method: "GET",
       path,
-      ...options,
+      ...identityScopeOptions(options),
     });
   }
 
@@ -52,12 +55,12 @@ export class SkillVersions extends APIResource {
    *
    * @operation deleteSkillVersion
    */
-  delete(id: string, version: string, options?: RequestOptions): APIPromise<DeletedSkillVersion> {
+  delete(id: string, version: string, options?: IdentityScopeOptions): APIPromise<DeletedSkillVersion> {
     const path = `skills/${pathParam(id, "id")}/versions/${pathParam(version, "version")}`;
     return this._client.request<DeletedSkillVersion>({
       method: "DELETE",
       path,
-      ...options,
+      ...identityScopeOptions(options),
     });
   }
 
@@ -66,13 +69,13 @@ export class SkillVersions extends APIResource {
    *
    * @operation downloadSkillVersion
    */
-  download(id: string, version: string, options?: RequestOptions): APIPromise<Response> {
+  download(id: string, version: string, options?: IdentityScopeOptions): APIPromise<Response> {
     const path = `skills/${pathParam(id, "id")}/versions/${pathParam(version, "version")}/content`;
     return this._client.request<Response>({
       method: "GET",
       path,
       responseType: "response",
-      ...options,
+      ...identityScopeOptions(options),
     });
   }
 

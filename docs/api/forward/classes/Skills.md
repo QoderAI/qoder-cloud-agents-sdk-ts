@@ -88,7 +88,7 @@ createSkill
 
 ##### options?
 
-[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+[`IdentityScopeOptions`](../type-aliases/IdentityScopeOptions.md)
 
 #### Returns
 

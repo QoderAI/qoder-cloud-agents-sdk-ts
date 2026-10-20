@@ -34,11 +34,11 @@ The id of the corresponding `span.model_request_start` event.
 
 ***
 
-### model\_usage
+### model\_usage?
 
-> **model\_usage**: [`ManagedAgentsSpanModelUsage`](ManagedAgentsSpanModelUsage.md)
+> `optional` **model\_usage?**: [`ManagedAgentsSpanModelUsage`](ManagedAgentsSpanModelUsage.md)
 
-Token usage for a single model request.
+Credits for a single model request; legacy token fields may appear in older responses.
 
 ***
 

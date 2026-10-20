@@ -30,8 +30,8 @@ Optional header to specify the beta version(s) you want to use.
 
 > `optional` **budget?**: [`ManagedAgentsBudgetLimitParam`](ManagedAgentsBudgetLimitParam.md) \| `null`
 
-A hard spend ceiling. The session stops issuing new model requests once the
-tracked list cost reaches `max_list_cost`.
+A total model and sandbox credit limit. Reaching it rejects the next user
+message without interrupting the running turn.
 
 ***
 

@@ -505,7 +505,7 @@
         "name": "code",
         "wireName": "code",
         "location": "body",
-        "required": true,
+        "required": false,
         "type": "string"
       },
       {
@@ -528,6 +528,13 @@
         "location": "header",
         "required": false,
         "type": "string | null"
+      },
+      {
+        "name": "channel_pairing_id",
+        "wireName": "channel_pairing_id",
+        "location": "body",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -646,6 +653,13 @@
         "location": "query",
         "required": false,
         "type": "string | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -697,6 +711,13 @@
         "location": "header",
         "required": false,
         "type": "string | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -720,7 +741,15 @@
     "pagination": "cursor",
     "itemType": "Environment",
     "path": "/environments/{id}",
-    "parameterFields": []
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
   },
   {
     "operationId": "updateEnvironment",
@@ -770,6 +799,13 @@
         "location": "body",
         "required": false,
         "type": "Record<string, unknown> | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -793,7 +829,15 @@
     "pagination": "cursor",
     "itemType": "Environment",
     "path": "/environments/{id}/archive",
-    "parameterFields": []
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
   },
   {
     "operationId": "deleteEnvironment",
@@ -815,7 +859,15 @@
     "pagination": "cursor",
     "itemType": "void",
     "path": "/environments/{id}",
-    "parameterFields": []
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
   },
   {
     "operationId": "listFile",
@@ -872,6 +924,13 @@
         "location": "query",
         "required": false,
         "type": "string | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -923,6 +982,13 @@
         "location": "header",
         "required": false,
         "type": "string | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -946,7 +1012,15 @@
     "pagination": "cursor",
     "itemType": "FileMetadata",
     "path": "/files/{file_id}",
-    "parameterFields": []
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
   },
   {
     "operationId": "deleteFile",
@@ -968,7 +1042,15 @@
     "pagination": "cursor",
     "itemType": "void",
     "path": "/files/{file_id}",
-    "parameterFields": []
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
   },
   {
     "operationId": "downloadFile",
@@ -990,7 +1072,15 @@
     "pagination": "cursor",
     "itemType": "Response",
     "path": "/files/{file_id}/content",
-    "parameterFields": []
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
   },
   {
     "operationId": "listIdentities",
@@ -3472,6 +3562,13 @@
         "location": "query",
         "required": false,
         "type": "string | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -3544,6 +3641,13 @@
         "location": "header",
         "required": false,
         "type": "string | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -3574,6 +3678,13 @@
         "location": "query",
         "required": false,
         "type": "boolean | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -3639,6 +3750,13 @@
         "location": "body",
         "required": false,
         "type": "string | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -3662,7 +3780,15 @@
     "pagination": "cursor",
     "itemType": "void",
     "path": "/skills/{id}",
-    "parameterFields": []
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
   },
   {
     "operationId": "listSkillVersion",
@@ -3698,6 +3824,13 @@
         "location": "query",
         "required": false,
         "type": "string | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -3728,6 +3861,13 @@
         "location": "body",
         "required": true,
         "type": "Array<Uploadable>"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -3757,7 +3897,15 @@
     "pagination": "cursor",
     "itemType": "SkillVersion",
     "path": "/skills/{id}/versions/{version}",
-    "parameterFields": []
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
   },
   {
     "operationId": "deleteSkillVersion",
@@ -3785,7 +3933,15 @@
     "pagination": "cursor",
     "itemType": "DeletedSkillVersion",
     "path": "/skills/{id}/versions/{version}",
-    "parameterFields": []
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
   },
   {
     "operationId": "downloadSkillVersion",
@@ -3813,7 +3969,15 @@
     "pagination": "cursor",
     "itemType": "Response",
     "path": "/skills/{id}/versions/{version}/content",
-    "parameterFields": []
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
   },
   {
     "operationId": "listTemplates",
@@ -4280,6 +4444,13 @@
         "location": "query",
         "required": false,
         "type": "string | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -4317,6 +4488,13 @@
         "location": "header",
         "required": false,
         "type": "string | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -4340,7 +4518,15 @@
     "pagination": "cursor",
     "itemType": "Vault",
     "path": "/vaults/{id}",
-    "parameterFields": []
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
   },
   {
     "operationId": "deleteVault",
@@ -4362,7 +4548,15 @@
     "pagination": "cursor",
     "itemType": "void",
     "path": "/vaults/{id}",
-    "parameterFields": []
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
   },
   {
     "operationId": "listVaultCredential",
@@ -4419,6 +4613,13 @@
         "location": "query",
         "required": false,
         "type": "string | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -4470,6 +4671,13 @@
         "location": "header",
         "required": false,
         "type": "string | null"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
       }
     ]
   },
@@ -4499,7 +4707,15 @@
     "pagination": "cursor",
     "itemType": "VaultCredential",
     "path": "/vaults/{id}/credentials/{cred_id}",
-    "parameterFields": []
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
   },
   {
     "operationId": "deleteVaultCredential",
@@ -4527,7 +4743,15 @@
     "pagination": "cursor",
     "itemType": "void",
     "path": "/vaults/{id}/credentials/{cred_id}",
-    "parameterFields": []
+    "parameterFields": [
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
   },
   {
     "operationId": "updateVaultCredential",

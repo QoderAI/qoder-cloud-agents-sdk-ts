@@ -90,7 +90,7 @@ createSkillVersion
 
 ##### options?
 
-[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+[`IdentityScopeOptions`](../type-aliases/IdentityScopeOptions.md)
 
 #### Returns
 
@@ -120,7 +120,7 @@ deleteSkillVersion
 
 ##### options?
 
-[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+[`IdentityScopeOptions`](../type-aliases/IdentityScopeOptions.md)
 
 #### Returns
 
@@ -180,7 +180,7 @@ listSkillVersion
 
 ##### options?
 
-[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+[`IdentityScopeOptions`](../type-aliases/IdentityScopeOptions.md)
 
 #### Returns
 

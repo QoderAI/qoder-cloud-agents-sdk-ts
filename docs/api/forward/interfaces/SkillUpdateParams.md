@@ -46,6 +46,14 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
+### identity\_id?
+
+> `optional` **identity\_id?**: `string`
+
+Select identity ownership with a PAT. Omit when using a SAT.
+
+***
+
 ### metadata?
 
 > `optional` **metadata?**: `Record`\<`string`, `unknown`\> \| `null`

@@ -22,6 +22,12 @@ Channel ID。
 
 ***
 
+### created\_at?
+
+> `optional` **created\_at?**: `string`
+
+***
+
 ### id
 
 > **id**: `string`
@@ -46,6 +52,24 @@ Pairing ID，解除配对时使用。
 
 ***
 
+### scope\_display\_name
+
+> **scope\_display\_name**: `string`
+
+***
+
+### scope\_external\_id
+
+> **scope\_external\_id**: `string`
+
+***
+
+### scope\_type
+
+> **scope\_type**: `string`
+
+***
+
 ### status
 
 > **status**: `string`
@@ -67,3 +91,9 @@ Pairing ID，解除配对时使用。
 > **type**: `string`
 
 固定为 `channel_pairing`。
+
+***
+
+### updated\_at?
+
+> `optional` **updated\_at?**: `string`

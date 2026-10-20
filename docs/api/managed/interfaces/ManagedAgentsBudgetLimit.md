@@ -6,16 +6,16 @@
 
 # Interface: ManagedAgentsBudgetLimit
 
-A hard spend ceiling. The session stops issuing new model requests once the
-tracked list cost reaches `max_list_cost`.
+A total model and sandbox credit limit. Reaching it rejects the next user
+message without interrupting the running turn.
 
 ## Properties
 
-### max\_list\_cost
+### max\_credit\_cost
 
-> **max\_list\_cost**: [`MonetaryAmount`](MonetaryAmount.md)
+> **max\_credit\_cost**: `string`
 
-A monetary amount in a specific currency.
+Positive decimal Credits with at most 12 integer and 2 fractional digits.
 
 ***
 

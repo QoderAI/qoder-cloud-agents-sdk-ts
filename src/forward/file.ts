@@ -1,10 +1,11 @@
 // Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
+import type { IdentityScopeOptions } from './types.js';
 import type { APIPromise } from '../core/api-promise.js';
 import type { PagePromise } from '../core/pagination.js';
 import { toMultipartForm } from '../core/uploads.js';
-import { pathParam, requestHeaders } from './_utils.js';
+import { pathParam, requestHeaders, identityScopeOptions } from './_utils.js';
 import type { FileListParams, FileMetadata, FileUploadParams } from './types.js';
 
 export class Files extends APIResource {
@@ -25,12 +26,13 @@ export class Files extends APIResource {
    */
   upload(params: FileUploadParams, options?: RequestOptions): APIPromise<FileMetadata> {
     const path = "files";
-    const { idempotency_key, ...payload } = params;
+    const { identity_id, idempotency_key, ...payload } = params;
     return this._client.request<FileMetadata>({
       method: "POST",
       path,
       body: toMultipartForm(payload),
       ...options,
+      query: { identity_id, ...options?.query },
       headers: requestHeaders({ "Idempotency-Key": idempotency_key }, options?.headers),
     });
   }
@@ -40,12 +42,12 @@ export class Files extends APIResource {
    *
    * @operation getFile
    */
-  getMetadata(fileID: string, options?: RequestOptions): APIPromise<FileMetadata> {
+  getMetadata(fileID: string, options?: IdentityScopeOptions): APIPromise<FileMetadata> {
     const path = `files/${pathParam(fileID, "file_id")}`;
     return this._client.request<FileMetadata>({
       method: "GET",
       path,
-      ...options,
+      ...identityScopeOptions(options),
     });
   }
 
@@ -54,13 +56,13 @@ export class Files extends APIResource {
    *
    * @operation deleteFile
    */
-  delete(fileID: string, options?: RequestOptions): APIPromise<void> {
+  delete(fileID: string, options?: IdentityScopeOptions): APIPromise<void> {
     const path = `files/${pathParam(fileID, "file_id")}`;
     return this._client.request<void>({
       method: "DELETE",
       path,
       responseType: "void",
-      ...options,
+      ...identityScopeOptions(options),
     });
   }
 
@@ -69,9 +71,9 @@ export class Files extends APIResource {
    *
    * @operation downloadFile
    */
-  download(fileID: string, options?: RequestOptions): APIPromise<Response> {
+  download(fileID: string, options?: IdentityScopeOptions): APIPromise<Response> {
     const path = `files/${pathParam(fileID, "file_id")}/content`;
-    return this._client.downloadFile(path, options);
+    return this._client.downloadFile(path, identityScopeOptions(options));
   }
 
 }

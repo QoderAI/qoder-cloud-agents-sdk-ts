@@ -1,3 +1,8 @@
+import type { RequestOptions } from '../core/client.js';
+
+/** PAT identity ownership query. Omit identity_id when using a SAT. */
+export type IdentityScopeOptions = RequestOptions & { identity_id?: string };
+
 // Generated wire types, verified against the API contracts.
 // Wire names and required/nullable fields follow the API's JSON, query and header contracts.
 import type { Uploadable } from '../core/uploads.js';
@@ -429,10 +434,12 @@ export interface ChannelIdentityResolution {
 }
 
 export interface ChannelPairingNewParams {
+  /** Pending pairing ID. Supply exactly one of code or channel_pairing_id. */
+  channel_pairing_id?: string;
   /**
-   * Channel 消息中显示的 6 位配对码。
+   * Channel 消息中的配对码；与 channel_pairing_id 二选一。
    */
-  code: string;
+  code?: string;
   /**
    * 要绑定的 Forward Identity ID。
    */
@@ -463,6 +470,12 @@ export interface DeletedChannelPairing {
 }
 
 export interface ChannelPairing {
+  scope_type: string;
+  scope_external_id: string;
+  scope_display_name: string;
+  created_at?: string;
+  updated_at?: string;
+
   /**
    * Pairing ID，解除配对时使用。
    */
@@ -869,6 +882,8 @@ export interface SessionEventParam {
 }
 
 export interface EnvironmentListParams {
+  /** Select identity ownership with a PAT. Omit when using a SAT. */
+  identity_id?: string;
   /**
    * 分页大小，最大 100。
    */
@@ -890,6 +905,8 @@ export interface EnvironmentListParams {
 }
 
 export interface EnvironmentNewParams {
+  /** Select identity ownership with a PAT. Omit when using a SAT. */
+  identity_id?: string;
   /**
    * Environment 名称；去除首尾空白后不能为空。
    */
@@ -915,6 +932,8 @@ export interface EnvironmentNewParams {
 }
 
 export interface EnvironmentUpdateParams {
+  /** Select identity ownership with a PAT. Omit when using a SAT. */
+  identity_id?: string;
   /**
    * 新名称。
    */
@@ -970,6 +989,8 @@ export interface EnvironmentConfigPackages {
 }
 
 export interface FileListParams {
+  /** Select identity ownership with a PAT. Omit when using a SAT. */
+  identity_id?: string;
   /**
    * 分页大小，最大 100。
    */
@@ -999,6 +1020,8 @@ export interface FileListParams {
 }
 
 export interface FileUploadParams {
+  /** Select identity ownership with a PAT. Omit when using a SAT. */
+  identity_id?: string;
   /**
    * 待上传文件内容。支持类型见[支持上传的文件类型](./schemas.md#支持上传的文件类型)。
    */
@@ -2322,7 +2345,7 @@ export interface Session {
   config: SessionConfig;
   resources: Array<SessionResource>;
   stats: SessionStats;
-  usage: SessionUsage;
+  usage?: SessionUsage;
   archived_at: string | null;
   created_at: string;
   updated_at: string;
@@ -2331,6 +2354,8 @@ export interface Session {
 }
 
 export interface SessionUsage {
+  model_credits?: number;
+  sandbox_runtime_credits?: number;
   total_credits: number;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
@@ -2602,6 +2627,8 @@ export interface SessionThreadEventStreamParams {
 }
 
 export interface SkillListParams {
+  /** Select identity ownership with a PAT. Omit when using a SAT. */
+  identity_id?: string;
   /**
    * 分页大小，最大 100。
    */
@@ -2635,6 +2662,8 @@ export interface SkillListParams {
 }
 
 export interface SkillNewParams {
+  /** Select identity ownership with a PAT. Omit when using a SAT. */
+  identity_id?: string;
   /**
    * 推荐上传字段，可**重复出现**多次。支持两种形态： ① 单个 `.zip` 包； ② 裸文件树——每个 part 独立上传一个文件，`filename` 携带相对路径（如 `code-review/SKILL.md`、`code-review/scripts/run.sh`）。 压缩包本身与解压后总大小均不超过 50 MB。
    */
@@ -2672,6 +2701,8 @@ export interface SkillNewParams {
 }
 
 export interface SkillGetParams {
+  /** Select identity ownership with a PAT. Omit when using a SAT. */
+  identity_id?: string;
   /**
    * ⚠️ **已弃用**：为 `true` 时随响应返回 `content` 与 `content_encoding`（base64 zip）。命中时响应头会返回 `Deprecation: true`。请改用 [下载 Skill 版本内容](./Versions/download.md)。
    */
@@ -2681,6 +2712,8 @@ export interface SkillGetParams {
 }
 
 export interface SkillUpdateParams {
+  /** Select identity ownership with a PAT. Omit when using a SAT. */
+  identity_id?: string;
   /**
    * 新描述。
    */
@@ -2727,6 +2760,8 @@ export interface Skill {
 }
 
 export interface SkillVersionListParams {
+  /** Select identity ownership with a PAT. Omit when using a SAT. */
+  identity_id?: string;
   /**
    * 分页大小，最大 100，默认 20。
    */
@@ -2740,6 +2775,8 @@ export interface SkillVersionListParams {
 }
 
 export interface SkillVersionNewParams {
+  /** Select identity ownership with a PAT. Omit when using a SAT. */
+  identity_id?: string;
   /**
    * 上传字段，可**重复**出现多次。支持两种形态： • 单个 `.zip` 包； • 裸文件树——每个 part 独立上传一个文件，`filename` 携带相对路径（如 `customer-reply/SKILL.md`、`customer-reply/scripts/run.sh`）。 压缩包本身与解压后总大小均不超过 50 MB。
    */
@@ -3018,6 +3055,8 @@ export interface Template {
 }
 
 export interface VaultListParams {
+  /** Select identity ownership with a PAT. Omit when using a SAT. */
+  identity_id?: string;
   /**
    * 分页大小，最大 100。
    */
@@ -3043,6 +3082,8 @@ export interface VaultListParams {
 }
 
 export interface VaultNewParams {
+  /** Select identity ownership with a PAT. Omit when using a SAT. */
+  identity_id?: string;
   /**
    * Vault 展示名。
    */
@@ -3093,6 +3134,8 @@ export interface Vault {
 }
 
 export interface VaultCredentialListParams {
+  /** Select identity ownership with a PAT. Omit when using a SAT. */
+  identity_id?: string;
   /**
    * 分页大小，最大 100。
    */
@@ -3118,6 +3161,8 @@ export interface VaultCredentialListParams {
 }
 
 export interface VaultCredentialNewParams {
+  /** Select identity ownership with a PAT. Omit when using a SAT. */
+  identity_id?: string;
   /**
    * Credential 认证信息，支持 `static_bearer`、`mcp_oauth`；响应只返回脱敏后的非密文字段。
    */

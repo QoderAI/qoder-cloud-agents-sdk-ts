@@ -56,7 +56,7 @@
 
 ##### options?
 
-[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+[`IdentityScopeOptions`](../type-aliases/IdentityScopeOptions.md)
 
 #### Returns
 
@@ -82,7 +82,7 @@ deleteFile
 
 ##### options?
 
-[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+[`IdentityScopeOptions`](../type-aliases/IdentityScopeOptions.md)
 
 #### Returns
 
@@ -108,7 +108,7 @@ downloadFile
 
 ##### options?
 
-[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+[`IdentityScopeOptions`](../type-aliases/IdentityScopeOptions.md)
 
 #### Returns
 

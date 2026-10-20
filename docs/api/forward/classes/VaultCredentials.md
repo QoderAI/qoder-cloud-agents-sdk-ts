@@ -90,7 +90,7 @@ createVaultCredential
 
 ##### options?
 
-[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+[`IdentityScopeOptions`](../type-aliases/IdentityScopeOptions.md)
 
 #### Returns
 
@@ -150,7 +150,7 @@ listVaultCredential
 
 ##### options?
 
-[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+[`IdentityScopeOptions`](../type-aliases/IdentityScopeOptions.md)
 
 #### Returns
 

@@ -19,3 +19,11 @@ Additional fields are preserved verbatim by the SDK.
 > **files**: [`Uploadable`](../../index/type-aliases/Uploadable.md)[]
 
 上传字段，可**重复**出现多次。支持两种形态： • 单个 `.zip` 包； • 裸文件树——每个 part 独立上传一个文件，`filename` 携带相对路径（如 `customer-reply/SKILL.md`、`customer-reply/scripts/run.sh`）。 压缩包本身与解压后总大小均不超过 50 MB。
+
+***
+
+### identity\_id?
+
+> `optional` **identity\_id?**: `string`
+
+Select identity ownership with a PAT. Omit when using a SAT.

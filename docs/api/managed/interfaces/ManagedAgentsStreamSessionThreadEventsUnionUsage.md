@@ -38,6 +38,12 @@ This field is from variant `ManagedAgentsSpanModelUsage`.
 
 ***
 
+### credits?
+
+> `optional` **credits?**: `number`
+
+***
+
 ### input\_tokens?
 
 > `optional` **input\_tokens?**: `number`

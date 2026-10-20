@@ -14,11 +14,19 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
-### code
+### channel\_pairing\_id?
 
-> **code**: `string`
+> `optional` **channel\_pairing\_id?**: `string`
 
-Channel 消息中显示的 6 位配对码。
+Pending pairing ID. Supply exactly one of code or channel_pairing_id.
+
+***
+
+### code?
+
+> `optional` **code?**: `string`
+
+Channel 消息中的配对码；与 channel_pairing_id 二选一。
 
 ***
 

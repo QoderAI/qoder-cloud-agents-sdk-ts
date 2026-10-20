@@ -1,4 +1,5 @@
 // Shared transport details for the Forward resources.
+import type { IdentityScopeOptions } from './types.js';
 import type { RequestOptions } from '../core/client.js';
 
 /** Validate before invoking fetch, then escape the value as one path segment. */
@@ -26,4 +27,10 @@ export function requestHeaders(base: Record<string, string | null | undefined>, 
     }
   }
   return headers;
+}
+
+/** Route identity ownership through query while preserving request overrides. */
+export function identityScopeOptions(options?: IdentityScopeOptions): RequestOptions {
+  const { identity_id, ...rest } = options ?? {};
+  return { ...rest, query: { identity_id, ...rest.query } };
 }

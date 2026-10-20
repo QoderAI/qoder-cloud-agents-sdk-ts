@@ -251,6 +251,7 @@
 - [EventContentUnionParam](type-aliases/EventContentUnionParam.md)
 - [ForwardClientOptions](type-aliases/ForwardClientOptions.md)
 - [IdentityCreateParams](type-aliases/IdentityCreateParams.md)
+- [IdentityScopeOptions](type-aliases/IdentityScopeOptions.md)
 - [MemoryStoreCreateParams](type-aliases/MemoryStoreCreateParams.md)
 - [MemoryStoreMemoryCreateParams](type-aliases/MemoryStoreMemoryCreateParams.md)
 - [ModelConfig](type-aliases/ModelConfig.md)

@@ -1,9 +1,10 @@
 // Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
+import type { IdentityScopeOptions } from './types.js';
 import type { APIPromise } from '../core/api-promise.js';
 import type { PagePromise } from '../core/pagination.js';
-import { pathParam, requestHeaders } from './_utils.js';
+import { pathParam, requestHeaders, identityScopeOptions } from './_utils.js';
 import type { Environment, EnvironmentCreateParams, EnvironmentListParams, EnvironmentUpdateParams } from './types.js';
 
 export class Environments extends APIResource {
@@ -24,12 +25,13 @@ export class Environments extends APIResource {
    */
   create(params: EnvironmentCreateParams, options?: RequestOptions): APIPromise<Environment> {
     const path = "environments";
-    const { idempotency_key, ...payload } = params;
+    const { identity_id, idempotency_key, ...payload } = params;
     return this._client.request<Environment>({
       method: "POST",
       path,
       body: payload,
       ...options,
+      query: { identity_id, ...options?.query },
       headers: requestHeaders({ "Idempotency-Key": idempotency_key }, options?.headers),
     });
   }
@@ -39,12 +41,12 @@ export class Environments extends APIResource {
    *
    * @operation getEnvironment
    */
-  retrieve(id: string, options?: RequestOptions): APIPromise<Environment> {
+  retrieve(id: string, options?: IdentityScopeOptions): APIPromise<Environment> {
     const path = `environments/${pathParam(id, "id")}`;
     return this._client.request<Environment>({
       method: "GET",
       path,
-      ...options,
+      ...identityScopeOptions(options),
     });
   }
 
@@ -59,11 +61,13 @@ export class Environments extends APIResource {
     options?: RequestOptions,
   ): APIPromise<Environment> {
     const path = `environments/${pathParam(id, "id")}`;
+    const { identity_id, ...payload } = params;
     return this._client.request<Environment>({
       method: "POST",
       path,
-      body: params,
+      body: payload,
       ...options,
+      query: { identity_id, ...options?.query },
     });
   }
 
@@ -72,12 +76,12 @@ export class Environments extends APIResource {
    *
    * @operation archiveEnvironment
    */
-  archive(id: string, options?: RequestOptions): APIPromise<Environment> {
+  archive(id: string, options?: IdentityScopeOptions): APIPromise<Environment> {
     const path = `environments/${pathParam(id, "id")}/archive`;
     return this._client.request<Environment>({
       method: "POST",
       path,
-      ...options,
+      ...identityScopeOptions(options),
     });
   }
 
@@ -86,13 +90,13 @@ export class Environments extends APIResource {
    *
    * @operation deleteEnvironment
    */
-  delete(id: string, options?: RequestOptions): APIPromise<void> {
+  delete(id: string, options?: IdentityScopeOptions): APIPromise<void> {
     const path = `environments/${pathParam(id, "id")}`;
     return this._client.request<void>({
       method: "DELETE",
       path,
       responseType: "void",
-      ...options,
+      ...identityScopeOptions(options),
     });
   }
 
