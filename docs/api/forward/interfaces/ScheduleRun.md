@@ -78,6 +78,14 @@ Forward Identity ID。
 
 ***
 
+### initial\_events\_version?
+
+> `optional` **initial\_events\_version?**: `number`
+
+Server-selected input version; a missing Run version is unknown.
+
+***
+
 ### push\_finished\_at
 
 > **push\_finished\_at**: `string`
@@ -123,6 +131,18 @@ null|主流程文本结果。
 > **session\_id**: `string`
 
 null|本次执行创建或使用的 Session。
+
+***
+
+### source?
+
+> `optional` **source?**: `string`
+
+***
+
+### source\_session\_id?
+
+> `optional` **source\_session\_id?**: `string` \| `null`
 
 ***
 

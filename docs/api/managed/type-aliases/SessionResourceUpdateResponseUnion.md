@@ -6,4 +6,4 @@
 
 # Type Alias: SessionResourceUpdateResponseUnion
 
-> **SessionResourceUpdateResponseUnion** = [`ManagedAgentsGitHubRepositoryResource`](../interfaces/ManagedAgentsGitHubRepositoryResource.md) \| [`ManagedAgentsFileResource`](../interfaces/ManagedAgentsFileResource.md) \| [`ManagedAgentsMemoryStoreResource`](../interfaces/ManagedAgentsMemoryStoreResource.md)
+> **SessionResourceUpdateResponseUnion** = [`ManagedAgentsGitRepositoryResource`](../interfaces/ManagedAgentsGitRepositoryResource.md) \| [`ManagedAgentsGitHubRepositoryResource`](../interfaces/ManagedAgentsGitHubRepositoryResource.md) \| [`ManagedAgentsFileResource`](../interfaces/ManagedAgentsFileResource.md) \| [`ManagedAgentsMemoryStoreResource`](../interfaces/ManagedAgentsMemoryStoreResource.md)

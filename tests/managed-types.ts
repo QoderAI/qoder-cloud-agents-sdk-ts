@@ -1,5 +1,24 @@
 // Canonical documented request-body fixtures must remain assignable to public wire types.
 import type * as M from '../src/managed/types.js';
+const genericGit080: M.ManagedAgentsGitRepositoryResourceParams = { type: 'git_repository', url: 'https://git.example.test/repo.git', password: 'contract-placeholder', checkout: { type: 'branch', name: 'main' } };
+const publicGithub080: M.ManagedAgentsGitHubRepositoryResourceParams = { type: 'github_repository', url: 'https://github.com/QoderAI/forward-quickstart' };
+const resources080: M.SessionNewParams = { agent: 'agent_one', environment_id: 'env_one', resources: [genericGit080, publicGithub080] };
+const deployment080: M.DeploymentUpdateParams = { resources: [genericGit080, publicGithub080] };
+const setup080: M.EnvironmentNewParams = { name: 'sdk-contract', config: { type: 'self_hosted', setup_script: 'echo sdk-contract' } };
+const artifact080: M.ManagedAgentsAgentArtifactDeliveredEvent = { id: 'evt', type: 'agent.artifact_delivered', file_id: 'file', original_filename: 'report.txt', size: 0, content_type: 'text/plain' };
+const latest080: M.Skill['latest_version'] = null;
+const withoutUsage080: Pick<M.ManagedAgentsSessionThread, 'id' | 'usage'> = { id: 'sthr' };
+function typedResponses080(event: M.ManagedAgentsSessionEventUnion, stream: M.ManagedAgentsStreamSessionEventsUnion, threadStream: M.ManagedAgentsStreamSessionThreadEventsUnion, memory: M.ManagedAgentsMemoryStore, dream: M.Dream) {
+  for (const item of [event, stream, threadStream]) {
+    if (item.type === 'agent.artifact_delivered') { const size: number = item.size; void size; }
+    if (item.type === 'session.error') { const code: string | undefined = item.error.qoder_error_code; void code; }
+  }
+  const status: string | undefined = memory.status;
+  const entries: number | undefined = memory.entry_count;
+  const files: string[] | undefined = dream.outputs[0]?.files_touched;
+  void [status, entries, files];
+}
+void [resources080, deployment080, setup080, artifact080, latest080, withoutUsage080, typedResponses080];
 const request0: M.AgentCreateParams = {"name": "doc-test-agent", "model": "ultimate", "system": "You are a documentation testing assistant.", "tools": [{"type": "agent_toolset_20260401", "enabled_tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep", "WebFetch", "WebSearch"]}], "mcp_servers": [{"type": "url", "name": "weather-service", "url": "https://mcp.example.com/mcp"}]};
 const request1: M.AgentCreateParams = {"name": "doc-test-agent-tuned", "model": {"id": "ultimate", "effort": "high", "context_window": 400000}, "system": "You are a documentation testing assistant."};
 const request2: M.AgentUpdateParams = {"name": "doc-test-agent-updated", "model": "ultimate", "system": "You are an updated documentation testing assistant.", "description": "Used for API documentation testing", "version": 1};

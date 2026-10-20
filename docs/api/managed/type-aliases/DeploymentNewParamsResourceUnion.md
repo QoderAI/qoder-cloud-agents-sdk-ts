@@ -6,4 +6,4 @@
 
 # Type Alias: DeploymentNewParamsResourceUnion
 
-> **DeploymentNewParamsResourceUnion** = [`ManagedAgentsGitHubRepositoryResourceParams`](../interfaces/ManagedAgentsGitHubRepositoryResourceParams.md) \| [`ManagedAgentsFileResourceParams`](../interfaces/ManagedAgentsFileResourceParams.md) \| [`ManagedAgentsMemoryStoreResourceParam`](../interfaces/ManagedAgentsMemoryStoreResourceParam.md)
+> **DeploymentNewParamsResourceUnion** = [`ManagedAgentsGitRepositoryResourceParams`](../interfaces/ManagedAgentsGitRepositoryResourceParams.md) \| [`ManagedAgentsGitHubRepositoryResourceParams`](../interfaces/ManagedAgentsGitHubRepositoryResourceParams.md) \| [`ManagedAgentsFileResourceParams`](../interfaces/ManagedAgentsFileResourceParams.md) \| [`ManagedAgentsMemoryStoreResourceParam`](../interfaces/ManagedAgentsMemoryStoreResourceParam.md)

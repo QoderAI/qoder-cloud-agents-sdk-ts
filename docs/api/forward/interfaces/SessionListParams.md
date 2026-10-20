@@ -94,6 +94,14 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
+### search?
+
+> `optional` **search?**: `string`
+
+Match an exact sess_ ID or search Session titles.
+
+***
+
 ### source\_type?
 
 > `optional` **source\_type?**: `string` \| `null`

@@ -18,6 +18,14 @@ Human-readable error description.
 
 ***
 
+### qoder\_error\_code?
+
+> `optional` **qoder\_error\_code?**: `string`
+
+Diagnostic only; use retry_status to determine retry behavior.
+
+***
+
 ### retry\_status
 
 > **retry\_status**: [`ManagedAgentsModelRateLimitedErrorRetryStatusUnion`](../type-aliases/ManagedAgentsModelRateLimitedErrorRetryStatusUnion.md)

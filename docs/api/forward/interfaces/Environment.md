@@ -20,6 +20,12 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
+### binding\_info?
+
+> `optional` **binding\_info?**: [`EnvironmentBindingInfo`](EnvironmentBindingInfo.md)
+
+***
+
 ### config
 
 > **config**: [`EnvironmentConfig`](EnvironmentConfig.md)
@@ -35,6 +41,12 @@ Additional fields are preserved verbatim by the SDK.
 ### description
 
 > **description**: `string`
+
+***
+
+### icon\_url?
+
+> `optional` **icon\_url?**: `string` \| `null`
 
 ***
 

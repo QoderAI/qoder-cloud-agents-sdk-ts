@@ -13,6 +13,12 @@ This struct has a constant value, construct it with
 
 ## Properties
 
+### setup\_script?
+
+> `optional` **setup\_script?**: `string`
+
+***
+
 ### type?
 
 > `optional` **type?**: `"self_hosted"` \| `null`

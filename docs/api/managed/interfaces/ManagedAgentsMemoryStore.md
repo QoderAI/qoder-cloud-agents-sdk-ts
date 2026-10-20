@@ -38,6 +38,12 @@ be useful to the agent. Empty string when unset.
 
 ***
 
+### entry\_count?
+
+> `optional` **entry\_count?**: `number`
+
+***
+
 ### id
 
 > **id**: `string`
@@ -64,6 +70,18 @@ Returned on retrieve/list but not filterable.
 
 Human-readable name for the store. 1–255 characters. The store's mount-path slug
 under `/mnt/memory/` is derived from this name.
+
+***
+
+### status?
+
+> `optional` **status?**: `string`
+
+***
+
+### total\_size?
+
+> `optional` **total\_size?**: `number`
 
 ***
 

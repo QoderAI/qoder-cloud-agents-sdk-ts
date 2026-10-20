@@ -20,6 +20,24 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
+### last\_run\_at?
+
+> `optional` **last\_run\_at?**: `string` \| `null`
+
+***
+
+### start\_at?
+
+> `optional` **start\_at?**: `string`
+
+***
+
+### stop\_at?
+
+> `optional` **stop\_at?**: `string`
+
+***
+
 ### timezone
 
 > **timezone**: `string`

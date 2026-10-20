@@ -10,9 +10,9 @@ Mount a GitHub repository into the session's container.
 
 ## Properties
 
-### authorization\_token
+### authorization\_token?
 
-> **authorization\_token**: `string`
+> `optional` **authorization\_token?**: `string`
 
 GitHub authorization token used to clone the repository.
 

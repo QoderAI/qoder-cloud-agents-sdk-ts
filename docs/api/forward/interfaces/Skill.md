@@ -58,7 +58,7 @@ Additional fields are preserved verbatim by the SDK.
 
 ### latest\_version
 
-> **latest\_version**: `string`
+> **latest\_version**: `string` \| `null`
 
 ***
 

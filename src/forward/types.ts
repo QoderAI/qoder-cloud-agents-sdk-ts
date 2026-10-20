@@ -68,6 +68,8 @@ export interface BatchListParams {
 }
 
 export interface BatchNewParams {
+  /** Ignore the scheduling time window; capacity and FIFO priority still apply. */
+  ignore_idle_window?: boolean;
   /**
    * 通过 Files API 上传的 JSONL 文件 ID。
    */
@@ -111,6 +113,9 @@ export interface BatchFile {
 }
 
 export interface Batch {
+  ignore_idle_window?: boolean;
+  /** Dynamic queue reason, present only when applicable to validating or queued Batches. */
+  queue_reason?: string;
   /**
    * Batch ID，前缀 `batch_`。
    */
@@ -955,6 +960,8 @@ export interface EnvironmentUpdateParams {
 }
 
 export interface Environment {
+  icon_url?: string | null;
+  binding_info?: EnvironmentBindingInfo;
   id: string;
   type: string;
   name: string;
@@ -970,6 +977,7 @@ export interface Environment {
 }
 
 export interface EnvironmentConfig {
+  setup_script?: string;
   type: string;
   packages: EnvironmentConfigPackages;
   /** Additional fields are preserved verbatim by the SDK. */
@@ -1522,6 +1530,8 @@ export interface MemoryStoreListParams {
 }
 
 export interface MemoryStoreNewParams {
+  /** Establish this mount before returning; use the same key and body to resume creation. */
+  mount?: MemoryStoreCreateMountParam;
   /**
    * Store 展示名，非空。不允许非打印控制字符（`U+0000`–`U+001F`、`U+007F`），换行 `\n`、回车 `\r`、制表 `\t` 除外。
    */
@@ -1963,6 +1973,10 @@ export interface ScheduleArchiveManyResponse {
 }
 
 export interface Schedule {
+  source?: string;
+  source_session_id?: string | null;
+  /** Server-maintained input version, incremented when initial_events changes. */
+  initial_events_version?: number;
   id: string;
   identity_id: string;
   template_id: string;
@@ -2005,6 +2019,9 @@ export interface ScheduleSinksItemTarget {
 }
 
 export interface ScheduleTriggerPolicy {
+  start_at?: string;
+  stop_at?: string;
+  last_run_at?: string | null;
   type: string;
   expression: string;
   timezone: string;
@@ -2084,6 +2101,10 @@ export interface ScheduleRunGetParams {
 }
 
 export interface ScheduleRun {
+  source?: string;
+  source_session_id?: string | null;
+  /** Server-selected input version; a missing Run version is unknown. */
+  initial_events_version?: number;
   /**
    * Schedule Run ID。
    */
@@ -2172,6 +2193,8 @@ export interface ScheduleRunTriggerContext {
 }
 
 export interface SessionListParams {
+  /** Match an exact sess_ ID or search Session titles. */
+  search?: string;
   /**
    * 按一个或多个 Identity ID 过滤，支持逗号分隔。
    */
@@ -2316,6 +2339,7 @@ export interface SessionCancelParams {
 }
 
 export interface Session {
+  outcome_evaluations?: Array<SessionOutcomeEvaluation>;
   /**
    * Session ID。
    */
@@ -2577,6 +2601,8 @@ export interface SessionThreadArchiveParams {
 }
 
 export interface SessionThread {
+  stats?: SessionThreadStats;
+  usage?: SessionThreadUsage;
   id: string;
   type: string;
   session_id: string;
@@ -2748,7 +2774,7 @@ export interface Skill {
   display_title: string;
   description: string;
   source: string;
-  latest_version: string;
+  latest_version: string | null;
   metadata: Record<string, unknown>;
   created_at: string;
   updated_at: string;
@@ -2840,6 +2866,8 @@ export interface TemplateListParams {
 }
 
 export interface TemplateNewParams {
+  /** Positive maximum tool-call rounds per Turn. Omit or pass null to use the platform default. */
+  max_tool_rounds?: number | null;
   /** Replaces the complete managed tool list. Null or an empty list disables it. */
   managed_tool_config?: ManagedToolConfig | null;
   /**
@@ -2911,6 +2939,8 @@ export interface TemplateNewParams {
 }
 
 export interface TemplateUpdateParams {
+  /** Positive maximum tool-call rounds per Turn. Omit to preserve the limit; null clears it. */
+  max_tool_rounds?: number | null;
   /** Replaces the complete managed tool list. Null or an empty list disables it. */
   managed_tool_config?: ManagedToolConfig | null;
   /**
@@ -3008,6 +3038,8 @@ export interface TemplateCloneParams {
 }
 
 export interface Template {
+  /** Omitted when the explicit limit is unset. */
+  max_tool_rounds?: number;
   /** Replaces the complete managed tool list. Null or an empty list disables it. */
   managed_tool_config?: ManagedToolConfig | null;
   /**
@@ -3384,4 +3416,35 @@ export interface DriveDeleteEntryResponse {
 export interface DriveClearResponse {
   deleted_count: number;
   [key: string]: unknown;
+}
+
+export interface SessionOutcomeEvaluation {
+  type: string;
+  outcome_id: string;
+  description: string;
+  iteration: number;
+  result: string;
+  explanation: string | null;
+  completed_at: string | null;
+}
+
+export interface SessionThreadStats {
+  active_seconds: number;
+  duration_seconds: number;
+  startup_seconds?: number;
+}
+
+export interface SessionThreadUsage {
+  total_credits?: number;
+}
+
+export interface MemoryStoreCreateMountParam {
+  identity_id: string;
+  template_id: string;
+  /** Defaults to read_only. */
+  access?: "read_only" | "read_write";
+}
+
+export interface EnvironmentBindingInfo {
+  agent_template_count: number;
 }

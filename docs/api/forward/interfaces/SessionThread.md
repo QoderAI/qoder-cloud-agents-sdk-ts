@@ -62,6 +62,12 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
+### stats?
+
+> `optional` **stats?**: [`SessionThreadStats`](SessionThreadStats.md)
+
+***
+
 ### status
 
 > **status**: `string`
@@ -89,3 +95,9 @@ Additional fields are preserved verbatim by the SDK.
 ### updated\_at
 
 > **updated\_at**: `string`
+
+***
+
+### usage?
+
+> `optional` **usage?**: [`SessionThreadUsage`](SessionThreadUsage.md)

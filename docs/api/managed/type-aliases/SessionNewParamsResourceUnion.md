@@ -6,4 +6,4 @@
 
 # Type Alias: SessionNewParamsResourceUnion
 
-> **SessionNewParamsResourceUnion** = [`ManagedAgentsGitHubRepositoryResourceParams`](../interfaces/ManagedAgentsGitHubRepositoryResourceParams.md) \| [`ManagedAgentsFileResourceParams`](../interfaces/ManagedAgentsFileResourceParams.md) \| [`ManagedAgentsMemoryStoreResourceParam`](../interfaces/ManagedAgentsMemoryStoreResourceParam.md)
+> **SessionNewParamsResourceUnion** = [`ManagedAgentsGitRepositoryResourceParams`](../interfaces/ManagedAgentsGitRepositoryResourceParams.md) \| [`ManagedAgentsGitHubRepositoryResourceParams`](../interfaces/ManagedAgentsGitHubRepositoryResourceParams.md) \| [`ManagedAgentsFileResourceParams`](../interfaces/ManagedAgentsFileResourceParams.md) \| [`ManagedAgentsMemoryStoreResourceParam`](../interfaces/ManagedAgentsMemoryStoreResourceParam.md)

@@ -70,6 +70,14 @@ Replaces the complete managed tool list. Null or an empty list disables it.
 
 ***
 
+### max\_tool\_rounds?
+
+> `optional` **max\_tool\_rounds?**: `number` \| `null`
+
+Positive maximum tool-call rounds per Turn. Omit or pass null to use the platform default.
+
+***
+
 ### mcp\_servers?
 
 > `optional` **mcp\_servers?**: [`MCPServerParam`](MCPServerParam.md)[] \| `null`
