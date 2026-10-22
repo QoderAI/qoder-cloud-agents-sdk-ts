@@ -208,6 +208,12 @@
 
 > `readonly` **vaults**: [`Vaults`](../../forward/classes/Vaults.md)
 
+***
+
+### webhooks
+
+> `readonly` **webhooks**: [`Webhooks`](Webhooks.md)
+
 ## Methods
 
 ### \_prepareRealtimeRequest()

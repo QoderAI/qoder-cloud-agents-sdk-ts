@@ -3170,5 +3170,122 @@
       }
     ],
     "paginated": false
+  },
+  {
+    "id": "webhooks.endpoints.create",
+    "entry": "webhooks.endpoints",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "webhooks.endpoints.list",
+    "entry": "webhooks.endpoints",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "webhooks.endpoints.retrieve",
+    "entry": "webhooks.endpoints",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "endpointID",
+        "kind": "path"
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "webhooks.endpoints.update",
+    "entry": "webhooks.endpoints",
+    "method": "update",
+    "args": [
+      {
+        "name": "endpointID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": []
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "webhooks.endpoints.delete",
+    "entry": "webhooks.endpoints",
+    "method": "delete",
+    "args": [
+      {
+        "name": "endpointID",
+        "kind": "path"
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "webhooks.endpoints.enable",
+    "entry": "webhooks.endpoints",
+    "method": "enable",
+    "args": [
+      {
+        "name": "endpointID",
+        "kind": "path"
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "webhooks.endpoints.disable",
+    "entry": "webhooks.endpoints",
+    "method": "disable",
+    "args": [
+      {
+        "name": "endpointID",
+        "kind": "path"
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "webhooks.endpoints.test",
+    "entry": "webhooks.endpoints",
+    "method": "test",
+    "args": [
+      {
+        "name": "endpointID",
+        "kind": "path"
+      }
+    ],
+    "paginated": false
   }
 ]

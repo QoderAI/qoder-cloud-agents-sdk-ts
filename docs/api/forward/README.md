@@ -637,3 +637,63 @@ Re-exports [UnprocessableEntityError](../index/classes/UnprocessableEntityError.
 ### Uploadable
 
 Re-exports [Uploadable](../index/type-aliases/Uploadable.md)
+
+***
+
+### verifyWebhookSignature
+
+Re-exports [verifyWebhookSignature](../index/functions/verifyWebhookSignature.md)
+
+***
+
+### WebhookEndpoint
+
+Re-exports [WebhookEndpoint](../index/interfaces/WebhookEndpoint.md)
+
+***
+
+### WebhookEndpointCreateParams
+
+Re-exports [WebhookEndpointCreateParams](../index/interfaces/WebhookEndpointCreateParams.md)
+
+***
+
+### WebhookEndpointCreateResponse
+
+Re-exports [WebhookEndpointCreateResponse](../index/interfaces/WebhookEndpointCreateResponse.md)
+
+***
+
+### WebhookEndpointListParams
+
+Re-exports [WebhookEndpointListParams](../index/interfaces/WebhookEndpointListParams.md)
+
+***
+
+### WebhookEndpoints
+
+Re-exports [WebhookEndpoints](../index/classes/WebhookEndpoints.md)
+
+***
+
+### WebhookEndpointTestResponse
+
+Re-exports [WebhookEndpointTestResponse](../index/interfaces/WebhookEndpointTestResponse.md)
+
+***
+
+### WebhookEndpointUpdateParams
+
+Re-exports [WebhookEndpointUpdateParams](../index/interfaces/WebhookEndpointUpdateParams.md)
+
+***
+
+### Webhooks
+
+Re-exports [Webhooks](../index/classes/Webhooks.md)
+
+***
+
+### WebhookVerificationError
+
+Re-exports [WebhookVerificationError](../index/classes/WebhookVerificationError.md)

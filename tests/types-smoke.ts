@@ -264,3 +264,21 @@ async function alignment080Types() {
   void [evaluations, credits, startup, source, sourceSession, version, lastRun, setup, count, latest];
 }
 void alignment080Types;
+
+import { verifyWebhookSignature, type WebhookEndpoint, type WebhookEndpointCreateResponse } from 'qca-sdk/forward';
+async function webhookTypes() {
+  const created: WebhookEndpointCreateResponse = await forward.webhooks.endpoints.create({url: 'https://hooks.example.com/qca', events: ['future.event']});
+  const secret: string = created.signing_secret;
+  const endpoint: WebhookEndpoint = await forward.webhooks.endpoints.update(created.id, {active: false, metadata: {old_key: null}});
+  await forward.webhooks.endpoints.test(endpoint.id).withResponse();
+  await verifyWebhookSignature(new Uint8Array(), new Headers(), secret);
+  // @ts-expect-error Creation requires an event list.
+  forward.webhooks.endpoints.create({url: 'https://hooks.example.com/qca'});
+  // @ts-expect-error Only updates permit null metadata entries.
+  forward.webhooks.endpoints.create({url: 'https://hooks.example.com/qca', events: ['*'], metadata: {old_key: null}});
+  // @ts-expect-error Endpoint lists use after_id, not page.
+  forward.webhooks.endpoints.list({page: 'cursor'});
+  // @ts-expect-error This change adds Forward Webhooks only.
+  managed.webhooks;
+}
+void webhookTypes;

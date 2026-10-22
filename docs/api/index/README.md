@@ -38,6 +38,9 @@
 - [ServiceAccountCredential](classes/ServiceAccountCredential.md)
 - [Stream](classes/Stream.md)
 - [UnprocessableEntityError](classes/UnprocessableEntityError.md)
+- [WebhookEndpoints](classes/WebhookEndpoints.md)
+- [Webhooks](classes/Webhooks.md)
+- [WebhookVerificationError](classes/WebhookVerificationError.md)
 
 ## Interfaces
 
@@ -65,6 +68,12 @@
 - [RequestOptions](interfaces/RequestOptions.md)
 - [ServerSentEvent](interfaces/ServerSentEvent.md)
 - [ServiceAccountCredentialOptions](interfaces/ServiceAccountCredentialOptions.md)
+- [WebhookEndpoint](interfaces/WebhookEndpoint.md)
+- [WebhookEndpointCreateParams](interfaces/WebhookEndpointCreateParams.md)
+- [WebhookEndpointCreateResponse](interfaces/WebhookEndpointCreateResponse.md)
+- [WebhookEndpointListParams](interfaces/WebhookEndpointListParams.md)
+- [WebhookEndpointTestResponse](interfaces/WebhookEndpointTestResponse.md)
+- [WebhookEndpointUpdateParams](interfaces/WebhookEndpointUpdateParams.md)
 
 ## Type Aliases
 
@@ -95,3 +104,4 @@
 - [stringifyQuery](functions/stringifyQuery.md)
 - [toFile](functions/toFile.md)
 - [toMultipartForm](functions/toMultipartForm.md)
+- [verifyWebhookSignature](functions/verifyWebhookSignature.md)

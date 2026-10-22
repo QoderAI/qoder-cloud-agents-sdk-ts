@@ -15,3 +15,6 @@ export { RealtimeConversations, RealtimeHistoryPage } from './forward/realtime/c
 export { RealtimeConnection, RealtimeProtocolError, RealtimeConnectionClosedError, RealtimeServerError, decodeRealtimeAudio } from './forward/realtime/connection.js';
 export type { RealtimeConnectOptions, RealtimeWaitOptions, RealtimeCloseOptions } from './forward/realtime/connection.js';
 export * from './forward/realtime/types.js';
+
+export * from "./forward/webhook.js";
+export * from "./forward/webhook-signature.js";
