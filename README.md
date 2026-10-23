@@ -731,3 +731,7 @@ and request IDs without tokens. Tests create temporary Identities, delete them o
 original Templates and record persisted Conversations because transport close cannot delete them. These entries are not
 included in daily PAT tests until explicitly configured; offline CI validates
 protocol behavior without network or credentials.
+
+## Forward Webhooks (next release)
+
+Manage webhook endpoints and verify signed event deliveries. See [Webhook usage and receiver examples](docs/webhooks.md).

@@ -5159,5 +5159,173 @@
         "type": "string"
       }
     ]
+  },
+  {
+    "operationId": "createWebhookEndpoint",
+    "entry": "webhooks.endpoints",
+    "method": "create",
+    "httpMethod": "POST",
+    "path": "/webhook/endpoints",
+    "parameters": [],
+    "paramsType": "WebhookEndpointCreateParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "WebhookEndpointCreateResponse",
+    "pagination": null,
+    "itemType": null,
+    "parameterFields": []
+  },
+  {
+    "operationId": "listWebhookEndpoints",
+    "entry": "webhooks.endpoints",
+    "method": "list",
+    "httpMethod": "GET",
+    "path": "/webhook/endpoints",
+    "parameters": [],
+    "paramsType": "WebhookEndpointListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "WebhookEndpoint",
+    "parameterFields": []
+  },
+  {
+    "operationId": "getWebhookEndpoint",
+    "entry": "webhooks.endpoints",
+    "method": "retrieve",
+    "httpMethod": "GET",
+    "path": "/webhook/endpoints/{endpoint_id}",
+    "parameters": [
+      {
+        "name": "endpointID",
+        "wireName": "endpoint_id",
+        "location": "path",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "WebhookEndpoint",
+    "pagination": null,
+    "itemType": null,
+    "parameterFields": []
+  },
+  {
+    "operationId": "updateWebhookEndpoint",
+    "entry": "webhooks.endpoints",
+    "method": "update",
+    "httpMethod": "PUT",
+    "path": "/webhook/endpoints/{endpoint_id}",
+    "parameters": [
+      {
+        "name": "endpointID",
+        "wireName": "endpoint_id",
+        "location": "path",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "paramsType": "WebhookEndpointUpdateParams",
+    "paramsOptional": true,
+    "paramsLocation": "body",
+    "responseType": "WebhookEndpoint",
+    "pagination": null,
+    "itemType": null,
+    "parameterFields": []
+  },
+  {
+    "operationId": "deleteWebhookEndpoint",
+    "entry": "webhooks.endpoints",
+    "method": "delete",
+    "httpMethod": "DELETE",
+    "path": "/webhook/endpoints/{endpoint_id}",
+    "parameters": [
+      {
+        "name": "endpointID",
+        "wireName": "endpoint_id",
+        "location": "path",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "void",
+    "pagination": null,
+    "itemType": null,
+    "parameterFields": []
+  },
+  {
+    "operationId": "enableWebhookEndpoint",
+    "entry": "webhooks.endpoints",
+    "method": "enable",
+    "httpMethod": "POST",
+    "path": "/webhook/endpoints/{endpoint_id}/enable",
+    "parameters": [
+      {
+        "name": "endpointID",
+        "wireName": "endpoint_id",
+        "location": "path",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "WebhookEndpoint",
+    "pagination": null,
+    "itemType": null,
+    "parameterFields": []
+  },
+  {
+    "operationId": "disableWebhookEndpoint",
+    "entry": "webhooks.endpoints",
+    "method": "disable",
+    "httpMethod": "POST",
+    "path": "/webhook/endpoints/{endpoint_id}/disable",
+    "parameters": [
+      {
+        "name": "endpointID",
+        "wireName": "endpoint_id",
+        "location": "path",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "WebhookEndpoint",
+    "pagination": null,
+    "itemType": null,
+    "parameterFields": []
+  },
+  {
+    "operationId": "testWebhookEndpoint",
+    "entry": "webhooks.endpoints",
+    "method": "test",
+    "httpMethod": "POST",
+    "path": "/webhook/endpoints/{endpoint_id}/test",
+    "parameters": [
+      {
+        "name": "endpointID",
+        "wireName": "endpoint_id",
+        "location": "path",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "WebhookEndpointTestResponse",
+    "pagination": null,
+    "itemType": null,
+    "parameterFields": []
   }
 ]

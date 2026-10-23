@@ -3009,5 +3009,196 @@
     "download": false,
     "raw": false,
     "id": "drives.clear"
+  },
+  {
+    "id": "webhooks.endpoints.create",
+    "operation_id": "createWebhookEndpoint",
+    "entry": "Webhooks.Endpoints",
+    "response": {
+      "id": "endpoint_1",
+      "url": "https://hooks.example.com/qca",
+      "events": [
+        "forward.schedule.archived",
+        "future.event"
+      ],
+      "description": "test",
+      "metadata": {
+        "team": "sdk",
+        "created_by": "platform"
+      },
+      "active": false,
+      "created_at": "2026-10-22T00:00:00Z",
+      "signing_secret": "whsec_MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY="
+    },
+    "empty": false
+  },
+  {
+    "id": "webhooks.endpoints.list",
+    "operation_id": "listWebhookEndpoints",
+    "entry": "Webhooks.Endpoints",
+    "response": {
+      "data": [
+        {
+          "id": "endpoint_1",
+          "url": "https://hooks.example.com/qca",
+          "events": [
+            "forward.schedule.archived",
+            "future.event"
+          ],
+          "description": "test",
+          "metadata": {
+            "team": "sdk",
+            "created_by": "platform"
+          },
+          "active": false,
+          "created_at": "2026-10-22T00:00:00Z",
+          "updated_at": "2026-10-22T00:01:00Z",
+          "last_success_at": null,
+          "last_failure_at": "2026-10-22T00:01:00Z",
+          "consecutive_fail": 0,
+          "disabled_reason": "manual",
+          "future_field": {
+            "preserved": true
+          }
+        }
+      ],
+      "first_id": "endpoint_1",
+      "last_id": "endpoint_1",
+      "has_more": false
+    },
+    "empty": false
+  },
+  {
+    "id": "webhooks.endpoints.retrieve",
+    "operation_id": "getWebhookEndpoint",
+    "entry": "Webhooks.Endpoints",
+    "response": {
+      "id": "endpoint_1",
+      "url": "https://hooks.example.com/qca",
+      "events": [
+        "forward.schedule.archived",
+        "future.event"
+      ],
+      "description": "test",
+      "metadata": {
+        "team": "sdk",
+        "created_by": "platform"
+      },
+      "active": false,
+      "created_at": "2026-10-22T00:00:00Z",
+      "updated_at": "2026-10-22T00:01:00Z",
+      "last_success_at": null,
+      "last_failure_at": "2026-10-22T00:01:00Z",
+      "consecutive_fail": 0,
+      "disabled_reason": "manual",
+      "future_field": {
+        "preserved": true
+      }
+    },
+    "empty": false
+  },
+  {
+    "id": "webhooks.endpoints.update",
+    "operation_id": "updateWebhookEndpoint",
+    "entry": "Webhooks.Endpoints",
+    "response": {
+      "id": "endpoint_1",
+      "url": "https://hooks.example.com/qca",
+      "events": [
+        "forward.schedule.archived",
+        "future.event"
+      ],
+      "description": "test",
+      "metadata": {
+        "team": "sdk",
+        "created_by": "platform"
+      },
+      "active": false,
+      "created_at": "2026-10-22T00:00:00Z",
+      "updated_at": "2026-10-22T00:01:00Z",
+      "last_success_at": null,
+      "last_failure_at": "2026-10-22T00:01:00Z",
+      "consecutive_fail": 0,
+      "disabled_reason": "manual",
+      "future_field": {
+        "preserved": true
+      }
+    },
+    "empty": false
+  },
+  {
+    "id": "webhooks.endpoints.delete",
+    "operation_id": "deleteWebhookEndpoint",
+    "entry": "Webhooks.Endpoints",
+    "response": null,
+    "empty": true
+  },
+  {
+    "id": "webhooks.endpoints.enable",
+    "operation_id": "enableWebhookEndpoint",
+    "entry": "Webhooks.Endpoints",
+    "response": {
+      "id": "endpoint_1",
+      "url": "https://hooks.example.com/qca",
+      "events": [
+        "forward.schedule.archived",
+        "future.event"
+      ],
+      "description": "test",
+      "metadata": {
+        "team": "sdk",
+        "created_by": "platform"
+      },
+      "active": false,
+      "created_at": "2026-10-22T00:00:00Z",
+      "updated_at": "2026-10-22T00:01:00Z",
+      "last_success_at": null,
+      "last_failure_at": "2026-10-22T00:01:00Z",
+      "consecutive_fail": 0,
+      "disabled_reason": "manual",
+      "future_field": {
+        "preserved": true
+      }
+    },
+    "empty": false
+  },
+  {
+    "id": "webhooks.endpoints.disable",
+    "operation_id": "disableWebhookEndpoint",
+    "entry": "Webhooks.Endpoints",
+    "response": {
+      "id": "endpoint_1",
+      "url": "https://hooks.example.com/qca",
+      "events": [
+        "forward.schedule.archived",
+        "future.event"
+      ],
+      "description": "test",
+      "metadata": {
+        "team": "sdk",
+        "created_by": "platform"
+      },
+      "active": false,
+      "created_at": "2026-10-22T00:00:00Z",
+      "updated_at": "2026-10-22T00:01:00Z",
+      "last_success_at": null,
+      "last_failure_at": "2026-10-22T00:01:00Z",
+      "consecutive_fail": 0,
+      "disabled_reason": "manual",
+      "future_field": {
+        "preserved": true
+      }
+    },
+    "empty": false
+  },
+  {
+    "id": "webhooks.endpoints.test",
+    "operation_id": "testWebhookEndpoint",
+    "entry": "Webhooks.Endpoints",
+    "response": {
+      "event_id": 7,
+      "delivery_rows": 0
+    },
+    "empty": false
   }
 ]

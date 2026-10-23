@@ -1,4 +1,5 @@
 // Resource hierarchy mirrors the Forward API surface.
+import { Webhooks } from './webhook.js';
 import { APIClient, type ClientOptions } from '../core/client.js';
 import { Templates } from './template.js';
 import { Identities } from './identity.js';
@@ -23,6 +24,7 @@ import { ServiceAccountTokens } from './service-account-token.js';
 export type ForwardClientOptions = ClientOptions;
 
 export class ForwardClient extends APIClient {
+  readonly webhooks = new Webhooks(this);
   readonly templates: Templates = new Templates(this);
   readonly identities: Identities = new Identities(this);
   readonly sessions: Sessions = new Sessions(this);
