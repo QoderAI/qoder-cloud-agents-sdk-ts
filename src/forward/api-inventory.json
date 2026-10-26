@@ -5327,5 +5327,58 @@
     "pagination": null,
     "itemType": null,
     "parameterFields": []
+  },
+  {
+    "operationId": "createDecision",
+    "entry": "decisions",
+    "method": "create",
+    "httpMethod": "POST",
+    "path": "/decisions",
+    "parameters": [],
+    "paramsType": "DecisionCreateParams",
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "Decision",
+    "pagination": null,
+    "itemType": null,
+    "parameterFields": []
+  },
+  {
+    "operationId": "getDecision",
+    "entry": "decisions",
+    "method": "retrieve",
+    "httpMethod": "GET",
+    "path": "/decisions/{decision_id}",
+    "parameters": [
+      {
+        "name": "decisionID",
+        "wireName": "decision_id",
+        "location": "path",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "paramsType": null,
+    "paramsOptional": false,
+    "paramsLocation": "body",
+    "responseType": "Decision",
+    "pagination": null,
+    "itemType": null,
+    "parameterFields": []
+  },
+  {
+    "operationId": "listDecisions",
+    "entry": "decisions",
+    "method": "list",
+    "httpMethod": "GET",
+    "path": "/decisions",
+    "parameters": [],
+    "paramsType": "DecisionListParams",
+    "paramsOptional": true,
+    "paramsLocation": "query",
+    "responseType": "page",
+    "pagination": "cursor",
+    "itemType": "Decision",
+    "parameterFields": []
   }
 ]

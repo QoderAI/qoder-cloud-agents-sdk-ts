@@ -282,3 +282,38 @@ async function webhookTypes() {
   managed.webhooks;
 }
 void webhookTypes;
+
+
+import type { Decision, DecisionCreateParams, DecisionQuestionParam } from 'qca-sdk/forward';
+import type { Decision as RootDecision } from 'qca-sdk';
+async function decisionsTypes() {
+  const questions: DecisionQuestionParam[] = [
+    {type: 'choice', instructions: 'Resolved?', choices: [{value: true}, {value: false}]},
+    {type: 'score', instructions: 'Risk?', levels: [{label: 'low', score: 0}, {label: 'high', score: 10}]},
+  ];
+  const params: DecisionCreateParams = {state: {message: 'Resolved'}, questions, idempotency_key: 'one'};
+  const created: Decision = await forward.decisions.create(params);
+  const result: RootDecision = await forward.decisions.retrieve(created.id);
+  for await (const item of forward.decisions.list({session_id: 'sess_own', limit: 1})) {
+    const answer: string | boolean | undefined = item.answers[0]?.value;
+    void answer;
+  }
+  await forward.decisions.create({session_id: 'sess_own', questions});
+  void result;
+  // @ts-expect-error Exactly one input mode is required.
+  forward.decisions.create({questions});
+  // @ts-expect-error State and Session input are mutually exclusive.
+  forward.decisions.create({state: {ok: true}, session_id: 'sess_own', questions});
+  // @ts-expect-error Numeric choice values are not supported.
+  forward.decisions.create({state: {ok: true}, questions: [{type: 'choice', instructions: 'Choose', choices: [{value: 1}]}]});
+  // @ts-expect-error Choice questions cannot contain score levels.
+  const invalidQuestion: DecisionQuestionParam = {type: 'choice', instructions: 'Choose', choices: [{value: true}], levels: [{label: 'low', score: 0}]};
+  void invalidQuestion;
+  // @ts-expect-error Decision has no model selector.
+  forward.decisions.create({...params, model: 'auto'});
+  // @ts-expect-error Decision ownership comes from authentication.
+  forward.decisions.list({identity_id: 'idn_own'});
+  // @ts-expect-error Decisions belong to Forward only.
+  managed.decisions;
+}
+void decisionsTypes;

@@ -340,6 +340,84 @@ Re-exports [Credential](../index/interfaces/Credential.md)
 
 ***
 
+### Decision
+
+Re-exports [Decision](../index/interfaces/Decision.md)
+
+***
+
+### DecisionAnswer
+
+Re-exports [DecisionAnswer](../index/interfaces/DecisionAnswer.md)
+
+***
+
+### DecisionChoice
+
+Re-exports [DecisionChoice](../index/interfaces/DecisionChoice.md)
+
+***
+
+### DecisionChoiceParam
+
+Re-exports [DecisionChoiceParam](../index/interfaces/DecisionChoiceParam.md)
+
+***
+
+### DecisionContext
+
+Re-exports [DecisionContext](../index/interfaces/DecisionContext.md)
+
+***
+
+### DecisionCreateParams
+
+Re-exports [DecisionCreateParams](../index/type-aliases/DecisionCreateParams.md)
+
+***
+
+### DecisionError
+
+Re-exports [DecisionError](../index/interfaces/DecisionError.md)
+
+***
+
+### DecisionLevel
+
+Re-exports [DecisionLevel](../index/interfaces/DecisionLevel.md)
+
+***
+
+### DecisionLevelParam
+
+Re-exports [DecisionLevelParam](../index/interfaces/DecisionLevelParam.md)
+
+***
+
+### DecisionListParams
+
+Re-exports [DecisionListParams](../index/interfaces/DecisionListParams.md)
+
+***
+
+### DecisionQuestion
+
+Re-exports [DecisionQuestion](../index/interfaces/DecisionQuestion.md)
+
+***
+
+### DecisionQuestionParam
+
+Re-exports [DecisionQuestionParam](../index/type-aliases/DecisionQuestionParam.md)
+
+***
+
+### Decisions
+
+Re-exports [Decisions](../index/classes/Decisions.md)
+
+***
+
 ### decodeRealtimeAudio
 
 Re-exports [decodeRealtimeAudio](../index/functions/decodeRealtimeAudio.md)

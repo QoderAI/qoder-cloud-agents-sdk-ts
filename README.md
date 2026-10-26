@@ -318,6 +318,55 @@ for await (const event of stream) {
 
 The resumable stream does not query event history, clear an invalid cursor, or deduplicate IDs: delta frames may legitimately share an event ID. It stops after `[DONE]`, `session.status_terminated`, or `session.deleted`. Stop it early with `stream.controller.abort()`, an `AbortSignal` in `RequestOptions`, or `await stream.close()`.
 
+## Forward Decisions (next release)
+
+Evaluate a nonempty `state` object or an accessible `session_id` (exactly one)
+with 1–32 choice or score questions. Choice values are strings or booleans;
+score questions select from your numeric levels. Creation waits for the result.
+The service selects the model; no `model` parameter is accepted. Normal PAT or
+SAT authentication determines the caller's access.
+
+```ts
+import { randomUUID } from 'node:crypto';
+import { ForwardClient } from 'qca-sdk';
+
+const client = new ForwardClient(); // Or use the PAT/SA configuration above.
+const decision = await client.decisions.create({
+  state: { message: 'My issue is resolved.' },
+  questions: [{
+    type: 'choice', name: 'resolved',
+    instructions: 'Has the user confirmed resolution?',
+    choices: [{ value: true }, { value: false }],
+  }],
+  idempotency_key: randomUUID(),
+});
+const stored = await client.decisions.retrieve(decision.id);
+console.log(stored.answers);
+const page = await client.decisions.list({ limit: 20 });
+console.log(page.data); // Or use for await over list(...) to follow all pages.
+```
+
+For Session input, replace `state` with `session_id`.
+For scores, use `{ type: 'score', instructions: 'Rate risk', levels:
+[{ label: 'low', score: 0 }, { label: 'high', score: 10 }] }`.
+
+Session context is selected by the server. Inspect `context.truncated`,
+`context.truncation_reasons`, and the input-token estimate to understand the
+selected history. Explicit state and questions are never shortened; oversized
+input returns HTTP 422. Context estimates are separate from `usage`, which can
+be null. Answers can also have type `refusal`.
+
+Reuse an idempotency key only for identical request bytes. A changed request or
+a still-running request with that key returns HTTP 409; the SDK does not retry
+that conflict automatically. Creation errors can contain `decision_id` in the
+standard API error body. Retrieve and list can return running or failed records.
+Lists preserve server order and support `after_id` / `before_id` cursors (one at
+a time), optional `session_id`, and a limit of 1–100. There is no delete endpoint;
+Decision records expire according to server retention.
+
+See the [runnable example](examples/forward/decisions.mjs) and the
+[opt-in live test instructions](CONTRIBUTING.md#decision-live-tests).
+
 ## Forward Drive (Beta)
 
 Drive is a Beta API. It uses `entries` / `next_page_token`, not the ordinary

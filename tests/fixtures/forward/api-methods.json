@@ -3287,5 +3287,61 @@
       }
     ],
     "paginated": false
+  },
+  {
+    "id": "decisions.create",
+    "entry": "decisions",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "Idempotency-Key",
+            "location": "header"
+          }
+        ]
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "decisions.retrieve",
+    "entry": "decisions",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "decisionID",
+        "kind": "path"
+      }
+    ],
+    "paginated": false
+  },
+  {
+    "id": "decisions.list",
+    "entry": "decisions",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "session_id",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
   }
 ]
