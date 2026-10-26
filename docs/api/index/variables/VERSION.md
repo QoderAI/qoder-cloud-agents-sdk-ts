@@ -6,4 +6,4 @@
 
 # Variable: VERSION
 
-> `const` **VERSION**: `"0.9.0"` = `'0.9.0'`
+> `const` **VERSION**: `"0.10.0"` = `'0.10.0'`
