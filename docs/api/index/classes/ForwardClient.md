@@ -70,6 +70,12 @@
 
 ***
 
+### decisions
+
+> `readonly` **decisions**: [`Decisions`](Decisions.md)
+
+***
+
 ### defaultHeaders
 
 > `readonly` **defaultHeaders**: [`HeadersLike`](../type-aliases/HeadersLike.md) \| `undefined`

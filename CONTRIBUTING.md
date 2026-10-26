@@ -178,3 +178,27 @@ and CJS/ESM public export checks without credentials or network calls.
 Business integration scenarios keep independent test helpers. Dedicated offline
 regression tests for example configuration and lifecycle may import examples;
 those tests do not replace SDK integration coverage.
+
+## Decision live tests
+
+Decision evaluation is opt-in because it consumes model usage and creates
+records without a delete endpoint. Configure a dedicated account using
+`QODER_FORWARD_PAT` and `QODER_FORWARD_BASE_URL` in `.env.live`, then set
+`QODER_FORWARD_LIVE_ALLOW_WRITE=true`,
+`QODER_FORWARD_LIVE_ALLOW_EXECUTION=true`, and
+`QODER_FORWARD_LIVE_ALLOW_DECISIONS=true`. These live tests use PAT; offline
+contracts cover both PAT and SAT behavior. Normal unit/contract runs are offline.
+
+```bash
+npm run build
+node --env-file=.env.live --test tests/live/forward-decisions.test.mjs
+```
+
+This checks state evaluation, idempotent replay, retrieval, and cursor pages.
+Set `QODER_DECISION_SESSION_ID` to an accessible Session with existing history
+to also test Session input; otherwise that case is explicitly skipped. The
+suite does not modify the supplied Session.
+
+Decision records expire according to server retention. Retain only decision
+IDs, HTTP status, and request IDs in shared diagnostics; do not log credentials
+or unrelated Session contents.
