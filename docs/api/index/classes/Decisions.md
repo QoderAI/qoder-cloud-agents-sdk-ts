@@ -7,6 +7,7 @@
 # Class: Decisions
 
 Evaluates explicit state or an accessible Session; uses normal PAT/SAT authentication.
+The Decision API is in Beta. Its behavior may change in future updates.
 
 ## Extends
 

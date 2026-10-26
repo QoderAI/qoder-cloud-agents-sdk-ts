@@ -104,7 +104,9 @@ export interface Decision {
   [key: string]: unknown;
 }
 
-/** Evaluates explicit state or an accessible Session; uses normal PAT/SAT authentication. */
+/** Evaluates explicit state or an accessible Session; uses normal PAT/SAT authentication.
+ * The Decision API is in Beta. Its behavior may change in future updates.
+ */
 export class Decisions extends APIResource {
   /** Synchronously evaluate and store a Decision. State must be nonempty;
    * state.session_context is reserved for server-built history.

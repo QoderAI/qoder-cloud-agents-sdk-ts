@@ -318,7 +318,9 @@ for await (const event of stream) {
 
 The resumable stream does not query event history, clear an invalid cursor, or deduplicate IDs: delta frames may legitimately share an event ID. It stops after `[DONE]`, `session.status_terminated`, or `session.deleted`. Stop it early with `stream.controller.abort()`, an `AbortSignal` in `RequestOptions`, or `await stream.close()`.
 
-## Forward Decisions
+## Forward Decisions (Beta)
+
+The Decision API is in Beta. Its behavior may change in future updates.
 
 Evaluate a nonempty `state` object or an accessible `session_id` (exactly one)
 with 1–32 choice or score questions. Choice values are strings or booleans;
