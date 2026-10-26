@@ -318,7 +318,7 @@ for await (const event of stream) {
 
 The resumable stream does not query event history, clear an invalid cursor, or deduplicate IDs: delta frames may legitimately share an event ID. It stops after `[DONE]`, `session.status_terminated`, or `session.deleted`. Stop it early with `stream.controller.abort()`, an `AbortSignal` in `RequestOptions`, or `await stream.close()`.
 
-## Forward Decisions (next release)
+## Forward Decisions
 
 Evaluate a nonempty `state` object or an accessible `session_id` (exactly one)
 with 1–32 choice or score questions. Choice values are strings or booleans;
@@ -781,6 +781,6 @@ original Templates and record persisted Conversations because transport close ca
 included in daily PAT tests until explicitly configured; offline CI validates
 protocol behavior without network or credentials.
 
-## Forward Webhooks (next release)
+## Forward Webhooks
 
 Manage webhook endpoints and verify signed event deliveries. See [Webhook usage and receiver examples](docs/webhooks.md).
