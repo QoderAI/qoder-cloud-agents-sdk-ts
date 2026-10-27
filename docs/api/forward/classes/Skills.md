@@ -156,6 +156,28 @@ getSkill
 
 ***
 
+### search()
+
+> **search**(`params?`, `options?`): [`PagePromise`](../../index/classes/PagePromise.md)\<[`Skill`](../interfaces/Skill.md)\>
+
+Search by metadata and resource filters; automatically enables the Search beta.
+
+#### Parameters
+
+##### params?
+
+[`SkillSearchParams`](../interfaces/SkillSearchParams.md) = `{}`
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`PagePromise`](../../index/classes/PagePromise.md)\<[`Skill`](../interfaces/Skill.md)\>
+
+***
+
 ### update()
 
 > **update**(`id`, `params?`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`Skill`](../interfaces/Skill.md)\>

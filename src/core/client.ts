@@ -35,6 +35,8 @@ export interface RequestOptions {
 export interface APIRequestOptions extends RequestOptions {
   method: string;
   path: string;
+  /** @internal Beta required by a typed endpoint, added after header overrides. */
+  requiredBeta?: string;
   responseType?: 'json' | 'stream' | 'binary' | 'response' | 'void';
   /** @internal Endpoint-specific query encoding, after defaults and overrides are merged. */
   querySerializer?: (query: object) => string;
@@ -203,6 +205,14 @@ export class APIClient {
       new Page<T>(this, response, await this.parseJSONResponse<PageResponse<T>>(response), path, merged, { ...options, query: undefined }, pagination));
   }
 
+  /** @internal POST collection whose opaque cursor belongs in the JSON body. */
+  postAPIList<T>(path: string, body: object = {}, options: RequestOptions = {}, pagination: PaginationMode = 'page', requiredBeta?: string): PagePromise<T> {
+    const payload = { ...body, ...(options.body as Record<string, unknown> | undefined) };
+    const requestOptions = { ...options, body: undefined };
+    return new PagePromise(this.execute({ ...requestOptions, method: 'POST', path, body: payload, requiredBeta }), async (response) =>
+      new Page<T>(this, response, await this.parseJSONResponse<PageResponse<T>>(response), path, payload, requestOptions, pagination, 'POST', requiredBeta));
+  }
+
   /** Resolve the API grant, then send a separate request without API credentials or headers. */
   downloadFile(path: string, options: RequestOptions = {}): APIPromise<Response> {
     const response = (async () => {
@@ -264,6 +274,11 @@ export class APIClient {
       ...platformHeaders(),
       ...(timeout ? { 'X-Qoder-Timeout': String(Math.trunc(timeout / 1000)) } : {}),
     }, this.options.defaultHeaders, options.headers);
+    if (!storage && options.requiredBeta) {
+      const betas = (headers.get('x-qoder-beta') ?? '').split(',').map(value => value.trim()).filter(Boolean);
+      if (!betas.includes(options.requiredBeta)) betas.push(options.requiredBeta);
+      headers.set('x-qoder-beta', betas.join(','));
+    }
     if (options.idempotencyKey !== undefined) headers.set('Idempotency-Key', options.idempotencyKey);
     let body: BodyInit | undefined;
     if (value !== undefined) {

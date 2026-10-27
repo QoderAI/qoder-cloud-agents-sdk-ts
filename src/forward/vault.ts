@@ -1,6 +1,7 @@
 // Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
+import type { VaultSearchParams } from './types.js';
 import type { IdentityScopeOptions } from './types.js';
 import type { APIPromise } from '../core/api-promise.js';
 import type { PagePromise } from '../core/pagination.js';
@@ -10,6 +11,12 @@ import { VaultCredentials } from './vault-credential.js';
 
 export class Vaults extends APIResource {
   readonly credentials: VaultCredentials = new VaultCredentials(this._client);
+
+  /** Search by metadata and resource filters; automatically enables the Search beta. */
+  search(params: VaultSearchParams = {}, options?: RequestOptions): PagePromise<Vault> {
+    const { identity_id, ...body } = params;
+    return this._client.postAPIList<Vault>('vaults/search', body, { ...options, query: { identity_id, ...options?.query } }, 'page', 'search-2026-08-31');
+  }
 
   /**
    * 列出 Vault.
@@ -71,3 +78,5 @@ export class Vaults extends APIResource {
 }
 
 export type { Vault, VaultCreateParams, VaultListParams } from './types.js';
+
+export type { VaultSearchParams } from './types.js';

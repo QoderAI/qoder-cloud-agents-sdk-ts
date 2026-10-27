@@ -11,6 +11,12 @@ import { EnvironmentsWork } from "./environment-work.js";
 export class Environments extends APIResource {
   readonly work = new EnvironmentsWork(this._client);
 
+  /** Search by metadata and resource filters; automatically enables the Search beta. */
+  search(params: Types.EnvironmentSearchParams = {}, options?: RequestOptions): PagePromise<Types.Environment> {
+    const request = splitParams(params, options, { "workspace_id": "qoder-workspace-id", "betas": "x-qoder-beta" }, []);
+    return this._client.postAPIList<Types.Environment>("/environments/search", request.values, request.options, "page", "search-2026-08-31");
+  }
+
   /**
    * Create a new environment with the specified configuration.
    */
@@ -63,3 +69,5 @@ export class Environments extends APIResource {
 
 export default Environments;
 export type { CloudConfig, CloudConfigNetworkingUnion, CloudConfigParams, CloudConfigParamsNetworkingUnion, Environment, EnvironmentConfigUnion, EnvironmentScope, EnvironmentDeleteResponse, EnvironmentDeleteResponseType, LimitedNetwork, LimitedNetworkParams, Packages, PackagesType, PackagesParams, PackagesParamsType, SelfHostedConfig, SelfHostedConfigParams, UnrestrictedNetwork, UnrestrictedNetworkParam, EnvironmentNewParams, EnvironmentNewParamsConfigUnion, EnvironmentNewParamsScope, EnvironmentGetParams, EnvironmentUpdateParams, EnvironmentUpdateParamsConfigUnion, EnvironmentUpdateParamsScope, EnvironmentListParams, EnvironmentDeleteParams, EnvironmentArchiveParams } from '../types.js';
+
+export type { EnvironmentSearchParams } from '../types.js';

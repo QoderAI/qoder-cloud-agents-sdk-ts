@@ -1,6 +1,7 @@
 // Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
+import type { SkillSearchParams } from './types.js';
 import type { IdentityScopeOptions } from './types.js';
 import type { APIPromise } from '../core/api-promise.js';
 import type { PagePromise } from '../core/pagination.js';
@@ -11,6 +12,12 @@ import { SkillVersions } from './skill-version.js';
 
 export class Skills extends APIResource {
   readonly versions: SkillVersions = new SkillVersions(this._client);
+
+  /** Search by metadata and resource filters; automatically enables the Search beta. */
+  search(params: SkillSearchParams = {}, options?: RequestOptions): PagePromise<Skill> {
+    const { identity_id, ...body } = params;
+    return this._client.postAPIList<Skill>('skills/search', body, { ...options, query: { identity_id, ...options?.query } }, 'page', 'search-2026-08-31');
+  }
 
   /**
    * 列出 Skill.
@@ -90,3 +97,5 @@ export class Skills extends APIResource {
 }
 
 export type { Skill, SkillCreateParams, SkillListParams, SkillRetrieveParams, SkillUpdateParams } from './types.js';
+
+export type { SkillSearchParams } from './types.js';

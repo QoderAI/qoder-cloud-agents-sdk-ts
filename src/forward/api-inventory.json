@@ -5380,5 +5380,251 @@
     "pagination": "cursor",
     "itemType": "Decision",
     "parameterFields": []
+  },
+  {
+    "operationId": "searchEnvironments",
+    "entry": "environments",
+    "method": "search",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "EnvironmentSearchParams",
+    "paramsOptional": true,
+    "paramsLocation": "body",
+    "responseType": "page",
+    "pagination": "page",
+    "itemType": "Environment",
+    "path": "/environments/search",
+    "parameterFields": [
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, string>"
+      },
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "body",
+        "required": false,
+        "type": "number"
+      },
+      {
+        "name": "page",
+        "wireName": "page",
+        "location": "body",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "include_archived",
+        "wireName": "include_archived",
+        "location": "body",
+        "required": false,
+        "type": "boolean"
+      },
+      {
+        "name": "created_at[gte]",
+        "wireName": "created_at[gte]",
+        "location": "body",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "created_at[lte]",
+        "wireName": "created_at[lte]",
+        "location": "body",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "operationId": "searchSkills",
+    "entry": "skills",
+    "method": "search",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "SkillSearchParams",
+    "paramsOptional": true,
+    "paramsLocation": "body",
+    "responseType": "page",
+    "pagination": "page",
+    "itemType": "Skill",
+    "path": "/skills/search",
+    "parameterFields": [
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, string>"
+      },
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "body",
+        "required": false,
+        "type": "number"
+      },
+      {
+        "name": "page",
+        "wireName": "page",
+        "location": "body",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "source",
+        "wireName": "source",
+        "location": "body",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "display_title",
+        "wireName": "display_title",
+        "location": "body",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "operationId": "searchVaults",
+    "entry": "vaults",
+    "method": "search",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "VaultSearchParams",
+    "paramsOptional": true,
+    "paramsLocation": "body",
+    "responseType": "page",
+    "pagination": "page",
+    "itemType": "Vault",
+    "path": "/vaults/search",
+    "parameterFields": [
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, string>"
+      },
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "body",
+        "required": false,
+        "type": "number"
+      },
+      {
+        "name": "page",
+        "wireName": "page",
+        "location": "body",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "include_archived",
+        "wireName": "include_archived",
+        "location": "body",
+        "required": false,
+        "type": "boolean"
+      },
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "operationId": "searchFiles",
+    "entry": "files",
+    "method": "search",
+    "httpMethod": "POST",
+    "parameters": [],
+    "paramsType": "FileSearchParams",
+    "paramsOptional": true,
+    "paramsLocation": "body",
+    "responseType": "page",
+    "pagination": "page",
+    "itemType": "FileMetadata",
+    "path": "/files/search",
+    "parameterFields": [
+      {
+        "name": "metadata",
+        "wireName": "metadata",
+        "location": "body",
+        "required": false,
+        "type": "Record<string, string>"
+      },
+      {
+        "name": "limit",
+        "wireName": "limit",
+        "location": "body",
+        "required": false,
+        "type": "number"
+      },
+      {
+        "name": "page",
+        "wireName": "page",
+        "location": "body",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "name",
+        "wireName": "name",
+        "location": "body",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "scope_id",
+        "wireName": "scope_id",
+        "location": "body",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "identity_id",
+        "wireName": "identity_id",
+        "location": "query",
+        "required": false,
+        "type": "string"
+      }
+    ]
   }
 ]

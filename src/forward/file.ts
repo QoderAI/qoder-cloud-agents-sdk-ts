@@ -1,6 +1,7 @@
 // Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
+import type { FileSearchParams } from './types.js';
 import type { IdentityScopeOptions } from './types.js';
 import type { APIPromise } from '../core/api-promise.js';
 import type { PagePromise } from '../core/pagination.js';
@@ -9,6 +10,12 @@ import { pathParam, requestHeaders, identityScopeOptions } from './_utils.js';
 import type { FileListParams, FileMetadata, FileUploadParams } from './types.js';
 
 export class Files extends APIResource {
+  /** Search by metadata and resource filters; automatically enables the Search beta. */
+  search(params: FileSearchParams = {}, options?: RequestOptions): PagePromise<FileMetadata> {
+    const { identity_id, ...body } = params;
+    return this._client.postAPIList<FileMetadata>('files/search', body, { ...options, query: { identity_id, ...options?.query } }, 'page', 'search-2026-08-31');
+  }
+
   /**
    * 列出 File.
    *
@@ -79,3 +86,5 @@ export class Files extends APIResource {
 }
 
 export type { FileListParams, FileMetadata, FileUploadParams } from './types.js';
+
+export type { FileSearchParams } from './types.js';

@@ -51,3 +51,9 @@
 ### prev\_page?
 
 > `optional` **prev\_page?**: `string` \| `null`
+
+***
+
+### total?
+
+> `optional` **total?**: `number` \| `null`

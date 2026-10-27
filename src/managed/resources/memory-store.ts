@@ -13,6 +13,12 @@ export class MemoryStores extends APIResource {
   readonly memories = new MemoryStoresMemories(this._client);
   readonly memoryVersions = new MemoryStoresMemoryVersions(this._client);
 
+  /** Search by metadata and resource filters; automatically enables the Search beta. */
+  search(params: Types.MemoryStoreSearchParams = {}, options?: RequestOptions): PagePromise<Types.ManagedAgentsMemoryStore> {
+    const request = splitParams(params, options, { "workspace_id": "qoder-workspace-id", "betas": "x-qoder-beta" }, []);
+    return this._client.postAPIList<Types.ManagedAgentsMemoryStore>("/memory_stores/search", request.values, request.options, "page", "search-2026-08-31");
+  }
+
   /**
    * Create a memory store
    */
@@ -64,3 +70,5 @@ export class MemoryStores extends APIResource {
 
 export default MemoryStores;
 export type { ManagedAgentsDeletedMemoryStore, ManagedAgentsDeletedMemoryStoreType, ManagedAgentsMemoryStore, ManagedAgentsMemoryStoreType, MemoryStoreNewParams, MemoryStoreGetParams, MemoryStoreUpdateParams, MemoryStoreListParams, MemoryStoreDeleteParams, MemoryStoreArchiveParams } from '../types.js';
+
+export type { MemoryStoreSearchParams } from '../types.js';

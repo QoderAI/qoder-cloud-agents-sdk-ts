@@ -268,6 +268,52 @@ Resolve the API grant, then send a separate request without API credentials or h
 
 ***
 
+### postAPIList()
+
+> **postAPIList**\<`T`\>(`path`, `body?`, `options?`, `pagination?`, `requiredBeta?`): [`PagePromise`](PagePromise.md)\<`T`\>
+
+**`Internal`**
+
+POST collection whose opaque cursor belongs in the JSON body.
+
+#### Type Parameters
+
+##### T
+
+`T`
+
+#### Parameters
+
+##### path
+
+`string`
+
+##### body?
+
+`object` = `{}`
+
+##### options?
+
+[`RequestOptions`](../interfaces/RequestOptions.md) = `{}`
+
+##### pagination?
+
+[`PaginationMode`](../type-aliases/PaginationMode.md) = `'page'`
+
+##### requiredBeta?
+
+`string`
+
+#### Returns
+
+[`PagePromise`](PagePromise.md)\<`T`\>
+
+#### Inherited from
+
+[`APIClient`](APIClient.md).[`postAPIList`](APIClient.md#postapilist)
+
+***
+
 ### request()
 
 > **request**\<`T`\>(`options`): [`APIPromise`](APIPromise.md)\<`T`\>

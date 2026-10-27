@@ -11,6 +11,12 @@ import { SkillsVersions } from "./skill-version.js";
 export class Skills extends APIResource {
   readonly versions = new SkillsVersions(this._client);
 
+  /** Search by metadata and resource filters; automatically enables the Search beta. */
+  search(params: Types.SkillSearchParams = {}, options?: RequestOptions): PagePromise<Types.Skill> {
+    const request = splitParams(params, options, { "workspace_id": "qoder-workspace-id", "betas": "x-qoder-beta" }, []);
+    return this._client.postAPIList<Types.Skill>("/skills/search", request.values, request.options, "page", "search-2026-08-31");
+  }
+
   /**
    * Create Skill
    */
@@ -46,3 +52,5 @@ export class Skills extends APIResource {
 
 export default Skills;
 export type { DeletedSkill, Skill, SkillSource, SkillSourceType, SkillNewParams, SkillGetParams, SkillListParams, SkillDeleteParams } from '../types.js';
+
+export type { SkillSearchParams } from '../types.js';

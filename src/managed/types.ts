@@ -11729,3 +11729,160 @@ export interface ManagedAgentsAgentArtifactDeliveredEvent {
   content_type: string;
   processed_at?: string;
 }
+
+/** JSON body filters for agents Search. */
+export interface AgentSearchParams {
+  /** Exact string metadata filters combined with AND (at most 16 entries). */
+  metadata?: Record<string, string>;
+  /** Page size; default 20, maximum 100. */
+  limit?: number;
+  /** Opaque next_page cursor returned by the previous search response. */
+  page?: string;
+  /** Case-insensitive name substring filter. */
+  name?: string;
+  /** Include archived resources; defaults to false. */
+  include_archived?: boolean;
+  'created_at[gte]'?: string;
+  'created_at[lte]'?: string;
+  workspace_id?: string;
+  /** Additional betas; Search is always included. */
+  betas?: string[];
+}
+
+/** JSON body filters for sessions Search. */
+export interface SessionSearchParams {
+  /** Exact string metadata filters combined with AND (at most 16 entries). */
+  metadata?: Record<string, string>;
+  /** Page size; default 20, maximum 100. */
+  limit?: number;
+  /** Opaque next_page cursor returned by the previous search response. */
+  page?: string;
+  /** Case-insensitive name substring filter. */
+  name?: string;
+  order?: 'desc' | 'asc';
+  /** Include archived resources; defaults to false. */
+  include_archived?: boolean;
+  statuses?: Array<'running' | 'idle' | 'rescheduling' | 'terminated'>;
+  agent_id?: string;
+  agent_version?: number;
+  deployment_id?: string;
+  memory_store_id?: string;
+  'created_at[gt]'?: string;
+  'created_at[gte]'?: string;
+  'created_at[lt]'?: string;
+  'created_at[lte]'?: string;
+  workspace_id?: string;
+  /** Additional betas; Search is always included. */
+  betas?: string[];
+}
+
+/** JSON body filters for deployments Search. */
+export interface DeploymentSearchParams {
+  /** Exact string metadata filters combined with AND (at most 16 entries). */
+  metadata?: Record<string, string>;
+  /** Page size; default 20, maximum 100. */
+  limit?: number;
+  /** Opaque next_page cursor returned by the previous search response. */
+  page?: string;
+  /** Case-insensitive name substring filter. */
+  name?: string;
+  status?: 'active' | 'paused';
+  /** Include archived resources; defaults to false. */
+  include_archived?: boolean;
+  agent_id?: string;
+  'created_at[gte]'?: string;
+  'created_at[lte]'?: string;
+  workspace_id?: string;
+  /** Additional betas; Search is always included. */
+  betas?: string[];
+}
+
+/** JSON body filters for environments Search. */
+export interface EnvironmentSearchParams {
+  /** Exact string metadata filters combined with AND (at most 16 entries). */
+  metadata?: Record<string, string>;
+  /** Page size; default 20, maximum 100. */
+  limit?: number;
+  /** Opaque next_page cursor returned by the previous search response. */
+  page?: string;
+  /** Case-insensitive name substring filter. */
+  name?: string;
+  /** Include archived resources; defaults to false. */
+  include_archived?: boolean;
+  'created_at[gte]'?: string;
+  'created_at[lte]'?: string;
+  workspace_id?: string;
+  /** Additional betas; Search is always included. */
+  betas?: string[];
+}
+
+/** JSON body filters for skills Search. */
+export interface SkillSearchParams {
+  /** Exact string metadata filters combined with AND (at most 16 entries). */
+  metadata?: Record<string, string>;
+  /** Page size; default 20, maximum 100. */
+  limit?: number;
+  /** Opaque next_page cursor returned by the previous search response. */
+  page?: string;
+  source?: 'custom' | 'qoder';
+  /** Case-insensitive Skill display-title substring filter. */
+  display_title?: string;
+  /** @deprecated Use display_title instead. */
+  name?: string;
+  workspace_id?: string;
+  /** Additional betas; Search is always included. */
+  betas?: string[];
+}
+
+/** JSON body filters for vaults Search. */
+export interface VaultSearchParams {
+  /** Exact string metadata filters combined with AND (at most 16 entries). */
+  metadata?: Record<string, string>;
+  /** Page size; default 20, maximum 100. */
+  limit?: number;
+  /** Opaque next_page cursor returned by the previous search response. */
+  page?: string;
+  /** Include archived resources; defaults to false. */
+  include_archived?: boolean;
+  /** Case-insensitive name substring filter. */
+  name?: string;
+  workspace_id?: string;
+  /** Additional betas; Search is always included. */
+  betas?: string[];
+}
+
+/** JSON body filters for files Search. */
+export interface FileSearchParams {
+  /** Exact string metadata filters combined with AND (at most 16 entries). */
+  metadata?: Record<string, string>;
+  /** Page size; default 20, maximum 100. */
+  limit?: number;
+  /** Opaque next_page cursor returned by the previous search response. */
+  page?: string;
+  /** Case-insensitive name substring filter. */
+  name?: string;
+  /** Resource scope ID, currently a Session ID. */
+  scope_id?: string;
+  workspace_id?: string;
+  /** Additional betas; Search is always included. */
+  betas?: string[];
+}
+
+/** JSON body filters for memory stores Search. */
+export interface MemoryStoreSearchParams {
+  /** Exact string metadata filters combined with AND (at most 16 entries). */
+  metadata?: Record<string, string>;
+  /** Page size; default 20, maximum 100. */
+  limit?: number;
+  /** Opaque next_page cursor returned by the previous search response. */
+  page?: string;
+  /** Case-insensitive name substring filter. */
+  name?: string;
+  /** Include archived resources; defaults to false. */
+  include_archived?: boolean;
+  'created_at[gte]'?: string;
+  'created_at[lte]'?: string;
+  workspace_id?: string;
+  /** Additional betas; Search is always included. */
+  betas?: string[];
+}

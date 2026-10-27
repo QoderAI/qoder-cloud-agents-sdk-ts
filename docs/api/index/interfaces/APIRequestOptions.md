@@ -94,6 +94,16 @@ Endpoint-specific query encoding, after defaults and overrides are merged.
 
 ***
 
+### requiredBeta?
+
+> `optional` **requiredBeta?**: `string`
+
+**`Internal`**
+
+Beta required by a typed endpoint, added after header overrides.
+
+***
+
 ### responseType?
 
 > `optional` **responseType?**: `"response"` \| `"stream"` \| `"json"` \| `"binary"` \| `"void"`

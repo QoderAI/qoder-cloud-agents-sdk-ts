@@ -11,6 +11,12 @@ import { VaultsCredentials } from "./vault-credential.js";
 export class Vaults extends APIResource {
   readonly credentials = new VaultsCredentials(this._client);
 
+  /** Search by metadata and resource filters; automatically enables the Search beta. */
+  search(params: Types.VaultSearchParams = {}, options?: RequestOptions): PagePromise<Types.ManagedAgentsVault> {
+    const request = splitParams(params, options, { "workspace_id": "qoder-workspace-id", "betas": "x-qoder-beta" }, []);
+    return this._client.postAPIList<Types.ManagedAgentsVault>("/vaults/search", request.values, request.options, "page", "search-2026-08-31");
+  }
+
   /**
    * Create Vault
    */
@@ -54,3 +60,5 @@ export class Vaults extends APIResource {
 
 export default Vaults;
 export type { ManagedAgentsDeletedVault, ManagedAgentsDeletedVaultType, ManagedAgentsVault, ManagedAgentsVaultType, VaultNewParams, VaultGetParams, VaultListParams, VaultDeleteParams, VaultArchiveParams } from '../types.js';
+
+export type { VaultSearchParams } from '../types.js';

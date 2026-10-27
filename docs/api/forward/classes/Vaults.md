@@ -149,3 +149,25 @@ listVault
 #### Operation
 
 getVault
+
+***
+
+### search()
+
+> **search**(`params?`, `options?`): [`PagePromise`](../../index/classes/PagePromise.md)\<[`Vault`](../interfaces/Vault.md)\>
+
+Search by metadata and resource filters; automatically enables the Search beta.
+
+#### Parameters
+
+##### params?
+
+[`VaultSearchParams`](../interfaces/VaultSearchParams.md) = `{}`
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`PagePromise`](../../index/classes/PagePromise.md)\<[`Vault`](../interfaces/Vault.md)\>
