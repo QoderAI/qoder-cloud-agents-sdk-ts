@@ -1,3 +1,4 @@
+import { OAuth } from './resources/oauth.js';
 import { APIClient, type ClientOptions } from '../core/client.js';
 import { Agents } from "./resources/agent.js";
 import { Sessions } from "./resources/session.js";
@@ -13,6 +14,7 @@ import { Models } from "./resources/model.js";
 
 /** Qoder Managed Mode API client. */
 export class ManagedClient extends APIClient {
+  readonly oauth = new OAuth(this);
   constructor(options: ClientOptions = {}) { super(options, 'managed'); }
   readonly agents = new Agents(this);
   readonly sessions = new Sessions(this);

@@ -681,14 +681,16 @@ export interface SkillBindingParam {
 }
 
 export interface MultiagentEntry {
+  model?: string;
   type: string;
-  template_id: string;
-  name: string;
+  template_id?: string;
+  name?: string;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
 export interface MultiagentEntryParam {
+  model?: string;
   type: string;
   template_id?: string | null;
   name?: string | null;
@@ -698,14 +700,14 @@ export interface MultiagentEntryParam {
 
 export interface MultiagentConfig {
   type: string;
-  agents: Array<MultiagentEntry>;
+  agents: Array<string | MultiagentEntry>;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
 export interface MultiagentConfigParam {
   type: string;
-  agents: Array<MultiagentEntryParam>;
+  agents: Array<string | MultiagentEntryParam>;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
@@ -839,25 +841,27 @@ export interface SkillOverrideParam {
 }
 
 export interface IdentityConfigSpec {
-  system: SystemOverride;
-  model: ModelConfig;
-  tools: Record<string, ToolOverride>;
-  mcp_servers: Record<string, MCPServerOverride>;
-  skills: Record<string, SkillOverride>;
-  toolsets: Record<string, unknown>;
-  agent_metadata: Record<string, unknown>;
-  vaults: Record<string, ResourceBinding>;
-  files: Record<string, ResourceBinding>;
-  github_repositories: Record<string, GitHubRepository>;
-  environment_variables: Record<string, EnvironmentVariableOverride>;
+  managed_tool_config?: Record<string, ManagedCapabilityOverride | null> | null;
+  system?: SystemOverride | null;
+  model?: ModelConfig | null;
+  tools?: Record<string, ToolOverride | null> | Array<Tool> | null;
+  mcp_servers?: Record<string, MCPServerOverride> | null;
+  skills?: Record<string, SkillOverride> | null;
+  toolsets?: Record<string, unknown> | null;
+  agent_metadata?: Record<string, unknown> | null;
+  vaults?: Record<string, ResourceBinding> | null;
+  files?: Record<string, ResourceBinding> | null;
+  github_repositories?: Record<string, GitHubRepository> | null;
+  environment_variables?: Record<string, EnvironmentVariableOverride> | null;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
 export interface IdentityConfigSpecParam {
+  managed_tool_config?: Record<string, ManagedCapabilityOverrideParam | null> | null;
   system?: SystemOverrideParam | null;
   model?: ModelConfigUnionParam | null;
-  tools?: Record<string, ToolOverrideParam> | null;
+  tools?: Record<string, ToolOverrideParam | null> | Array<ToolParam> | null;
   mcp_servers?: Record<string, MCPServerOverrideParam> | null;
   skills?: Record<string, SkillOverrideParam> | null;
   toolsets?: Record<string, unknown> | null;
@@ -870,6 +874,11 @@ export interface IdentityConfigSpecParam {
   [key: string]: unknown;
 }
 
+export type OutcomeRubricParam =
+  | { type: 'text'; content: string }
+  | { type: 'file'; file_id: string };
+export type OutcomeRubric = OutcomeRubricParam & { [key: string]: unknown };
+
 export interface SessionEventParam {
   type: string;
   content?: EventContentUnionParam | null;
@@ -879,7 +888,7 @@ export interface SessionEventParam {
   deny_message?: string | null;
   is_error?: boolean | null;
   description?: string | null;
-  rubric?: string | null;
+  rubric?: OutcomeRubricParam | null;
   outcome_id?: string | null;
   max_iterations?: number | null;
   /** Additional fields are preserved verbatim by the SDK. */
@@ -1137,6 +1146,7 @@ export interface IdentityListParams {
 }
 
 export interface IdentityNewParams {
+  auto_memory_store?: boolean | null;
   /**
    * 集成方系统中的终端用户 ID，不能是空串或纯空白。
    */
@@ -1162,6 +1172,7 @@ export interface IdentityNewParams {
 }
 
 export interface IdentityUpdateParams {
+  auto_memory_store?: boolean | null;
   /**
    * 替换原有终端用户 ID。
    */
@@ -1268,6 +1279,7 @@ export interface IdentityStats {
 }
 
 export interface Identity {
+  auto_memory_store?: boolean;
   /**
    * Forward Identity ID，建议前缀 `idn_`。
    */
@@ -1462,6 +1474,7 @@ export interface IdentityConfig {
 }
 
 export interface IdentityMemoryStoreMountParams {
+  access?: "read_only" | "read_write";
   /**
    * 要挂载的 Memory Store ID（`memstore_...`）。必须是当前调用方可见的 active Store。
    */
@@ -1502,6 +1515,8 @@ export interface MemoryStoreMount {
 }
 
 export interface IdentityMemoryStoreListResponse {
+  first_id?: string | null;
+  last_id?: string | null;
   data: Array<MemoryStoreMount>;
   has_more: boolean;
   /** Additional fields are preserved verbatim by the SDK. */
@@ -1821,6 +1836,7 @@ export interface ScheduleListParams {
 }
 
 export interface ScheduleNewParams {
+  resources?: Array<ScheduleFileResourceParam> | null;
   /**
    * Schedule 所属 Forward Identity ID。
    */
@@ -1883,6 +1899,7 @@ export interface ScheduleArchiveManyParams {
 }
 
 export interface ScheduleUpdateParams {
+  resources?: Array<ScheduleFileResourceParam> | null;
   /**
    * 新的 Schedule 名称。
    */
@@ -1973,6 +1990,7 @@ export interface ScheduleArchiveManyResponse {
 }
 
 export interface Schedule {
+  resources?: Array<ScheduleFileResource>;
   source?: string;
   source_session_id?: string | null;
   /** Server-maintained input version, incremented when initial_events changes. */
@@ -2092,6 +2110,7 @@ export interface ScheduleRunListParams {
 }
 
 export interface ScheduleRunGetParams {
+  include_initial_events?: boolean;
   /**
    * 额外归属约束。
    */
@@ -2101,6 +2120,7 @@ export interface ScheduleRunGetParams {
 }
 
 export interface ScheduleRun {
+  initial_events?: Array<SessionEventParam>;
   source?: string;
   source_session_id?: string | null;
   /** Server-selected input version; a missing Run version is unknown. */
@@ -2495,7 +2515,7 @@ export interface SessionEvent {
   result: string;
   deny_message: string;
   description: string;
-  rubric: string;
+  rubric: OutcomeRubric;
   outcome_id: string;
   max_iterations: number;
   message_id: string;
@@ -3513,3 +3533,102 @@ export interface FileSearchParams {
   /** Select Identity ownership with a PAT; omit with any SAT. Sent in the query only. */
   identity_id?: string;
 }
+
+export interface ScheduleFileResourceParam {
+  type: 'file';
+  file_id: string;
+  mount_path?: string;
+}
+export interface ScheduleFileResource extends ScheduleFileResourceParam {
+  [key: string]: unknown;
+}
+
+export interface IdentityMemoryStoreListParams {
+  limit?: number;
+  after_id?: string;
+  before_id?: string;
+}
+
+export interface ManagedCapabilityOverrideParam {
+  enabled: boolean;
+}
+export interface ManagedCapabilityOverride extends ManagedCapabilityOverrideParam {
+  [key: string]: unknown;
+}
+
+export type DreamInputParam =
+  | { type: 'memory_store'; memory_store_id: string }
+  | { type: 'identity_template'; identity_id: string; template_id: string }
+  | { type: 'sessions'; session_ids: Array<string> };
+export type DreamInput = DreamInputParam & { [key: string]: unknown };
+export interface DreamModelConfigParam {
+  id: string;
+  effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+  context_window?: number;
+}
+export interface DreamModelConfig {
+  id: string;
+  effort?: string;
+  context_window?: number;
+  [key: string]: unknown;
+}
+export interface DreamCreateParams {
+  inputs: Array<DreamInputParam>;
+  model?: string | DreamModelConfigParam | null;
+  instructions?: string;
+}
+export interface DreamListParams {
+  limit?: number;
+  after_id?: string;
+  before_id?: string;
+  include_archived?: boolean;
+}
+export interface DreamOutput {
+  type: 'memory_store';
+  memory_store_id: string;
+  files_touched?: Array<string>;
+  [key: string]: unknown;
+}
+export interface DreamUsage {
+  input_tokens: number;
+  output_tokens: number;
+  cache_creation_input_tokens: number;
+  cache_read_input_tokens: number;
+  [key: string]: unknown;
+}
+export interface DreamError {
+  type: string;
+  code?: string;
+  message: string;
+  [key: string]: unknown;
+}
+export interface Dream {
+  id: string;
+  type: 'dream';
+  status: 'pending' | 'running' | 'completed' | 'failed' | 'canceled' | (string & {});
+  inputs: Array<DreamInput>;
+  outputs: Array<DreamOutput>;
+  model: DreamModelConfig;
+  instructions: string;
+  usage: DreamUsage;
+  error: DreamError | null;
+  created_at: string;
+  ended_at: string | null;
+  archived_at: string | null;
+  [key: string]: unknown;
+}
+export interface ChannelPairingListParams {
+  channel_id?: string;
+  status?: 'pairing' | 'active';
+  target_type?: 'user' | 'group';
+  target_external_id?: string;
+  identity_id?: string;
+  template_id?: string;
+  limit?: number;
+  after_id?: string;
+  before_id?: string;
+}
+/** Provide at least one nonempty field; omitted fields retain their value. */
+export type ChannelPairingUpdateParams =
+  | { identity_id: string; template_id?: string }
+  | { identity_id?: string; template_id: string };

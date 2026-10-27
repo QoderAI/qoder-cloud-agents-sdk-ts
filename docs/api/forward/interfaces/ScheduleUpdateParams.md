@@ -70,6 +70,12 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
+### resources?
+
+> `optional` **resources?**: [`ScheduleFileResourceParam`](ScheduleFileResourceParam.md)[] \| `null`
+
+***
+
 ### sinks?
 
 > `optional` **sinks?**: `Record`\<`string`, `unknown`\>[] \| `null`

@@ -41,6 +41,14 @@ Under `limited` networking, requires `networking.allow_package_managers` to be
 
 ***
 
+### storage?
+
+> `optional` **storage?**: [`BucketStorageParam`](BucketStorageParam.md)
+
+Requires betas: ["oss-bucket-2026-09-23"] when buckets remain configured.
+
+***
+
 ### type?
 
 > `optional` **type?**: `"cloud"` \| `null`

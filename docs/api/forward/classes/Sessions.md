@@ -124,7 +124,7 @@ cancelSession
 
 > **create**(`params`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`Session`](../interfaces/Session.md)\>
 
-创建 Session.
+Create a Session with __qca_sdk_ metadata; conflicting reserved values throw TypeError.
 
 #### Parameters
 

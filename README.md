@@ -14,6 +14,32 @@ npm install qca-sdk
 
 Node.js 20.12 or later is required.
 
+## SDK-created Session metadata
+
+Direct Forward and Managed Session creation automatically adds these string-valued
+metadata fields:
+
+| Field | Value |
+| --- | --- |
+| `__qca_sdk_created` | `"true"` |
+| `__qca_sdk_language` | `"js"` |
+| `__qca_sdk_version` | The installed SDK's version |
+
+Reserve the `__qca_sdk_` prefix for SDK provenance. Business metadata is preserved,
+and the caller's metadata object is not mutated. Omitted or null metadata becomes
+an object containing the markers. Passing an existing marker with the exact same
+string value is accepted; a different value or type (including null) fails locally
+before any HTTP request. This also applies after request options are merged.
+
+Session updates, reads and event operations do not inject or repair these fields.
+Sessions created indirectly through Schedules, Batches or Realtime are outside this
+behavior. These markers describe the creating SDK; they are client-supplied metadata,
+not an authentication or authorization mechanism.
+
+Migration: rename any business fields that already use these three keys before
+upgrading. Automatic markers count toward API metadata limits; the SDK never drops
+business fields to make room. No additional parameters or opt-in are required.
+
 ## Usage
 
 The library exposes two clients, one per API. Both are constructed the same way and share the same transport behaviour.
@@ -835,3 +861,65 @@ Search returns a `PagePromise`: await a page, use `for await` to iterate all
 results, or call `page.getNextPage()` for manual pagination. Search parameter
 types are exported from the corresponding `qca-sdk/forward` and
 `qca-sdk/managed` entry points.
+
+## Official contract alignment
+
+The next release aligns these public types with the official API documentation
+retrieved on 2026-10-27. It introduces source changes relative to 0.12.0:
+Outcome `rubric` is an object; Managed Agent `effort` is a string; Managed Agent
+and Dream model objects do not accept `speed`. Managed Dream `model` is optional
+and defaults to `auto`. Discover model IDs and supported efforts/context windows
+with List models. These Managed model changes do not remove Forward model features.
+
+```ts
+import { ForwardClient } from 'qca-sdk';
+
+const client = new ForwardClient({ pat: '...' });
+const dream = await client.dreams.create({
+  inputs: [{ type: 'identity_template', identity_id: 'idn_...', template_id: 'tmpl_...' }],
+}); // model defaults to auto
+
+for await (const mount of client.identities.memoryStores.list(
+  'idn_...', 'tmpl_...', { limit: 20 }, { timeout: 30_000 },
+)) {
+  console.log(mount.memory_store_id);
+}
+```
+
+Mount `list` request options move from argument three to argument four; use `{}`
+for argument three when no query is needed. It returns a standard `PagePromise`.
+Identity `tools: []` removes all runtime tools; `tools: null` restores inheritance.
+Use `managed_tool_config: {schedule: {enabled: false}, drive: null}` for sparse
+capability changes. Multiagent `agents` accepts Template ID strings and
+`{type: 'advisor', model: 'ultimate'}` objects.
+
+New Forward Dream calls require a PAT or an admin SAT; an Identity SAT is not
+supported. Inputs contain exactly one primary Memory Store or Identity/Template
+source, optionally plus Session sources. Pairing `update` changes an active
+binding; supply at least one nonempty Identity or Template ID. Use pairing
+`create` to complete a pending pairing. Pending records preserve empty
+`identity_id`, `template_id`, and `paired_at` strings.
+
+Identity `auto_memory_store=false` disables automatic default-store creation.
+Independent mounts now accept `access="read_write"`; omit access for a new
+read-only mount, or to preserve an existing mount's permission. Schedule
+`resources` accepts file entries and `[]` clears them; Run retrieval supports
+`include_initial_events=true` to return the saved input snapshot.
+
+Managed cloud Environment `config.storage.buckets` supports up to eight OSS
+mounts. When the resulting configuration has buckets, explicitly include beta
+`oss-bucket-2026-09-23` (`Betas` in Go, `betas` in Python/TS). Send credentials
+only when creating or replacing them; omit `credential` on an existing named
+bucket to keep it. Responses expose a read view without role ARN or AccessKey
+secret. `storage: {buckets: []}` clears mounts.
+
+Managed `OAuth.Start` (Go) / `oauth.start` (Python/TS) returns `authorization_url`,
+`state`, and `callback_origin`; the user completes authorization in a browser.
+Client secrets go in the POST body, never in a URL. This method does not open a
+browser or complete consent automatically.
+
+See the official [Outcome contract](https://docs.qoder.com/cloud-agents/api/forward/sessions/send-events),
+[Identity overrides](https://docs.qoder.com/cloud-agents/api/forward/identities/upsert-config),
+[Dream inputs](https://docs.qoder.com/cloud-agents/api/forward/dreams/create),
+[OSS storage](https://docs.qoder.com/cloud-agents/api/environments/storage-buckets),
+and [OAuth flow](https://docs.qoder.com/cloud-agents/api/vaults/start-oauth).

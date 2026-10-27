@@ -2877,5 +2877,17 @@
       "total": null
     },
     "empty": false
+  },
+  {
+    "id": "oauth.start",
+    "httpMethod": "POST",
+    "path": "/oauth/start",
+    "doc": "oauth/start.md",
+    "route": "/oauth/start",
+    "response": {
+      "authorization_url": "https://mcp.example.com/authorize?state=opaque",
+      "state": "opaque",
+      "callback_origin": "https://console.example.com"
+    }
   }
 ]

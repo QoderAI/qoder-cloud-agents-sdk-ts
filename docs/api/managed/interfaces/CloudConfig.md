@@ -32,6 +32,14 @@ Package manager configuration.
 
 ***
 
+### storage?
+
+> `optional` **storage?**: [`BucketStorage`](BucketStorage.md)
+
+Requires betas: ["oss-bucket-2026-09-23"] when buckets remain configured.
+
+***
+
 ### type?
 
 > `optional` **type?**: `"cloud"`

@@ -73,7 +73,10 @@ test('Managed wire parity: all 695 pinned types keep their 2569 wire properties,
     for (const wire of spec.properties ?? []) {
       properties++;
       // QCA budget uses decimal Credits: /cloud-agents/api/sessions/schemas#session-budget.
-      const currentWire = ["ManagedAgentsBudgetLimit", "ManagedAgentsBudgetLimitParam"].includes(name) && wire === "max_list_cost" ? "max_credit_cost" : wire;
+      let currentWire = ["ManagedAgentsBudgetLimit", "ManagedAgentsBudgetLimitParam"].includes(name) && wire === "max_list_cost" ? "max_credit_cost" : wire;
+      // Current QCA model config uses effort, not the upstream speed switch.
+      // https://docs.qoder.com/cloud-agents/api/agents/schemas
+      if (["ManagedAgentsModelConfig", "ManagedAgentsModelConfigParams", "DreamModelConfig", "DreamModelConfigParam"].includes(name) && wire === "speed") currentWire = "effort";
       if (!explicitProperty(type, currentWire).length) failures.push(`${name}: explicit property ${wire} missing`);
     }
     for (const notation of spec.variants ?? []) {

@@ -1,5 +1,13 @@
 {
   "extends": "./tsconfig.json",
-  "compilerOptions": { "rootDir": ".", "noEmit": true },
-  "include": ["tests/types-smoke.ts", "tests/managed-types.ts", "tests/types-search.ts"]
+  "compilerOptions": {
+    "rootDir": ".",
+    "noEmit": true
+  },
+  "include": [
+    "tests/types-smoke.ts",
+    "tests/managed-types.ts",
+    "tests/types-search.ts",
+    "tests/types-official-alignment.ts"
+  ]
 }

@@ -16,7 +16,7 @@ Additional fields are preserved verbatim by the SDK.
 
 ### agents
 
-> **agents**: [`MultiagentEntryParam`](MultiagentEntryParam.md)[]
+> **agents**: (`string` \| [`MultiagentEntryParam`](MultiagentEntryParam.md))[]
 
 ***
 

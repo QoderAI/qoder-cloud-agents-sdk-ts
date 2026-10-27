@@ -64,7 +64,7 @@ Additional fields are preserved verbatim by the SDK.
 
 ### rubric?
 
-> `optional` **rubric?**: `string` \| `null`
+> `optional` **rubric?**: [`OutcomeRubricParam`](../type-aliases/OutcomeRubricParam.md) \| `null`
 
 ***
 

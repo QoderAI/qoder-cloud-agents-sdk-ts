@@ -86,6 +86,12 @@
 
 ***
 
+### dreams
+
+> `readonly` **dreams**: [`Dreams`](../../forward/classes/Dreams.md)
+
+***
+
 ### drives
 
 > `readonly` **drives**: [`Drives`](../../forward/classes/Drives.md)

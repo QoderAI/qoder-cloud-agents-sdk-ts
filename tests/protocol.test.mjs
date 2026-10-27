@@ -1,6 +1,7 @@
 // Request configuration, credentials, wire protocol, pagination and Managed request contracts.
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { VERSION } from '../dist/version.js';
 import { sdk, fixture, methods, argumentsFor, invoke, response, testClient } from './helpers.mjs';
 
 for (const mode of ['forward', 'managed']) {
@@ -224,7 +225,9 @@ for (const mode of ['forward', 'managed']) {
 for (const c of fixture('managed', 'request-bodies.json')) test(`Managed documented request ${c.id} #${c.case}: ${c.doc}`, async () => {
   const m = methods.managed.find(m => m.id === c.id);
   let calls = 0;
-  const client = testClient('managed', async req => { calls++; assert.deepEqual(await req.json(), c.body); return response({}); });
+  const expected = structuredClone(c.body);
+  if (c.id === 'sessions.create') expected.metadata = { ...expected.metadata, __qca_sdk_created: 'true', __qca_sdk_language: 'js', __qca_sdk_version: VERSION };
+  const client = testClient('managed', async req => { calls++; assert.deepEqual(await req.json(), expected); return response({}); });
   await invoke(client, m, await argumentsFor('managed', m, undefined, c.body));
   assert.equal(calls, 1);
 });

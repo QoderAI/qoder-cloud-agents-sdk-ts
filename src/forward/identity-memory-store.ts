@@ -1,9 +1,10 @@
 // Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
+import type { PagePromise } from '../core/pagination.js';
 import type { APIPromise } from '../core/api-promise.js';
 import { pathParam, requestHeaders } from './_utils.js';
-import type { DeletedMemoryStoreMount, IdentityMemoryStoreListResponse, IdentityMemoryStoreMountParams, MemoryStoreMount } from './types.js';
+import type { DeletedMemoryStoreMount, IdentityMemoryStoreListParams, IdentityMemoryStoreListResponse, IdentityMemoryStoreMountParams, MemoryStoreMount } from './types.js';
 
 export class IdentityMemoryStores extends APIResource {
   /**
@@ -14,14 +15,11 @@ export class IdentityMemoryStores extends APIResource {
   list(
     identityID: string,
     templateID: string,
+    params: IdentityMemoryStoreListParams = {},
     options?: RequestOptions,
-  ): APIPromise<IdentityMemoryStoreListResponse> {
+  ): PagePromise<MemoryStoreMount> {
     const path = `identities/${pathParam(identityID, "identity_id")}/templates/${pathParam(templateID, "template_id")}/memory_stores`;
-    return this._client.request<IdentityMemoryStoreListResponse>({
-      method: "GET",
-      path,
-      ...options,
-    });
+    return this._client.getAPIList<MemoryStoreMount>(path, params, options);
   }
 
   /**
@@ -65,4 +63,4 @@ export class IdentityMemoryStores extends APIResource {
 
 }
 
-export type { DeletedMemoryStoreMount, IdentityMemoryStoreListResponse, IdentityMemoryStoreMountParams, MemoryStoreMount } from './types.js';
+export type { DeletedMemoryStoreMount, IdentityMemoryStoreListParams, IdentityMemoryStoreListResponse, IdentityMemoryStoreMountParams, MemoryStoreMount } from './types.js';

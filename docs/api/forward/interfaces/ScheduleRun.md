@@ -78,6 +78,12 @@ Forward Identity ID。
 
 ***
 
+### initial\_events?
+
+> `optional` **initial\_events?**: [`SessionEventParam`](SessionEventParam.md)[]
+
+***
+
 ### initial\_events\_version?
 
 > `optional` **initial\_events\_version?**: `number`

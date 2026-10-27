@@ -3800,5 +3800,38 @@
       }
     ],
     "paginated": true
+  },
+  {
+    "id": "oauth.start",
+    "entry": "oauth",
+    "method": "start",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "vault_id",
+            "location": "json"
+          },
+          {
+            "wire": "mcp_server_url",
+            "location": "json"
+          },
+          {
+            "wire": "client_id",
+            "location": "json"
+          },
+          {
+            "wire": "client_secret",
+            "location": "json"
+          },
+          {
+            "wire": "qoder-workspace-id",
+            "location": "header"
+          }
+        ]
+      }
+    ]
   }
 ]

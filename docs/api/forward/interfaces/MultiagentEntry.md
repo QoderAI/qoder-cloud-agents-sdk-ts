@@ -14,15 +14,21 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
-### name
+### model?
 
-> **name**: `string`
+> `optional` **model?**: `string`
 
 ***
 
-### template\_id
+### name?
 
-> **template\_id**: `string`
+> `optional` **name?**: `string`
+
+***
+
+### template\_id?
+
+> `optional` **template\_id?**: `string`
 
 ***
 

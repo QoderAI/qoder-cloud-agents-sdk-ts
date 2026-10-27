@@ -88,6 +88,12 @@ Server-maintained input version, incremented when initial_events changes.
 
 ***
 
+### resources?
+
+> `optional` **resources?**: [`ScheduleFileResource`](ScheduleFileResource.md)[]
+
+***
+
 ### sinks
 
 > **sinks**: [`ScheduleSinksItem`](ScheduleSinksItem.md)[]

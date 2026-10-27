@@ -38,6 +38,12 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
+### managed\_tool\_config?
+
+> `optional` **managed\_tool\_config?**: `Record`\<`string`, [`ManagedCapabilityOverrideParam`](ManagedCapabilityOverrideParam.md) \| `null`\> \| `null`
+
+***
+
 ### mcp\_servers?
 
 > `optional` **mcp\_servers?**: `Record`\<`string`, [`MCPServerOverrideParam`](MCPServerOverrideParam.md)\> \| `null`
@@ -64,7 +70,7 @@ Additional fields are preserved verbatim by the SDK.
 
 ### tools?
 
-> `optional` **tools?**: `Record`\<`string`, [`ToolOverrideParam`](ToolOverrideParam.md)\> \| `null`
+> `optional` **tools?**: `Record`\<`string`, [`ToolOverrideParam`](ToolOverrideParam.md) \| `null`\> \| [`ToolParam`](ToolParam.md)[] \| `null`
 
 ***
 

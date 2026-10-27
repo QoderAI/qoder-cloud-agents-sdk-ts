@@ -924,32 +924,11 @@ export type ManagedAgentsModel = "claude-fable-5-1" | "claude-sonnet-5" | "claud
  * Model identifier and configuration.
  */
 export type ManagedAgentsModelConfig = string | {
-  context_window?: number;
-  /**
-   * The model that will power your agent.
-   *
-   * See [models](https://docs.qoder.com/cloud-agents/api/models/list) for additional
-   * details and options.
-   */
-  id: ManagedAgentsModel;
-  /**
-   * How hard Claude works on each turn. Sets `output_config.effort` on every
-   * Messages call the session makes.
-   */
-  effort?: ManagedAgentsModelConfigEffortUnion;
-  /**
-   * Geographic region for model inference. When unset, requests fall through to the
-   * workspace's default_inference_geo.
-   */
-  inference_geo?: string;
-  /**
-   * Inference speed mode. `fast` provides significantly faster output token
-   * generation at premium pricing. Not all models support `fast`; invalid
-   * combinations are rejected at create time.
-   *
-   * Any of "standard", "fast".
-   */
-  speed?: ManagedAgentsModelConfigSpeed;
+  inference_geo?: string | null;
+  id: string;
+  effort?: string | null;
+  context_window?: number | null;
+  effective_context_window?: number | null;
 };
 
 export type ManagedAgentsModelConfigEffortUnion = ManagedAgentsEffortLow | ManagedAgentsEffortMedium | ManagedAgentsEffortHigh | ManagedAgentsEffortXhigh | ManagedAgentsEffortMax | "low" | "medium" | "high" | "xhigh" | "max";
@@ -965,34 +944,10 @@ export type ManagedAgentsModelConfigSpeed = "standard" | "fast";
  * An object that defines additional configuration control over model use
  */
 export type ManagedAgentsModelConfigParams = string | {
-  context_window?: number | null;
-  /**
-   * The model that will power your agent.
-   *
-   * See [models](https://docs.qoder.com/cloud-agents/api/models/list) for additional
-   * details and options.
-   */
-  id: ManagedAgentsModel;
-  /**
-   * Geographic region for model inference. When unset, requests fall through to the
-   * workspace's default_inference_geo. On update, `model` is whole-object
-   * replacement — omitting inference_geo clears it.
-   */
   inference_geo?: string | null;
-  /**
-   * How hard Claude works on each inference call. Accepts a bare level string
-   * (`"high"`) or `{"type": "high"}`. On create, omitting it resolves the per-model
-   * default; on update, omitting it leaves the stored value unchanged.
-   */
-  effort?: ManagedAgentsModelConfigParamsEffortUnion | null;
-  /**
-   * Inference speed mode. `fast` provides significantly faster output token
-   * generation at premium pricing. Not all models support `fast`; invalid
-   * combinations are rejected at create time.
-   *
-   * Any of "standard", "fast".
-   */
-  speed?: ManagedAgentsModelConfigParamsSpeed | null;
+  id: string;
+  effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+  context_window?: number;
 };
 
 export type ManagedAgentsModelConfigParamsEffortUnion = string | ManagedAgentsEffortLowParam | ManagedAgentsEffortMediumParam | ManagedAgentsEffortHighParam | ManagedAgentsEffortXhighParam | ManagedAgentsEffortMaxParam;
@@ -2842,18 +2797,9 @@ export interface DreamMemoryStoreInputParam {
  * shape as the Agents API ModelConfig.
  */
 export interface DreamModelConfig {
-  /**
-   * Model identifier, e.g. "claude-opus-5". 1-256 characters.
-   */
   id: string;
-  /**
-   * Inference speed mode. `fast` provides significantly faster output token
-   * generation at premium pricing. Not all models support `fast`; invalid
-   * combinations are rejected at create time.
-   *
-   * Any of "standard", "fast".
-   */
-  speed?: DreamModelConfigSpeed;
+  effort?: string;
+  context_window?: number;
 }
 
 /**
@@ -2867,18 +2813,9 @@ export type DreamModelConfigSpeed = "standard" | "fast";
  * Model identifier and configuration applied to every pipeline stage.
  */
 export interface DreamModelConfigParam {
-  /**
-   * Model identifier, e.g. "claude-opus-5". 1-256 characters.
-   */
   id: string;
-  /**
-   * Inference speed mode. `fast` provides significantly faster output token
-   * generation at premium pricing. Not all models support `fast`; invalid
-   * combinations are rejected at create time.
-   *
-   * Any of "standard", "fast".
-   */
-  speed?: DreamModelConfigParamSpeed | null;
+  effort?: 'none' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+  context_window?: number;
 }
 
 /**
@@ -3017,7 +2954,7 @@ export interface DreamNewParams {
   /**
    * Model identifier and configuration applied to every pipeline stage.
    */
-  model: DreamNewParamsModelUnion;
+  model?: DreamNewParamsModelUnion | null;
   instructions?: string | null;
   workspace_id?: string;
   /**
@@ -3097,6 +3034,8 @@ export interface DreamCancelParams {
  * `cloud` environment configuration.
  */
 export interface CloudConfig {
+  /** Requires betas: ["oss-bucket-2026-09-23"] when buckets remain configured. */
+  storage?: BucketStorage;
   setup_script?: string;
   /**
    * Network configuration policy.
@@ -3120,6 +3059,8 @@ export type CloudConfigNetworkingUnion = UnrestrictedNetwork | LimitedNetwork;
  * Fields default to null; on update, omitted fields preserve the existing value.
  */
 export interface CloudConfigParams {
+  /** Requires betas: ["oss-bucket-2026-09-23"] when buckets remain configured. */
+  storage?: BucketStorageParam;
   setup_script?: string | null;
   /**
    * Network configuration policy. Omit on update to preserve the existing value.
@@ -4159,6 +4100,8 @@ export interface MemoryStoreUpdateParams {
 }
 
 export interface MemoryStoreListParams {
+  after_id?: string;
+  before_id?: string;
   name?: string;
   /**
    * Return only stores whose `created_at` is at or after this time (inclusive). Sent
@@ -11885,4 +11828,44 @@ export interface MemoryStoreSearchParams {
   workspace_id?: string;
   /** Additional betas; Search is always included. */
   betas?: string[];
+}
+
+export type OSSBucketCredentialParam =
+  | { type: 'ram_role'; role_arn?: string }
+  | { type: 'access_key'; access_key_id: string; access_key_secret?: string };
+/** Credential is required for a new bucket; omission preserves it on update. */
+export interface OSSBucketParam {
+  name: string;
+  provider: 'aliyun-oss';
+  region: string;
+  bucket: string;
+  prefix?: string;
+  access?: 'read_only' | 'read_write';
+  accelerator_endpoint?: string;
+  credential?: OSSBucketCredentialParam;
+}
+export interface BucketStorageParam {
+  buckets: Array<OSSBucketParam>;
+}
+/** Read view; never contains role ARN or the AccessKey secret. */
+export type OSSBucketCredential = { type: 'ram_role' } | { type: 'access_key'; access_key_id: string };
+export interface OSSBucket extends Omit<OSSBucketParam, 'credential'> {
+  credential?: OSSBucketCredential;
+}
+export interface BucketStorage {
+  buckets: Array<OSSBucket>;
+}
+
+export interface OAuthStartParams {
+  vault_id: string;
+  mcp_server_url: string;
+  client_id?: string;
+  client_secret?: string;
+  workspace_id?: string;
+}
+export interface OAuthStartResponse {
+  authorization_url: string;
+  state: string;
+  callback_origin: string;
+  [key: string]: unknown;
 }

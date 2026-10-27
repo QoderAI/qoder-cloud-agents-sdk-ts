@@ -78,6 +78,12 @@ Schedule 名称。
 
 ***
 
+### resources?
+
+> `optional` **resources?**: [`ScheduleFileResourceParam`](ScheduleFileResourceParam.md)[] \| `null`
+
+***
+
 ### sinks?
 
 > `optional` **sinks?**: `Record`\<`string`, `unknown`\>[] \| `null`

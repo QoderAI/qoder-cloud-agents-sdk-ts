@@ -14,6 +14,12 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
+### model?
+
+> `optional` **model?**: `string`
+
+***
+
 ### name?
 
 > `optional` **name?**: `string` \| `null`
