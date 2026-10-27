@@ -14,6 +14,12 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
+### auto\_memory\_store?
+
+> `optional` **auto\_memory\_store?**: `boolean`
+
+***
+
 ### created\_at
 
 > **created\_at**: `string`

@@ -19,3 +19,9 @@ Additional fields are preserved verbatim by the SDK.
 > `optional` **identity\_id?**: `string` \| `null`
 
 额外归属约束。
+
+***
+
+### include\_initial\_events?
+
+> `optional` **include\_initial\_events?**: `boolean`

@@ -14,66 +14,72 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
-### agent\_metadata
+### agent\_metadata?
 
-> **agent\_metadata**: `Record`\<`string`, `unknown`\>
-
-***
-
-### environment\_variables
-
-> **environment\_variables**: `Record`\<`string`, [`EnvironmentVariableOverride`](EnvironmentVariableOverride.md)\>
+> `optional` **agent\_metadata?**: `Record`\<`string`, `unknown`\> \| `null`
 
 ***
 
-### files
+### environment\_variables?
 
-> **files**: `Record`\<`string`, [`ResourceBinding`](ResourceBinding.md)\>
-
-***
-
-### github\_repositories
-
-> **github\_repositories**: `Record`\<`string`, [`GitHubRepository`](GitHubRepository.md)\>
+> `optional` **environment\_variables?**: `Record`\<`string`, [`EnvironmentVariableOverride`](EnvironmentVariableOverride.md)\> \| `null`
 
 ***
 
-### mcp\_servers
+### files?
 
-> **mcp\_servers**: `Record`\<`string`, [`MCPServerOverride`](MCPServerOverride.md)\>
-
-***
-
-### model
-
-> **model**: [`ModelConfig`](../type-aliases/ModelConfig.md)
+> `optional` **files?**: `Record`\<`string`, [`ResourceBinding`](ResourceBinding.md)\> \| `null`
 
 ***
 
-### skills
+### github\_repositories?
 
-> **skills**: `Record`\<`string`, [`SkillOverride`](SkillOverride.md)\>
-
-***
-
-### system
-
-> **system**: [`SystemOverride`](SystemOverride.md)
+> `optional` **github\_repositories?**: `Record`\<`string`, [`GitHubRepository`](GitHubRepository.md)\> \| `null`
 
 ***
 
-### tools
+### managed\_tool\_config?
 
-> **tools**: `Record`\<`string`, [`ToolOverride`](ToolOverride.md)\>
-
-***
-
-### toolsets
-
-> **toolsets**: `Record`\<`string`, `unknown`\>
+> `optional` **managed\_tool\_config?**: `Record`\<`string`, [`ManagedCapabilityOverride`](ManagedCapabilityOverride.md) \| `null`\> \| `null`
 
 ***
 
-### vaults
+### mcp\_servers?
 
-> **vaults**: `Record`\<`string`, [`ResourceBinding`](ResourceBinding.md)\>
+> `optional` **mcp\_servers?**: `Record`\<`string`, [`MCPServerOverride`](MCPServerOverride.md)\> \| `null`
+
+***
+
+### model?
+
+> `optional` **model?**: [`ModelConfig`](../type-aliases/ModelConfig.md) \| `null`
+
+***
+
+### skills?
+
+> `optional` **skills?**: `Record`\<`string`, [`SkillOverride`](SkillOverride.md)\> \| `null`
+
+***
+
+### system?
+
+> `optional` **system?**: [`SystemOverride`](SystemOverride.md) \| `null`
+
+***
+
+### tools?
+
+> `optional` **tools?**: `Record`\<`string`, [`ToolOverride`](ToolOverride.md) \| `null`\> \| [`Tool`](Tool.md)[] \| `null`
+
+***
+
+### toolsets?
+
+> `optional` **toolsets?**: `Record`\<`string`, `unknown`\> \| `null`
+
+***
+
+### vaults?
+
+> `optional` **vaults?**: `Record`\<`string`, [`ResourceBinding`](ResourceBinding.md)\> \| `null`

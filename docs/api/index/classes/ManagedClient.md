@@ -132,6 +132,12 @@ Qoder Managed Mode API client.
 
 ***
 
+### oauth
+
+> `readonly` **oauth**: [`OAuth`](../../managed/classes/OAuth.md)
+
+***
+
 ### options
 
 > `protected` `readonly` **options**: [`ClientOptions`](../interfaces/ClientOptions.md)

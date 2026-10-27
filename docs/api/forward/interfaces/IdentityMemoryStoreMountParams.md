@@ -14,6 +14,12 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
+### access?
+
+> `optional` **access?**: `"read_only"` \| `"read_write"`
+
+***
+
 ### memory\_store\_id
 
 > **memory\_store\_id**: `string`

@@ -565,8 +565,27 @@
       {
         "name": "templateID",
         "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "before_id",
+            "location": "query"
+          }
+        ]
       }
-    ]
+    ],
+    "paginated": true
   },
   {
     "id": "identities.memoryStores.mount",
@@ -3503,5 +3522,171 @@
       }
     ],
     "paginated": true
+  },
+  {
+    "id": "dreams.create",
+    "entry": "dreams",
+    "method": "create",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "inputs",
+            "location": "json"
+          },
+          {
+            "wire": "model",
+            "location": "json"
+          },
+          {
+            "wire": "instructions",
+            "location": "json"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dreams.list",
+    "entry": "dreams",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          },
+          {
+            "wire": "include_archived",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "dreams.retrieve",
+    "entry": "dreams",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "dreamID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "dreams.cancel",
+    "entry": "dreams",
+    "method": "cancel",
+    "args": [
+      {
+        "name": "dreamID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "dreams.archive",
+    "entry": "dreams",
+    "method": "archive",
+    "args": [
+      {
+        "name": "dreamID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "channelPairings.list",
+    "entry": "channelPairings",
+    "method": "list",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "channel_id",
+            "location": "query"
+          },
+          {
+            "wire": "status",
+            "location": "query"
+          },
+          {
+            "wire": "target_type",
+            "location": "query"
+          },
+          {
+            "wire": "target_external_id",
+            "location": "query"
+          },
+          {
+            "wire": "identity_id",
+            "location": "query"
+          },
+          {
+            "wire": "template_id",
+            "location": "query"
+          },
+          {
+            "wire": "limit",
+            "location": "query"
+          },
+          {
+            "wire": "after_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "channelPairings.retrieve",
+    "entry": "channelPairings",
+    "method": "retrieve",
+    "args": [
+      {
+        "name": "pairingID",
+        "kind": "path"
+      }
+    ]
+  },
+  {
+    "id": "channelPairings.update",
+    "entry": "channelPairings",
+    "method": "update",
+    "args": [
+      {
+        "name": "pairingID",
+        "kind": "path"
+      },
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "identity_id",
+            "location": "json"
+          },
+          {
+            "wire": "template_id",
+            "location": "json"
+          }
+        ]
+      }
+    ]
   }
 ]

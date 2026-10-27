@@ -20,6 +20,18 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
+### first\_id?
+
+> `optional` **first\_id?**: `string` \| `null`
+
+***
+
 ### has\_more
 
 > **has\_more**: `boolean`
+
+***
+
+### last\_id?
+
+> `optional` **last\_id?**: `string` \| `null`

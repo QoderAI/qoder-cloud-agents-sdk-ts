@@ -91,3 +91,69 @@ pairChannel
 #### Operation
 
 unpairChannel
+
+***
+
+### list()
+
+> **list**(`params?`, `options?`): [`PagePromise`](../../index/classes/PagePromise.md)\<[`ChannelPairing`](../interfaces/ChannelPairing.md)\>
+
+#### Parameters
+
+##### params?
+
+[`ChannelPairingListParams`](../interfaces/ChannelPairingListParams.md) = `{}`
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`PagePromise`](../../index/classes/PagePromise.md)\<[`ChannelPairing`](../interfaces/ChannelPairing.md)\>
+
+***
+
+### retrieve()
+
+> **retrieve**(`pairingID`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`ChannelPairing`](../interfaces/ChannelPairing.md)\>
+
+#### Parameters
+
+##### pairingID
+
+`string`
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`APIPromise`](../../index/classes/APIPromise.md)\<[`ChannelPairing`](../interfaces/ChannelPairing.md)\>
+
+***
+
+### update()
+
+> **update**(`pairingID`, `params`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`ChannelPairing`](../interfaces/ChannelPairing.md)\>
+
+Change an active binding. Omitted fields retain their value.
+
+#### Parameters
+
+##### pairingID
+
+`string`
+
+##### params
+
+[`ChannelPairingUpdateParams`](../type-aliases/ChannelPairingUpdateParams.md)
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`APIPromise`](../../index/classes/APIPromise.md)\<[`ChannelPairing`](../interfaces/ChannelPairing.md)\>

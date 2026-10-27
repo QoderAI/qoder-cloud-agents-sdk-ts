@@ -196,7 +196,7 @@ Additional fields are preserved verbatim by the SDK.
 
 ### rubric
 
-> **rubric**: `string`
+> **rubric**: [`OutcomeRubric`](../type-aliases/OutcomeRubric.md)
 
 ***
 

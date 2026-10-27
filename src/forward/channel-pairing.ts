@@ -1,11 +1,32 @@
 // Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
+import type { PagePromise } from '../core/pagination.js';
 import type { APIPromise } from '../core/api-promise.js';
 import { pathParam, requestHeaders } from './_utils.js';
-import type { ChannelPairing, ChannelPairingCreateParams, DeletedChannelPairing } from './types.js';
+import type { ChannelPairing, ChannelPairingListParams, ChannelPairingUpdateParams, ChannelPairingCreateParams, DeletedChannelPairing } from './types.js';
 
 export class ChannelPairings extends APIResource {
+  list(params: ChannelPairingListParams = {}, options?: RequestOptions): PagePromise<ChannelPairing> {
+    return this._client.getAPIList<ChannelPairing>('channel_pairings', params, options);
+  }
+  retrieve(pairingID: string, options?: RequestOptions): APIPromise<ChannelPairing> {
+    return this._client.request<ChannelPairing>({
+      ...options,
+      method: 'GET',
+      path: `channel_pairings/${pathParam(pairingID, 'pairing_id')}`,
+    });
+  }
+  /** Change an active binding. Omitted fields retain their value. */
+  update(pairingID: string, params: ChannelPairingUpdateParams, options?: RequestOptions): APIPromise<ChannelPairing> {
+    return this._client.request<ChannelPairing>({
+      ...options,
+      method: 'POST',
+      path: `channel_pairings/${pathParam(pairingID, 'pairing_id')}`,
+      body: params,
+    });
+  }
+
   /**
    * 完成 Channel 配对.
    *
@@ -39,4 +60,4 @@ export class ChannelPairings extends APIResource {
 
 }
 
-export type { ChannelPairing, ChannelPairingCreateParams, DeletedChannelPairing } from './types.js';
+export type { ChannelPairing, ChannelPairingListParams, ChannelPairingUpdateParams, ChannelPairingCreateParams, DeletedChannelPairing } from './types.js';

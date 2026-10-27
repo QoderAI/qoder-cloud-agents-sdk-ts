@@ -78,7 +78,7 @@ detachMemoryStore
 
 ### list()
 
-> **list**(`identityID`, `templateID`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`IdentityMemoryStoreListResponse`](../interfaces/IdentityMemoryStoreListResponse.md)\>
+> **list**(`identityID`, `templateID`, `params?`, `options?`): [`PagePromise`](../../index/classes/PagePromise.md)\<[`MemoryStoreMount`](../interfaces/MemoryStoreMount.md)\>
 
 列出 Identity 上的 Memory Store 挂载.
 
@@ -92,13 +92,17 @@ detachMemoryStore
 
 `string`
 
+##### params?
+
+[`IdentityMemoryStoreListParams`](../interfaces/IdentityMemoryStoreListParams.md) = `{}`
+
 ##### options?
 
 [`RequestOptions`](../../index/interfaces/RequestOptions.md)
 
 #### Returns
 
-[`APIPromise`](../../index/classes/APIPromise.md)\<[`IdentityMemoryStoreListResponse`](../interfaces/IdentityMemoryStoreListResponse.md)\>
+[`PagePromise`](../../index/classes/PagePromise.md)\<[`MemoryStoreMount`](../interfaces/MemoryStoreMount.md)\>
 
 #### Operation
 

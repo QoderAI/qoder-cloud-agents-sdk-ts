@@ -20,3 +20,5 @@ export { SkillsVersions } from "./skill-version.js";
 export { Vaults } from "./vault.js";
 export { VaultsCredentials } from "./vault-credential.js";
 export { DeploymentScopedRuns } from './deployment-scoped-run.js';
+
+export { OAuth } from './oauth.js';

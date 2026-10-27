@@ -28,9 +28,9 @@ Optional header to specify the beta version(s) you want to use.
 
 ***
 
-### model
+### model?
 
-> **model**: [`DreamNewParamsModelUnion`](../type-aliases/DreamNewParamsModelUnion.md)
+> `optional` **model?**: [`DreamNewParamsModelUnion`](../type-aliases/DreamNewParamsModelUnion.md) \| `null`
 
 Model identifier and configuration applied to every pipeline stage.
 

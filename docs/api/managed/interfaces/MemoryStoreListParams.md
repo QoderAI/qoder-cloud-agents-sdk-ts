@@ -8,6 +8,18 @@
 
 ## Properties
 
+### after\_id?
+
+> `optional` **after\_id?**: `string`
+
+***
+
+### before\_id?
+
+> `optional` **before\_id?**: `string`
+
+***
+
 ### betas?
 
 > `optional` **betas?**: `string`[]

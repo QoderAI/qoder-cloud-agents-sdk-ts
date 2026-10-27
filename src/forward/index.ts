@@ -55,3 +55,5 @@ export * from "./webhook.js";
 export * from "./webhook-signature.js";
 
 export * from './decision.js';
+
+export { Dreams } from './dream.js';

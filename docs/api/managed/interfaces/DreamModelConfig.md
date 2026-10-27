@@ -11,20 +11,18 @@ shape as the Agents API ModelConfig.
 
 ## Properties
 
-### id
+### context\_window?
 
-> **id**: `string`
-
-Model identifier, e.g. "claude-opus-5". 1-256 characters.
+> `optional` **context\_window?**: `number`
 
 ***
 
-### speed?
+### effort?
 
-> `optional` **speed?**: [`DreamModelConfigSpeed`](../type-aliases/DreamModelConfigSpeed.md)
+> `optional` **effort?**: `string`
 
-Inference speed mode. `fast` provides significantly faster output token
-generation at premium pricing. Not all models support `fast`; invalid
-combinations are rejected at create time.
+***
 
-Any of "standard", "fast".
+### id
+
+> **id**: `string`
