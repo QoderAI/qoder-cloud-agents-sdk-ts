@@ -146,6 +146,28 @@ listFile
 
 ***
 
+### search()
+
+> **search**(`params?`, `options?`): [`PagePromise`](../../index/classes/PagePromise.md)\<[`FileMetadata`](../interfaces/FileMetadata.md)\>
+
+Search by metadata and resource filters; automatically enables the Search beta.
+
+#### Parameters
+
+##### params?
+
+[`FileSearchParams`](../interfaces/FileSearchParams.md) = `{}`
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`PagePromise`](../../index/classes/PagePromise.md)\<[`FileMetadata`](../interfaces/FileMetadata.md)\>
+
+***
+
 ### upload()
 
 > **upload**(`params`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`FileMetadata`](../interfaces/FileMetadata.md)\>

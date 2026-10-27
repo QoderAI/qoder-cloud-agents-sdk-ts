@@ -1,6 +1,7 @@
 // Generated code, verified against the API contracts.
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
+import type { EnvironmentSearchParams } from './types.js';
 import type { IdentityScopeOptions } from './types.js';
 import type { APIPromise } from '../core/api-promise.js';
 import type { PagePromise } from '../core/pagination.js';
@@ -8,6 +9,12 @@ import { pathParam, requestHeaders, identityScopeOptions } from './_utils.js';
 import type { Environment, EnvironmentCreateParams, EnvironmentListParams, EnvironmentUpdateParams } from './types.js';
 
 export class Environments extends APIResource {
+  /** Search by metadata and resource filters; automatically enables the Search beta. */
+  search(params: EnvironmentSearchParams = {}, options?: RequestOptions): PagePromise<Environment> {
+    const { identity_id, ...body } = params;
+    return this._client.postAPIList<Environment>('environments/search', body, { ...options, query: { identity_id, ...options?.query } }, 'page', 'search-2026-08-31');
+  }
+
   /**
    * 列出 Environment.
    *
@@ -103,3 +110,5 @@ export class Environments extends APIResource {
 }
 
 export type { Environment, EnvironmentCreateParams, EnvironmentListParams, EnvironmentUpdateParams } from './types.js';
+
+export type { EnvironmentSearchParams } from './types.js';

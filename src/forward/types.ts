@@ -3448,3 +3448,68 @@ export interface MemoryStoreCreateMountParam {
 export interface EnvironmentBindingInfo {
   agent_template_count: number;
 }
+
+/** JSON body filters for environments Search. */
+export interface EnvironmentSearchParams {
+  /** Exact string metadata filters combined with AND (at most 16 entries). */
+  metadata?: Record<string, string>;
+  /** Page size; default 20, maximum 100. */
+  limit?: number;
+  /** Opaque next_page cursor returned by the previous search response. */
+  page?: string;
+  /** Case-insensitive name substring filter. */
+  name?: string;
+  /** Include archived resources; defaults to false. */
+  include_archived?: boolean;
+  'created_at[gte]'?: string;
+  'created_at[lte]'?: string;
+  /** Select Identity ownership with a PAT; omit with any SAT. Sent in the query only. */
+  identity_id?: string;
+}
+
+/** JSON body filters for skills Search. */
+export interface SkillSearchParams {
+  /** Exact string metadata filters combined with AND (at most 16 entries). */
+  metadata?: Record<string, string>;
+  /** Page size; default 20, maximum 100. */
+  limit?: number;
+  /** Opaque next_page cursor returned by the previous search response. */
+  page?: string;
+  source?: 'custom' | 'qoder';
+  /** Case-insensitive Skill display-title substring filter. */
+  display_title?: string;
+  /** Select Identity ownership with a PAT; omit with any SAT. Sent in the query only. */
+  identity_id?: string;
+}
+
+/** JSON body filters for vaults Search. */
+export interface VaultSearchParams {
+  /** Exact string metadata filters combined with AND (at most 16 entries). */
+  metadata?: Record<string, string>;
+  /** Page size; default 20, maximum 100. */
+  limit?: number;
+  /** Opaque next_page cursor returned by the previous search response. */
+  page?: string;
+  /** Include archived resources; defaults to false. */
+  include_archived?: boolean;
+  /** Case-insensitive name substring filter. */
+  name?: string;
+  /** Select Identity ownership with a PAT; omit with any SAT. Sent in the query only. */
+  identity_id?: string;
+}
+
+/** JSON body filters for files Search. */
+export interface FileSearchParams {
+  /** Exact string metadata filters combined with AND (at most 16 entries). */
+  metadata?: Record<string, string>;
+  /** Page size; default 20, maximum 100. */
+  limit?: number;
+  /** Opaque next_page cursor returned by the previous search response. */
+  page?: string;
+  /** Case-insensitive name substring filter. */
+  name?: string;
+  /** Resource scope ID, currently a Session ID. */
+  scope_id?: string;
+  /** Select Identity ownership with a PAT; omit with any SAT. Sent in the query only. */
+  identity_id?: string;
+}

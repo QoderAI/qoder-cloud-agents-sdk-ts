@@ -9,6 +9,7 @@ export interface PageResponse<T> {
   first_id?: string | null;
   last_id?: string | null;
   next_page?: string | null;
+  total?: number | null;
   prev_page?: string | null;
   [key: string]: unknown;
 }
@@ -19,6 +20,7 @@ export class Page<T> implements AsyncIterable<T> {
   readonly first_id?: string | null;
   readonly last_id?: string | null;
   readonly next_page?: string | null;
+  readonly total?: number | null;
   readonly prev_page?: string | null;
   [key: string]: unknown;
 
@@ -30,6 +32,8 @@ export class Page<T> implements AsyncIterable<T> {
     private readonly query: Record<string, unknown>,
     private readonly options: RequestOptions,
     private readonly mode: PaginationMode,
+    private readonly method: 'GET' | 'POST' = 'GET',
+    private readonly requiredBeta?: string,
   ) {
     // Preserve unknown response fields without replacing methods or internal state.
     for (const [key, value] of Object.entries(body)) {
@@ -40,6 +44,7 @@ export class Page<T> implements AsyncIterable<T> {
     this.first_id = body.first_id;
     this.last_id = body.last_id;
     this.next_page = body.next_page;
+    this.total = body.total;
     this.prev_page = body.prev_page;
   }
 
@@ -75,6 +80,9 @@ export class Page<T> implements AsyncIterable<T> {
     const query = this.nextQuery();
     if (!query) {
       throw new QoderError('No next page expected; please check `.hasNextPage()` before calling `.getNextPage()`.');
+    }
+    if (this.method === 'POST') {
+      return await this.client.postAPIList<T>(this.path, query, this.options, this.mode, this.requiredBeta);
     }
     return await this.client.getAPIList<T>(this.path, query, this.options, this.mode);
   }

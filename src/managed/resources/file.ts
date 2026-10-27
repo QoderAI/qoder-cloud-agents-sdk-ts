@@ -9,6 +9,12 @@ import { splitParams, pathParam, managedMultipart } from '../internal.js';
 
 export class Files extends APIResource {
 
+  /** Search by metadata and resource filters; automatically enables the Search beta. */
+  search(params: Types.FileSearchParams = {}, options?: RequestOptions): PagePromise<Types.FileMetadata> {
+    const request = splitParams(params, options, { "workspace_id": "qoder-workspace-id", "betas": "x-qoder-beta" }, []);
+    return this._client.postAPIList<Types.FileMetadata>("/files/search", request.values, request.options, "page", "search-2026-08-31");
+  }
+
   /**
    * List Files
    */
@@ -53,3 +59,5 @@ export class Files extends APIResource {
 
 export default Files;
 export type { DeletedFile, DeletedFileType, FileMetadata, FileScope, FileListParams, FileDeleteParams, FileDownloadParams, FileGetMetadataParams, FileUploadParams } from '../types.js';
+
+export type { FileSearchParams } from '../types.js';

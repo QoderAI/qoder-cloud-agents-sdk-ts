@@ -96,11 +96,13 @@
 - [EnvironmentConfigPackages](interfaces/EnvironmentConfigPackages.md)
 - [EnvironmentListParams](interfaces/EnvironmentListParams.md)
 - [EnvironmentNewParams](interfaces/EnvironmentNewParams.md)
+- [EnvironmentSearchParams](interfaces/EnvironmentSearchParams.md)
 - [EnvironmentUpdateParams](interfaces/EnvironmentUpdateParams.md)
 - [EnvironmentVariableOverride](interfaces/EnvironmentVariableOverride.md)
 - [EnvironmentVariableOverrideParam](interfaces/EnvironmentVariableOverrideParam.md)
 - [FileListParams](interfaces/FileListParams.md)
 - [FileMetadata](interfaces/FileMetadata.md)
+- [FileSearchParams](interfaces/FileSearchParams.md)
 - [FileUploadParams](interfaces/FileUploadParams.md)
 - [GitHubRepository](interfaces/GitHubRepository.md)
 - [GitHubRepositoryParam](interfaces/GitHubRepositoryParam.md)
@@ -216,6 +218,7 @@
 - [SkillNewParams](interfaces/SkillNewParams.md)
 - [SkillOverride](interfaces/SkillOverride.md)
 - [SkillOverrideParam](interfaces/SkillOverrideParam.md)
+- [SkillSearchParams](interfaces/SkillSearchParams.md)
 - [SkillUpdateParams](interfaces/SkillUpdateParams.md)
 - [SkillVersion](interfaces/SkillVersion.md)
 - [SkillVersionListParams](interfaces/SkillVersionListParams.md)
@@ -244,6 +247,7 @@
 - [VaultCredentialUpdateParams](interfaces/VaultCredentialUpdateParams.md)
 - [VaultListParams](interfaces/VaultListParams.md)
 - [VaultNewParams](interfaces/VaultNewParams.md)
+- [VaultSearchParams](interfaces/VaultSearchParams.md)
 
 ## Type Aliases
 

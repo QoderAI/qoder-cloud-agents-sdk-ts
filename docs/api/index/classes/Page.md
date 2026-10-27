@@ -24,7 +24,7 @@
 
 ### Constructor
 
-> **new Page**\<`T`\>(`client`, `response`, `body`, `path`, `query`, `options`, `mode`): `Page`\<`T`\>
+> **new Page**\<`T`\>(`client`, `response`, `body`, `path`, `query`, `options`, `mode`, `method?`, `requiredBeta?`): `Page`\<`T`\>
 
 #### Parameters
 
@@ -55,6 +55,14 @@
 ##### mode
 
 [`PaginationMode`](../type-aliases/PaginationMode.md)
+
+##### method?
+
+`"GET"` \| `"POST"`
+
+##### requiredBeta?
+
+`string`
 
 #### Returns
 
@@ -101,6 +109,12 @@
 ### response
 
 > `readonly` **response**: `Response`
+
+***
+
+### total?
+
+> `readonly` `optional` **total?**: `number` \| `null`
 
 ## Methods
 

@@ -208,6 +208,28 @@ Get Session
 
 ***
 
+### search()
+
+> **search**(`params?`, `options?`): [`PagePromise`](../../index/classes/PagePromise.md)\<[`ManagedAgentsSession`](../interfaces/ManagedAgentsSession.md)\>
+
+Search by metadata and resource filters; automatically enables the Search beta.
+
+#### Parameters
+
+##### params?
+
+[`SessionSearchParams`](../interfaces/SessionSearchParams.md) = `{}`
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`PagePromise`](../../index/classes/PagePromise.md)\<[`ManagedAgentsSession`](../interfaces/ManagedAgentsSession.md)\>
+
+***
+
 ### update()
 
 > **update**(`sessionID`, `params?`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`ManagedAgentsSession`](../interfaces/ManagedAgentsSession.md)\>

@@ -144,6 +144,28 @@ Get Agent
 
 ***
 
+### search()
+
+> **search**(`params?`, `options?`): [`PagePromise`](../../index/classes/PagePromise.md)\<[`ManagedAgentsAgent`](../interfaces/ManagedAgentsAgent.md)\>
+
+Search by metadata and resource filters; automatically enables the Search beta.
+
+#### Parameters
+
+##### params?
+
+[`AgentSearchParams`](../interfaces/AgentSearchParams.md) = `{}`
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`PagePromise`](../../index/classes/PagePromise.md)\<[`ManagedAgentsAgent`](../interfaces/ManagedAgentsAgent.md)\>
+
+***
+
 ### update()
 
 > **update**(`agentID`, `params?`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`ManagedAgentsAgent`](../interfaces/ManagedAgentsAgent.md)\>

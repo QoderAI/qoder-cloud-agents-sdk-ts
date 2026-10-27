@@ -3343,5 +3343,165 @@
       }
     ],
     "paginated": true
+  },
+  {
+    "id": "environments.search",
+    "entry": "environments",
+    "method": "search",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "limit",
+            "location": "json"
+          },
+          {
+            "wire": "page",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "include_archived",
+            "location": "json"
+          },
+          {
+            "wire": "created_at[gte]",
+            "location": "json"
+          },
+          {
+            "wire": "created_at[lte]",
+            "location": "json"
+          },
+          {
+            "wire": "identity_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "skills.search",
+    "entry": "skills",
+    "method": "search",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "limit",
+            "location": "json"
+          },
+          {
+            "wire": "page",
+            "location": "json"
+          },
+          {
+            "wire": "source",
+            "location": "json"
+          },
+          {
+            "wire": "display_title",
+            "location": "json"
+          },
+          {
+            "wire": "identity_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "vaults.search",
+    "entry": "vaults",
+    "method": "search",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "limit",
+            "location": "json"
+          },
+          {
+            "wire": "page",
+            "location": "json"
+          },
+          {
+            "wire": "include_archived",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "identity_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "files.search",
+    "entry": "files",
+    "method": "search",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "limit",
+            "location": "json"
+          },
+          {
+            "wire": "page",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "scope_id",
+            "location": "json"
+          },
+          {
+            "wire": "identity_id",
+            "location": "query"
+          }
+        ]
+      }
+    ],
+    "paginated": true
   }
 ]

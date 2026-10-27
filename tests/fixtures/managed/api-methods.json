@@ -3444,5 +3444,361 @@
       }
     ],
     "paginated": false
+  },
+  {
+    "id": "agents.search",
+    "entry": "agents",
+    "method": "search",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "limit",
+            "location": "json"
+          },
+          {
+            "wire": "page",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "include_archived",
+            "location": "json"
+          },
+          {
+            "wire": "created_at[gte]",
+            "location": "json"
+          },
+          {
+            "wire": "created_at[lte]",
+            "location": "json"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "sessions.search",
+    "entry": "sessions",
+    "method": "search",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "limit",
+            "location": "json"
+          },
+          {
+            "wire": "page",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "order",
+            "location": "json"
+          },
+          {
+            "wire": "include_archived",
+            "location": "json"
+          },
+          {
+            "wire": "statuses",
+            "location": "json"
+          },
+          {
+            "wire": "agent_id",
+            "location": "json"
+          },
+          {
+            "wire": "agent_version",
+            "location": "json"
+          },
+          {
+            "wire": "deployment_id",
+            "location": "json"
+          },
+          {
+            "wire": "memory_store_id",
+            "location": "json"
+          },
+          {
+            "wire": "created_at[gt]",
+            "location": "json"
+          },
+          {
+            "wire": "created_at[gte]",
+            "location": "json"
+          },
+          {
+            "wire": "created_at[lt]",
+            "location": "json"
+          },
+          {
+            "wire": "created_at[lte]",
+            "location": "json"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "deployments.search",
+    "entry": "deployments",
+    "method": "search",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "limit",
+            "location": "json"
+          },
+          {
+            "wire": "page",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "status",
+            "location": "json"
+          },
+          {
+            "wire": "include_archived",
+            "location": "json"
+          },
+          {
+            "wire": "agent_id",
+            "location": "json"
+          },
+          {
+            "wire": "created_at[gte]",
+            "location": "json"
+          },
+          {
+            "wire": "created_at[lte]",
+            "location": "json"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "environments.search",
+    "entry": "environments",
+    "method": "search",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "limit",
+            "location": "json"
+          },
+          {
+            "wire": "page",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "include_archived",
+            "location": "json"
+          },
+          {
+            "wire": "created_at[gte]",
+            "location": "json"
+          },
+          {
+            "wire": "created_at[lte]",
+            "location": "json"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "skills.search",
+    "entry": "skills",
+    "method": "search",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "limit",
+            "location": "json"
+          },
+          {
+            "wire": "page",
+            "location": "json"
+          },
+          {
+            "wire": "source",
+            "location": "json"
+          },
+          {
+            "wire": "display_title",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "vaults.search",
+    "entry": "vaults",
+    "method": "search",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "limit",
+            "location": "json"
+          },
+          {
+            "wire": "page",
+            "location": "json"
+          },
+          {
+            "wire": "include_archived",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "files.search",
+    "entry": "files",
+    "method": "search",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "limit",
+            "location": "json"
+          },
+          {
+            "wire": "page",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "scope_id",
+            "location": "json"
+          }
+        ]
+      }
+    ],
+    "paginated": true
+  },
+  {
+    "id": "memoryStores.search",
+    "entry": "memoryStores",
+    "method": "search",
+    "args": [
+      {
+        "name": "params",
+        "kind": "params",
+        "fields": [
+          {
+            "wire": "metadata",
+            "location": "json"
+          },
+          {
+            "wire": "limit",
+            "location": "json"
+          },
+          {
+            "wire": "page",
+            "location": "json"
+          },
+          {
+            "wire": "name",
+            "location": "json"
+          },
+          {
+            "wire": "include_archived",
+            "location": "json"
+          },
+          {
+            "wire": "created_at[gte]",
+            "location": "json"
+          },
+          {
+            "wire": "created_at[lte]",
+            "location": "json"
+          }
+        ]
+      }
+    ],
+    "paginated": true
   }
 ]

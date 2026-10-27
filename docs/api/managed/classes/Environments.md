@@ -171,6 +171,28 @@ Retrieve a specific environment by ID.
 
 ***
 
+### search()
+
+> **search**(`params?`, `options?`): [`PagePromise`](../../index/classes/PagePromise.md)\<[`Environment`](../interfaces/Environment.md)\>
+
+Search by metadata and resource filters; automatically enables the Search beta.
+
+#### Parameters
+
+##### params?
+
+[`EnvironmentSearchParams`](../interfaces/EnvironmentSearchParams.md) = `{}`
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`PagePromise`](../../index/classes/PagePromise.md)\<[`Environment`](../interfaces/Environment.md)\>
+
+***
+
 ### update()
 
 > **update**(`environmentID`, `params?`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`Environment`](../interfaces/Environment.md)\>

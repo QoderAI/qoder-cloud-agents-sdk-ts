@@ -167,3 +167,25 @@ Get Vault
 #### Returns
 
 [`APIPromise`](../../index/classes/APIPromise.md)\<[`ManagedAgentsVault`](../interfaces/ManagedAgentsVault.md)\>
+
+***
+
+### search()
+
+> **search**(`params?`, `options?`): [`PagePromise`](../../index/classes/PagePromise.md)\<[`ManagedAgentsVault`](../interfaces/ManagedAgentsVault.md)\>
+
+Search by metadata and resource filters; automatically enables the Search beta.
+
+#### Parameters
+
+##### params?
+
+[`VaultSearchParams`](../interfaces/VaultSearchParams.md) = `{}`
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`PagePromise`](../../index/classes/PagePromise.md)\<[`ManagedAgentsVault`](../interfaces/ManagedAgentsVault.md)\>

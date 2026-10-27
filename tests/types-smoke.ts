@@ -154,9 +154,7 @@ forward.usage.listIdentities({});
 forward.usage.listIdentities({ start_at: '2026-09-14T09:00:00', end_at: '2026-09-14T12:00:00', start_time: 123 });
 // @ts-expect-error Credential auth patches cannot change immutable fields.
 forward.vaults.credentials.update('vault', 'cred', { auth: { type: 'static_bearer', mcp_server_url: 'https://example.test' } });
-// @ts-expect-error Search is outside this expansion.
 forward.vaults.search({});
-// @ts-expect-error Search is outside this expansion.
 managed.vaults.search({});
 
 // @ts-expect-error Scoped run queries require a deployment ID.

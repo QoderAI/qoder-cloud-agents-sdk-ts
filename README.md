@@ -784,3 +784,54 @@ protocol behavior without network or credentials.
 ## Forward Webhooks
 
 Manage webhook endpoints and verify signed event deliveries. See [Webhook usage and receiver examples](docs/webhooks.md).
+
+## Resource search
+
+Search uses `POST /<resource>/search` with typed filters in the JSON body.
+The SDK automatically includes `x-qoder-beta: search-2026-08-31`, preserving
+other effective beta flags. Calling Search with no filters sends `{}`.
+
+- Forward: Environments, Skills, Vaults, and Files.
+- Managed: Agents, Sessions, Deployments, Environments, Skills, Vaults, Files,
+  and Memory Stores.
+
+Metadata filters are exact string matches combined with AND. Each resource also
+supports its documented filters, such as name, creation time, Session status,
+or Skill source/display title. See the official
+[Forward search](https://docs.qoder.com/cloud-agents/api/forward/environments/search)
+and [Managed Session search](https://docs.qoder.com/cloud-agents/api/sessions/search)
+contracts. This searches QCA resources; it does not perform a web search.
+
+Forward's `identity_id` selector is sent only in the URL query. Set it when a PAT
+should search an Identity's resources; omit it with all SATs, whose scope comes
+from the token. Search cursors are opaque: automatic pagination puts `next_page`
+back into the JSON body's `page` while preserving filters, ownership, and request
+options. Existing List methods retain their GET/query pagination behavior.
+
+```ts
+import { ForwardClient, ManagedClient } from 'qca-sdk';
+
+const forwardClient = new ForwardClient({ pat: process.env.QODER_FORWARD_PAT! });
+const managedClient = new ManagedClient({ pat: process.env.QODER_MANAGED_PAT! });
+
+for await (const environment of forwardClient.environments.search({
+  metadata: { team: 'core' },
+  name: 'dev',
+  identity_id: 'idn_example', // PAT only; omit for SAT.
+  limit: 20,
+})) {
+  console.log(environment.id);
+}
+
+// Time bounds use the documented wire keys.
+const page = await managedClient.sessions.search({
+  metadata: { ticket: 'A-123' },
+  statuses: ['idle', 'running'],
+  'created_at[gte]': '2026-01-01T00:00:00Z',
+});
+```
+
+Search returns a `PagePromise`: await a page, use `for await` to iterate all
+results, or call `page.getNextPage()` for manual pagination. Search parameter
+types are exported from the corresponding `qca-sdk/forward` and
+`qca-sdk/managed` entry points.

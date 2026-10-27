@@ -196,6 +196,28 @@ Run Deployment Now
 
 ***
 
+### search()
+
+> **search**(`params?`, `options?`): [`PagePromise`](../../index/classes/PagePromise.md)\<[`ManagedAgentsDeployment`](../interfaces/ManagedAgentsDeployment.md)\>
+
+Search by metadata and resource filters; automatically enables the Search beta.
+
+#### Parameters
+
+##### params?
+
+[`DeploymentSearchParams`](../interfaces/DeploymentSearchParams.md) = `{}`
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`PagePromise`](../../index/classes/PagePromise.md)\<[`ManagedAgentsDeployment`](../interfaces/ManagedAgentsDeployment.md)\>
+
+***
+
 ### unpause()
 
 > **unpause**(`deploymentID`, `params?`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`ManagedAgentsDeployment`](../interfaces/ManagedAgentsDeployment.md)\>

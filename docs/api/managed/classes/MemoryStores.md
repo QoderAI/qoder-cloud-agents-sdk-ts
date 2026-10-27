@@ -176,6 +176,28 @@ Retrieve a memory store
 
 ***
 
+### search()
+
+> **search**(`params?`, `options?`): [`PagePromise`](../../index/classes/PagePromise.md)\<[`ManagedAgentsMemoryStore`](../interfaces/ManagedAgentsMemoryStore.md)\>
+
+Search by metadata and resource filters; automatically enables the Search beta.
+
+#### Parameters
+
+##### params?
+
+[`MemoryStoreSearchParams`](../interfaces/MemoryStoreSearchParams.md) = `{}`
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`PagePromise`](../../index/classes/PagePromise.md)\<[`ManagedAgentsMemoryStore`](../interfaces/ManagedAgentsMemoryStore.md)\>
+
+***
+
 ### update()
 
 > **update**(`memoryStoreID`, `params?`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`ManagedAgentsMemoryStore`](../interfaces/ManagedAgentsMemoryStore.md)\>
