@@ -291,6 +291,14 @@ async function decisionsTypes() {
     {type: 'choice', instructions: 'Resolved?', choices: [{value: true}, {value: false}]},
     {type: 'score', instructions: 'Risk?', levels: [{label: 'low', score: 0}, {label: 'high', score: 10}]},
   ];
+  const response: Decision = {
+    id: 'dec_contract', session_id: null, source: 'api', status: 'completed',
+    questions: [], answers: [{type: 'choice', value: false}, {type: 'score', score: 0}],
+    context: {mode: 'state'}, error: null,
+    created_at: '2026-10-27T00:00:00Z', completed_at: '2026-10-27T00:00:01Z',
+  };
+  const answerType: 'choice' | 'score' = response.answers[0]!.type;
+  void answerType;
   const params: DecisionCreateParams = {state: {message: 'Resolved'}, questions, idempotency_key: 'one'};
   const created: Decision = await forward.decisions.create(params);
   const result: RootDecision = await forward.decisions.retrieve(created.id);

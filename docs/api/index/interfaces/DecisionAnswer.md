@@ -18,12 +18,6 @@
 
 ***
 
-### refusal?
-
-> `optional` **refusal?**: `string`
-
-***
-
 ### score?
 
 > `optional` **score?**: `number`
@@ -32,7 +26,7 @@
 
 ### type
 
-> **type**: `"choice"` \| `"score"` \| `"refusal"`
+> **type**: `"choice"` \| `"score"`
 
 ***
 

@@ -25,7 +25,9 @@ for (const mode of ['state', 'session']) {
     assert.equal(decision.status, 'completed');
     assert.equal(decision.context.mode, mode);
     assert.equal(decision.answers.length, 2);
-    assert.ok(decision.context.estimated_input_tokens > 0 && decision.context.estimated_input_tokens <= decision.context.max_input_tokens);
+    assert.equal(Object.hasOwn(decision, 'usage'), false);
+    for (const field of ['policy_version', 'token_estimator', 'estimated_input_tokens', 'max_input_tokens', 'snapshot_at', 'scan_limited', 'truncated', 'truncation_reasons']) assert.equal(Object.hasOwn(decision.context, field), false);
+    assert.ok(decision.answers.every(answer => ['choice', 'score'].includes(answer.type)));
     if (mode === 'state') {
       assert.equal(decision.session_id, null);
       assert.equal(decision.answers[0].value, false);
