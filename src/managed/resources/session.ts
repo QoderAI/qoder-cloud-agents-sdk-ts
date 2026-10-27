@@ -1,4 +1,5 @@
 // Generated code, verified against the API contracts.
+import { withSessionMetadata } from '../../core/session-metadata.js';
 import { APIResource } from '../../core/resource.js';
 import type { RequestOptions } from '../../core/client.js';
 import type { APIPromise } from '../../core/api-promise.js';
@@ -28,11 +29,11 @@ export class Sessions extends APIResource {
   readonly threads = new SessionsThreads(this._client);
 
   /**
-   * Create Session
+   * Create a Session with __qca_sdk_ metadata; conflicting reserved values throw TypeError.
    */
   create(params: Types.SessionCreateParams, options?: RequestOptions): APIPromise<Types.ManagedAgentsSession> {
     const request = splitParams(params, options, {"workspace_id": "qoder-workspace-id", "betas": "x-qoder-beta"}, []);
-    return this._client.request<Types.ManagedAgentsSession>({ ...request.options, method: "POST", path: "/sessions", body: request.values });
+    return this._client.request<Types.ManagedAgentsSession>({ ...request.options, method: "POST", path: "/sessions", body: withSessionMetadata(request.values) });
   }
 
   /**

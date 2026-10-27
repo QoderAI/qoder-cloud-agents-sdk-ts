@@ -1,4 +1,5 @@
 // Generated code, verified against the API contracts.
+import { withSessionMetadata } from '../core/session-metadata.js';
 import { APIResource } from '../core/resource.js';
 import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
@@ -25,7 +26,7 @@ export class Sessions extends APIResource {
   }
 
   /**
-   * 创建 Session.
+   * Create a Session with __qca_sdk_ metadata; conflicting reserved values throw TypeError.
    *
    * @operation createSession
    */
@@ -35,8 +36,8 @@ export class Sessions extends APIResource {
     return this._client.request<Session>({
       method: "POST",
       path,
-      body: payload,
       ...options,
+      body: withSessionMetadata(options?.body === undefined ? payload : options.body),
       headers: requestHeaders({ "Idempotency-Key": idempotency_key }, options?.headers),
     });
   }

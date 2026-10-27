@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { VERSION } from '../dist/version.js';
 import * as sdk from '../dist/index.js';
 
 export { sdk };
@@ -64,7 +65,13 @@ export async function assertRequest(req, mode, c, op) {
     }
     if (p.location === 'header') assert.equal(req.headers.get(p.wire_name), String(parameterValue(p)), `header ${p.wire_name}`);
   }
-  if (op?.request_body?.kind === 'json') assert.deepEqual(await req.json(), operationBody(op));
+  if (op?.request_body?.kind === 'json') {
+    const expected = structuredClone(operationBody(op));
+    if (op.operation_id === 'createSession') {
+      expected.metadata = { ...expected.metadata, __qca_sdk_created: 'true', __qca_sdk_language: 'js', __qca_sdk_version: VERSION };
+    }
+    assert.deepEqual(await req.json(), expected);
+  }
   if (op?.request_body?.kind === 'multipart') {
     const form = await req.formData();
     for (const f of op.request_body.fields) {

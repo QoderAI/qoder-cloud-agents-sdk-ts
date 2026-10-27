@@ -116,7 +116,7 @@ Cancel the current turn; an idle session is a safe no-op.
 
 > **create**(`params`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`ManagedAgentsSession`](../interfaces/ManagedAgentsSession.md)\>
 
-Create Session
+Create a Session with __qca_sdk_ metadata; conflicting reserved values throw TypeError.
 
 #### Parameters
 
