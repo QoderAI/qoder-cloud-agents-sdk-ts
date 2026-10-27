@@ -58,31 +58,21 @@ export interface DecisionQuestion {
 }
 
 export interface DecisionAnswer {
-  type: 'choice' | 'score' | 'refusal';
+  type: 'choice' | 'score';
   name?: string;
   value?: string | boolean;
   score?: number;
-  refusal?: string;
   [key: string]: unknown;
 }
 
-/** Session fields and preparation metadata may be absent on running/failed records. */
+/** Input mode and Session event references. Session fields may be absent on running/failed records. */
 export interface DecisionContext {
   mode: 'state' | 'session';
-  policy_version?: string;
-  token_estimator?: string;
-  /** Estimate of the full model request, separate from billed usage. */
-  estimated_input_tokens?: number;
-  max_input_tokens?: number;
-  snapshot_at?: string;
   anchor_event_id?: string;
   first_event_id?: string;
   last_event_id?: string;
   included_segment_count?: number;
   included_event_count?: number;
-  scan_limited?: boolean;
-  truncated?: boolean;
-  truncation_reasons?: string[];
   [key: string]: unknown;
 }
 
@@ -97,7 +87,6 @@ export interface Decision {
   questions: DecisionQuestion[];
   answers: DecisionAnswer[];
   context: DecisionContext;
-  usage: Record<string, unknown> | null;
   error: DecisionError | null;
   created_at: string;
   completed_at: string | null;

@@ -71,9 +71,3 @@ Null for explicit-state input.
 ### status
 
 > **status**: `"running"` \| `"completed"` \| `"failed"`
-
-***
-
-### usage
-
-> **usage**: `Record`\<`string`, `unknown`\> \| `null`

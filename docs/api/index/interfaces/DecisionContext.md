@@ -6,7 +6,7 @@
 
 # Interface: DecisionContext
 
-Session fields and preparation metadata may be absent on running/failed records.
+Input mode and Session event references. Session fields may be absent on running/failed records.
 
 ## Indexable
 
@@ -17,14 +17,6 @@ Session fields and preparation metadata may be absent on running/failed records.
 ### anchor\_event\_id?
 
 > `optional` **anchor\_event\_id?**: `string`
-
-***
-
-### estimated\_input\_tokens?
-
-> `optional` **estimated\_input\_tokens?**: `number`
-
-Estimate of the full model request, separate from billed usage.
 
 ***
 
@@ -52,48 +44,6 @@ Estimate of the full model request, separate from billed usage.
 
 ***
 
-### max\_input\_tokens?
-
-> `optional` **max\_input\_tokens?**: `number`
-
-***
-
 ### mode
 
 > **mode**: `"session"` \| `"state"`
-
-***
-
-### policy\_version?
-
-> `optional` **policy\_version?**: `string`
-
-***
-
-### scan\_limited?
-
-> `optional` **scan\_limited?**: `boolean`
-
-***
-
-### snapshot\_at?
-
-> `optional` **snapshot\_at?**: `string`
-
-***
-
-### token\_estimator?
-
-> `optional` **token\_estimator?**: `string`
-
-***
-
-### truncated?
-
-> `optional` **truncated?**: `boolean`
-
-***
-
-### truncation\_reasons?
-
-> `optional` **truncation\_reasons?**: `string`[]

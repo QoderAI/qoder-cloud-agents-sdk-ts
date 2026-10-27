@@ -1,5 +1,5 @@
 {
-  "source": "cloud-agents-forward-service@8b9474c6: internal/router/router.go, internal/handler/decision/handler.go, internal/model/dto/decision.go, internal/service/decision/{validation,service,context}.go",
+  "source": "cloud-agents-forward-service@102f6f64: internal/router/router.go, internal/handler/decision/handler.go, internal/model/dto/decision.go, internal/service/decision/{validation,service,context}.go",
   "request": {
     "state": {
       "resolved": false,
@@ -92,13 +92,8 @@
       }
     ],
     "context": {
-      "mode": "state",
-      "policy_version": "decision-context-v3",
-      "token_estimator": "caw-heuristic-v1",
-      "estimated_input_tokens": 234,
-      "max_input_tokens": 30000
+      "mode": "state"
     },
-    "usage": null,
     "error": null,
     "created_at": "2026-10-23T05:00:00.123456Z",
     "completed_at": "2026-10-23T05:00:01.123456Z"

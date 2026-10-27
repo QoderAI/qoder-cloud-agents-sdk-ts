@@ -22,8 +22,7 @@ for (const auth of [{pat: 'token'}, {pat: undefined, authMode: 'sa', accessToken
         } else {
           assert.deepEqual(await request.json(), {session_id: 'sess_own', questions: contract.request.questions});
           result.session_id = 'sess_own';
-          Object.assign(result.context, {mode: 'session', snapshot_at: '2026-10-26T00:00:00.123456789Z', truncated: true, scan_limited: false, included_segment_count: 12, truncation_reasons: ['segment_budget'], future_context: true});
-          result.answers = [{type: 'refusal', name: 'private', refusal: 'Cannot assess'}];
+          Object.assign(result.context, {mode: 'session', anchor_event_id: 'evt_last', first_event_id: 'evt_first', last_event_id: 'evt_last', included_segment_count: 12, included_event_count: 14, future_context: true});
         }
       } else {
         assert.ok(new URL(request.url).pathname.endsWith('/decisions/opaque%20%2F%3F%25%23'));
@@ -37,14 +36,19 @@ for (const auth of [{pat: 'token'}, {pat: undefined, authMode: 'sa', accessToken
     assert.equal(first.data.answers[1].score, 0);
     assert.equal(Object.hasOwn(first.data.answers[1], 'value'), false);
     assert.equal(first.data.session_id, null);
-    assert.equal(first.data.usage, null);
+    assert.equal(Object.hasOwn(first.data, 'usage'), false);
+    assert.deepEqual(first.data.context, {mode: 'state'});
     assert.equal(first.data.future_field, 1);
     const session = await client.decisions.create({session_id: 'sess_own', questions: contract.request.questions});
-    assert.equal(session.context.snapshot_at, '2026-10-26T00:00:00.123456789Z');
-    assert.equal(session.context.truncated, true);
+    assert.equal(session.context.anchor_event_id, 'evt_last');
+    assert.equal(session.context.first_event_id, 'evt_first');
+    assert.equal(session.context.last_event_id, 'evt_last');
+    assert.equal(session.context.included_segment_count, 12);
+    assert.equal(session.context.included_event_count, 14);
     assert.equal(session.context.future_context, true);
-    assert.equal(session.answers[0].refusal, 'Cannot assess');
-    assert.equal(Object.hasOwn(session.answers[0], 'value'), false);
+    assert.equal(session.answers[0].value, false);
+    assert.equal(session.answers[1].score, 0);
+    assert.equal(Object.hasOwn(session.answers[1], 'value'), false);
     assert.equal((await client.decisions.retrieve('opaque /?%#')).id, 'dec_contract');
     assert.throws(() => client.decisions.retrieve(''), /required|empty/i);
     assert.equal(calls, 3);
@@ -119,3 +123,18 @@ test('decision exports are available from CJS and ESM root and Forward entry poi
     assert.ok(new exported.ForwardClient({pat: 'test'}).decisions instanceof exported.Decisions);
   }
 });
+
+for (const status of ['running', 'failed']) {
+  test(`decisions retrieve/list ${status} records without internal fields`, async () => {
+    const record = {...structuredClone(contract.response), status, session_id: 'sess_own', answers: [], context: {mode: 'session'}};
+    if (status === 'running') record.completed_at = null;
+    else record.error = {code: 'decision_invalid_upstream_response', message: 'Invalid JEV response.'};
+    const client = testClient('forward', async request => response(
+      new URL(request.url).pathname.endsWith('/dec_contract') ? record : {data: [record], first_id: record.id, last_id: record.id, has_more: false}
+    ));
+    const result = await client.decisions.retrieve(record.id);
+    const page = await client.decisions.list({session_id: 'sess_own'});
+    assert.deepEqual(result, record);
+    assert.deepEqual(page.data, [record]);
+  });
+}
