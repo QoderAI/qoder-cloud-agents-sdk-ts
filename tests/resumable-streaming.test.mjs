@@ -22,8 +22,8 @@ async function closeServer(server, sockets) {
   await closed;
 }
 
-for (const mode of ['forward', 'managed']) {
-  test(`${mode}: public resumable stream reconnects after a truncated real HTTP response`, async () => {
+for (const mode of ['forward', 'managed']) for (const scope of ['session', 'thread']) {
+  test(`${mode} ${scope}: public resumable stream reconnects after a truncated real HTTP response`, async () => {
     const requests = [];
     const sockets = new Set();
     const events = [
@@ -67,7 +67,9 @@ for (const mode of ['forward', 'managed']) {
         maxRetries: 0,
         timeout: 5_000,
       });
-      const stream = client.sessions.events.resumableStream('sess-one');
+      const stream = scope === 'session' ? client.sessions.events.resumableStream('sess-one')
+        : mode === 'forward' ? client.sessions.threads.events.resumableStream('sess-one', 'thread-one')
+        : client.sessions.threads.events.resumableStream('thread-one', { session_id: 'sess-one' });
       const received = [];
       for await (const event of stream) received.push(event);
 
