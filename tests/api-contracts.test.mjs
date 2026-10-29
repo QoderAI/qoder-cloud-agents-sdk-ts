@@ -4,8 +4,8 @@ import { test } from 'node:test';
 import { sdk, methods, contracts, operations, lookup, argumentsFor, invoke, resource, response, testClient, assertRequest } from './helpers.mjs';
 
 const handwrittenMethods = {
-  forward: ['sessions.events.resumableStream', 'realtime.connect'],
-  managed: ['sessions.events.resumableStream'],
+  forward: ['sessions.events.resumableStream', 'sessions.threads.events.resumableStream', 'realtime.connect'],
+  managed: ['sessions.events.resumableStream', 'sessions.threads.events.resumableStream'],
 };
 
 for (const mode of ['forward', 'managed']) {

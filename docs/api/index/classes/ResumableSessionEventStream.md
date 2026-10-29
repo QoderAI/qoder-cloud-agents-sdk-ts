@@ -6,7 +6,7 @@
 
 # Class: ResumableSessionEventStream\<T\>
 
-A stateful, single-consumer Session Events stream that reconnects after retryable
+A stateful, single-consumer Session or Thread Events stream that reconnects after retryable
 failures and resumes from the last fully decoded SSE frame.
 
 ## Type Parameters
@@ -23,7 +23,7 @@ failures and resumes from the last fully decoded SSE frame.
 
 ### Constructor
 
-> **new ResumableSessionEventStream**\<`T`\>(`openStream`, `initialLastEventID?`, `signal?`): `ResumableSessionEventStream`\<`T`\>
+> **new ResumableSessionEventStream**\<`T`\>(`openStream`, `initialLastEventID?`, `signal?`, `isTerminal?`): `ResumableSessionEventStream`\<`T`\>
 
 #### Parameters
 
@@ -38,6 +38,10 @@ failures and resumes from the last fully decoded SSE frame.
 ##### signal?
 
 `AbortSignal` \| `null`
+
+##### isTerminal?
+
+(`event`) => `boolean`
 
 #### Returns
 

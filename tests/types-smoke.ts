@@ -3,7 +3,7 @@ import { ForwardClient, ManagedClient, APIPromise, Stream, ResumableSessionEvent
 import Forward from 'qca-sdk/forward';
 import Managed from 'qca-sdk/managed';
 import type { TemplateUpdateParams, SessionEvent, ServiceAccountToken, ServiceAccountTokenRevokeResponse } from 'qca-sdk/forward';
-import type { AgentUpdateParams, ManagedAgentsStreamSessionEventsUnion, SessionEventStreamParams as ManagedSessionEventStreamParams } from 'qca-sdk/managed';
+import type { AgentUpdateParams, ManagedAgentsStreamSessionEventsUnion, ManagedAgentsStreamSessionThreadEventsUnion, SessionEventStreamParams as ManagedSessionEventStreamParams } from 'qca-sdk/managed';
 
 const forward: ForwardClient = new Forward({ pat: async () => 'token', timeout: 5000 });
 const managed: ManagedClient = new Managed();
@@ -51,6 +51,14 @@ const stream: APIPromise<Stream<SessionEvent>> = forward.sessions.events.streamE
 const resumable: ResumableSessionEventStream<SessionEvent> = forward.sessions.events.resumableStream('session', { last_event_id: 'event' });
 const managedStreamParams: ManagedSessionEventStreamParams = { last_event_id: 'event', event_deltas: ['agent.message'] };
 const managedResumable: ResumableSessionEventStream<ManagedAgentsStreamSessionEventsUnion> = managed.sessions.events.resumableStream('session', managedStreamParams);
+const threadResumable: ResumableSessionEventStream<SessionEvent> = forward.sessions.threads.events.resumableStream('session', 'thread', { last_event_id: 'event' });
+const managedThreadResumable: ResumableSessionEventStream<ManagedAgentsStreamSessionThreadEventsUnion> = managed.sessions.threads.events.resumableStream('thread', { session_id: 'session', last_event_id: 'event' });
+void threadResumable;
+void managedThreadResumable;
+// @ts-expect-error Managed requires the parent Session ID.
+managed.sessions.threads.events.resumableStream('thread', { last_event_id: 'event' });
+// @ts-expect-error Forward requires a Thread ID.
+forward.sessions.threads.events.resumableStream('session');
 void stream;
 void resumable;
 void managedResumable;

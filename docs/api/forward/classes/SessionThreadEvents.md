@@ -76,6 +76,36 @@ listSessionThreadEvents
 
 ***
 
+### resumableStream()
+
+> **resumableStream**(`sessionID`, `threadID`, `params?`, `options?`): [`ResumableSessionEventStream`](../../index/classes/ResumableSessionEventStream.md)\<[`SessionEvent`](../interfaces/SessionEvent.md)\>
+
+Reconnect the thread stream from the last received SSE cursor.
+
+#### Parameters
+
+##### sessionID
+
+`string`
+
+##### threadID
+
+`string`
+
+##### params?
+
+[`SessionThreadEventStreamParams`](../interfaces/SessionThreadEventStreamParams.md) = `{}`
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`ResumableSessionEventStream`](../../index/classes/ResumableSessionEventStream.md)\<[`SessionEvent`](../interfaces/SessionEvent.md)\>
+
+***
+
 ### streamEvents()
 
 > **streamEvents**(`sessionID`, `threadID`, `params?`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`Stream`](../../index/classes/Stream.md)\<[`SessionEvent`](../interfaces/SessionEvent.md)\>\>

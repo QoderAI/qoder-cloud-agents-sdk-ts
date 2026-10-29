@@ -62,6 +62,12 @@ function isTerminalSessionEvent(value: unknown): boolean {
   return type === 'session.status_terminated' || type === 'session.deleted';
 }
 
+/** @internal Thread idle is not terminal; only termination ends the subscription. */
+export function isTerminalThreadEvent(value: unknown): boolean {
+  return isTerminalSessionEvent(value) || (!!value && typeof value === 'object' &&
+    (value as { type?: unknown }).type === 'session.thread_status_terminated');
+}
+
 async function waitForRetry(ms: number, signal: AbortSignal): Promise<void> {
   if (signal.aborted) throw aborted(signal);
   let timer: ReturnType<typeof setTimeout> | undefined;
@@ -79,7 +85,7 @@ async function waitForRetry(ms: number, signal: AbortSignal): Promise<void> {
 }
 
 /**
- * A stateful, single-consumer Session Events stream that reconnects after retryable
+ * A stateful, single-consumer Session or Thread Events stream that reconnects after retryable
  * failures and resumes from the last fully decoded SSE frame.
  */
 export class ResumableSessionEventStream<T> implements AsyncIterable<T> {
@@ -99,6 +105,7 @@ export class ResumableSessionEventStream<T> implements AsyncIterable<T> {
     private readonly openStream: StreamFactory<T>,
     initialLastEventID?: string | null,
     signal?: AbortSignal | null,
+    private readonly isTerminal: (event: T) => boolean = isTerminalSessionEvent,
   ) {
     this.lastEventID = initialLastEventID ?? undefined;
     this.callerSignal = signal ?? undefined;
@@ -155,7 +162,7 @@ export class ResumableSessionEventStream<T> implements AsyncIterable<T> {
             }
             if (this.closed) return;
             attempt = 0;
-            const terminal = isTerminalSessionEvent(result.value);
+            const terminal = this.isTerminal(result.value);
             yield result.value;
             if (terminal) return;
           }

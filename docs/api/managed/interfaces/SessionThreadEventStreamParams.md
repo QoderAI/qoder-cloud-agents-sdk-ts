@@ -33,6 +33,14 @@ are sent.
 
 ***
 
+### last\_event\_id?
+
+> `optional` **last\_event\_id?**: `string` \| `null`
+
+Resume after this public event in the thread.
+
+***
+
 ### session\_id
 
 > **session\_id**: `string`

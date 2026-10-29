@@ -344,6 +344,49 @@ for await (const event of stream) {
 
 The resumable stream does not query event history, clear an invalid cursor, or deduplicate IDs: delta frames may legitimately share an event ID. It stops after `[DONE]`, `session.status_terminated`, or `session.deleted`. Stop it early with `stream.controller.abort()`, an `AbortSignal` in `RequestOptions`, or `await stream.close()`.
 
+### Thread event resumption
+
+Forward and Managed also support automatic resumption for a single Thread. Use the
+same retry and cancellation behavior as Session streams, with a thread-scoped
+`Last-Event-ID` cursor:
+
+```ts
+import { ForwardClient, ManagedClient } from 'qca-sdk';
+
+const forwardClient = new ForwardClient();
+const managedClient = new ManagedClient();
+const controller = new AbortController();
+// Replace these with IDs returned by the API.
+const sessionID = 'sess_...';
+const threadID = 'sthr_...';
+const afterID = 'evt_...';
+
+// Forward
+const stream = forwardClient.sessions.threads.events.resumableStream(
+  sessionID, threadID, { last_event_id: afterID }, { signal: controller.signal },
+);
+try {
+  for await (const event of stream) console.log(event.type);
+} finally {
+  await stream.close();
+}
+
+// Managed uses the parent session in params.
+const managedStream = managedClient.sessions.threads.events.resumableStream(
+  threadID, { session_id: sessionID, last_event_id: afterID },
+);
+// Iterate as above and close when finished.
+```
+
+`session.thread_status_idle` ends only the current turn, so the subscription stays
+open. `session.thread_status_terminated`, `session.status_terminated`, or
+`session.deleted` ends it normally. A non-retryable error (including an invalid
+cursor or missing thread) is returned to the caller; the SDK never clears the
+cursor to silently start over. The existing one-shot Thread stream remains
+available. See the [Forward Thread stream](https://docs.qoder.com/cloud-agents/api/forward/sessions/stream-thread-events)
+and [Managed Thread stream](https://docs.qoder.com/cloud-agents/api/sessions/threads/events/stream)
+contracts for cursor validity.
+
 ## Forward Decisions (Beta)
 
 The Decision API is in Beta. Its behavior may change in future updates.

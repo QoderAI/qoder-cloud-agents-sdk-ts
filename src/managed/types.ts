@@ -10292,6 +10292,8 @@ export interface SessionThreadEventListParams {
 }
 
 export interface SessionThreadEventStreamParams {
+  /** Resume after this public event in the thread. */
+  last_event_id?: string | null;
   session_id: string;
   workspace_id?: string;
   /**
