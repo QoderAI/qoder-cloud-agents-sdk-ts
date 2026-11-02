@@ -115,7 +115,7 @@ All fields keep the snake_case naming used on the wire. Unknown fields are prese
 
 ## Streaming
 
-Streaming responses are consumed incrementally. Close the stream when finished and handle interruption explicitly; closing a local stream does not cancel server-side work. See the [usage guide](docs/usage-guide.md) for runnable patterns and reconnection behavior.
+Streaming responses are consumed incrementally. Close the stream when finished and handle interruption explicitly; closing a local stream does not cancel server-side work.
 
 ## Handling errors
 
@@ -307,12 +307,11 @@ Node.js 20.12 or later. The SDK relies only on the platform's `fetch`, `Request`
 
 ## Documentation
 
-- [Usage guide](docs/usage-guide.md)
 - [API reference](docs/api/)
 - [Runnable examples](examples/)
 - [Contribution guide](CONTRIBUTING.md)
 
-The API reference under `docs/api/` is generated from the source. Regenerate it with `make docs` (or `npm run docs`). To verify the committed reference is up to date and the README and usage-guide snippets still compile, run `make docs-check` (or `npm run docs:check`); CI runs the same gate on every pull request.
+The API reference under `docs/api/` is generated from the source. Regenerate it with `make docs` (or `npm run docs`). To verify the committed reference is up to date and the README snippets still compile, run `make docs-check` (or `npm run docs:check`); CI runs the same gate on every pull request.
 
 ## License
 

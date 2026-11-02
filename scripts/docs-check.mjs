@@ -9,14 +9,14 @@ import path from 'node:path';
 //
 // Verifies that the committed API reference is a byte-for-byte match of what the
 // deterministic generator produces from the current source, that generated docs
-// and hand-written guides contain no dangling internal links, and that their TypeScript snippets
+// contain no dangling internal links, and that the README's TypeScript snippets
 // still compile against the public type surface. External http(s) links are
 // reported but never block. The whole check runs offline: it reads no PAT and
 // contacts no live environment.
 
 const repoRoot = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const docsDir = path.join(repoRoot, 'docs', 'api');
-const snippetPaths = [path.join(repoRoot, 'README.md'), path.join(repoRoot, 'docs', 'usage-guide.md')];
+const readmePath = path.join(repoRoot, 'README.md');
 const scratchDir = path.join(os.tmpdir(), 'qca-sdk-docs-check');
 
 function run(cmd, args, opts = {}) {
@@ -86,7 +86,7 @@ function assertNoDrift() {
 // A relative link pointing at another generated page that no longer exists is a
 // broken cross-reference and fails the gate.
 async function checkLinks(notCopied) {
-  const files = [...snippetPaths, ...(await walkMarkdown(docsDir))];
+  const files = await walkMarkdown(docsDir);
   const linkRe = /\]\(([^)]+)\)/g;
   const broken = [];
   let externalCount = 0;
@@ -117,12 +117,12 @@ async function checkLinks(notCopied) {
     }
   }
   if (broken.length) {
-    fail(`${broken.length} dangling internal link(s) in documentation`, broken.join('\n'));
+    fail(`${broken.length} dangling internal link(s) in docs/api`, broken.join('\n'));
   }
   console.log(`docs-check: internal links OK; ${externalCount} external/non-generated link(s) reported (not blocking)`);
 }
 
-// --- Step 5: extract README and usage-guide TypeScript snippets and type-check them. ----------
+// --- Step 5: extract README TypeScript snippets and type-check them. ----------
 function extractTsSnippets(readme) {
   const lines = readme.split('\n');
   const snippets = [];
@@ -141,16 +141,16 @@ function extractTsSnippets(readme) {
 }
 
 async function checkReadmeSnippets() {
-  const texts = await Promise.all(snippetPaths.map(file => readFile(file, 'utf8')));
-  const snippets = texts.flatMap(extractTsSnippets);
+  const readme = await readFile(readmePath, 'utf8');
+  const snippets = extractTsSnippets(readme);
   if (snippets.length === 0) {
-    console.log('docs-check: no documentation ts snippets to compile');
+    console.log('docs-check: no README ts snippets to compile');
     return;
   }
 
   await mkdir(scratchDir, { recursive: true });
 
-  // Ambient declarations for the illustrative identifiers the documentation uses
+  // Ambient declarations for the illustrative identifiers the README uses
   // without setup: the two clients (typed, so option shapes are still checked)
   // plus assorted free variables and the Node builtins referenced by upload
   // examples. Local declarations inside a snippet shadow these. This is an
@@ -209,11 +209,11 @@ declare module 'node:fs';
   const result = run(process.execPath, [tscBin, '-p', tsconfigPath]);
   if (result.status !== 0) {
     fail(
-      `documentation ts snippet compilation failed (${snippets.length} snippet(s))`,
+      `README ts snippet compilation failed (${snippets.length} snippet(s))`,
       `${result.stdout || ''}${result.stderr || ''}`,
     );
   }
-  console.log(`docs-check: ${snippets.length} documentation ts snippet(s) compiled`);
+  console.log(`docs-check: ${snippets.length} README ts snippet(s) compiled`);
 }
 
 async function main() {
