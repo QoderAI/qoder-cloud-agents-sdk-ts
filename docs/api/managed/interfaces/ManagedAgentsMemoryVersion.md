@@ -100,7 +100,7 @@ ID of the memory store this version belongs to (a `memstore_...` value).
 The kind of mutation a `memory_version` records. Every non-no-op mutation to a
 memory appends exactly one version row with one of these values.
 
-Any of "created", "modified", "deleted".
+Any of "created", "updated", "deleted". Legacy "modified" remains readable.
 
 ***
 
@@ -110,6 +110,12 @@ Any of "created", "modified", "deleted".
 
 The memory's path at the time of this write. `null` if and only if `redacted_at`
 is set.
+
+***
+
+### redacted?
+
+> `optional` **redacted?**: `boolean`
 
 ***
 

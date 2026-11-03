@@ -986,6 +986,8 @@ export interface Environment {
 }
 
 export interface EnvironmentConfig {
+  /** Runs on sandbox start/resume; self-hosted execution depends on the worker. */
+  startup_script?: string;
   setup_script?: string;
   type: string;
   packages: EnvironmentConfigPackages;
@@ -1773,14 +1775,18 @@ export interface ModelListResponse {
 export type ModelConfig = string | ModelConfigObject;
 
 export interface ModelConfigObject {
+  /** Inference speed; consult the model capabilities. */
+  speed?: string;
   id: string;
-  effort: string;
-  context_window: number;
+  effort?: string;
+  context_window?: number;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
 export interface ModelConfigParam {
+  /** Inference speed: standard or high. */
+  speed?: string | null;
   id: string;
   effort?: string | null;
   context_window?: number | null;
@@ -2284,6 +2290,8 @@ export interface SessionListParams {
 }
 
 export interface SessionNewParams {
+  /** Cumulative Credits limit; omit or null for unlimited. */
+  budget?: SessionBudget | null;
   /**
    * Forward Identity ID。
    */
@@ -2311,12 +2319,16 @@ export interface SessionNewParams {
 }
 
 export interface SessionNewParamsConfigParam {
+  /** Omit to inherit. Null and an empty object are invalid on create. */
+  model?: string | ModelConfigParam;
   environment_variables?: Record<string, unknown> | null;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
 
 export interface SessionUpdateParams {
+  /** Omit to keep; null clears; an object replaces the entire budget. */
+  budget?: SessionBudget | null;
   /**
    * 新的 Session 标题。
    */
@@ -2335,6 +2347,8 @@ export interface SessionUpdateParams {
 }
 
 export interface SessionUpdateParamsConfigParam {
+  /** Omit to keep; null restores the inherited model. */
+  model?: string | ModelConfigParam | null;
   environment_variables?: Record<string, unknown> | null;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
@@ -2359,6 +2373,7 @@ export interface SessionCancelParams {
 }
 
 export interface Session {
+  budget?: SessionBudget | null;
   outcome_evaluations?: Array<SessionOutcomeEvaluation>;
   /**
    * Session ID。
@@ -2413,6 +2428,7 @@ export interface SessionStats {
 }
 
 export interface SessionConfig {
+  model?: ModelConfig;
   environment_variables: Record<string, string>;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
@@ -2497,47 +2513,58 @@ export interface SessionEventStreamParams {
 }
 
 export interface SessionEvent {
+  evaluation?: ToolApprovalEvaluation;
+  /** Absent means unchanged; null means unlimited. */
+  budget?: SessionBudget | null;
+  reason?: string;
+  iteration?: number;
+  explanation?: string | null;
+  outcome_evaluation_start_id?: string;
+  /** Cumulative Credits: replace with the latest values, never sum successive events. */
+  model_credits?: number;
+  sandbox_runtime_credits?: number;
+  total_credits?: number;
   id: string;
   type: string;
-  session_id: string;
-  content: unknown;
+  session_id?: string;
+  content?: unknown;
   processed_at: string;
-  session_thread_id: string;
-  thinking: string;
-  text: string;
-  tool_use_id: string;
-  custom_tool_use_id: string;
-  mcp_tool_use_id: string;
-  name: string;
-  mcp_server_name: string;
-  input: Record<string, unknown>;
-  is_error: boolean;
-  result: string;
-  deny_message: string;
-  description: string;
-  rubric: OutcomeRubric;
-  outcome_id: string;
-  max_iterations: number;
-  message_id: string;
-  message: unknown;
-  index: number;
-  content_block: unknown;
-  delta: unknown;
-  event: unknown;
-  event_id: string;
-  usage: Record<string, unknown>;
-  stop_reason: Record<string, unknown>;
-  error: Record<string, unknown>;
-  evaluated_permission: Record<string, unknown>;
-  file_id: string;
-  original_filename: string;
-  size: number;
-  content_type: string;
-  agent: Record<string, unknown>;
-  metadata: Record<string, unknown>;
-  title: string;
-  model_request_start_id: string;
-  model_usage: Record<string, unknown>;
+  session_thread_id?: string;
+  thinking?: string;
+  text?: string;
+  tool_use_id?: string;
+  custom_tool_use_id?: string;
+  mcp_tool_use_id?: string;
+  name?: string;
+  mcp_server_name?: string;
+  input?: Record<string, unknown>;
+  is_error?: boolean;
+  result?: string;
+  deny_message?: string;
+  description?: string;
+  rubric?: OutcomeRubric;
+  outcome_id?: string;
+  max_iterations?: number;
+  message_id?: string;
+  message?: unknown;
+  index?: number;
+  content_block?: unknown;
+  delta?: unknown;
+  event?: unknown;
+  event_id?: string;
+  usage?: Record<string, unknown>;
+  stop_reason?: Record<string, unknown>;
+  error?: Record<string, unknown>;
+  evaluated_permission?: string;
+  file_id?: string;
+  original_filename?: string;
+  size?: number;
+  content_type?: string;
+  agent?: Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  title?: string;
+  model_request_start_id?: string;
+  model_usage?: Record<string, unknown>;
   /** Additional fields are preserved verbatim by the SDK. */
   [key: string]: unknown;
 }
@@ -3632,3 +3659,25 @@ export interface ChannelPairingListParams {
 export type ChannelPairingUpdateParams =
   | { identity_id: string; template_id?: string }
   | { identity_id?: string; template_id: string };
+
+/** Cumulative model and sandbox Credits limit. An active turn may finish after the limit. */
+export interface SessionBudget {
+  type: "limit";
+  /** Positive decimal string with at most 12 integer and 2 fractional digits. */
+  max_credit_cost: string;
+  [key: string]: unknown;
+}
+
+/** Optional tool approval details; the event-level evaluated_permission is a string. */
+export interface ToolApprovalEvaluation {
+  type: string;
+  evaluated_permission?: ToolApprovalDecision;
+  [key: string]: unknown;
+}
+
+export interface ToolApprovalDecision {
+  type: string;
+  /** indeterminate or high_risk, when provided by an automatic decision. */
+  reason_code?: string;
+  [key: string]: unknown;
+}

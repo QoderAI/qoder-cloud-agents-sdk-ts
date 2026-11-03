@@ -6,7 +6,7 @@
 
 # Type Alias: ManagedAgentsSessionMultiagentCoordinatorAgentUnionModel
 
-> **ManagedAgentsSessionMultiagentCoordinatorAgentUnionModel** = `string` \| \{ `effort?`: [`ManagedAgentsModelConfigEffortUnion`](ManagedAgentsModelConfigEffortUnion.md); `id?`: [`ManagedAgentsModel`](ManagedAgentsModel.md); `inference_geo?`: `string`; `speed?`: [`ManagedAgentsModelConfigSpeed`](ManagedAgentsModelConfigSpeed.md); \}
+> **ManagedAgentsSessionMultiagentCoordinatorAgentUnionModel** = `string` \| \{ `context_window?`: `number`; `effective_context_window?`: `number`; `effort?`: `string`; `id?`: [`ManagedAgentsModel`](ManagedAgentsModel.md); `inference_geo?`: `string`; `speed?`: [`ManagedAgentsModelConfigSpeed`](ManagedAgentsModelConfigSpeed.md); \}
 
 ManagedAgentsSessionMultiagentCoordinatorAgentUnionModel is an implicit
 subunion of `ManagedAgentsSessionMultiagentCoordinatorAgentUnion`.
@@ -21,11 +21,19 @@ access to the sub-properties of the union.
 
 ### Type Literal
 
-\{ `effort?`: [`ManagedAgentsModelConfigEffortUnion`](ManagedAgentsModelConfigEffortUnion.md); `id?`: [`ManagedAgentsModel`](ManagedAgentsModel.md); `inference_geo?`: `string`; `speed?`: [`ManagedAgentsModelConfigSpeed`](ManagedAgentsModelConfigSpeed.md); \}
+\{ `context_window?`: `number`; `effective_context_window?`: `number`; `effort?`: `string`; `id?`: [`ManagedAgentsModel`](ManagedAgentsModel.md); `inference_geo?`: `string`; `speed?`: [`ManagedAgentsModelConfigSpeed`](ManagedAgentsModelConfigSpeed.md); \}
+
+#### context\_window?
+
+> `optional` **context\_window?**: `number`
+
+#### effective\_context\_window?
+
+> `optional` **effective\_context\_window?**: `number`
 
 #### effort?
 
-> `optional` **effort?**: [`ManagedAgentsModelConfigEffortUnion`](ManagedAgentsModelConfigEffortUnion.md)
+> `optional` **effort?**: `string`
 
 This field is from variant `ManagedAgentsModelConfig`.
 
@@ -41,8 +49,10 @@ This field is from variant `ManagedAgentsModelConfig`.
 
 This field is from variant `ManagedAgentsModelConfig`.
 
-#### speed?
+#### ~~speed?~~
 
 > `optional` **speed?**: [`ManagedAgentsModelConfigSpeed`](ManagedAgentsModelConfigSpeed.md)
 
-This field is from variant `ManagedAgentsModelConfig`.
+##### Deprecated
+
+Managed model configuration no longer includes speed.

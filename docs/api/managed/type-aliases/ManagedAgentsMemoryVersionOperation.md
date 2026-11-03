@@ -6,7 +6,6 @@
 
 # Type Alias: ManagedAgentsMemoryVersionOperation
 
-> **ManagedAgentsMemoryVersionOperation** = `"created"` \| `"modified"` \| `"deleted"`
+> **ManagedAgentsMemoryVersionOperation** = `"created"` \| `"updated"` \| `"deleted"` \| [`LegacyMemoryVersionOperation`](LegacyMemoryVersionOperation.md)
 
-The kind of mutation a `memory_version` records. Every non-no-op mutation to a
-memory appends exactly one version row with one of these values.
+Current operations are created, updated and deleted; modified is legacy only.

@@ -110,3 +110,11 @@ Any of "memory".
 > **updated\_at**: `string`
 
 A timestamp in RFC 3339 format
+
+***
+
+### version?
+
+> `optional` **version?**: `number`
+
+Current memory version, starting at 1.

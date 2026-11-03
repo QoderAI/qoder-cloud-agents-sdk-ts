@@ -20,6 +20,12 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
+### budget?
+
+> `optional` **budget?**: [`SessionBudget`](SessionBudget.md) \| `null`
+
+***
+
 ### config
 
 > **config**: [`SessionConfig`](SessionConfig.md)

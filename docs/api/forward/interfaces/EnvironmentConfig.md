@@ -26,6 +26,14 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
+### startup\_script?
+
+> `optional` **startup\_script?**: `string`
+
+Runs on sandbox start/resume; self-hosted execution depends on the worker.
+
+***
+
 ### type
 
 > **type**: `string`

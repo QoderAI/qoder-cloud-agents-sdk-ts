@@ -19,6 +19,14 @@ This struct has a constant value, construct it with
 
 ***
 
+### startup\_script?
+
+> `optional` **startup\_script?**: `string`
+
+Runs on sandbox start/resume; self-hosted execution depends on the worker.
+
+***
+
 ### type?
 
 > `optional` **type?**: `"self_hosted"` \| `null`

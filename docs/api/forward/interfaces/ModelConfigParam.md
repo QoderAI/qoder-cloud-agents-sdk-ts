@@ -29,3 +29,11 @@ Additional fields are preserved verbatim by the SDK.
 ### id
 
 > **id**: `string`
+
+***
+
+### speed?
+
+> `optional` **speed?**: `string` \| `null`
+
+Inference speed: standard or high.
