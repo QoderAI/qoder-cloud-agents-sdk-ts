@@ -5,6 +5,28 @@ existing `0.1.0` release; earlier development prereleases are not listed.
 
 ## [Unreleased]
 
+### Added
+
+- Add typed Forward Session budgets across create/update responses and events, including omission, explicit null clearing and decimal-string limits.
+- Add Forward Session `config.model` overrides and model `speed` configuration, plus optional approval evaluation details, Outcome/status event fields and cumulative top-level Credits on `session.usage`.
+- Add `startup_script` to Forward/Managed Environment models and Managed cloud/self-hosted parameters. It runs on sandbox start/resume; the external worker controls self-hosted execution.
+- Add Managed Memory `version`, version `redacted`, and Vault creation-response `credentials` fields. Vault creation still does not accept credentials in its request.
+
+### Fixed
+
+- Decode Forward `evaluated_permission` through a string declaration and make event-specific payload fields optional instead of requiring fields from every event variant.
+- Align Managed Thread/coordinator exported model helper types with string effort and context windows. Add Memory version `updated`, retaining `modified` through a deprecated compatibility type.
+
+### Breaking changes
+
+- Forward `SessionEvent.evaluated_permission` is now `string | undefined`, and event-specific fields may be absent. The two Managed nested-model helper types now use string effort.
+
+### Migration
+
+- Compare `event.evaluated_permission` directly to `"allow"`, `"ask"` or `"deny"`; automatic approval details are under `event.evaluation?.evaluated_permission`. Check optional event fields before reading them.
+- Omit `budget` to keep the default/current limit; pass `null` to clear it. Omit the model on create to inherit; update `config.model` to `null` to restore inheritance.
+- Use the new `updated` Memory operation for current responses. Legacy Managed nested-model `speed` remains deprecated. Treat `session.usage` as cumulative snapshots rather than adding successive events.
+
 ### Changed
 
 - Remove resource-specific sections and inventories from the README to keep it focused on SDK setup and shared client behavior.

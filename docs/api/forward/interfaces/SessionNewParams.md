@@ -14,6 +14,14 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
+### budget?
+
+> `optional` **budget?**: [`SessionBudget`](SessionBudget.md) \| `null`
+
+Cumulative Credits limit; omit or null for unlimited.
+
+***
+
 ### config?
 
 > `optional` **config?**: [`SessionNewParamsConfigParam`](SessionNewParamsConfigParam.md) \| `null`

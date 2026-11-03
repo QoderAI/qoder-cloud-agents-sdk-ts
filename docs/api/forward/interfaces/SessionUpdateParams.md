@@ -14,6 +14,14 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
+### budget?
+
+> `optional` **budget?**: [`SessionBudget`](SessionBudget.md) \| `null`
+
+Omit to keep; null clears; an object replaces the entire budget.
+
+***
+
 ### config?
 
 > `optional` **config?**: [`SessionUpdateParamsConfigParam`](SessionUpdateParamsConfigParam.md) \| `null`

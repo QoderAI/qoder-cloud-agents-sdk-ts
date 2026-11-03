@@ -41,6 +41,14 @@ Under `limited` networking, requires `networking.allow_package_managers` to be
 
 ***
 
+### startup\_script?
+
+> `optional` **startup\_script?**: `string` \| `null`
+
+Runs on sandbox start/resume; self-hosted execution depends on the worker.
+
+***
+
 ### storage?
 
 > `optional` **storage?**: [`BucketStorageParam`](BucketStorageParam.md)

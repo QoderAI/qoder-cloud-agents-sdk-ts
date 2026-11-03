@@ -17,3 +17,9 @@ Additional fields are preserved verbatim by the SDK.
 ### environment\_variables
 
 > **environment\_variables**: `Record`\<`string`, `string`\>
+
+***
+
+### model?
+
+> `optional` **model?**: [`ModelConfig`](../type-aliases/ModelConfig.md)

@@ -14,81 +14,101 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
-### agent
+### agent?
 
-> **agent**: `Record`\<`string`, `unknown`\>
-
-***
-
-### content
-
-> **content**: `unknown`
+> `optional` **agent?**: `Record`\<`string`, `unknown`\>
 
 ***
 
-### content\_block
+### budget?
 
-> **content\_block**: `unknown`
+> `optional` **budget?**: [`SessionBudget`](SessionBudget.md) \| `null`
 
-***
-
-### content\_type
-
-> **content\_type**: `string`
+Absent means unchanged; null means unlimited.
 
 ***
 
-### custom\_tool\_use\_id
+### content?
 
-> **custom\_tool\_use\_id**: `string`
-
-***
-
-### delta
-
-> **delta**: `unknown`
+> `optional` **content?**: `unknown`
 
 ***
 
-### deny\_message
+### content\_block?
 
-> **deny\_message**: `string`
-
-***
-
-### description
-
-> **description**: `string`
+> `optional` **content\_block?**: `unknown`
 
 ***
 
-### error
+### content\_type?
 
-> **error**: `Record`\<`string`, `unknown`\>
-
-***
-
-### evaluated\_permission
-
-> **evaluated\_permission**: `Record`\<`string`, `unknown`\>
+> `optional` **content\_type?**: `string`
 
 ***
 
-### event
+### custom\_tool\_use\_id?
 
-> **event**: `unknown`
-
-***
-
-### event\_id
-
-> **event\_id**: `string`
+> `optional` **custom\_tool\_use\_id?**: `string`
 
 ***
 
-### file\_id
+### delta?
 
-> **file\_id**: `string`
+> `optional` **delta?**: `unknown`
+
+***
+
+### deny\_message?
+
+> `optional` **deny\_message?**: `string`
+
+***
+
+### description?
+
+> `optional` **description?**: `string`
+
+***
+
+### error?
+
+> `optional` **error?**: `Record`\<`string`, `unknown`\>
+
+***
+
+### evaluated\_permission?
+
+> `optional` **evaluated\_permission?**: `string`
+
+***
+
+### evaluation?
+
+> `optional` **evaluation?**: [`ToolApprovalEvaluation`](ToolApprovalEvaluation.md)
+
+***
+
+### event?
+
+> `optional` **event?**: `unknown`
+
+***
+
+### event\_id?
+
+> `optional` **event\_id?**: `string`
+
+***
+
+### explanation?
+
+> `optional` **explanation?**: `string` \| `null`
+
+***
+
+### file\_id?
+
+> `optional` **file\_id?**: `string`
 
 ***
 
@@ -98,87 +118,107 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
-### index
+### index?
 
-> **index**: `number`
-
-***
-
-### input
-
-> **input**: `Record`\<`string`, `unknown`\>
+> `optional` **index?**: `number`
 
 ***
 
-### is\_error
+### input?
 
-> **is\_error**: `boolean`
-
-***
-
-### max\_iterations
-
-> **max\_iterations**: `number`
+> `optional` **input?**: `Record`\<`string`, `unknown`\>
 
 ***
 
-### mcp\_server\_name
+### is\_error?
 
-> **mcp\_server\_name**: `string`
-
-***
-
-### mcp\_tool\_use\_id
-
-> **mcp\_tool\_use\_id**: `string`
+> `optional` **is\_error?**: `boolean`
 
 ***
 
-### message
+### iteration?
 
-> **message**: `unknown`
-
-***
-
-### message\_id
-
-> **message\_id**: `string`
+> `optional` **iteration?**: `number`
 
 ***
 
-### metadata
+### max\_iterations?
 
-> **metadata**: `Record`\<`string`, `unknown`\>
-
-***
-
-### model\_request\_start\_id
-
-> **model\_request\_start\_id**: `string`
+> `optional` **max\_iterations?**: `number`
 
 ***
 
-### model\_usage
+### mcp\_server\_name?
 
-> **model\_usage**: `Record`\<`string`, `unknown`\>
-
-***
-
-### name
-
-> **name**: `string`
+> `optional` **mcp\_server\_name?**: `string`
 
 ***
 
-### original\_filename
+### mcp\_tool\_use\_id?
 
-> **original\_filename**: `string`
+> `optional` **mcp\_tool\_use\_id?**: `string`
 
 ***
 
-### outcome\_id
+### message?
 
-> **outcome\_id**: `string`
+> `optional` **message?**: `unknown`
+
+***
+
+### message\_id?
+
+> `optional` **message\_id?**: `string`
+
+***
+
+### metadata?
+
+> `optional` **metadata?**: `Record`\<`string`, `unknown`\>
+
+***
+
+### model\_credits?
+
+> `optional` **model\_credits?**: `number`
+
+Cumulative Credits: replace with the latest values, never sum successive events.
+
+***
+
+### model\_request\_start\_id?
+
+> `optional` **model\_request\_start\_id?**: `string`
+
+***
+
+### model\_usage?
+
+> `optional` **model\_usage?**: `Record`\<`string`, `unknown`\>
+
+***
+
+### name?
+
+> `optional` **name?**: `string`
+
+***
+
+### original\_filename?
+
+> `optional` **original\_filename?**: `string`
+
+***
+
+### outcome\_evaluation\_start\_id?
+
+> `optional` **outcome\_evaluation\_start\_id?**: `string`
+
+***
+
+### outcome\_id?
+
+> `optional` **outcome\_id?**: `string`
 
 ***
 
@@ -188,63 +228,81 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
-### result
+### reason?
 
-> **result**: `string`
-
-***
-
-### rubric
-
-> **rubric**: [`OutcomeRubric`](../type-aliases/OutcomeRubric.md)
+> `optional` **reason?**: `string`
 
 ***
 
-### session\_id
+### result?
 
-> **session\_id**: `string`
-
-***
-
-### session\_thread\_id
-
-> **session\_thread\_id**: `string`
+> `optional` **result?**: `string`
 
 ***
 
-### size
+### rubric?
 
-> **size**: `number`
-
-***
-
-### stop\_reason
-
-> **stop\_reason**: `Record`\<`string`, `unknown`\>
+> `optional` **rubric?**: [`OutcomeRubric`](../type-aliases/OutcomeRubric.md)
 
 ***
 
-### text
+### sandbox\_runtime\_credits?
 
-> **text**: `string`
-
-***
-
-### thinking
-
-> **thinking**: `string`
+> `optional` **sandbox\_runtime\_credits?**: `number`
 
 ***
 
-### title
+### session\_id?
 
-> **title**: `string`
+> `optional` **session\_id?**: `string`
 
 ***
 
-### tool\_use\_id
+### session\_thread\_id?
 
-> **tool\_use\_id**: `string`
+> `optional` **session\_thread\_id?**: `string`
+
+***
+
+### size?
+
+> `optional` **size?**: `number`
+
+***
+
+### stop\_reason?
+
+> `optional` **stop\_reason?**: `Record`\<`string`, `unknown`\>
+
+***
+
+### text?
+
+> `optional` **text?**: `string`
+
+***
+
+### thinking?
+
+> `optional` **thinking?**: `string`
+
+***
+
+### title?
+
+> `optional` **title?**: `string`
+
+***
+
+### tool\_use\_id?
+
+> `optional` **tool\_use\_id?**: `string`
+
+***
+
+### total\_credits?
+
+> `optional` **total\_credits?**: `number`
 
 ***
 
@@ -254,6 +312,6 @@ Additional fields are preserved verbatim by the SDK.
 
 ***
 
-### usage
+### usage?
 
-> **usage**: `Record`\<`string`, `unknown`\>
+> `optional` **usage?**: `Record`\<`string`, `unknown`\>

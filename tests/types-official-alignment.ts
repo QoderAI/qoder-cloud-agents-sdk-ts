@@ -24,3 +24,31 @@ const read: M.OSSBucketCredential = {type:'access_key',access_key_id:'masked'};
 // @ts-expect-error Secrets are not part of the credential read view.
 const leaked: M.OSSBucketCredential = {type:'access_key',access_key_secret:'secret'};
 void [overrides,clear,multi,forwardDream,pairing,emptyPairing,bucket,read,leaked];
+
+// Official schemas retrieved 2026-11-03. These checks require declared types,
+// since unknown-field preservation alone cannot ensure usable typed responses.
+const forwardBudget: F.SessionBudget = {type:'limit',max_credit_cost:'100.00'};
+const sessionCreate: F.SessionCreateParams = {identity_id:'idn',template_id:'tmpl',budget:forwardBudget,config:{model:{id:'ultimate',speed:'high'}}};
+const sessionClear: F.SessionUpdateParams = {budget:null,config:{model:null}};
+const modelRead: F.ModelConfigObject = {id:'ultimate',speed:'high'};
+const speedRead: string | undefined = modelRead.speed;
+// @ts-expect-error Budget amounts must be decimal strings.
+const badBudget: F.SessionBudget = {type:'limit',max_credit_cost:100};
+// @ts-expect-error Null is only allowed when updating the Session model.
+const badCreateModel: F.SessionNewParamsConfigParam = {model:null};
+const approval: F.SessionEvent = {id:'e',type:'agent.tool_use',processed_at:'2026-11-03T00:00:00Z',evaluated_permission:'deny',evaluation:{type:'auto',evaluated_permission:{type:'deny',reason_code:'high_risk'}}};
+const permission: string | undefined = approval.evaluated_permission;
+const approvalReason: string | undefined = approval.evaluation?.evaluated_permission?.reason_code;
+const usageEvent: F.SessionEvent = {id:'e',type:'session.usage',processed_at:'2026-11-03T00:00:00Z',model_credits:0.68,sandbox_runtime_credits:0.04,total_credits:0.72};
+const credits: number | undefined = usageEvent.total_credits;
+const outcomeIteration: number | undefined = usageEvent.iteration;
+const budgetEvent: F.SessionEvent = {...usageEvent,budget:null};
+const startupForward: Pick<F.EnvironmentConfig,'startup_script'> = {startup_script:'echo ready'};
+const startupManaged: M.CloudConfigParams = {type:'cloud',startup_script:'echo ready'};
+const startupSelfHosted: M.SelfHostedConfigParams = {type:'self_hosted',startup_script:'echo ready'};
+const nestedThreadModel: M.ManagedAgentsSessionThreadAgentUnionModel = {id:'ultimate',effort:'none',context_window:200000,effective_context_window:180000};
+const nestedCoordinatorModel: M.ManagedAgentsSessionMultiagentCoordinatorAgentUnionModel = nestedThreadModel;
+const memoryVersion: Pick<M.ManagedAgentsMemory,'version'> = {version:2};
+const redactedVersion: Pick<M.ManagedAgentsMemoryVersion,'operation'|'redacted'> = {operation:'updated',redacted:true};
+const vaultCredentials: Pick<M.ManagedAgentsVault,'credentials'> = {credentials:[]};
+void [forwardBudget,sessionCreate,sessionClear,modelRead,speedRead,badBudget,badCreateModel,approval,permission,approvalReason,usageEvent,credits,outcomeIteration,budgetEvent,startupForward,startupManaged,startupSelfHosted,nestedThreadModel,nestedCoordinatorModel,memoryVersion,redactedVersion,vaultCredentials];

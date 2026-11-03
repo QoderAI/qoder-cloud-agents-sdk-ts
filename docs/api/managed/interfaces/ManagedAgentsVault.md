@@ -26,6 +26,14 @@ A timestamp in RFC 3339 format
 
 ***
 
+### credentials?
+
+> `optional` **credentials?**: [`ManagedAgentsCredential`](ManagedAgentsCredential.md)[]
+
+Empty on creation; add credentials using the separate Credential API.
+
+***
+
 ### display\_name
 
 > **display\_name**: `string`

@@ -62,7 +62,7 @@ Query parameter for memory_id
 
 Query parameter for operation
 
-Any of "created", "modified", "deleted".
+Any of "created", "updated", "deleted". Legacy "modified" remains readable.
 
 ***
 

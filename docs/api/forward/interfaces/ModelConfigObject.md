@@ -14,18 +14,26 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
-### context\_window
+### context\_window?
 
-> **context\_window**: `number`
+> `optional` **context\_window?**: `number`
 
 ***
 
-### effort
+### effort?
 
-> **effort**: `string`
+> `optional` **effort?**: `string`
 
 ***
 
 ### id
 
 > **id**: `string`
+
+***
+
+### speed?
+
+> `optional` **speed?**: `string`
+
+Inference speed; consult the model capabilities.

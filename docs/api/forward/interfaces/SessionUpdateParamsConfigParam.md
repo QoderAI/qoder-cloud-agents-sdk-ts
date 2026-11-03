@@ -17,3 +17,11 @@ Additional fields are preserved verbatim by the SDK.
 ### environment\_variables?
 
 > `optional` **environment\_variables?**: `Record`\<`string`, `unknown`\> \| `null`
+
+***
+
+### model?
+
+> `optional` **model?**: `string` \| [`ModelConfigParam`](ModelConfigParam.md) \| `null`
+
+Omit to keep; null restores the inherited model.

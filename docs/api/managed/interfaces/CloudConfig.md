@@ -32,6 +32,14 @@ Package manager configuration.
 
 ***
 
+### startup\_script?
+
+> `optional` **startup\_script?**: `string`
+
+Runs on sandbox start/resume; self-hosted execution depends on the worker.
+
+***
+
 ### storage?
 
 > `optional` **storage?**: [`BucketStorage`](BucketStorage.md)

@@ -629,6 +629,7 @@
 - [HealthCheckWorkDataType](type-aliases/HealthCheckWorkDataType.md)
 - [ImageBlockParamSourceUnion](type-aliases/ImageBlockParamSourceUnion.md)
 - [ImageTransformationsParamOversizedImage](type-aliases/ImageTransformationsParamOversizedImage.md)
+- [~~LegacyMemoryVersionOperation~~](type-aliases/LegacyMemoryVersionOperation.md)
 - [ManagedAgentsActorUnion](type-aliases/ManagedAgentsActorUnion.md)
 - [ManagedAgentsAdvisorParamsType](type-aliases/ManagedAgentsAdvisorParamsType.md)
 - [ManagedAgentsAdvisorType](type-aliases/ManagedAgentsAdvisorType.md)

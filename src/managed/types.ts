@@ -3034,6 +3034,8 @@ export interface DreamCancelParams {
  * `cloud` environment configuration.
  */
 export interface CloudConfig {
+  /** Runs on sandbox start/resume; self-hosted execution depends on the worker. */
+  startup_script?: string;
   /** Requires betas: ["oss-bucket-2026-09-23"] when buckets remain configured. */
   storage?: BucketStorage;
   setup_script?: string;
@@ -3059,6 +3061,8 @@ export type CloudConfigNetworkingUnion = UnrestrictedNetwork | LimitedNetwork;
  * Fields default to null; on update, omitted fields preserve the existing value.
  */
 export interface CloudConfigParams {
+  /** Runs on sandbox start/resume; self-hosted execution depends on the worker. */
+  startup_script?: string | null;
   /** Requires betas: ["oss-bucket-2026-09-23"] when buckets remain configured. */
   storage?: BucketStorageParam;
   setup_script?: string | null;
@@ -3311,6 +3315,8 @@ export type PackagesParamsType = "packages";
  * Configuration for self-hosted environments.
  */
 export interface SelfHostedConfig {
+  /** Runs on sandbox start/resume; self-hosted execution depends on the worker. */
+  startup_script?: string;
   setup_script?: string;
   /**
    * Environment type
@@ -3325,6 +3331,8 @@ export interface SelfHostedConfig {
  * `NewSelfHostedConfigParams`.
  */
 export interface SelfHostedConfigParams {
+  /** Runs on sandbox start/resume; self-hosted execution depends on the worker. */
+  startup_script?: string;
   setup_script?: string;
   /**
    * Environment type
@@ -4181,6 +4189,8 @@ export type ManagedAgentsDeletedMemoryType = "memory_deleted";
  * via update.
  */
 export interface ManagedAgentsMemory {
+  /** Current memory version, starting at 1. */
+  version?: number;
   metadata?: Record<string, string>;
   /**
    * Unique identifier for this memory (a `mem_...` value). Stable across renames;
@@ -4462,6 +4472,7 @@ export type ManagedAgentsAPIActorType = "api_actor";
  * `redacted_at`, not HTTP status.
  */
 export interface ManagedAgentsMemoryVersion {
+  redacted?: boolean;
   /**
    * Unique identifier for this version (a `memver_...` value).
    */
@@ -4486,7 +4497,7 @@ export interface ManagedAgentsMemoryVersion {
    * The kind of mutation a `memory_version` records. Every non-no-op mutation to a
    * memory appends exactly one version row with one of these values.
    *
-   * Any of "created", "modified", "deleted".
+   * Any of "created", "updated", "deleted". Legacy "modified" remains readable.
    */
   operation: ManagedAgentsMemoryVersionOperation;
   /**
@@ -4542,7 +4553,10 @@ export type ManagedAgentsMemoryVersionType = "memory_version";
  * The kind of mutation a `memory_version` records. Every non-no-op mutation to a
  * memory appends exactly one version row with one of these values.
  */
-export type ManagedAgentsMemoryVersionOperation = "created" | "modified" | "deleted";
+/** Current operations are created, updated and deleted; modified is legacy only. */
+export type ManagedAgentsMemoryVersionOperation = "created" | "updated" | "deleted" | LegacyMemoryVersionOperation;
+/** @deprecated Current API responses use updated. */
+export type LegacyMemoryVersionOperation = "modified";
 
 /**
  * Attribution for a write made by a workload authenticated as a service account,
@@ -4643,7 +4657,7 @@ export interface MemoryStoreMemoryVersionListParams {
   /**
    * Query parameter for operation
    *
-   * Any of "created", "modified", "deleted".
+   * Any of "created", "updated", "deleted". Legacy "modified" remains readable.
    */
   operation?: ManagedAgentsMemoryVersionOperation;
   /**
@@ -6953,7 +6967,9 @@ export type ManagedAgentsSessionMultiagentCoordinatorAgentUnionModel = string | 
   /**
    * This field is from variant `ManagedAgentsModelConfig`.
    */
-  effort?: ManagedAgentsModelConfigEffortUnion;
+  effort?: string;
+  context_window?: number;
+  effective_context_window?: number;
   /**
    * This field is from variant `ManagedAgentsModelConfig`.
    */
@@ -6961,6 +6977,7 @@ export type ManagedAgentsSessionMultiagentCoordinatorAgentUnionModel = string | 
   /**
    * This field is from variant `ManagedAgentsModelConfig`.
    */
+  /** @deprecated Managed model configuration no longer includes speed. */
   speed?: ManagedAgentsModelConfigSpeed;
 };
 
@@ -10112,7 +10129,9 @@ export type ManagedAgentsSessionThreadAgentUnionModel = string | {
   /**
    * This field is from variant `ManagedAgentsModelConfig`.
    */
-  effort?: ManagedAgentsModelConfigEffortUnion;
+  effort?: string;
+  context_window?: number;
+  effective_context_window?: number;
   /**
    * This field is from variant `ManagedAgentsModelConfig`.
    */
@@ -10120,6 +10139,7 @@ export type ManagedAgentsSessionThreadAgentUnionModel = string | {
   /**
    * This field is from variant `ManagedAgentsModelConfig`.
    */
+  /** @deprecated Managed model configuration no longer includes speed. */
   speed?: ManagedAgentsModelConfigSpeed;
 };
 
@@ -10624,6 +10644,8 @@ export type ManagedAgentsDeletedVaultType = "vault_deleted";
  * A vault that stores credentials for use by agents during sessions.
  */
 export interface ManagedAgentsVault {
+  /** Empty on creation; add credentials using the separate Credential API. */
+  credentials?: Array<ManagedAgentsCredential>;
   /**
    * Unique identifier for the vault.
    */
