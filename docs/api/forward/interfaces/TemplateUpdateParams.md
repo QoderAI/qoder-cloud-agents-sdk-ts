@@ -142,6 +142,14 @@ Positive maximum tool-call rounds per Turn. Omit to preserve the limit; null cle
 
 ***
 
+### tunnel\_id?
+
+> `optional` **tunnel\_id?**: `string` \| `null`
+
+Omit to keep the current tunnel, or pass null to clear the binding.
+
+***
+
 ### vaults?
 
 > `optional` **vaults?**: `Record`\<`string`, [`ResourceBindingParam`](ResourceBindingParam.md)\> \| `null`

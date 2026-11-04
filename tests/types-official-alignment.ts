@@ -52,3 +52,18 @@ const memoryVersion: Pick<M.ManagedAgentsMemory,'version'> = {version:2};
 const redactedVersion: Pick<M.ManagedAgentsMemoryVersion,'operation'|'redacted'> = {operation:'updated',redacted:true};
 const vaultCredentials: Pick<M.ManagedAgentsVault,'credentials'> = {credentials:[]};
 void [forwardBudget,sessionCreate,sessionClear,modelRead,speedRead,badBudget,badCreateModel,approval,permission,approvalReason,usageEvent,credits,outcomeIteration,budgetEvent,startupForward,startupManaged,startupSelfHosted,nestedThreadModel,nestedCoordinatorModel,memoryVersion,redactedVersion,vaultCredentials];
+
+declare const managedCreateWithTunnel: M.SessionCreateParams;
+declare const templateWithTunnel: F.Template;
+const sessionTunnel: string | undefined = managedCreateWithTunnel.tunnel_id;
+const templateTunnel: string | undefined = templateWithTunnel.tunnel_id;
+// @ts-expect-error A tunnel ID must be a string.
+const invalidTunnel: Pick<F.TemplateCreateParams, 'tunnel_id'> = { tunnel_id: 123 };
+const clearTunnel: Pick<F.TemplateUpdateParams, 'tunnel_id'> = { tunnel_id: null };
+void [sessionTunnel, templateTunnel, invalidTunnel, clearTunnel];
+declare const deploymentWithTunnel: M.ManagedAgentsDeployment;
+const deploymentTunnel: string | undefined = deploymentWithTunnel.tunnel_id;
+// @ts-expect-error Only updates can clear a deployment tunnel.
+const invalidDeploymentTunnel: Pick<M.DeploymentCreateParams, 'tunnel_id'> = { tunnel_id: null };
+const clearDeploymentTunnel: Pick<M.DeploymentUpdateParams, 'tunnel_id'> = { tunnel_id: null };
+void [deploymentTunnel, invalidDeploymentTunnel, clearDeploymentTunnel];

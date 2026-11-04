@@ -82,6 +82,14 @@ Human-readable session title.
 
 ***
 
+### tunnel\_id?
+
+> `optional` **tunnel\_id?**: `string`
+
+BYOC tunnel used for MCP requests from this session.
+
+***
+
 ### vault\_ids?
 
 > `optional` **vault\_ids?**: `string`[] \| `null`

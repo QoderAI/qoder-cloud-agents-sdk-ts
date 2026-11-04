@@ -134,6 +134,14 @@ Any of "active", "paused".
 
 ***
 
+### tunnel\_id?
+
+> `optional` **tunnel\_id?**: `string`
+
+BYOC tunnel bound to this deployment, when configured.
+
+***
+
 ### type
 
 > **type**: `"deployment"`
