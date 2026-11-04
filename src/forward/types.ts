@@ -2929,6 +2929,8 @@ export interface TemplateNewParams {
    * 创建 Session 时默认使用的 Environment ID。
    */
   environment_id: string;
+  /** BYOC tunnel inherited by sessions created from this template. */
+  tunnel_id?: string;
   /**
    * Template 描述，最多 2048 个字符。
    */
@@ -3026,6 +3028,8 @@ export interface TemplateUpdateParams {
    * 替换默认 Environment ID；`null` 或空字符串表示清空。
    */
   environment_id?: string | null;
+  /** Omit to keep the current tunnel, or pass null to clear the binding. */
+  tunnel_id?: string | null;
   /**
    * 整体替换默认 Vault 配置；按 Vault ID 组织，`null` 表示清空。
    */
@@ -3117,6 +3121,8 @@ export interface Template {
    * 默认 Environment ID。
    */
   environment_id: string;
+  /** BYOC tunnel configured for this template, when bound. */
+  tunnel_id?: string;
   vaults: Record<string, ResourceBinding>;
   files: Record<string, ResourceBinding>;
   github_repositories: Record<string, GitHubRepository>;
