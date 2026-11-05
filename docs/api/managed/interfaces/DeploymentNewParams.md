@@ -102,6 +102,14 @@ timezone.
 
 ***
 
+### tunnel\_id?
+
+> `optional` **tunnel\_id?**: `string`
+
+BYOC tunnel for MCP requests from sessions created by this deployment.
+
+***
+
 ### vault\_ids?
 
 > `optional` **vault\_ids?**: `string`[] \| `null`

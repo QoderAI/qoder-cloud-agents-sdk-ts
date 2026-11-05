@@ -102,6 +102,14 @@ timezone.
 
 ***
 
+### tunnel\_id?
+
+> `optional` **tunnel\_id?**: `string` \| `null`
+
+Omit to preserve the tunnel binding, set an ID to replace it, or pass null to clear it.
+
+***
+
 ### vault\_ids?
 
 > `optional` **vault\_ids?**: `string`[] \| `null`

@@ -138,6 +138,14 @@ Template 名称。
 
 ***
 
+### tunnel\_id?
+
+> `optional` **tunnel\_id?**: `string`
+
+BYOC tunnel configured for this template, when bound.
+
+***
+
 ### type
 
 > **type**: `string`

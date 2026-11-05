@@ -142,6 +142,14 @@ System Prompt，最多 100,000 个字符。
 
 ***
 
+### tunnel\_id?
+
+> `optional` **tunnel\_id?**: `string`
+
+BYOC tunnel inherited by sessions created from this template.
+
+***
+
 ### vaults?
 
 > `optional` **vaults?**: `Record`\<`string`, [`ResourceBindingParam`](ResourceBindingParam.md)\> \| `null`

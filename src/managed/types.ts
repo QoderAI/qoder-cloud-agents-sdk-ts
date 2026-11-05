@@ -1578,6 +1578,8 @@ export interface ManagedAgentsDeployment {
    * ID of the `environment` where sessions run.
    */
   environment_id: string;
+  /** BYOC tunnel bound to this deployment, when configured. */
+  tunnel_id?: string;
   /**
    * Events sent to each session immediately after creation.
    */
@@ -2100,6 +2102,8 @@ export interface DeploymentNewParams {
    * created from this deployment.
    */
   environment_id: string;
+  /** BYOC tunnel for MCP requests from sessions created by this deployment. */
+  tunnel_id?: string;
   /**
    * Events to send to each session immediately after creation. At least 1,
    * maximum 50.
@@ -2167,6 +2171,8 @@ export interface DeploymentUpdateParams {
    * ID of the `environment` where sessions run. Omit to preserve. Cannot be cleared.
    */
   environment_id?: string;
+  /** Omit to preserve the tunnel binding, set an ID to replace it, or pass null to clear it. */
+  tunnel_id?: string | null;
   /**
    * Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
    */
@@ -7262,6 +7268,8 @@ export interface SessionNewParams {
    * ID of the `environment` defining the container configuration for this session.
    */
   environment_id: string;
+  /** BYOC tunnel used for MCP requests from this session. */
+  tunnel_id?: string;
   /**
    * Human-readable session title.
    */
