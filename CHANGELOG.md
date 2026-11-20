@@ -5,6 +5,19 @@ existing `0.1.0` release; earlier development prereleases are not listed.
 
 ## [Unreleased]
 
+### Fixed
+
+- Send Managed `environments.work.heartbeat()` `expected_last_heartbeat` and `desired_ttl_seconds` as query parameters. Earlier releases put them in the JSON body, which the service ignores, so lease preconditions and requested TTLs had no effect.
+- Accept `"latest"` and positive integer strings for child Agent `version` in Managed Agent multiagent rosters, and type saved roster versions as `number | "latest"` in Agent responses. Session and Deployment Agent references keep numeric versions.
+
+### Breaking changes
+
+- `ManagedAgentsMultiagentAgentUnion` now uses `ManagedAgentsMultiagentAgentReference`, whose `version` is `number | "latest"`, and roster requests use `ManagedAgentsMultiagentAgentParams`.
+
+### Migration
+
+- Check for `"latest"` before treating a saved roster `version` as a number. Code that only builds roster requests needs no change.
+
 ## [0.15.0]
 
 ### Added

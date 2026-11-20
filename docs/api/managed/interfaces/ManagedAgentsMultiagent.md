@@ -14,8 +14,8 @@ Resolved coordinator topology with a concrete agent roster.
 
 > **agents**: [`ManagedAgentsMultiagentAgentUnion`](../type-aliases/ManagedAgentsMultiagentAgentUnion.md)[]
 
-Agents the coordinator may spawn as session threads, each resolved to a specific
-version.
+Agents the coordinator may spawn as session threads. Child Agent references keep
+their saved version, which can be `"latest"`.
 
 ***
 

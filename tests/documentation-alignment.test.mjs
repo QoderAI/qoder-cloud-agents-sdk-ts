@@ -69,3 +69,14 @@ for (const mode of ['forward', 'managed']) test(`${mode} startup script reaches 
   assert.deepEqual((await client.environments.create({ name: 'test', config })).config, config);
   assert.deepEqual((await client.environments.update('env', { config })).config, config);
 });
+
+// Official Agent schema retrieved 2026-11-20: a saved child version can be "latest".
+test('Managed Agent roster keeps "latest" child versions in requests and responses', async () => {
+  const multiagent = { type: 'coordinator', agents: [{ type: 'agent', id: 'agent_latest', version: 'latest' }, { type: 'agent', id: 'agent_text', version: '3' }] };
+  const client = testClient('managed', async req => {
+    assert.deepEqual((await req.json()).multiagent, multiagent);
+    return response({ id: 'agent_parent', multiagent: { type: 'coordinator', agents: [{ type: 'agent', id: 'agent_latest', version: 'latest' }, { type: 'agent', id: 'agent_text', version: 3 }] } });
+  });
+  const agent = await client.agents.create({ name: 'coordinator', model: 'auto', multiagent });
+  assert.deepEqual(agent.multiagent.agents.map(entry => entry.version), ['latest', 3]);
+});
