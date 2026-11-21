@@ -72,7 +72,7 @@ export class EnvironmentsWork extends APIResource {
    */
   heartbeat(workID: string, params: Types.EnvironmentWorkHeartbeatParams, options?: RequestOptions): APIPromise<Types.SelfHostedWorkHeartbeatResponse> {
     const request = splitParams(params, options, {"betas": "x-qoder-beta"}, ["environment_id"]);
-    return this._client.request<Types.SelfHostedWorkHeartbeatResponse>({ ...request.options, method: "POST", path: `/environments/${pathParam(params?.environment_id, "environment_id")}/work/${pathParam(workID, "work_id")}/heartbeat`, body: request.values });
+    return this._client.request<Types.SelfHostedWorkHeartbeatResponse>({ ...request.options, method: "POST", path: `/environments/${pathParam(params?.environment_id, "environment_id")}/work/${pathParam(workID, "work_id")}/heartbeat`, query: { ...request.values, ...options?.query } });
   }
 
   /**

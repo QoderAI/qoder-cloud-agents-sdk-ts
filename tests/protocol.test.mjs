@@ -303,6 +303,21 @@ test('Managed worker identity uses Worker-ID and Qoder beta headers', async () =
   });
   await c.environments.work.poll('env', { qoder_worker_id: 'worker-01', betas: ['preview'] });
 });
+test('Managed work heartbeat sends lease preconditions as query parameters without a body', async () => {
+  const seen = [];
+  const c = testClient('managed', async req => {
+    const url = new URL(req.url);
+    assert.equal(req.method, 'POST');
+    assert.equal(url.pathname, '/api/v1/cloud/environments/env_1/work/work_1/heartbeat');
+    assert.equal(await req.text(), '');
+    assert.equal(req.headers.get('content-type'), null);
+    seen.push([...url.searchParams.entries()].sort());
+    return response({ type: 'work_heartbeat', last_heartbeat: '2026-07-01T08:15:06Z', lease_extended: true, state: 'active', ttl_seconds: 60 });
+  });
+  await c.environments.work.heartbeat('work_1', { environment_id: 'env_1', expected_last_heartbeat: 'NO_HEARTBEAT', desired_ttl_seconds: 60 }, { query: { trace: 'kept' } });
+  await c.environments.work.heartbeat('work_1', { environment_id: 'env_1' });
+  assert.deepEqual(seen, [[['desired_ttl_seconds', '60'], ['expected_last_heartbeat', 'NO_HEARTBEAT'], ['trace', 'kept']], []]);
+});
 test('Managed pagination preserves request options through an empty page and honors explicit terminal flag', async () => {
   let calls = 0;
   const c = testClient('managed', req => {

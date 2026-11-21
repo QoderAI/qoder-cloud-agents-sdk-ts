@@ -6,4 +6,4 @@
 
 # Type Alias: ManagedAgentsMultiagentAgentUnion
 
-> **ManagedAgentsMultiagentAgentUnion** = [`ManagedAgentsAgentReference`](../interfaces/ManagedAgentsAgentReference.md) \| [`ManagedAgentsAdvisor`](../interfaces/ManagedAgentsAdvisor.md)
+> **ManagedAgentsMultiagentAgentUnion** = [`ManagedAgentsMultiagentAgentReference`](../interfaces/ManagedAgentsMultiagentAgentReference.md) \| [`ManagedAgentsAdvisor`](../interfaces/ManagedAgentsAdvisor.md)

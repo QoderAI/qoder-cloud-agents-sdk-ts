@@ -6698,8 +6698,8 @@ export type ManagedAgentsMemoryStoreResourceParamAccess = "read_write" | "read_o
  */
 export interface ManagedAgentsMultiagent {
   /**
-   * Agents the coordinator may spawn as session threads, each resolved to a specific
-   * version.
+   * Agents the coordinator may spawn as session threads. Child Agent references keep
+   * their saved version, which can be `"latest"`.
    */
   agents: Array<ManagedAgentsMultiagentAgentUnion>;
   /**
@@ -6708,7 +6708,29 @@ export interface ManagedAgentsMultiagent {
   type: ManagedAgentsMultiagentType;
 }
 
-export type ManagedAgentsMultiagentAgentUnion = ManagedAgentsAgentReference | ManagedAgentsAdvisor;
+export type ManagedAgentsMultiagentAgentUnion = ManagedAgentsMultiagentAgentReference | ManagedAgentsAdvisor;
+
+/**
+ * A child Agent saved in an Agent's multiagent roster.
+ */
+export interface ManagedAgentsMultiagentAgentReference {
+  id: string;
+  /**
+   * Any of "agent".
+   */
+  type: ManagedAgentsAgentReferenceType;
+  /**
+   * A concrete version, or `"latest"`, which resolves when each Session is created.
+   */
+  version: number | "latest";
+}
+
+/**
+ * A child Agent version in a multiagent roster request: a positive integer,
+ * `"latest"`, or a positive integer string. Omit it to pin the latest numeric
+ * version at save time.
+ */
+export type ManagedAgentsMultiagentAgentVersion = number | "latest" | (string & {});
 
 export type ManagedAgentsMultiagentType = "coordinator";
 
@@ -6734,7 +6756,19 @@ export interface ManagedAgentsMultiagentParams {
 
 export type ManagedAgentsMultiagentParamsType = "coordinator";
 
-export type ManagedAgentsMultiagentRosterEntryParamsUnion = string | ManagedAgentsAgentParams | ManagedAgentsMultiagentSelfParams | ManagedAgentsAdvisorParams;
+export type ManagedAgentsMultiagentRosterEntryParamsUnion = string | ManagedAgentsMultiagentAgentParams | ManagedAgentsMultiagentSelfParams | ManagedAgentsAdvisorParams;
+
+/**
+ * A child Agent reference in a multiagent roster request.
+ */
+export interface ManagedAgentsMultiagentAgentParams {
+  id: string;
+  /**
+   * Any of "agent".
+   */
+  type: ManagedAgentsAgentParamsType;
+  version?: ManagedAgentsMultiagentAgentVersion | null;
+}
 
 /**
  * Evaluation state for a single outcome defined via a `define_outcome` event.

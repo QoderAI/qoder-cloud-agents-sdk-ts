@@ -6,4 +6,4 @@
 
 # Type Alias: ManagedAgentsMultiagentRosterEntryParamsUnion
 
-> **ManagedAgentsMultiagentRosterEntryParamsUnion** = `string` \| [`ManagedAgentsAgentParams`](../interfaces/ManagedAgentsAgentParams.md) \| [`ManagedAgentsMultiagentSelfParams`](../interfaces/ManagedAgentsMultiagentSelfParams.md) \| [`ManagedAgentsAdvisorParams`](../interfaces/ManagedAgentsAdvisorParams.md)
+> **ManagedAgentsMultiagentRosterEntryParamsUnion** = `string` \| [`ManagedAgentsMultiagentAgentParams`](../interfaces/ManagedAgentsMultiagentAgentParams.md) \| [`ManagedAgentsMultiagentSelfParams`](../interfaces/ManagedAgentsMultiagentSelfParams.md) \| [`ManagedAgentsAdvisorParams`](../interfaces/ManagedAgentsAdvisorParams.md)

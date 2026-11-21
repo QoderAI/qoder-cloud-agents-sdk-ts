@@ -67,3 +67,16 @@ const deploymentTunnel: string | undefined = deploymentWithTunnel.tunnel_id;
 const invalidDeploymentTunnel: Pick<M.DeploymentCreateParams, 'tunnel_id'> = { tunnel_id: null };
 const clearDeploymentTunnel: Pick<M.DeploymentUpdateParams, 'tunnel_id'> = { tunnel_id: null };
 void [deploymentTunnel, invalidDeploymentTunnel, clearDeploymentTunnel];
+
+// Official Agent schema retrieved 2026-11-20: roster child versions accept "latest".
+const latestRoster: M.ManagedAgentsMultiagentParams = { type: 'coordinator', agents: [
+  { type: 'agent', id: 'agent_latest', version: 'latest' },
+  { type: 'agent', id: 'agent_pinned', version: 3 },
+  { type: 'agent', id: 'agent_text', version: '3' },
+  { type: 'self' },
+] };
+declare const agentWithRoster: M.ManagedAgentsAgent;
+const savedVersions: Array<number | 'latest'> = (agentWithRoster.multiagent?.agents ?? []).flatMap(entry => entry.type === 'agent' ? [entry.version] : []);
+// @ts-expect-error Session Agent references still pin numeric versions.
+const sessionLatest: M.SessionCreateParams = { agent: { type: 'agent', id: 'agent_latest', version: 'latest' }, environment_id: 'env' };
+void [latestRoster, savedVersions, sessionLatest];
