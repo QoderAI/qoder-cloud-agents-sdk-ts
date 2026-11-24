@@ -14,6 +14,12 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
+### a2a?
+
+> `optional` **a2a?**: [`TemplateA2AConfig`](TemplateA2AConfig.md) \| `null`
+
+***
+
 ### created\_at
 
 > **created\_at**: `string`

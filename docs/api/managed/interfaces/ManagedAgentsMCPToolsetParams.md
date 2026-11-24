@@ -22,7 +22,7 @@ Per-tool configuration overrides.
 
 > `optional` **default\_config?**: [`ManagedAgentsMCPToolsetDefaultConfigParams`](ManagedAgentsMCPToolsetDefaultConfigParams.md) \| `null`
 
-Default configuration for all tools from an MCP server.
+Wire-compatible metadata; use top-level permission_policy for the MCP default.
 
 ***
 
@@ -32,6 +32,14 @@ Default configuration for all tools from an MCP server.
 
 Name of the MCP server. Must match a server name from the mcp_servers array.
 1-255 characters.
+
+***
+
+### permission\_policy?
+
+> `optional` **permission\_policy?**: [`ManagedAgentsMCPToolConfigParamsPermissionPolicyUnion`](../type-aliases/ManagedAgentsMCPToolConfigParamsPermissionPolicyUnion.md) \| `null`
+
+Default policy for unlisted MCP tools; default_config does not control this policy.
 
 ***
 

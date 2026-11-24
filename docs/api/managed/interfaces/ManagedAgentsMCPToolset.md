@@ -8,23 +8,29 @@
 
 ## Properties
 
-### configs
+### configs?
 
-> **configs**: [`ManagedAgentsMCPToolConfig`](ManagedAgentsMCPToolConfig.md)[]
+> `optional` **configs?**: [`ManagedAgentsMCPToolConfig`](ManagedAgentsMCPToolConfig.md)[] \| `null`
 
 ***
 
-### default\_config
+### default\_config?
 
-> **default\_config**: [`ManagedAgentsMCPToolsetDefaultConfig`](ManagedAgentsMCPToolsetDefaultConfig.md)
+> `optional` **default\_config?**: [`ManagedAgentsMCPToolsetDefaultConfig`](ManagedAgentsMCPToolsetDefaultConfig.md) \| `null`
 
-Resolved default configuration for all tools from an MCP server.
+Preserved metadata; the MCP default policy is the top-level permission_policy.
 
 ***
 
 ### mcp\_server\_name
 
 > **mcp\_server\_name**: `string`
+
+***
+
+### permission\_policy?
+
+> `optional` **permission\_policy?**: [`ManagedAgentsMCPToolConfigPermissionPolicyUnion`](../type-aliases/ManagedAgentsMCPToolConfigPermissionPolicyUnion.md) \| `null`
 
 ***
 

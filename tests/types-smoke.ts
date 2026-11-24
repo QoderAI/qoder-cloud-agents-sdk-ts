@@ -243,6 +243,157 @@ async function ownershipAndPairingTypes() {
 void ownershipAndPairingTypes;
 
 import type * as F080 from 'qca-sdk/forward';
+import type * as FParity from 'qca-sdk/forward';
+import type * as MParity from 'qca-sdk/managed';
+
+// Capability parity: exercise public package declarations, not source-only imports.
+const directAgent: FParity.MultiagentEntryParam = { type: 'agent', id: 'agent_child' };
+const directAgentRoster: FParity.MultiagentConfigParam = { type: 'coordinator', agents: [directAgent] };
+void directAgentRoster;
+const sessionAutoTitle: FParity.SessionNewParams = { identity_id: 'idn', template_id: 'tpl', auto_title: true };
+const sessionRosterPatches: FParity.SessionUpdateParams[] = [
+  { config: {} }, { config: { multiagent: null } }, { config: { multiagent: { type: 'coordinator', agents: [] } } },
+];
+const a2aSkill: FParity.TemplateA2ASkillParam = { id: 'summary', name: 'Summary', description: 'Summarize text', tags: [], examples: [] };
+const a2aCreate: FParity.TemplateCreateParams = { name: 'a2a', model: 'auto', environment_id: 'env', a2a: { enabled: true, skills: [a2aSkill] } };
+const a2aPatches: FParity.TemplateUpdateParams[] = [{ a2a: {} }, { a2a: null }, { a2a: { skills: [] } }];
+const ossBucket: FParity.OSSBucketParam = { name: 'datasets', provider: 'aliyun-oss', region: 'cn-hangzhou', bucket: 'datasets', credential: { type: 'ram_role', role_arn: 'placeholder-role' } };
+const ossKey: FParity.OSSBucketCredentialParam = { type: 'access_key', access_key_id: 'placeholder-key', access_key_secret: 'placeholder-secret' };
+const ossConfig: FParity.EnvironmentConfigParam = { type: 'cloud', storage: { buckets: [ossBucket, { ...ossBucket, name: 'key', credential: ossKey }] } };
+const ossUpdate: FParity.EnvironmentConfigUpdateParam = { type: 'cloud', storage: { buckets: [{ name: 'datasets', provider: 'aliyun-oss', region: 'cn-hangzhou', bucket: 'datasets' }] } };
+const ossNew: FParity.EnvironmentNewParams = { name: 'oss', config: ossConfig };
+const ossPatch: FParity.EnvironmentUpdateParams = { config: ossUpdate };
+const ossFuture: FParity.EnvironmentNewParams = { name: 'future', config: { type: 'future', extension: true } };
+const card03: FParity.AgentCard = { name: 'summary', description: 'Summary', version: 'v1', skills: [{ ...a2aSkill }], defaultInputModes: ['text/plain'], defaultOutputModes: ['text/plain'], url: 'https://example.test/a2a', extra: true };
+const card10: FParity.AgentCard = { ...card03, supportedInterfaces: [{ url: 'https://example.test/a2a', protocolBinding: 'JSONRPC', protocolVersion: '1.0', extension: true }] };
+function forwardCapabilityTypes(config: FParity.SessionNewParamsConfigParam, response: FParity.Environment, snapshot: FParity.SessionConfig, template: FParity.Template) {
+  const roster: FParity.MultiagentConfig | null | undefined = snapshot.multiagent;
+  const publication: FParity.TemplateA2AConfig | null | undefined = template.a2a;
+  const masked: FParity.OSSBucketCredential | undefined = response.config.storage?.buckets[0]?.credential;
+  const savedBuckets: FParity.OSSBucket[] = [
+    { ...ossBucket, credential: { type: 'ram_role' } },
+    { ...ossBucket, credential: { type: 'access_key', access_key_id: 'plac****-key' } },
+  ];
+  const updatedBuckets: FParity.OSSBucketUpdateParam[] = savedBuckets.map(bucket => ({ ...bucket, prefix: 'next/' }));
+  const updateConfig: FParity.EnvironmentConfigUpdateParam = {
+    type: 'cloud', storage: { buckets: response.config.storage?.buckets ?? updatedBuckets },
+  };
+  void forward.environments.update('env', { config: updateConfig });
+  if (masked) {
+    // @ts-expect-error Read credentials never expose a role ARN.
+    masked.role_arn;
+    // @ts-expect-error Read credentials never expose the AccessKey secret.
+    masked.access_key_secret;
+  }
+  // @ts-expect-error The create index signature is forward compatible, not typed support for multiagent.
+  const unsupportedCreateRoster: FParity.MultiagentConfigParam = config.multiagent;
+  void [roster, publication, unsupportedCreateRoster];
+}
+// @ts-expect-error A2A member null is rejected by the service.
+const invalidA2A: FParity.TemplateA2AConfigParam = { enabled: null };
+// @ts-expect-error A2A skills cannot be null.
+const invalidA2ASkills: FParity.TemplateA2AConfigParam = { skills: null };
+// @ts-expect-error Newly mounted buckets require a credential.
+const invalidNewBucket: FParity.OSSBucketParam = { name: 'datasets', provider: 'aliyun-oss', region: 'cn-hangzhou', bucket: 'datasets' };
+// @ts-expect-error New access keys require the write-only secret.
+const invalidWriteKey: FParity.OSSBucketCredentialParam = { type: 'access_key', access_key_id: 'placeholder' };
+void forward.templates.getAgentCard('tpl', { identity_id: 'idn', a2a_version: '0.3' }, { query: { identity_id: 'override' }, headers: { 'A2A-Version': '1.0' } });
+void forward.templates.getAgentCard('tpl', { a2a_version: '1.0' });
+void forward.templates.getAgentCard('tpl');
+// @ts-expect-error Only published A2A protocol versions are typed.
+void forward.templates.getAgentCard('tpl', { a2a_version: '2.0' });
+
+const deny: MParity.ManagedAgentsAlwaysDenyPolicyParam = { type: 'always_deny' };
+const denyResponse: MParity.ManagedAgentsAlwaysDenyPolicy = deny;
+const builtins: MParity.ManagedAgentsAgentToolConfigParamsUnion[] = [
+  { name: 'Bash', permission_policy: deny }, { name: 'Edit', permission_policy: deny },
+  { name: 'Read', permission_policy: deny }, { name: 'Write', permission_policy: deny },
+  { name: 'Glob', permission_policy: deny }, { name: 'Grep', permission_policy: deny },
+  { name: 'WebFetch', permission_policy: deny }, { name: 'WebSearch', permission_policy: deny },
+  { name: 'ImageGen', permission_policy: deny }, { name: 'ImageSearch', permission_policy: deny },
+  { name: 'VideoGen', permission_policy: deny }, { name: 'DeliverArtifacts', permission_policy: deny },
+];
+const imageGenConfig: MParity.ManagedAgentsImageGenToolConfigParams = { name: 'image_gen' };
+const imageSearchConfig: MParity.ManagedAgentsImageSearchToolConfigParams = { name: 'image_search' };
+const videoGenConfig: MParity.ManagedAgentsVideoGenToolConfigParams = { name: 'video_gen', type: 'video_gen' };
+const deliveryConfig: MParity.ManagedAgentsDeliverArtifactsToolConfigParams = { name: 'deliver_artifacts' };
+const builtinReadViews: MParity.ManagedAgentsAgentToolConfigUnion[] = [
+  { name: 'Bash', enabled: true, permission_policy: denyResponse },
+  { name: 'Edit', enabled: true, permission_policy: denyResponse },
+  { name: 'Read', enabled: true, permission_policy: denyResponse },
+  { name: 'Write', enabled: true, permission_policy: denyResponse },
+  { name: 'Glob', enabled: true, permission_policy: denyResponse },
+  { name: 'Grep', enabled: true, permission_policy: denyResponse },
+  { name: 'WebFetch', enabled: true, permission_policy: denyResponse },
+  { name: 'WebSearch', enabled: true, permission_policy: denyResponse },
+  { name: 'ImageGen', enabled: true, permission_policy: denyResponse },
+  { name: 'ImageSearch', enabled: true, permission_policy: denyResponse },
+  { name: 'VideoGen', enabled: true, permission_policy: denyResponse },
+  { name: 'DeliverArtifacts', enabled: true, permission_policy: denyResponse },
+];
+const mediaReadViews: [MParity.ManagedAgentsImageGenToolConfig, MParity.ManagedAgentsImageSearchToolConfig, MParity.ManagedAgentsVideoGenToolConfig, MParity.ManagedAgentsDeliverArtifactsToolConfig] = [
+  { name: 'ImageGen', enabled: true, permission_policy: denyResponse },
+  { name: 'ImageSearch', enabled: true, permission_policy: denyResponse },
+  { name: 'VideoGen', enabled: true, permission_policy: denyResponse },
+  { name: 'DeliverArtifacts', enabled: true, permission_policy: denyResponse },
+];
+const sparseMediaViews: MParity.ManagedAgentsAgentToolConfigUnion[] = [
+  { name: 'ImageGen' }, { name: 'ImageSearch', enabled: null, permission_policy: null },
+  { name: 'VideoGen' }, { name: 'DeliverArtifacts' },
+];
+const nullableMediaReadViews: [MParity.ManagedAgentsImageGenToolConfig, MParity.ManagedAgentsImageSearchToolConfig, MParity.ManagedAgentsVideoGenToolConfig, MParity.ManagedAgentsDeliverArtifactsToolConfig] = [
+  { name: 'ImageGen', type: null }, { name: 'ImageSearch', type: null },
+  { name: 'VideoGen', type: null }, { name: 'DeliverArtifacts', type: null },
+];
+const nullableMediaRequests: [MParity.ManagedAgentsImageGenToolConfigParams, MParity.ManagedAgentsImageSearchToolConfigParams, MParity.ManagedAgentsVideoGenToolConfigParams, MParity.ManagedAgentsDeliverArtifactsToolConfigParams] = nullableMediaReadViews;
+const nullableMediaToolset: MParity.ManagedAgentsAgentToolset20260401 = {
+  type: 'agent_toolset_20260401', configs: nullableMediaReadViews,
+  default_config: { enabled: true, permission_policy: { type: 'always_allow' } },
+};
+void [nullableMediaRequests, nullableMediaToolset];
+const sparseA2A: FParity.TemplateA2AConfig = { description: 'public metadata' };
+const defaultMCPDeny: MParity.ManagedAgentsMCPToolsetParams = { type: 'mcp_toolset', mcp_server_name: 'test', permission_policy: deny };
+const sparseMCP: MParity.ManagedAgentsMCPToolset = { type: 'mcp_toolset', mcp_server_name: 'test', permission_policy: denyResponse };
+void [sparseMediaViews, sparseA2A, defaultMCPDeny, sparseMCP];
+const browser: MParity.ManagedAgentsBrowserToolset20260714Params = { type: 'browser_toolset_20260714' };
+const browserOverride: Pick<MParity.ManagedAgentsAgentWithOverridesParams, 'tools'> = { tools: [browser] };
+const snapshotRosterViews: FParity.SessionConfig[] = [
+  { environment_variables: {} }, { environment_variables: {}, multiagent: null },
+  { environment_variables: {}, multiagent: { type: 'coordinator', agents: [] } },
+];
+// @ts-expect-error Browser response declarations also expose only type.
+const invalidBrowserResponse: MParity.ManagedAgentsBrowserToolset20260714 = { type: 'browser_toolset_20260714', configs: [] };
+// @ts-expect-error Primary Agent reference versions remain numeric (only child rosters support latest).
+const invalidPrimaryVersion: MParity.ManagedAgentsAgentReference['version'] = 'latest';
+void [mediaReadViews, browserOverride, snapshotRosterViews, invalidBrowserResponse, invalidPrimaryVersion];
+const agentTools: MParity.AgentNewParamsToolUnion[] = [
+  { type: 'agent_toolset_20260401', configs: builtins, default_config: { permission_policy: deny } },
+  { type: 'mcp_toolset', mcp_server_name: 'test', permission_policy: deny, configs: [{ name: 'remote', permission_policy: deny }] },
+  browser,
+];
+const managedAgentCreate: MParity.AgentCreateParams = { name: 'capabilities', model: 'auto', tools: agentTools, betas: ['browser-use-2026-07-14'] };
+const managedAgentUpdate: MParity.AgentUpdateParams = { tools: agentTools, betas: ['browser-use-2026-07-14'] };
+const managedSessionPatch: MParity.SessionUpdateParams = { agent: { tools: agentTools }, betas: ['browser-use-2026-07-14'] };
+const browserViews: [MParity.ManagedAgentsAgentToolUnion, MParity.ManagedAgentsSessionAgentToolUnion, MParity.ManagedAgentsSessionThreadAgentToolUnion] = [browser, browser, browser];
+const toolsetReadView: MParity.ManagedAgentsAgentToolset20260401 = { type: 'agent_toolset_20260401', configs: builtinReadViews, default_config: { enabled: true, permission_policy: denyResponse } };
+const mcpReadView: MParity.ManagedAgentsMCPToolset = { type: 'mcp_toolset', mcp_server_name: 'test', configs: [{ name: 'remote', enabled: false, permission_policy: denyResponse }], default_config: { enabled: true, permission_policy: denyResponse } };
+// @ts-expect-error A legacy type field is not a substitute for the required config name.
+const unnamedBuiltin: MParity.ManagedAgentsAgentToolConfigParamsUnion = { type: 'bash', enabled: true };
+// @ts-expect-error New config interfaces require name, not generation parameters.
+const unnamedMedia: MParity.ManagedAgentsImageGenToolConfigParams = { type: 'image_gen' };
+// @ts-expect-error Browser supports only its discriminator.
+const invalidBrowser: MParity.ManagedAgentsBrowserToolset20260714Params = { type: 'browser_toolset_20260714', enabled: true };
+// @ts-expect-error Browser configs are not supported, including in the Agent tools union.
+const invalidBrowserUnion: MParity.AgentNewParamsToolUnion = { type: 'browser_toolset_20260714', configs: [] };
+// @ts-expect-error Session primary Agent references still require numeric versions.
+const invalidSessionVersion: MParity.SessionNewParams = { agent: { type: 'agent', id: 'agent', version: 'latest' }, environment_id: 'env' };
+// @ts-expect-error Deployment primary Agent references still require numeric versions.
+const invalidDeploymentVersion: MParity.DeploymentNewParams = { name: 'deployment', agent: { type: 'agent', id: 'agent', version: 'latest' }, environment_id: 'env' };
+void [sessionAutoTitle, sessionRosterPatches, a2aCreate, a2aPatches, ossNew, ossPatch, ossFuture, card10,
+  forwardCapabilityTypes, invalidA2A, invalidA2ASkills, invalidNewBucket, invalidWriteKey, builtins,
+  imageGenConfig, imageSearchConfig, videoGenConfig, deliveryConfig, managedAgentCreate, managedAgentUpdate,
+  managedSessionPatch, browserViews, toolsetReadView, mcpReadView, unnamedBuiltin, unnamedMedia,
+  invalidBrowser, invalidBrowserUnion, invalidSessionVersion, invalidDeploymentVersion];
 async function alignment080Types() {
   await forward.templates.update('tmpl', { max_tool_rounds: null });
   await forward.templates.update('tmpl', { max_tool_rounds: 3 });

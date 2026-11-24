@@ -41,13 +41,11 @@ default_config setting.
 
 ***
 
-### name?
+### name
 
-> `optional` **name?**: `"web_search"` \| `null`
+> **name**: `"WebSearch"` \| `"web_search"`
 
-Must be "web_search".
-
-This field can be elided, and will marshal its zero value as "web_search".
+Required service selector. Legacy type is optional and does not replace name.
 
 ***
 

@@ -23,3 +23,9 @@ Additional fields are preserved verbatim by the SDK.
 ### model?
 
 > `optional` **model?**: [`ModelConfig`](../type-aliases/ModelConfig.md)
+
+***
+
+### multiagent?
+
+> `optional` **multiagent?**: [`MultiagentConfig`](MultiagentConfig.md) \| `null`

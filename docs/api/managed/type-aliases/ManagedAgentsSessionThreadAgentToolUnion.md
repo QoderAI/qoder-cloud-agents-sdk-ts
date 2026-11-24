@@ -6,4 +6,4 @@
 
 # Type Alias: ManagedAgentsSessionThreadAgentToolUnion
 
-> **ManagedAgentsSessionThreadAgentToolUnion** = [`ManagedAgentsAgentToolset20260401`](../interfaces/ManagedAgentsAgentToolset20260401.md) \| [`ManagedAgentsMCPToolset`](../interfaces/ManagedAgentsMCPToolset.md) \| [`ManagedAgentsCustomTool`](../interfaces/ManagedAgentsCustomTool.md)
+> **ManagedAgentsSessionThreadAgentToolUnion** = [`ManagedAgentsAgentToolset20260401`](../interfaces/ManagedAgentsAgentToolset20260401.md) \| [`ManagedAgentsMCPToolset`](../interfaces/ManagedAgentsMCPToolset.md) \| [`ManagedAgentsCustomTool`](../interfaces/ManagedAgentsCustomTool.md) \| [`ManagedAgentsBrowserToolset20260714`](../interfaces/ManagedAgentsBrowserToolset20260714.md)

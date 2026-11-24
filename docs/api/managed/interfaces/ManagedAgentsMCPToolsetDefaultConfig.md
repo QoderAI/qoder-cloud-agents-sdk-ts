@@ -10,14 +10,14 @@ Resolved default configuration for all tools from an MCP server.
 
 ## Properties
 
-### enabled
+### enabled?
 
-> **enabled**: `boolean`
+> `optional` **enabled?**: `boolean` \| `null`
 
 ***
 
-### permission\_policy
+### permission\_policy?
 
-> **permission\_policy**: [`ManagedAgentsMCPToolsetDefaultConfigPermissionPolicyUnion`](../type-aliases/ManagedAgentsMCPToolsetDefaultConfigPermissionPolicyUnion.md)
+> `optional` **permission\_policy?**: [`ManagedAgentsMCPToolsetDefaultConfigPermissionPolicyUnion`](../type-aliases/ManagedAgentsMCPToolsetDefaultConfigPermissionPolicyUnion.md) \| `null`
 
 Permission policy for tool execution.

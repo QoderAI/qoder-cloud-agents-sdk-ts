@@ -19,13 +19,11 @@ default_config setting.
 
 ***
 
-### name?
+### name
 
-> `optional` **name?**: `"read"` \| `null`
+> **name**: `"Read"` \| `"read"`
 
-Must be "read".
-
-This field can be elided, and will marshal its zero value as "read".
+Required service selector. Legacy type is optional and does not replace name.
 
 ***
 

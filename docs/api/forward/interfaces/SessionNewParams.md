@@ -14,6 +14,14 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
+### auto\_title?
+
+> `optional` **auto\_title?**: `boolean`
+
+Generate the title from the first message. True conflicts with any supplied title (including null); the service validates this.
+
+***
+
 ### budget?
 
 > `optional` **budget?**: [`SessionBudget`](SessionBudget.md) \| `null`

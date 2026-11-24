@@ -4,7 +4,7 @@ import type { RequestOptions } from '../core/client.js';
 import type { APIPromise } from '../core/api-promise.js';
 import type { PagePromise } from '../core/pagination.js';
 import { pathParam, requestHeaders } from './_utils.js';
-import type { Template, TemplateArchiveParams, TemplateCloneParams, TemplateCreateParams, TemplateListParams, TemplateUpdateParams } from './types.js';
+import type { AgentCard, TemplateGetAgentCardParams, Template, TemplateArchiveParams, TemplateCloneParams, TemplateCreateParams, TemplateListParams, TemplateUpdateParams } from './types.js';
 
 export class Templates extends APIResource {
   /**
@@ -45,6 +45,23 @@ export class Templates extends APIResource {
       method: "GET",
       path,
       ...options,
+    });
+  }
+
+  /** Retrieve authenticated A2A discovery metadata without following invocation URLs. */
+  getAgentCard(
+    templateID: string,
+    params: TemplateGetAgentCardParams = {},
+    options?: RequestOptions,
+  ): APIPromise<AgentCard> {
+    const path = `templates/${pathParam(templateID, "template_id")}/a2a/agent-card.json`;
+    const { a2a_version, ...query } = params;
+    return this._client.request<AgentCard>({
+      method: "GET",
+      path,
+      ...options,
+      query: { ...query, ...options?.query },
+      headers: requestHeaders({ "A2A-Version": a2a_version }, options?.headers),
     });
   }
 
@@ -112,4 +129,4 @@ export class Templates extends APIResource {
 
 }
 
-export type { Template, TemplateArchiveParams, TemplateCloneParams, TemplateCreateParams, TemplateListParams, TemplateUpdateParams } from './types.js';
+export type { AgentCard, TemplateGetAgentCardParams, Template, TemplateArchiveParams, TemplateCloneParams, TemplateCreateParams, TemplateListParams, TemplateUpdateParams } from './types.js';

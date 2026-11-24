@@ -1,15 +1,18 @@
-// Independent oracle: verbatim documented fixtures and the frozen public API surface.
+// Independent oracle: frozen documented fixtures plus manually sourced incremental contracts.
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { sdk, methods, contracts, operations, lookup, argumentsFor, invoke, resource, response, testClient, assertRequest } from './helpers.mjs';
+import { sdk, fixture, methods, contracts, operations, lookup, argumentsFor, invoke, resource, response, testClient, assertRequest } from './helpers.mjs';
 
+// Streaming/realtime helpers are not additional HTTP operations.
 const handwrittenMethods = {
   forward: ['sessions.events.resumableStream', 'sessions.threads.events.resumableStream', 'realtime.connect'],
   managed: ['sessions.events.resumableStream', 'sessions.threads.events.resumableStream'],
 };
 
 for (const mode of ['forward', 'managed']) {
-  test(`${mode}: public resource inventory exactly matches the frozen API surface plus handwritten helpers (${mode === 'forward' ? 146 : 107} APIs)`, () => {
+  test(`${mode}: public resource inventory exactly matches frozen and incremental APIs plus handwritten helpers (${mode === 'forward' ? 147 : 107} APIs)`, () => {
+    assert.equal(fixture(mode, 'api-methods.json').length, mode === 'forward' ? 146 : 107);
+    assert.equal(fixture(mode, 'api-contracts.json').length, mode === 'forward' ? 146 : 107);
     const client = testClient(mode, () => { throw Error('inventory must not call network'); });
     const expectedRoots = [...new Set(methods[mode].map(m => m.entry.split('.')[0]))];
     const actualRoots = Object.entries(client).filter(([, value]) => value && typeof value === 'object' && Object.hasOwn(value, '_client')).map(([key]) => key);
@@ -26,7 +29,7 @@ for (const mode of ['forward', 'managed']) {
     };
     for (const entry of [...new Set(methods[mode].map(m => m.entry.split('.')[0]))]) walk(client[entry], entry);
     const expected = methods[mode].map(m => `${m.entry}.${m.method}`);
-    assert.equal(expected.length, mode === 'forward' ? 146 : 107);
+    assert.equal(expected.length, mode === 'forward' ? 147 : 107);
     assert.equal(new Set(expected).size, expected.length);
     assert.deepEqual(actual.sort(), [...expected, ...handwrittenMethods[mode]].sort());
   });
@@ -73,15 +76,16 @@ for (const mode of ['forward', 'managed']) {
     for (const status of [400, 401, 403, 404, 409, 422, 429, 500, 503]) {
       test(`${name}: HTTP ${status} preserves the documented error contract`, async () => {
         let calls = 0;
-        const client = testClient(mode, () => { calls++; return response({ request_id: 'body-id', error: { type: 'test_error', code: 'TEST_FAILURE', message: 'expected failure' } }, status, { 'x-request-id': 'header-id' }); });
+        const body = c.http_error?.status === status ? c.http_error.body : { request_id: 'body-id', error: { type: 'test_error', code: 'TEST_FAILURE', message: 'expected failure' } };
+        const client = testClient(mode, () => { calls++; return response(body, status, { 'x-request-id': 'header-id' }); });
         const args = await argumentsFor(mode, m, op);
         await assert.rejects(() => invoke(client, m, args), error => {
           assert.ok(error instanceof sdk.APIError);
           assert.equal(error.status, status);
-          assert.equal(error.code, 'TEST_FAILURE');
-          assert.equal(error.request_id, 'body-id');
-          assert.equal(error.type, 'test_error');
-          assert.ok(error.message.includes('expected failure'));
+          assert.equal(error.code, body.error.code);
+          assert.equal(error.request_id, body.request_id ?? 'header-id');
+          assert.equal(error.type, body.error.type);
+          assert.ok(error.message.includes(body.error.message));
           assert.ok(error.request);
           assert.ok(error.response);
           return true;

@@ -19,13 +19,11 @@ default_config setting.
 
 ***
 
-### name?
+### name
 
-> `optional` **name?**: `"grep"` \| `null`
+> **name**: `"Grep"` \| `"grep"`
 
-Must be "grep".
-
-This field can be elided, and will marshal its zero value as "grep".
+Required service selector. Legacy type is optional and does not replace name.
 
 ***
 

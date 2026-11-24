@@ -34,9 +34,9 @@ Configuration for the web_fetch tool.
 
 ***
 
-### name?
+### name
 
-> `optional` **name?**: `"web_fetch"`
+> **name**: `"WebFetch"` \| `"web_fetch"`
 
 ***
 

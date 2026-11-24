@@ -1,0 +1,73 @@
+{
+  "checked_at": "2026-11-21",
+  "source": "https://docs.qoder.com/cloud-agents/a2a-integration.md",
+  "source_snapshot": {
+    "service": "Forward",
+    "commit": "c8cef38a1",
+    "files": [
+      "internal/service/a2a/host.go",
+      "internal/service/a2a/template_config_test.go"
+    ],
+    "protocol": "a2a-go/v2 v2.7.0"
+  },
+  "scope": "Manually authored incremental discovery contracts, not live-service evidence. Representative Card values and unknown-field probes are fixed independently of the SDK. The original Forward 146 and Managed 107 fixtures remain frozen.",
+  "operations": [
+    {
+      "mode": "forward",
+      "id": "templates.getAgentCard",
+      "entry": "templates",
+      "method": "getAgentCard",
+      "operation_id": "getTemplateAgentCard",
+      "http_method": "GET",
+      "path": "/templates/{template_id}/a2a/agent-card.json",
+      "args": [
+        { "name": "templateID", "kind": "path" },
+        {
+          "name": "params",
+          "kind": "params",
+          "fields": [
+            { "wire": "identity_id", "location": "query" },
+            { "wire": "a2a_version", "location": "header" }
+          ]
+        }
+      ],
+      "parameters": [
+        { "wire_name": "template_id", "location": "path", "required": true, "value": "tpl_summary" },
+        { "wire_name": "identity_id", "location": "query", "required": false, "value": "idn /?+" },
+        { "wire_name": "A2A-Version", "location": "header", "required": false, "value": "1.0" }
+      ],
+      "request_body": { "kind": "none" },
+      "response": {
+        "name": "Summary",
+        "description": "Published capabilities",
+        "version": "adapter-v1",
+        "skills": [
+          { "id": "summary", "name": "Summary", "description": "Summarize text", "tags": ["summary"], "examples": ["Summarize this"], "future": "skill" }
+        ],
+        "defaultInputModes": ["text/plain", "application/json"],
+        "defaultOutputModes": ["text/plain"],
+        "supportedInterfaces": [
+          { "url": "https://never-fetch.example.test/a2a", "protocolBinding": "JSONRPC", "protocolVersion": "1.0", "future": "interface" },
+          { "url": "https://never-fetch.example.test/a2a", "protocolBinding": "JSONRPC", "protocolVersion": "0.3" }
+        ],
+        "future": { "supported": true }
+      },
+      "legacy_response": {
+        "name": "Summary",
+        "description": "Published capabilities",
+        "version": "adapter-v1",
+        "skills": [
+          { "id": "summary", "name": "Summary", "description": "Summarize text", "tags": ["summary"], "examples": ["Summarize this"], "future": "skill" }
+        ],
+        "defaultInputModes": ["text/plain", "application/json"],
+        "defaultOutputModes": ["text/plain"],
+        "url": "https://never-fetch.example.test/a2a",
+        "future": { "supported": true }
+      },
+      "http_error": {
+        "status": 403,
+        "body": { "error": { "type": "forbidden", "message": "A2A disabled" } }
+      }
+    }
+  ]
+}

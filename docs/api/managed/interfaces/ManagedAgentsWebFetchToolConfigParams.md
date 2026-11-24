@@ -50,13 +50,11 @@ Does not apply to binary content such as PDFs.
 
 ***
 
-### name?
+### name
 
-> `optional` **name?**: `"web_fetch"` \| `null`
+> **name**: `"WebFetch"` \| `"web_fetch"`
 
-Must be "web_fetch".
-
-This field can be elided, and will marshal its zero value as "web_fetch".
+Required service selector. Legacy type is optional and does not replace name.
 
 ***
 

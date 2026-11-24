@@ -10,9 +10,9 @@ Resolved configuration for a specific MCP tool.
 
 ## Properties
 
-### enabled
+### enabled?
 
-> **enabled**: `boolean`
+> `optional` **enabled?**: `boolean` \| `null`
 
 ***
 
@@ -22,8 +22,8 @@ Resolved configuration for a specific MCP tool.
 
 ***
 
-### permission\_policy
+### permission\_policy?
 
-> **permission\_policy**: [`ManagedAgentsMCPToolConfigPermissionPolicyUnion`](../type-aliases/ManagedAgentsMCPToolConfigPermissionPolicyUnion.md)
+> `optional` **permission\_policy?**: [`ManagedAgentsMCPToolConfigPermissionPolicyUnion`](../type-aliases/ManagedAgentsMCPToolConfigPermissionPolicyUnion.md) \| `null`
 
 Permission policy for tool execution.
