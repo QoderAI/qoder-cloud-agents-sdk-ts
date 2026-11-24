@@ -14,6 +14,7 @@ existing `0.1.0` release; earlier development prereleases are not listed.
 
 ### Fixed
 
+- Throw `QoderError` for client-side authentication and path-parameter validation failures and validate `sessionID` eagerly in Forward and Managed `sessions.events.resumableStream()`, preventing unauthenticated or empty-ID streams from looping indefinitely on retries.
 - Accept masked OSS bucket credentials in typed Forward Environment updates, so callers can edit and resend read configurations without supplying secrets again. New bucket creation still requires complete write credentials.
 - Send Managed `environments.work.heartbeat()` `expected_last_heartbeat` and `desired_ttl_seconds` as query parameters. Earlier releases put them in the JSON body, which the service ignores, so lease preconditions and requested TTLs had no effect.
 - Accept `"latest"` and positive integer strings for child Agent `version` in Managed Agent multiagent rosters, and type saved roster versions as `number | "latest"` in Agent responses. Session and Deployment Agent references keep numeric versions.
