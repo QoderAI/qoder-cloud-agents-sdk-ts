@@ -16,9 +16,9 @@ Configuration for the bash tool.
 
 ***
 
-### name?
+### name
 
-> `optional` **name?**: `"bash"`
+> **name**: `"Bash"` \| `"bash"`
 
 ***
 

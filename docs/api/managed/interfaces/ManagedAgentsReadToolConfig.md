@@ -16,9 +16,9 @@ Configuration for the read tool.
 
 ***
 
-### name?
+### name
 
-> `optional` **name?**: `"read"`
+> **name**: `"Read"` \| `"read"`
 
 ***
 

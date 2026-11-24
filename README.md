@@ -32,6 +32,86 @@ for (const model of models.data) {
 
 Each client also has its own entry point, `qca-sdk/forward` or `qca-sdk/managed`, with named and default exports.
 
+## Capability configuration
+
+Forward Session `config.multiagent` is update-only: omission keeps the current
+roster, `null` persistently clears it without restoring Template inheritance, and
+empty `agents` arrays are rejected by the service; use `null` to clear the roster. Session
+creation accepts `auto_title: true` only when `title` is absent (including no
+empty string or `null`); conflicts are validated by the service.
+
+Template `a2a` is publication metadata, separate from `multiagent`. Updates patch
+object members: omission or `{}` keeps metadata, `skills: []` replaces the skill
+list, `enabled: false` disables access but retains metadata, and `a2a: null`
+disables access and clears metadata. Members must not be `null`.
+
+```ts
+import { ForwardClient } from 'qca-sdk';
+
+const forward = new ForwardClient({ pat: process.env.QODER_PAT });
+await forward.sessions.create({ identity_id: 'idn_example', template_id: 'tpl_example', auto_title: true });
+await forward.sessions.update('sess_example', { config: { multiagent: null } });
+await forward.templates.update('tpl_example', {
+  a2a: { enabled: true, skills: [{ id: 'summary', name: 'Summary', description: 'Summarize text', tags: ['summary'], examples: ['Summarize these notes'] }] },
+});
+const card = await forward.templates.getAgentCard('tpl_example', { identity_id: 'idn_example', a2a_version: '1.0' });
+console.log(card.supportedInterfaces);
+```
+
+`getAgentCard()` defaults to A2A 0.3 when the version is omitted; 0.3 returns
+`url`, while 1.0 returns `supportedInterfaces` with `url`, `protocolBinding`, and
+`protocolVersion`. Omit `identity_id` for SAT calls. Request-option headers/query
+can override typed values. Unknown Card fields are preserved. This is discovery
+only, not an A2A task client; the SDK never follows returned invocation URLs.
+
+Forward cloud Environments support up to **7 OSS buckets**, gated by
+`x-qoder-beta: oss-bucket-2026-09-23`. Use `EnvironmentConfigParam` for typed new
+config or `EnvironmentConfigUpdateParam` for updates; outer requests retain raw
+object compatibility. Config updates replace the entire config. Existing buckets
+may omit `credential` on update to keep saved credentials; `buckets: []` removes
+mounts only for newly created Sessions. The service returns only the credential
+type and optionally a masked AccessKey ID, never role ARN or AccessKey secrets.
+The SDK does not check cloud permissions or enforce a local bucket-count limit.
+
+```ts
+import { ForwardClient } from 'qca-sdk';
+import type { EnvironmentConfigUpdateParam } from 'qca-sdk/forward';
+
+const forward = new ForwardClient({ pat: process.env.QODER_PAT });
+const config: EnvironmentConfigUpdateParam = {
+  type: 'cloud',
+  storage: { buckets: [{ name: 'datasets', provider: 'aliyun-oss', region: 'cn-hangzhou', bucket: 'example-datasets', access: 'read_only' }] },
+};
+await forward.environments.update('env_example', { config }, {
+  headers: { 'x-qoder-beta': 'oss-bucket-2026-09-23' },
+});
+```
+
+Managed per-tool configs require `name` (canonical names or supported lowercase /
+snake aliases); legacy optional `type` never replaces it. `always_deny` is available
+for built-in defaults and per-tool configs. Set MCP's default with top-level
+`permission_policy`; `default_config.permission_policy` does not control unlisted
+MCP tools. MCP response configs/default metadata and nested enabled/policy fields
+may be omitted or null: iterate `tool.configs ?? []` and check defaults/policies
+before dereferencing them. Media tool configs govern access, not generation inputs. Browser is a separate toolset with **only** `type`, no
+`enabled` or `configs`; the existing `betas` parameter sends its required header.
+
+```ts
+import { ManagedClient } from 'qca-sdk';
+
+const managed = new ManagedClient({ pat: process.env.QODER_PAT });
+await managed.agents.update('agent_example', {
+  betas: ['browser-use-2026-07-14'],
+  tools: [
+    { type: 'browser_toolset_20260714' },
+    { type: 'agent_toolset_20260401', configs: [
+      { name: 'ImageGen', permission_policy: { type: 'always_deny' } },
+      { name: 'ImageSearch' }, { name: 'VideoGen' }, { name: 'DeliverArtifacts' },
+    ] },
+  ],
+});
+```
+
 ## Configuration
 
 `accessToken` accepts a string or a function returning a string or a promise, re-resolved before every request attempt. `pat` remains available for existing PAT integrations. `QODER_ACCESS_TOKEN` supplies the selected mode's token; PAT mode falls back to `QODER_PAT`. A `Credential` object can be supplied instead; see the authentication section for automatic SA exchange.

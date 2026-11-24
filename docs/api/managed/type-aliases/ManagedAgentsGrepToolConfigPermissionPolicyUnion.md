@@ -6,8 +6,8 @@
 
 # Type Alias: ManagedAgentsGrepToolConfigPermissionPolicyUnion
 
-> **ManagedAgentsGrepToolConfigPermissionPolicyUnion** = [`ManagedAgentsAlwaysAllowPolicy`](../interfaces/ManagedAgentsAlwaysAllowPolicy.md) \| [`ManagedAgentsAlwaysAskPolicy`](../interfaces/ManagedAgentsAlwaysAskPolicy.md)
+> **ManagedAgentsGrepToolConfigPermissionPolicyUnion** = [`ManagedAgentsAlwaysAllowPolicy`](../interfaces/ManagedAgentsAlwaysAllowPolicy.md) \| [`ManagedAgentsAlwaysAskPolicy`](../interfaces/ManagedAgentsAlwaysAskPolicy.md) \| [`ManagedAgentsAlwaysDenyPolicy`](../interfaces/ManagedAgentsAlwaysDenyPolicy.md)
 
 ManagedAgentsGrepToolConfigPermissionPolicyUnion contains all possible
 properties and values from `ManagedAgentsAlwaysAllowPolicy`,
-`ManagedAgentsAlwaysAskPolicy`.
+`ManagedAgentsAlwaysAskPolicy`, and `ManagedAgentsAlwaysDenyPolicy`.

@@ -64,7 +64,7 @@ export interface ManagedAgentsAgent {
 
 export type ManagedAgentsAgentSkillUnion = ManagedAgentsQoderSkill | ManagedAgentsCustomSkill;
 
-export type ManagedAgentsAgentToolUnion = ManagedAgentsAgentToolset20260401 | ManagedAgentsMCPToolset | ManagedAgentsCustomTool;
+export type ManagedAgentsAgentToolUnion = ManagedAgentsAgentToolset20260401 | ManagedAgentsMCPToolset | ManagedAgentsCustomTool | ManagedAgentsBrowserToolset20260714;
 
 export type ManagedAgentsAgentToolUnionConfigs = Array<ManagedAgentsAgentToolConfigUnion> | Array<ManagedAgentsMCPToolConfig>;
 
@@ -104,13 +104,13 @@ export interface ManagedAgentsAgentReference {
 
 export type ManagedAgentsAgentReferenceType = "agent";
 
-export type ManagedAgentsAgentToolConfigUnion = ManagedAgentsBashToolConfig | ManagedAgentsEditToolConfig | ManagedAgentsReadToolConfig | ManagedAgentsWriteToolConfig | ManagedAgentsGlobToolConfig | ManagedAgentsGrepToolConfig | ManagedAgentsWebFetchToolConfig | ManagedAgentsWebSearchToolConfig;
+export type ManagedAgentsAgentToolConfigUnion = ManagedAgentsBashToolConfig | ManagedAgentsEditToolConfig | ManagedAgentsReadToolConfig | ManagedAgentsWriteToolConfig | ManagedAgentsGlobToolConfig | ManagedAgentsGrepToolConfig | ManagedAgentsWebFetchToolConfig | ManagedAgentsWebSearchToolConfig | ManagedAgentsImageGenToolConfig | ManagedAgentsImageSearchToolConfig | ManagedAgentsVideoGenToolConfig | ManagedAgentsDeliverArtifactsToolConfig;
 
 export interface ManagedAgentsAgentToolConfigUnionPermissionPolicy {
   type?: string;
 }
 
-export type ManagedAgentsAgentToolConfigParamsUnion = ManagedAgentsBashToolConfigParams | ManagedAgentsEditToolConfigParams | ManagedAgentsReadToolConfigParams | ManagedAgentsWriteToolConfigParams | ManagedAgentsGlobToolConfigParams | ManagedAgentsGrepToolConfigParams | ManagedAgentsWebFetchToolConfigParams | ManagedAgentsWebSearchToolConfigParams;
+export type ManagedAgentsAgentToolConfigParamsUnion = ManagedAgentsBashToolConfigParams | ManagedAgentsEditToolConfigParams | ManagedAgentsReadToolConfigParams | ManagedAgentsWriteToolConfigParams | ManagedAgentsGlobToolConfigParams | ManagedAgentsGrepToolConfigParams | ManagedAgentsWebFetchToolConfigParams | ManagedAgentsWebSearchToolConfigParams | ManagedAgentsImageGenToolConfigParams | ManagedAgentsImageSearchToolConfigParams | ManagedAgentsVideoGenToolConfigParams | ManagedAgentsDeliverArtifactsToolConfigParams;
 
 /**
  * Resolved default configuration for agent tools.
@@ -126,9 +126,9 @@ export interface ManagedAgentsAgentToolsetDefaultConfig {
 /**
  * ManagedAgentsAgentToolsetDefaultConfigPermissionPolicyUnion contains all
  * possible properties and values from `ManagedAgentsAlwaysAllowPolicy`,
- * `ManagedAgentsAlwaysAskPolicy`.
+ * `ManagedAgentsAlwaysAskPolicy`, and `ManagedAgentsAlwaysDenyPolicy`.
  */
-export type ManagedAgentsAgentToolsetDefaultConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy;
+export type ManagedAgentsAgentToolsetDefaultConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy | ManagedAgentsAlwaysDenyPolicy;
 
 /**
  * Default configuration for all tools in a toolset.
@@ -145,7 +145,7 @@ export interface ManagedAgentsAgentToolsetDefaultConfigParams {
   permission_policy?: ManagedAgentsAgentToolsetDefaultConfigParamsPermissionPolicyUnion | null;
 }
 
-export type ManagedAgentsAgentToolsetDefaultConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam;
+export type ManagedAgentsAgentToolsetDefaultConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam | ManagedAgentsAlwaysDenyPolicyParam;
 
 export interface ManagedAgentsAgentToolset20260401 {
   enabled_tools?: Array<string>;
@@ -265,6 +265,77 @@ export interface ManagedAgentsAgentToolset20260401Params {
 
 export type ManagedAgentsAgentToolset20260401ParamsType = "agent_toolset_20260401";
 
+/** Separate beta toolset. Only type is supported; no enabled/configs fields. */
+export interface ManagedAgentsBrowserToolset20260714 {
+  type: 'browser_toolset_20260714';
+}
+
+/** Send betas: ['browser-use-2026-07-14'] through the existing beta header mechanism. */
+export interface ManagedAgentsBrowserToolset20260714Params {
+  type: 'browser_toolset_20260714';
+}
+
+/** Tool configuration, not media-generation invocation parameters. Name selects the service tool. */
+export interface ManagedAgentsImageGenToolConfigParams {
+  name: 'ImageGen' | 'image_gen';
+  enabled?: boolean | null;
+  permission_policy?: ManagedAgentsAgentToolsetDefaultConfigParamsPermissionPolicyUnion | null;
+  /** Legacy compatibility only; does not replace name. */
+  type?: 'image_gen' | null;
+}
+
+export interface ManagedAgentsImageGenToolConfig {
+  name: 'ImageGen' | 'image_gen';
+  enabled?: boolean | null;
+  permission_policy?: ManagedAgentsAgentToolsetDefaultConfigPermissionPolicyUnion | null;
+  type?: 'image_gen' | null;
+}
+
+export interface ManagedAgentsImageSearchToolConfigParams {
+  name: 'ImageSearch' | 'image_search';
+  enabled?: boolean | null;
+  permission_policy?: ManagedAgentsAgentToolsetDefaultConfigParamsPermissionPolicyUnion | null;
+  /** Legacy compatibility only; does not replace name. */
+  type?: 'image_search' | null;
+}
+
+export interface ManagedAgentsImageSearchToolConfig {
+  name: 'ImageSearch' | 'image_search';
+  enabled?: boolean | null;
+  permission_policy?: ManagedAgentsAgentToolsetDefaultConfigPermissionPolicyUnion | null;
+  type?: 'image_search' | null;
+}
+
+export interface ManagedAgentsVideoGenToolConfigParams {
+  name: 'VideoGen' | 'video_gen';
+  enabled?: boolean | null;
+  permission_policy?: ManagedAgentsAgentToolsetDefaultConfigParamsPermissionPolicyUnion | null;
+  /** Legacy compatibility only; does not replace name. */
+  type?: 'video_gen' | null;
+}
+
+export interface ManagedAgentsVideoGenToolConfig {
+  name: 'VideoGen' | 'video_gen';
+  enabled?: boolean | null;
+  permission_policy?: ManagedAgentsAgentToolsetDefaultConfigPermissionPolicyUnion | null;
+  type?: 'video_gen' | null;
+}
+
+export interface ManagedAgentsDeliverArtifactsToolConfigParams {
+  name: 'DeliverArtifacts' | 'deliver_artifacts';
+  enabled?: boolean | null;
+  permission_policy?: ManagedAgentsAgentToolsetDefaultConfigParamsPermissionPolicyUnion | null;
+  /** Legacy compatibility only; does not replace name. */
+  type?: 'deliver_artifacts' | null;
+}
+
+export interface ManagedAgentsDeliverArtifactsToolConfig {
+  name: 'DeliverArtifacts' | 'deliver_artifacts';
+  enabled?: boolean | null;
+  permission_policy?: ManagedAgentsAgentToolsetDefaultConfigPermissionPolicyUnion | null;
+  type?: 'deliver_artifacts' | null;
+}
+
 /**
  * Input payload for the `read` tool. Reads file contents relative to the runner's
  * working directory (or absolute when the runner permits).
@@ -330,6 +401,17 @@ export interface ManagedAgentsAlwaysAskPolicy {
 
 export type ManagedAgentsAlwaysAskPolicyType = "always_ask";
 
+/** Tool execution is denied without requesting user confirmation. */
+export interface ManagedAgentsAlwaysDenyPolicy {
+  type: ManagedAgentsAlwaysDenyPolicyType;
+}
+
+export type ManagedAgentsAlwaysDenyPolicyType = "always_deny";
+
+export interface ManagedAgentsAlwaysDenyPolicyParam {
+  type: ManagedAgentsAlwaysDenyPolicyType;
+}
+
 /**
  * Tool calls require user confirmation before execution.
  */
@@ -379,7 +461,7 @@ export type ManagedAgentsQoderSkillParamsType = "qoder";
  */
 export interface ManagedAgentsBashToolConfig {
   enabled: boolean;
-  name?: "bash";
+  name: "Bash" | "bash";
   /**
    * Permission policy for tool execution.
    */
@@ -390,9 +472,9 @@ export interface ManagedAgentsBashToolConfig {
 /**
  * ManagedAgentsBashToolConfigPermissionPolicyUnion contains all possible
  * properties and values from `ManagedAgentsAlwaysAllowPolicy`,
- * `ManagedAgentsAlwaysAskPolicy`.
+ * `ManagedAgentsAlwaysAskPolicy`, and `ManagedAgentsAlwaysDenyPolicy`.
  */
-export type ManagedAgentsBashToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy;
+export type ManagedAgentsBashToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy | ManagedAgentsAlwaysDenyPolicy;
 
 /**
  * Configuration override for the bash tool.
@@ -411,15 +493,11 @@ export interface ManagedAgentsBashToolConfigParams {
    * Any of "bash".
    */
   type?: ManagedAgentsBashToolConfigParamsType | null;
-  /**
-   * Must be "bash".
-   *
-   * This field can be elided, and will marshal its zero value as "bash".
-   */
-  name?: "bash" | null;
+  /** Required service selector. Legacy type is optional and does not replace name. */
+  name: "Bash" | "bash";
 }
 
-export type ManagedAgentsBashToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam;
+export type ManagedAgentsBashToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam | ManagedAgentsAlwaysDenyPolicyParam;
 
 export type ManagedAgentsBashToolConfigParamsType = "bash";
 
@@ -533,7 +611,7 @@ export type ManagedAgentsCustomToolParamsType = "custom";
  */
 export interface ManagedAgentsEditToolConfig {
   enabled: boolean;
-  name?: "edit";
+  name: "Edit" | "edit";
   /**
    * Permission policy for tool execution.
    */
@@ -544,9 +622,9 @@ export interface ManagedAgentsEditToolConfig {
 /**
  * ManagedAgentsEditToolConfigPermissionPolicyUnion contains all possible
  * properties and values from `ManagedAgentsAlwaysAllowPolicy`,
- * `ManagedAgentsAlwaysAskPolicy`.
+ * `ManagedAgentsAlwaysAskPolicy`, and `ManagedAgentsAlwaysDenyPolicy`.
  */
-export type ManagedAgentsEditToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy;
+export type ManagedAgentsEditToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy | ManagedAgentsAlwaysDenyPolicy;
 
 /**
  * Configuration override for the edit tool.
@@ -565,15 +643,11 @@ export interface ManagedAgentsEditToolConfigParams {
    * Any of "edit".
    */
   type?: ManagedAgentsEditToolConfigParamsType | null;
-  /**
-   * Must be "edit".
-   *
-   * This field can be elided, and will marshal its zero value as "edit".
-   */
-  name?: "edit" | null;
+  /** Required service selector. Legacy type is optional and does not replace name. */
+  name: "Edit" | "edit";
 }
 
-export type ManagedAgentsEditToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam;
+export type ManagedAgentsEditToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam | ManagedAgentsAlwaysDenyPolicyParam;
 
 export type ManagedAgentsEditToolConfigParamsType = "edit";
 
@@ -692,7 +766,7 @@ export interface ManagedAgentsEffortXhighParam {
  */
 export interface ManagedAgentsGlobToolConfig {
   enabled: boolean;
-  name?: "glob";
+  name: "Glob" | "glob";
   /**
    * Permission policy for tool execution.
    */
@@ -703,9 +777,9 @@ export interface ManagedAgentsGlobToolConfig {
 /**
  * ManagedAgentsGlobToolConfigPermissionPolicyUnion contains all possible
  * properties and values from `ManagedAgentsAlwaysAllowPolicy`,
- * `ManagedAgentsAlwaysAskPolicy`.
+ * `ManagedAgentsAlwaysAskPolicy`, and `ManagedAgentsAlwaysDenyPolicy`.
  */
-export type ManagedAgentsGlobToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy;
+export type ManagedAgentsGlobToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy | ManagedAgentsAlwaysDenyPolicy;
 
 /**
  * Configuration override for the glob tool.
@@ -724,15 +798,11 @@ export interface ManagedAgentsGlobToolConfigParams {
    * Any of "glob".
    */
   type?: ManagedAgentsGlobToolConfigParamsType | null;
-  /**
-   * Must be "glob".
-   *
-   * This field can be elided, and will marshal its zero value as "glob".
-   */
-  name?: "glob" | null;
+  /** Required service selector. Legacy type is optional and does not replace name. */
+  name: "Glob" | "glob";
 }
 
-export type ManagedAgentsGlobToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam;
+export type ManagedAgentsGlobToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam | ManagedAgentsAlwaysDenyPolicyParam;
 
 export type ManagedAgentsGlobToolConfigParamsType = "glob";
 
@@ -741,7 +811,7 @@ export type ManagedAgentsGlobToolConfigParamsType = "glob";
  */
 export interface ManagedAgentsGrepToolConfig {
   enabled: boolean;
-  name?: "grep";
+  name: "Grep" | "grep";
   /**
    * Permission policy for tool execution.
    */
@@ -752,9 +822,9 @@ export interface ManagedAgentsGrepToolConfig {
 /**
  * ManagedAgentsGrepToolConfigPermissionPolicyUnion contains all possible
  * properties and values from `ManagedAgentsAlwaysAllowPolicy`,
- * `ManagedAgentsAlwaysAskPolicy`.
+ * `ManagedAgentsAlwaysAskPolicy`, and `ManagedAgentsAlwaysDenyPolicy`.
  */
-export type ManagedAgentsGrepToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy;
+export type ManagedAgentsGrepToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy | ManagedAgentsAlwaysDenyPolicy;
 
 /**
  * Configuration override for the grep tool.
@@ -773,15 +843,11 @@ export interface ManagedAgentsGrepToolConfigParams {
    * Any of "grep".
    */
   type?: ManagedAgentsGrepToolConfigParamsType | null;
-  /**
-   * Must be "grep".
-   *
-   * This field can be elided, and will marshal its zero value as "grep".
-   */
-  name?: "grep" | null;
+  /** Required service selector. Legacy type is optional and does not replace name. */
+  name: "Grep" | "grep";
 }
 
-export type ManagedAgentsGrepToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam;
+export type ManagedAgentsGrepToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam | ManagedAgentsAlwaysDenyPolicyParam;
 
 export type ManagedAgentsGrepToolConfigParamsType = "grep";
 
@@ -803,20 +869,20 @@ export type ManagedAgentsMCPServerURLDefinitionType = "url";
  * Resolved configuration for a specific MCP tool.
  */
 export interface ManagedAgentsMCPToolConfig {
-  enabled: boolean;
+  enabled?: boolean | null;
   name: string;
   /**
    * Permission policy for tool execution.
    */
-  permission_policy: ManagedAgentsMCPToolConfigPermissionPolicyUnion;
+  permission_policy?: ManagedAgentsMCPToolConfigPermissionPolicyUnion | null;
 }
 
 /**
  * ManagedAgentsMCPToolConfigPermissionPolicyUnion contains all possible
  * properties and values from `ManagedAgentsAlwaysAllowPolicy`,
- * `ManagedAgentsAlwaysAskPolicy`.
+ * `ManagedAgentsAlwaysAskPolicy`, and `ManagedAgentsAlwaysDenyPolicy`.
  */
-export type ManagedAgentsMCPToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy;
+export type ManagedAgentsMCPToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy | ManagedAgentsAlwaysDenyPolicy;
 
 /**
  * Configuration override for a specific MCP tool.
@@ -836,14 +902,13 @@ export interface ManagedAgentsMCPToolConfigParams {
   permission_policy?: ManagedAgentsMCPToolConfigParamsPermissionPolicyUnion | null;
 }
 
-export type ManagedAgentsMCPToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam;
+export type ManagedAgentsMCPToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam | ManagedAgentsAlwaysDenyPolicyParam;
 
 export interface ManagedAgentsMCPToolset {
-  configs: Array<ManagedAgentsMCPToolConfig>;
-  /**
-   * Resolved default configuration for all tools from an MCP server.
-   */
-  default_config: ManagedAgentsMCPToolsetDefaultConfig;
+  permission_policy?: ManagedAgentsMCPToolConfigPermissionPolicyUnion | null;
+  configs?: Array<ManagedAgentsMCPToolConfig> | null;
+  /** Preserved metadata; the MCP default policy is the top-level permission_policy. */
+  default_config?: ManagedAgentsMCPToolsetDefaultConfig | null;
   mcp_server_name: string;
   /**
    * Any of "mcp_toolset".
@@ -857,19 +922,19 @@ export type ManagedAgentsMCPToolsetType = "mcp_toolset";
  * Resolved default configuration for all tools from an MCP server.
  */
 export interface ManagedAgentsMCPToolsetDefaultConfig {
-  enabled: boolean;
+  enabled?: boolean | null;
   /**
    * Permission policy for tool execution.
    */
-  permission_policy: ManagedAgentsMCPToolsetDefaultConfigPermissionPolicyUnion;
+  permission_policy?: ManagedAgentsMCPToolsetDefaultConfigPermissionPolicyUnion | null;
 }
 
 /**
  * ManagedAgentsMCPToolsetDefaultConfigPermissionPolicyUnion contains all
  * possible properties and values from `ManagedAgentsAlwaysAllowPolicy`,
- * `ManagedAgentsAlwaysAskPolicy`.
+ * `ManagedAgentsAlwaysAskPolicy`, and `ManagedAgentsAlwaysDenyPolicy`.
  */
-export type ManagedAgentsMCPToolsetDefaultConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy;
+export type ManagedAgentsMCPToolsetDefaultConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy | ManagedAgentsAlwaysDenyPolicy;
 
 /**
  * Default configuration for all tools from an MCP server.
@@ -885,12 +950,14 @@ export interface ManagedAgentsMCPToolsetDefaultConfigParams {
   permission_policy?: ManagedAgentsMCPToolsetDefaultConfigParamsPermissionPolicyUnion | null;
 }
 
-export type ManagedAgentsMCPToolsetDefaultConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam;
+export type ManagedAgentsMCPToolsetDefaultConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam | ManagedAgentsAlwaysDenyPolicyParam;
 
 /**
  * Configuration for tools from an MCP server defined in `mcp_servers`.
  */
 export interface ManagedAgentsMCPToolsetParams {
+  /** Default policy for unlisted MCP tools; default_config does not control this policy. */
+  permission_policy?: ManagedAgentsMCPToolConfigParamsPermissionPolicyUnion | null;
   /**
    * Name of the MCP server. Must match a server name from the mcp_servers array.
    * 1-255 characters.
@@ -904,9 +971,7 @@ export interface ManagedAgentsMCPToolsetParams {
    * Per-tool configuration overrides.
    */
   configs?: Array<ManagedAgentsMCPToolConfigParams> | null;
-  /**
-   * Default configuration for all tools from an MCP server.
-   */
+  /** Wire-compatible metadata; use top-level permission_policy for the MCP default. */
   default_config?: ManagedAgentsMCPToolsetDefaultConfigParams | null;
 }
 
@@ -984,7 +1049,7 @@ export type ManagedAgentsMultiagentSelfParamsType = "self";
  */
 export interface ManagedAgentsReadToolConfig {
   enabled: boolean;
-  name?: "read";
+  name: "Read" | "read";
   /**
    * Permission policy for tool execution.
    */
@@ -995,9 +1060,9 @@ export interface ManagedAgentsReadToolConfig {
 /**
  * ManagedAgentsReadToolConfigPermissionPolicyUnion contains all possible
  * properties and values from `ManagedAgentsAlwaysAllowPolicy`,
- * `ManagedAgentsAlwaysAskPolicy`.
+ * `ManagedAgentsAlwaysAskPolicy`, and `ManagedAgentsAlwaysDenyPolicy`.
  */
-export type ManagedAgentsReadToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy;
+export type ManagedAgentsReadToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy | ManagedAgentsAlwaysDenyPolicy;
 
 /**
  * Configuration override for the read tool.
@@ -1016,15 +1081,11 @@ export interface ManagedAgentsReadToolConfigParams {
    * Any of "read".
    */
   type?: ManagedAgentsReadToolConfigParamsType | null;
-  /**
-   * Must be "read".
-   *
-   * This field can be elided, and will marshal its zero value as "read".
-   */
-  name?: "read" | null;
+  /** Required service selector. Legacy type is optional and does not replace name. */
+  name: "Read" | "read";
 }
 
-export type ManagedAgentsReadToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam;
+export type ManagedAgentsReadToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam | ManagedAgentsAlwaysDenyPolicyParam;
 
 export type ManagedAgentsReadToolConfigParamsType = "read";
 
@@ -1054,7 +1115,7 @@ export interface ManagedAgentsSessionThreadAgent {
 
 export type ManagedAgentsSessionThreadAgentSkillUnion = ManagedAgentsQoderSkill | ManagedAgentsCustomSkill;
 
-export type ManagedAgentsSessionThreadAgentToolUnion = ManagedAgentsAgentToolset20260401 | ManagedAgentsMCPToolset | ManagedAgentsCustomTool;
+export type ManagedAgentsSessionThreadAgentToolUnion = ManagedAgentsAgentToolset20260401 | ManagedAgentsMCPToolset | ManagedAgentsCustomTool | ManagedAgentsBrowserToolset20260714;
 
 export type ManagedAgentsSessionThreadAgentToolUnionConfigs = Array<ManagedAgentsAgentToolConfigUnion> | Array<ManagedAgentsMCPToolConfig>;
 
@@ -1162,7 +1223,7 @@ export interface ManagedAgentsUserLocationParam {
  */
 export interface ManagedAgentsWebFetchToolConfig {
   enabled: boolean;
-  name?: "web_fetch";
+  name: "WebFetch" | "web_fetch";
   /**
    * Permission policy for tool execution.
    */
@@ -1176,9 +1237,9 @@ export interface ManagedAgentsWebFetchToolConfig {
 /**
  * ManagedAgentsWebFetchToolConfigPermissionPolicyUnion contains all possible
  * properties and values from `ManagedAgentsAlwaysAllowPolicy`,
- * `ManagedAgentsAlwaysAskPolicy`.
+ * `ManagedAgentsAlwaysAskPolicy`, and `ManagedAgentsAlwaysDenyPolicy`.
  */
-export type ManagedAgentsWebFetchToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy;
+export type ManagedAgentsWebFetchToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy | ManagedAgentsAlwaysDenyPolicy;
 
 /**
  * Configuration override for the web_fetch tool.
@@ -1216,15 +1277,11 @@ export interface ManagedAgentsWebFetchToolConfigParams {
    * Any of "web_fetch".
    */
   type?: ManagedAgentsWebFetchToolConfigParamsType | null;
-  /**
-   * Must be "web_fetch".
-   *
-   * This field can be elided, and will marshal its zero value as "web_fetch".
-   */
-  name?: "web_fetch" | null;
+  /** Required service selector. Legacy type is optional and does not replace name. */
+  name: "WebFetch" | "web_fetch";
 }
 
-export type ManagedAgentsWebFetchToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam;
+export type ManagedAgentsWebFetchToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam | ManagedAgentsAlwaysDenyPolicyParam;
 
 export type ManagedAgentsWebFetchToolConfigParamsType = "web_fetch";
 
@@ -1233,7 +1290,7 @@ export type ManagedAgentsWebFetchToolConfigParamsType = "web_fetch";
  */
 export interface ManagedAgentsWebSearchToolConfig {
   enabled: boolean;
-  name?: "web_search";
+  name: "WebSearch" | "web_search";
   /**
    * Permission policy for tool execution.
    */
@@ -1250,9 +1307,9 @@ export interface ManagedAgentsWebSearchToolConfig {
 /**
  * ManagedAgentsWebSearchToolConfigPermissionPolicyUnion contains all possible
  * properties and values from `ManagedAgentsAlwaysAllowPolicy`,
- * `ManagedAgentsAlwaysAskPolicy`.
+ * `ManagedAgentsAlwaysAskPolicy`, and `ManagedAgentsAlwaysDenyPolicy`.
  */
-export type ManagedAgentsWebSearchToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy;
+export type ManagedAgentsWebSearchToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy | ManagedAgentsAlwaysDenyPolicy;
 
 /**
  * Configuration override for the web_search tool.
@@ -1289,15 +1346,11 @@ export interface ManagedAgentsWebSearchToolConfigParams {
    * Approximate user location for search result localization.
    */
   user_location?: ManagedAgentsUserLocationParam | null;
-  /**
-   * Must be "web_search".
-   *
-   * This field can be elided, and will marshal its zero value as "web_search".
-   */
-  name?: "web_search" | null;
+  /** Required service selector. Legacy type is optional and does not replace name. */
+  name: "WebSearch" | "web_search";
 }
 
-export type ManagedAgentsWebSearchToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam;
+export type ManagedAgentsWebSearchToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam | ManagedAgentsAlwaysDenyPolicyParam;
 
 export type ManagedAgentsWebSearchToolConfigParamsType = "web_search";
 
@@ -1306,7 +1359,7 @@ export type ManagedAgentsWebSearchToolConfigParamsType = "web_search";
  */
 export interface ManagedAgentsWriteToolConfig {
   enabled: boolean;
-  name?: "write";
+  name: "Write" | "write";
   /**
    * Permission policy for tool execution.
    */
@@ -1317,9 +1370,9 @@ export interface ManagedAgentsWriteToolConfig {
 /**
  * ManagedAgentsWriteToolConfigPermissionPolicyUnion contains all possible
  * properties and values from `ManagedAgentsAlwaysAllowPolicy`,
- * `ManagedAgentsAlwaysAskPolicy`.
+ * `ManagedAgentsAlwaysAskPolicy`, and `ManagedAgentsAlwaysDenyPolicy`.
  */
-export type ManagedAgentsWriteToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy;
+export type ManagedAgentsWriteToolConfigPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicy | ManagedAgentsAlwaysAskPolicy | ManagedAgentsAlwaysDenyPolicy;
 
 /**
  * Configuration override for the write tool.
@@ -1338,15 +1391,11 @@ export interface ManagedAgentsWriteToolConfigParams {
    * Any of "write".
    */
   type?: ManagedAgentsWriteToolConfigParamsType | null;
-  /**
-   * Must be "write".
-   *
-   * This field can be elided, and will marshal its zero value as "write".
-   */
-  name?: "write" | null;
+  /** Required service selector. Legacy type is optional and does not replace name. */
+  name: "Write" | "write";
 }
 
-export type ManagedAgentsWriteToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam;
+export type ManagedAgentsWriteToolConfigParamsPermissionPolicyUnion = ManagedAgentsAlwaysAllowPolicyParam | ManagedAgentsAlwaysAskPolicyParam | ManagedAgentsAlwaysDenyPolicyParam;
 
 export type ManagedAgentsWriteToolConfigParamsType = "write";
 
@@ -1403,7 +1452,7 @@ export interface AgentNewParams {
   betas?: Array<QoderBeta>;
 }
 
-export type AgentNewParamsToolUnion = ManagedAgentsAgentToolset20260401Params | ManagedAgentsMCPToolsetParams | ManagedAgentsCustomToolParams;
+export type AgentNewParamsToolUnion = ManagedAgentsAgentToolset20260401Params | ManagedAgentsMCPToolsetParams | ManagedAgentsCustomToolParams | ManagedAgentsBrowserToolset20260714Params;
 
 export interface AgentGetParams {
   /**
@@ -1481,7 +1530,7 @@ export interface AgentUpdateParams {
   betas?: Array<QoderBeta>;
 }
 
-export type AgentUpdateParamsToolUnion = ManagedAgentsAgentToolset20260401Params | ManagedAgentsMCPToolsetParams | ManagedAgentsCustomToolParams;
+export type AgentUpdateParamsToolUnion = ManagedAgentsAgentToolset20260401Params | ManagedAgentsMCPToolsetParams | ManagedAgentsCustomToolParams | ManagedAgentsBrowserToolset20260714Params;
 
 export interface AgentListParams {
   /**
@@ -6443,7 +6492,7 @@ export interface ManagedAgentsAgentWithOverridesParams {
 
 export type ManagedAgentsAgentWithOverridesParamsType = "agent_with_overrides";
 
-export type ManagedAgentsAgentWithOverridesParamsToolUnion = ManagedAgentsAgentToolset20260401Params | ManagedAgentsMCPToolsetParams | ManagedAgentsCustomToolParams;
+export type ManagedAgentsAgentWithOverridesParamsToolUnion = ManagedAgentsAgentToolset20260401Params | ManagedAgentsMCPToolsetParams | ManagedAgentsCustomToolParams | ManagedAgentsBrowserToolset20260714Params;
 
 export interface ManagedAgentsBranchCheckout {
   /**
@@ -6928,7 +6977,7 @@ export interface ManagedAgentsSessionAgent {
 
 export type ManagedAgentsSessionAgentSkillUnion = ManagedAgentsQoderSkill | ManagedAgentsCustomSkill;
 
-export type ManagedAgentsSessionAgentToolUnion = ManagedAgentsAgentToolset20260401 | ManagedAgentsMCPToolset | ManagedAgentsCustomTool;
+export type ManagedAgentsSessionAgentToolUnion = ManagedAgentsAgentToolset20260401 | ManagedAgentsMCPToolset | ManagedAgentsCustomTool | ManagedAgentsBrowserToolset20260714;
 
 export type ManagedAgentsSessionAgentToolUnionConfigs = Array<ManagedAgentsAgentToolConfigUnion> | Array<ManagedAgentsMCPToolConfig>;
 
@@ -6969,7 +7018,7 @@ export interface ManagedAgentsSessionAgentUpdateParam {
   tools?: Array<ManagedAgentsSessionAgentUpdateToolUnionParam> | null;
 }
 
-export type ManagedAgentsSessionAgentUpdateToolUnionParam = ManagedAgentsAgentToolset20260401Params | ManagedAgentsMCPToolsetParams | ManagedAgentsCustomToolParams;
+export type ManagedAgentsSessionAgentUpdateToolUnionParam = ManagedAgentsAgentToolset20260401Params | ManagedAgentsMCPToolsetParams | ManagedAgentsCustomToolParams | ManagedAgentsBrowserToolset20260714Params;
 
 /**
  * Resolved coordinator topology with full agent definitions for each roster

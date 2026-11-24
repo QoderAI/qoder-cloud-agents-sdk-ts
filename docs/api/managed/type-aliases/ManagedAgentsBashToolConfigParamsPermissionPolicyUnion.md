@@ -6,4 +6,4 @@
 
 # Type Alias: ManagedAgentsBashToolConfigParamsPermissionPolicyUnion
 
-> **ManagedAgentsBashToolConfigParamsPermissionPolicyUnion** = [`ManagedAgentsAlwaysAllowPolicyParam`](../interfaces/ManagedAgentsAlwaysAllowPolicyParam.md) \| [`ManagedAgentsAlwaysAskPolicyParam`](../interfaces/ManagedAgentsAlwaysAskPolicyParam.md)
+> **ManagedAgentsBashToolConfigParamsPermissionPolicyUnion** = [`ManagedAgentsAlwaysAllowPolicyParam`](../interfaces/ManagedAgentsAlwaysAllowPolicyParam.md) \| [`ManagedAgentsAlwaysAskPolicyParam`](../interfaces/ManagedAgentsAlwaysAskPolicyParam.md) \| [`ManagedAgentsAlwaysDenyPolicyParam`](../interfaces/ManagedAgentsAlwaysDenyPolicyParam.md)

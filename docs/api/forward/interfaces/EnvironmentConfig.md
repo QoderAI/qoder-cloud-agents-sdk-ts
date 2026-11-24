@@ -34,6 +34,14 @@ Runs on sandbox start/resume; self-hosted execution depends on the worker.
 
 ***
 
+### storage?
+
+> `optional` **storage?**: [`BucketStorage`](BucketStorage.md)
+
+Bucket read views never declare role ARN or AccessKey secrets.
+
+***
+
 ### type
 
 > **type**: `string`

@@ -6,9 +6,10 @@ import * as sdk from '../dist/index.js';
 export { sdk };
 export const pathSegment = 'segment /?%#';
 export const fixture = (mode, file) => JSON.parse(readFileSync(new URL(`./fixtures/${mode}/${file}`, import.meta.url), 'utf8'));
-export const methods = Object.fromEntries(['forward', 'managed'].map(mode => [mode, fixture(mode, 'api-methods.json')]));
-export const contracts = Object.fromEntries(['forward', 'managed'].map(mode => [mode, fixture(mode, 'api-contracts.json')]));
-export const operations = fixture('forward', 'api-operation-cases.json').cases;
+export const capabilityFixture = JSON.parse(readFileSync(new URL('./fixtures/capability-contracts.json', import.meta.url), 'utf8'));
+export const methods = Object.fromEntries(['forward', 'managed'].map(mode => [mode, [...fixture(mode, 'api-methods.json'), ...capabilityFixture.operations.filter(op => op.mode === mode)]]));
+export const contracts = Object.fromEntries(['forward', 'managed'].map(mode => [mode, [...fixture(mode, 'api-contracts.json'), ...capabilityFixture.operations.filter(op => op.mode === mode)]]));
+export const operations = [...fixture('forward', 'api-operation-cases.json').cases, ...capabilityFixture.operations.filter(op => op.mode === 'forward')];
 export function response(body, status = 200, headers = {}) {
   return new Response(status === 204 ? null : typeof body === 'string' ? body : JSON.stringify(body), { status, headers: { 'content-type': 'application/json', 'x-request-id': 'req_contract', ...headers } });
 }
@@ -64,6 +65,10 @@ export async function assertRequest(req, mode, c, op) {
       assert.deepEqual(url.searchParams.getAll(p.wire_name), (Array.isArray(want) ? want : [want]).map(String), `query ${p.wire_name}`);
     }
     if (p.location === 'header') assert.equal(req.headers.get(p.wire_name), String(parameterValue(p)), `header ${p.wire_name}`);
+  }
+  if (op?.request_body?.kind === 'none') {
+    assert.equal(await req.text(), '');
+    assert.deepEqual([...url.searchParams.keys()].sort(), op.parameters.filter(p => p.location === 'query').map(p => p.wire_name).sort());
   }
   if (op?.request_body?.kind === 'json') {
     const expected = structuredClone(operationBody(op));

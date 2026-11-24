@@ -681,6 +681,7 @@ export interface SkillBindingParam {
 }
 
 export interface MultiagentEntry {
+  id?: string | null;
   model?: string;
   type: string;
   template_id?: string;
@@ -690,6 +691,7 @@ export interface MultiagentEntry {
 }
 
 export interface MultiagentEntryParam {
+  id?: string | null;
   model?: string;
   type: string;
   template_id?: string | null;
@@ -918,6 +920,59 @@ export interface EnvironmentListParams {
   [key: string]: unknown;
 }
 
+/** Write-only credentials for a newly mounted bucket. Never use real secrets in source files. */
+export type OSSBucketCredentialParam =
+  | { type: 'ram_role'; role_arn: string }
+  | { type: 'access_key'; access_key_id: string; access_key_secret: string };
+
+/** Read view: only credential type and an optional masked AccessKey ID are returned. */
+export type OSSBucketCredential =
+  | { type: 'ram_role' }
+  | { type: 'access_key'; access_key_id?: string };
+
+export interface OSSBucketParam {
+  name: string;
+  provider: 'aliyun-oss';
+  region: string;
+  bucket: string;
+  prefix?: string;
+  access?: 'read_only' | 'read_write';
+  accelerator_endpoint?: string;
+  credential: OSSBucketCredentialParam;
+}
+
+/** Omit credential or echo its masked read view to preserve an existing bucket's saved credential. */
+export interface OSSBucketUpdateParam extends Omit<OSSBucketParam, 'credential'> {
+  credential?: OSSBucketCredentialParam | OSSBucketCredential;
+}
+
+export interface OSSBucket extends Omit<OSSBucketParam, 'credential'> {
+  credential?: OSSBucketCredential;
+}
+
+export interface BucketStorageParam {
+  buckets: OSSBucketParam[];
+}
+
+/** The complete array replaces existing mounts. Removals affect only new Sessions. */
+export interface BucketStorageUpdateParam {
+  buckets: OSSBucketUpdateParam[];
+}
+
+export interface BucketStorage {
+  buckets: OSSBucket[];
+}
+
+/** Typed config; the outer request also accepts Record<string, unknown> for forward compatibility. */
+export type EnvironmentConfigParam =
+  | { type: 'self_hosted'; setup_script?: string; startup_script?: string }
+  | { type: 'cloud'; packages?: Partial<Pick<EnvironmentConfigPackages, 'apt' | 'npm' | 'pip'>>; setup_script?: string; startup_script?: string; storage?: BucketStorageParam };
+
+/** Config replaces the entire saved config, not a merge patch. */
+export type EnvironmentConfigUpdateParam =
+  | { type: 'self_hosted'; setup_script?: string; startup_script?: string }
+  | { type: 'cloud'; packages?: Partial<Pick<EnvironmentConfigPackages, 'apt' | 'npm' | 'pip'>>; setup_script?: string; startup_script?: string; storage?: BucketStorageUpdateParam };
+
 export interface EnvironmentNewParams {
   /** Select identity ownership with a PAT. Omit when using a SAT. */
   identity_id?: string;
@@ -930,9 +985,10 @@ export interface EnvironmentNewParams {
    */
   description?: string | null;
   /**
-   * Environment 运行时配置对象；省略时默认使用 `{"type":"cloud"}`。显式传入时不能为 `null` 或空对象。字段详见 schemas。
+   * Runtime config; omit for cloud defaults. Explicit null/empty objects are invalid.
+   * OSS buckets require X-Qoder-Beta: oss-bucket-2026-09-23 (Forward supports up to 7).
    */
-  config?: Record<string, unknown> | null;
+  config?: EnvironmentConfigParam | Record<string, unknown> | null;
   /**
    * [Environment metadata](./schemas.md#environment-metadata)；省略时为 `{}`，显式传入时不能为 `null`。
    */
@@ -957,9 +1013,10 @@ export interface EnvironmentUpdateParams {
    */
   description?: string | null;
   /**
-   * 新配置；传入时不能为 `null`，显式 `null` 返回 400。字段详见 schemas。
+   * Replaces the entire config; explicit null is invalid. Bucket credentials may be omitted to preserve them.
+   * Removing buckets affects only new Sessions. Send X-Qoder-Beta: oss-bucket-2026-09-23 for OSS storage.
    */
-  config?: Record<string, unknown> | null;
+  config?: EnvironmentConfigUpdateParam | Record<string, unknown> | null;
   /**
    * 要合并的 [Environment metadata](./schemas.md#environment-metadata)；传入时不能为 `null`，显式 `null` 返回 400。
    */
@@ -986,6 +1043,8 @@ export interface Environment {
 }
 
 export interface EnvironmentConfig {
+  /** Bucket read views never declare role ARN or AccessKey secrets. */
+  storage?: BucketStorage;
   /** Runs on sandbox start/resume; self-hosted execution depends on the worker. */
   startup_script?: string;
   setup_script?: string;
@@ -2290,6 +2349,8 @@ export interface SessionListParams {
 }
 
 export interface SessionNewParams {
+  /** Generate the title from the first message. True conflicts with any supplied title (including null); the service validates this. */
+  auto_title?: boolean;
   /** Cumulative Credits limit; omit or null for unlimited. */
   budget?: SessionBudget | null;
   /**
@@ -2319,6 +2380,7 @@ export interface SessionNewParams {
 }
 
 export interface SessionNewParamsConfigParam {
+  // Session creation does not support multiagent overrides; use Template configuration or Session update.
   /** Omit to inherit. Null and an empty object are invalid on create. */
   model?: string | ModelConfigParam;
   environment_variables?: Record<string, unknown> | null;
@@ -2347,6 +2409,8 @@ export interface SessionUpdateParams {
 }
 
 export interface SessionUpdateParamsConfigParam {
+  /** Omit to keep; null persistently clears the roster rather than restoring inheritance. An object replaces the roster; empty agents arrays are rejected. */
+  multiagent?: MultiagentConfigParam | null;
   /** Omit to keep; null restores the inherited model. */
   model?: string | ModelConfigParam | null;
   environment_variables?: Record<string, unknown> | null;
@@ -2428,6 +2492,7 @@ export interface SessionStats {
 }
 
 export interface SessionConfig {
+  multiagent?: MultiagentConfig | null;
   model?: ModelConfig;
   environment_variables: Record<string, string>;
   /** Additional fields are preserved verbatim by the SDK. */
@@ -2891,6 +2956,61 @@ export interface SkillVersion {
   [key: string]: unknown;
 }
 
+export interface TemplateA2ASkillParam {
+  id: string;
+  name: string;
+  description: string;
+  tags?: string[];
+  examples?: string[];
+}
+
+export interface TemplateA2ASkill extends TemplateA2ASkillParam {
+  [key: string]: unknown;
+}
+
+/** Members cannot be null; enabled: false retains metadata, while a2a: null clears it. */
+export interface TemplateA2AConfigParam {
+  enabled?: boolean;
+  description?: string;
+  skills?: TemplateA2ASkillParam[];
+}
+
+export interface TemplateA2AConfig {
+  enabled?: boolean;
+  description?: string;
+  skills?: TemplateA2ASkill[];
+  [key: string]: unknown;
+}
+
+export interface TemplateGetAgentCardParams {
+  /** Runtime Identity for PAT calls. Omit when using a SAT. */
+  identity_id?: string;
+  /** Sent as A2A-Version, not as query or body; defaults to 0.3 on the service. */
+  a2a_version?: '0.3' | '1.0';
+}
+
+export interface AgentCardSupportedInterface {
+  url: string;
+  protocolBinding: string;
+  protocolVersion: string;
+  [key: string]: unknown;
+}
+
+/** A2A discovery only. Returned URLs are metadata and are never fetched automatically. */
+export interface AgentCard {
+  name: string;
+  description: string;
+  version: string;
+  skills: TemplateA2ASkill[];
+  defaultInputModes: string[];
+  defaultOutputModes: string[];
+  /** A2A 0.3 invocation endpoint. */
+  url?: string;
+  /** A2A 1.0 invocation interfaces. */
+  supportedInterfaces?: AgentCardSupportedInterface[];
+  [key: string]: unknown;
+}
+
 export interface TemplateListParams {
   /**
    * 按 `active` 或 `archived` 过滤。
@@ -2913,6 +3033,8 @@ export interface TemplateListParams {
 }
 
 export interface TemplateNewParams {
+  /** Forward A2A publication metadata, independent of multiagent collaboration. */
+  a2a?: TemplateA2AConfigParam | null;
   /** Positive maximum tool-call rounds per Turn. Omit or pass null to use the platform default. */
   max_tool_rounds?: number | null;
   /** Replaces the complete managed tool list. Null or an empty list disables it. */
@@ -2988,6 +3110,8 @@ export interface TemplateNewParams {
 }
 
 export interface TemplateUpdateParams {
+  /** Omit or {} to preserve; null disables and clears publication metadata. Object fields patch; skills replaces the whole array. */
+  a2a?: TemplateA2AConfigParam | null;
   /** Positive maximum tool-call rounds per Turn. Omit to preserve the limit; null clears it. */
   max_tool_rounds?: number | null;
   /** Replaces the complete managed tool list. Null or an empty list disables it. */
@@ -3089,6 +3213,7 @@ export interface TemplateCloneParams {
 }
 
 export interface Template {
+  a2a?: TemplateA2AConfig | null;
   /** Omitted when the explicit limit is unset. */
   max_tool_rounds?: number;
   /** Replaces the complete managed tool list. Null or an empty list disables it. */

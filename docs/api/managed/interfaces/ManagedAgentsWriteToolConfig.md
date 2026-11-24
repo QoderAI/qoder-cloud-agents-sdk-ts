@@ -16,9 +16,9 @@ Configuration for the write tool.
 
 ***
 
-### name?
+### name
 
-> `optional` **name?**: `"write"`
+> **name**: `"Write"` \| `"write"`
 
 ***
 

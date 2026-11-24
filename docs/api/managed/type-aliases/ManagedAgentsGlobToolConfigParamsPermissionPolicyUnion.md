@@ -6,4 +6,4 @@
 
 # Type Alias: ManagedAgentsGlobToolConfigParamsPermissionPolicyUnion
 
-> **ManagedAgentsGlobToolConfigParamsPermissionPolicyUnion** = [`ManagedAgentsAlwaysAllowPolicyParam`](../interfaces/ManagedAgentsAlwaysAllowPolicyParam.md) \| [`ManagedAgentsAlwaysAskPolicyParam`](../interfaces/ManagedAgentsAlwaysAskPolicyParam.md)
+> **ManagedAgentsGlobToolConfigParamsPermissionPolicyUnion** = [`ManagedAgentsAlwaysAllowPolicyParam`](../interfaces/ManagedAgentsAlwaysAllowPolicyParam.md) \| [`ManagedAgentsAlwaysAskPolicyParam`](../interfaces/ManagedAgentsAlwaysAskPolicyParam.md) \| [`ManagedAgentsAlwaysDenyPolicyParam`](../interfaces/ManagedAgentsAlwaysDenyPolicyParam.md)

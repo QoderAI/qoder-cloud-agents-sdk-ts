@@ -6,4 +6,4 @@
 
 # Type Alias: ManagedAgentsWebFetchToolConfigParamsPermissionPolicyUnion
 
-> **ManagedAgentsWebFetchToolConfigParamsPermissionPolicyUnion** = [`ManagedAgentsAlwaysAllowPolicyParam`](../interfaces/ManagedAgentsAlwaysAllowPolicyParam.md) \| [`ManagedAgentsAlwaysAskPolicyParam`](../interfaces/ManagedAgentsAlwaysAskPolicyParam.md)
+> **ManagedAgentsWebFetchToolConfigParamsPermissionPolicyUnion** = [`ManagedAgentsAlwaysAllowPolicyParam`](../interfaces/ManagedAgentsAlwaysAllowPolicyParam.md) \| [`ManagedAgentsAlwaysAskPolicyParam`](../interfaces/ManagedAgentsAlwaysAskPolicyParam.md) \| [`ManagedAgentsAlwaysDenyPolicyParam`](../interfaces/ManagedAgentsAlwaysDenyPolicyParam.md)

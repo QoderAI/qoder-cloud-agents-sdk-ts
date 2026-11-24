@@ -19,13 +19,11 @@ default_config setting.
 
 ***
 
-### name?
+### name
 
-> `optional` **name?**: `"glob"` \| `null`
+> **name**: `"Glob"` \| `"glob"`
 
-Must be "glob".
-
-This field can be elided, and will marshal its zero value as "glob".
+Required service selector. Legacy type is optional and does not replace name.
 
 ***
 

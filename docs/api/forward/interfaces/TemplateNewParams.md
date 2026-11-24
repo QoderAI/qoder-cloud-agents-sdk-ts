@@ -14,6 +14,14 @@ Additional fields are preserved verbatim by the SDK.
 
 ## Properties
 
+### a2a?
+
+> `optional` **a2a?**: [`TemplateA2AConfigParam`](TemplateA2AConfigParam.md) \| `null`
+
+Forward A2A publication metadata, independent of multiagent collaboration.
+
+***
+
 ### description?
 
 > `optional` **description?**: `string` \| `null`

@@ -5,17 +5,30 @@ existing `0.1.0` release; earlier development prereleases are not listed.
 
 ## [Unreleased]
 
+### Added
+
+- Type Forward Session `auto_title` on creation and update-only `config.multiagent`, including persistent null clearing without restoring Template inheritance.
+- Add independent Forward Template A2A publication models and `templates.getAgentCard()` for authenticated 0.3/1.0 discovery. Protocol selection uses `A2A-Version`; PAT Identity scope uses query parameters. Unknown Card fields are retained; invocation URLs are never followed automatically.
+- Add typed Forward OSS Environment configs, storage and buckets with separate required new write credentials, optional update credentials, and secret-free response declarations. Config and bucket arrays replace saved values; mount removals affect only new Sessions. OSS storage requires `oss-bucket-2026-09-23` beta.
+- Add Managed `always_deny` for built-in defaults, per-tool configs and the top-level MCP default policy, ImageGen/ImageSearch/VideoGen/DeliverArtifacts config request and response interfaces, and the type-only Browser toolset across Agent and Session snapshot unions. Browser requests use the existing `browser-use-2026-07-14` beta header mechanism.
+
 ### Fixed
 
+- Accept masked OSS bucket credentials in typed Forward Environment updates, so callers can edit and resend read configurations without supplying secrets again. New bucket creation still requires complete write credentials.
 - Send Managed `environments.work.heartbeat()` `expected_last_heartbeat` and `desired_ttl_seconds` as query parameters. Earlier releases put them in the JSON body, which the service ignores, so lease preconditions and requested TTLs had no effect.
 - Accept `"latest"` and positive integer strings for child Agent `version` in Managed Agent multiagent rosters, and type saved roster versions as `number | "latest"` in Agent responses. Session and Deployment Agent references keep numeric versions.
 
 ### Breaking changes
 
+- Managed built-in per-tool config request and response declarations now require `name`. Legacy optional `type` is retained but cannot select a tool on its own; canonical service names and existing lowercase/snake aliases are accepted. Bash invocation input syntax is unchanged.
 - `ManagedAgentsMultiagentAgentUnion` now uses `ManagedAgentsMultiagentAgentReference`, whose `version` is `number | "latest"`, and roster requests use `ManagedAgentsMultiagentAgentParams`.
+- Managed MCP response `configs` and `default_config`, plus their nested `enabled` and `permission_policy` fields, are now optional and nullable. Callers that previously iterated or dereferenced them directly must narrow these values to compile.
 
 ### Migration
 
+- Configure the default MCP policy on `tools[].permission_policy`, not `tools[].default_config.permission_policy`; unlisted MCP tools use the top-level policy. Check optional media-config response fields and A2A `enabled` before reading them.
+- Iterate MCP configs with `for (const config of tool.configs ?? [])`. Use `if (tool.default_config)` before accessing default metadata, `if (config.permission_policy)` or `if (tool.default_config?.permission_policy)` before reading a nested policy's `type`, and `if (config.enabled != null)` (likewise for default `enabled`) before treating it as a boolean. Check `tool.permission_policy` for the effective default; do not fall back to legacy `default_config.permission_policy` when the top-level policy is absent.
+- Add `name` to each Managed built-in config, for example replace `{ type: 'bash', enabled: true }` with `{ name: 'Bash', enabled: true }`. Media configs need no prompt or other invocation parameters. Browser entries must contain only `{ type: 'browser_toolset_20260714' }`.
 - Check for `"latest"` before treating a saved roster `version` as a number. Code that only builds roster requests needs no change.
 
 ## [0.15.0]

@@ -16,9 +16,10 @@ Additional fields are preserved verbatim by the SDK.
 
 ### config?
 
-> `optional` **config?**: `Record`\<`string`, `unknown`\> \| `null`
+> `optional` **config?**: `Record`\<`string`, `unknown`\> \| [`EnvironmentConfigParam`](../type-aliases/EnvironmentConfigParam.md) \| `null`
 
-Environment 运行时配置对象；省略时默认使用 `{"type":"cloud"}`。显式传入时不能为 `null` 或空对象。字段详见 schemas。
+Runtime config; omit for cloud defaults. Explicit null/empty objects are invalid.
+OSS buckets require X-Qoder-Beta: oss-bucket-2026-09-23 (Forward supports up to 7).
 
 ***
 

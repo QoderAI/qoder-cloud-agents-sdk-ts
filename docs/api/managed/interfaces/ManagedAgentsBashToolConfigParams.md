@@ -19,13 +19,11 @@ default_config setting.
 
 ***
 
-### name?
+### name
 
-> `optional` **name?**: `"bash"` \| `null`
+> **name**: `"Bash"` \| `"bash"`
 
-Must be "bash".
-
-This field can be elided, and will marshal its zero value as "bash".
+Required service selector. Legacy type is optional and does not replace name.
 
 ***
 

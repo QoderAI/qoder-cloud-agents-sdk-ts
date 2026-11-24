@@ -6,4 +6,4 @@
 
 # Type Alias: ManagedAgentsGrepToolConfigParamsPermissionPolicyUnion
 
-> **ManagedAgentsGrepToolConfigParamsPermissionPolicyUnion** = [`ManagedAgentsAlwaysAllowPolicyParam`](../interfaces/ManagedAgentsAlwaysAllowPolicyParam.md) \| [`ManagedAgentsAlwaysAskPolicyParam`](../interfaces/ManagedAgentsAlwaysAskPolicyParam.md)
+> **ManagedAgentsGrepToolConfigParamsPermissionPolicyUnion** = [`ManagedAgentsAlwaysAllowPolicyParam`](../interfaces/ManagedAgentsAlwaysAllowPolicyParam.md) \| [`ManagedAgentsAlwaysAskPolicyParam`](../interfaces/ManagedAgentsAlwaysAskPolicyParam.md) \| [`ManagedAgentsAlwaysDenyPolicyParam`](../interfaces/ManagedAgentsAlwaysDenyPolicyParam.md)

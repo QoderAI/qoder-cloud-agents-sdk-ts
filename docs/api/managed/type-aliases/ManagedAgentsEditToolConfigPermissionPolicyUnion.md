@@ -6,8 +6,8 @@
 
 # Type Alias: ManagedAgentsEditToolConfigPermissionPolicyUnion
 
-> **ManagedAgentsEditToolConfigPermissionPolicyUnion** = [`ManagedAgentsAlwaysAllowPolicy`](../interfaces/ManagedAgentsAlwaysAllowPolicy.md) \| [`ManagedAgentsAlwaysAskPolicy`](../interfaces/ManagedAgentsAlwaysAskPolicy.md)
+> **ManagedAgentsEditToolConfigPermissionPolicyUnion** = [`ManagedAgentsAlwaysAllowPolicy`](../interfaces/ManagedAgentsAlwaysAllowPolicy.md) \| [`ManagedAgentsAlwaysAskPolicy`](../interfaces/ManagedAgentsAlwaysAskPolicy.md) \| [`ManagedAgentsAlwaysDenyPolicy`](../interfaces/ManagedAgentsAlwaysDenyPolicy.md)
 
 ManagedAgentsEditToolConfigPermissionPolicyUnion contains all possible
 properties and values from `ManagedAgentsAlwaysAllowPolicy`,
-`ManagedAgentsAlwaysAskPolicy`.
+`ManagedAgentsAlwaysAskPolicy`, and `ManagedAgentsAlwaysDenyPolicy`.

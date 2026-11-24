@@ -128,6 +128,32 @@ createTemplate
 
 ***
 
+### getAgentCard()
+
+> **getAgentCard**(`templateID`, `params?`, `options?`): [`APIPromise`](../../index/classes/APIPromise.md)\<[`AgentCard`](../interfaces/AgentCard.md)\>
+
+Retrieve authenticated A2A discovery metadata without following invocation URLs.
+
+#### Parameters
+
+##### templateID
+
+`string`
+
+##### params?
+
+[`TemplateGetAgentCardParams`](../interfaces/TemplateGetAgentCardParams.md) = `{}`
+
+##### options?
+
+[`RequestOptions`](../../index/interfaces/RequestOptions.md)
+
+#### Returns
+
+[`APIPromise`](../../index/classes/APIPromise.md)\<[`AgentCard`](../interfaces/AgentCard.md)\>
+
+***
+
 ### list()
 
 > **list**(`params?`, `options?`): [`PagePromise`](../../index/classes/PagePromise.md)\<[`Template`](../interfaces/Template.md)\>

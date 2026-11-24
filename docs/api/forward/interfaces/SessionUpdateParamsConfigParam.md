@@ -25,3 +25,11 @@ Additional fields are preserved verbatim by the SDK.
 > `optional` **model?**: `string` \| [`ModelConfigParam`](ModelConfigParam.md) \| `null`
 
 Omit to keep; null restores the inherited model.
+
+***
+
+### multiagent?
+
+> `optional` **multiagent?**: [`MultiagentConfigParam`](MultiagentConfigParam.md) \| `null`
+
+Omit to keep; null persistently clears the roster rather than restoring inheritance. An object replaces the roster; empty agents arrays are rejected.

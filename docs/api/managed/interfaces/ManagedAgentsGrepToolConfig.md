@@ -16,9 +16,9 @@ Configuration for the grep tool.
 
 ***
 
-### name?
+### name
 
-> `optional` **name?**: `"grep"`
+> **name**: `"Grep"` \| `"grep"`
 
 ***
 

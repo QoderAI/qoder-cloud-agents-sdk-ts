@@ -16,9 +16,10 @@ Additional fields are preserved verbatim by the SDK.
 
 ### config?
 
-> `optional` **config?**: `Record`\<`string`, `unknown`\> \| `null`
+> `optional` **config?**: `Record`\<`string`, `unknown`\> \| [`EnvironmentConfigUpdateParam`](../type-aliases/EnvironmentConfigUpdateParam.md) \| `null`
 
-新配置；传入时不能为 `null`，显式 `null` 返回 400。字段详见 schemas。
+Replaces the entire config; explicit null is invalid. Bucket credentials may be omitted to preserve them.
+Removing buckets affects only new Sessions. Send X-Qoder-Beta: oss-bucket-2026-09-23 for OSS storage.
 
 ***
 

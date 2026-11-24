@@ -16,9 +16,9 @@ Configuration for the edit tool.
 
 ***
 
-### name?
+### name
 
-> `optional` **name?**: `"edit"`
+> **name**: `"Edit"` \| `"edit"`
 
 ***
 

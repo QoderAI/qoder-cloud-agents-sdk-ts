@@ -16,9 +16,9 @@ Configuration for the glob tool.
 
 ***
 
-### name?
+### name
 
-> `optional` **name?**: `"glob"`
+> **name**: `"Glob"` \| `"glob"`
 
 ***
 

@@ -28,9 +28,9 @@ Configuration for the web_search tool.
 
 ***
 
-### name?
+### name
 
-> `optional` **name?**: `"web_search"`
+> **name**: `"WebSearch"` \| `"web_search"`
 
 ***
 

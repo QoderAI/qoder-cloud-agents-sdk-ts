@@ -6,4 +6,4 @@
 
 # Type Alias: AgentNewParamsToolUnion
 
-> **AgentNewParamsToolUnion** = [`ManagedAgentsAgentToolset20260401Params`](../interfaces/ManagedAgentsAgentToolset20260401Params.md) \| [`ManagedAgentsMCPToolsetParams`](../interfaces/ManagedAgentsMCPToolsetParams.md) \| [`ManagedAgentsCustomToolParams`](../interfaces/ManagedAgentsCustomToolParams.md)
+> **AgentNewParamsToolUnion** = [`ManagedAgentsAgentToolset20260401Params`](../interfaces/ManagedAgentsAgentToolset20260401Params.md) \| [`ManagedAgentsMCPToolsetParams`](../interfaces/ManagedAgentsMCPToolsetParams.md) \| [`ManagedAgentsCustomToolParams`](../interfaces/ManagedAgentsCustomToolParams.md) \| [`ManagedAgentsBrowserToolset20260714Params`](../interfaces/ManagedAgentsBrowserToolset20260714Params.md)

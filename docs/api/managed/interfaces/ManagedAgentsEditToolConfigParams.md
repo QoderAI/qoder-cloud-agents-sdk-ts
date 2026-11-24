@@ -19,13 +19,11 @@ default_config setting.
 
 ***
 
-### name?
+### name
 
-> `optional` **name?**: `"edit"` \| `null`
+> **name**: `"Edit"` \| `"edit"`
 
-Must be "edit".
-
-This field can be elided, and will marshal its zero value as "edit".
+Required service selector. Legacy type is optional and does not replace name.
 
 ***
 
