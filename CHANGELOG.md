@@ -5,6 +5,8 @@ existing `0.1.0` release; earlier development prereleases are not listed.
 
 ## [Unreleased]
 
+## [0.16.0]
+
 ### Added
 
 - Type Forward Session `auto_title` on creation and update-only `config.multiagent`, including persistent null clearing without restoring Template inheritance.
