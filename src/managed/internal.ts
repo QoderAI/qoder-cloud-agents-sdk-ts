@@ -1,4 +1,5 @@
 import { mergeHeaders, type RequestOptions } from '../core/client.js';
+import { QoderError } from '../core/error.js';
 import { toFile, type Uploadable } from '../core/uploads.js';
 
 /** Extract header and parent-path parameters without mutating the caller's input. */
@@ -30,7 +31,7 @@ export function splitParams(
 }
 
 export function pathParam(value: string | undefined | null, name: string): string {
-  if (typeof value !== 'string' || value.length === 0) throw new Error(`Missing required ${name} parameter`);
+  if (typeof value !== 'string' || value.length === 0) throw new QoderError(`Missing required ${name} parameter`);
   return encodeURIComponent(value);
 }
 

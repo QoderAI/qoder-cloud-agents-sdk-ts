@@ -1,11 +1,12 @@
 // Shared transport details for the Forward resources.
+import { QoderError } from '../core/error.js';
 import type { IdentityScopeOptions } from './types.js';
 import type { RequestOptions } from '../core/client.js';
 
 /** Validate before invoking fetch, then escape the value as one path segment. */
 export function pathParam(value: string, name: string): string {
   if (typeof value !== 'string' || value.length === 0) {
-    throw new Error(`missing required ${name} parameter`);
+    throw new QoderError(`missing required ${name} parameter`);
   }
   return encodeURIComponent(value);
 }

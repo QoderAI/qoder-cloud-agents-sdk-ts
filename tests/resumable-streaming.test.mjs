@@ -488,3 +488,44 @@ test('close aborts the active child stream and is idempotent', async () => {
   assert.equal(requestSignal.aborted, true);
   assert.equal((await iterator.next()).done, true);
 });
+
+test('missing credentials fail immediately as QoderError without retrying', async () => {
+  const prevToken = process.env.QODER_ACCESS_TOKEN;
+  const prevPat = process.env.QODER_PAT;
+  delete process.env.QODER_ACCESS_TOKEN;
+  delete process.env.QODER_PAT;
+  try {
+    for (const [label, client] of [
+      ['forward', new sdk.ForwardClient({ fetch: () => { throw new Error('network should not be called'); } })],
+      ['managed', new sdk.ManagedClient({ fetch: () => { throw new Error('network should not be called'); } })],
+    ]) {
+      const stream = client.sessions.events.resumableStream('sess-one');
+      await assert.rejects(
+        () => stream[Symbol.asyncIterator]().next(),
+        error => error instanceof sdk.QoderError && /authentication method/i.test(error.message),
+        label,
+      );
+    }
+  } finally {
+    if (prevToken !== undefined) process.env.QODER_ACCESS_TOKEN = prevToken;
+    if (prevPat !== undefined) process.env.QODER_PAT = prevPat;
+  }
+});
+
+test('empty sessionID throws QoderError eagerly on resumableStream', () => {
+  for (const mode of ['forward', 'managed']) {
+    const client = testClient(mode, () => { throw new Error('network should not be called'); });
+    assert.throws(
+      () => client.sessions.events.resumableStream(''),
+      error => error instanceof sdk.QoderError && /session_id/i.test(error.message),
+      mode,
+    );
+  }
+});
+
+test('PATCredential rejects empty token with QoderError', () => {
+  assert.throws(
+    () => new sdk.PATCredential(''),
+    error => error instanceof sdk.QoderError,
+  );
+});

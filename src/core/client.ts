@@ -150,7 +150,7 @@ export class APIClient {
       return;
     }
 
-    throw new Error(
+    throw new QoderError(
       'Could not resolve authentication method. Configure accessToken or credential, or QODER_ACCESS_TOKEN (QODER_PAT is supported in PAT mode).',
     );
   }

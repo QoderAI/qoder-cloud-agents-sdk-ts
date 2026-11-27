@@ -72,6 +72,7 @@ export class SessionEvents extends APIResource {
     params: SessionEventStreamParams = {},
     options?: RequestOptions,
   ): ResumableSessionEventStream<SessionEvent> {
+    pathParam(sessionID, "session_id");
     const initialCursor = initialLastEventID(params.last_event_id, this._client.defaultHeaders, options?.headers);
     return new ResumableSessionEventStream<SessionEvent>(
       (lastEventID, signal) => this.streamEvents(
